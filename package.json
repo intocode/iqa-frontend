@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js -q"
+    "start": "nodemon index.js -q",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -41,7 +42,13 @@
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.2",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.2.3",
     "nodemon": "^2.0.14",
     "prettier": "^2.4.1"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
   }
 }
