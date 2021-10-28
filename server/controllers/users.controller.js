@@ -27,7 +27,7 @@ module.exports.usersController = {
         { expiresIn: JWT_EXPIRES_IN }
       );
 
-      res.json({ token });
+      res.redirect(`${process.env.CLIENT_CALLBACK_URL}?token=${token}`);
     } catch (e) {
       res.json({ error: e.toString() });
     }

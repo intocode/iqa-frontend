@@ -16,9 +16,10 @@ passport.use(
     {
       clientID: GITHUB_CLIENT_ID,
       clientSecret: GITHUB_CLIENT_SECRET,
-      callbackURL: '/auth/github/callback',
       scope: ['user:email'],
     },
-    (accessToken, refreshToken, profile, done) => done(null, profile)
+    (accessToken, refreshToken, profile, done) => {
+      done(null, profile)
+    }
   )
 );
