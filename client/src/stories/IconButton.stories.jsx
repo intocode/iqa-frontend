@@ -11,6 +11,4 @@ export default {
 const Template = (args) => <IconButton {...args} />;
 
 export const Variants = Template.bind({});
-Variants.args = {
-  color: "primary",
-};
+Variants.args = {};

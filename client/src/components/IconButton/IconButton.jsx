@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import save from "../assets/Icon.svg";
-import check from "../assets/check.svg";
-import search from "../assets/search.svg";
+import save from "../../assets/Icon.svg";
+import check from "../../assets/check.svg";
+import search from "../../assets/search.svg";
 import PropTypes from "prop-types";
 
 const StyledIconButton = styled.button`
@@ -16,7 +16,7 @@ const StyledIconButton = styled.button`
   border-radius: 100px;
   padding: 13px;
   background-color: ${(props) => {
-    return props.theme.colors[props.color].backgroundColor;
+    return props.theme.colors[props.color].main;
   }};
 `;
 
@@ -35,5 +35,5 @@ IconButton.propTypes = {
 };
 
 IconButton.defaultProps = {
-  color: "primary",
+  color: "success",
 };

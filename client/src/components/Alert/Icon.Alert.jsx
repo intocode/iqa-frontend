@@ -1,7 +1,7 @@
-import errorIcon from "../assets/AlertIcons/error.svg";
-import infoIcon from "../assets/AlertIcons/info.svg";
-import successIcon from "../assets/AlertIcons/success.svg";
-import warningIcon from "../assets/AlertIcons/warning.svg";
+import errorIcon from "../../assets/alert-icons/error.svg";
+import infoIcon from "../../assets/alert-icons/info.svg";
+import successIcon from "../../assets/alert-icons/success.svg";
+import warningIcon from "../../assets/alert-icons/warning.svg";
 
 export const IconAlert = ({ color }) => {
   const icon =

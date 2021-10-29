@@ -1,77 +1,44 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import closeIcon from "../assets/close.svg";
-import { IconAlert } from "./Icon.Alert";
+import closeIcon from "../../assets/close.svg";
 
 const StyledAlert = styled.div`
-  width: 460px;
-  height: 36px;
   display: flex;
   justify-content: space-between;
-  color: ${(props) => props.theme.colors[props.color].text};
-  padding: 0px 15px 0px 15px;
+  padding: 8px 15px;
+
+  color: ${(props) => props.theme.colors[props.color].main};
   background-color: ${(props) => {
-    return props.theme.colors[props.color].backgroundColor;
+    return props.theme.colors[props.color].addition;
   }};
 
-  ${(props) =>
-    props.color === "success" &&
-    !props.contrast &&
-    css`
-      color: #67c23a;
-      background-color: #f0f9eb;
-      box-shadow: #67c23a 0px 0px 0px 1px inset;
-    `}};
+  // fixme заменить на бордер
+  box-shadow: ${(props) => props.theme.colors[props.color].main} 0 0 0 1px inset;
 
-  ${(props) =>
-    props.color === "danger" &&
-    !props.contrast &&
-    css`
-      color: #f56c6c;
-      background-color: #fef0f0;
-      box-shadow: #f56c6c 0px 0px 0px 1px inset;
-    `}};
-
-  ${(props) =>
-    props.color === "secondary" &&
-    !props.contrast &&
-    css`
-      color: #909399;
-      background-color: #f4f4f5;
-      box-shadow: #909399 0px 0px 0px 1px inset;
-    `}};
-
-   ${(props) =>
-     props.color === "warning" &&
-     !props.contrast &&
-     css`
-       color: #e6a23c;
-       background-color: #fdf6ec;
-       box-shadow: #e6a23c 0px 0px 0px 1px inset;
-     `}};
-  line-height: 36px;
   border-radius: 4px;
-  &[disabled] {
-    opacity: 0.5;
-  }
+
+  // инверсия цветов для contrast=true
+  ${(props) => {
+    if (props.contrast) {
+      return css`
+        color: white;
+        background-color: ${(props) => props.theme.colors[props.color].main};
+      `;
+    }
+  }}
 `;
 
-export const Alert = ({
-  children,
-  icon,
-  onClose,
-  disabled,
-  loading,
-  ...props
-}) => {
-  icon = <IconAlert color={props.color} />;
+export const Alert = ({ children, icon, onClose, ...props }) => {
+  console.log(onClose);
   return (
-    <StyledAlert {...props} disabled={disabled || loading}>
+    <StyledAlert {...props}>
       <div>
         {icon} {children}
       </div>
       {onClose && (
-        <div>
+        // fixme заменить div на button,
+        //  сделать cursor: pointer, сделать цвет икса как у текста
+        <div onClick={onClose}>
           <img src={closeIcon} alt="" />
         </div>
       )}
@@ -80,19 +47,15 @@ export const Alert = ({
 };
 
 Alert.propTypes = {
+  icon: PropTypes.node,
   children: PropTypes.string.isRequired,
-  disabled: PropTypes.bool,
   contrast: PropTypes.bool,
-  color: PropTypes.oneOf([
-    "danger",
-    "primary",
-    "secondary",
-    "warning",
-    "success",
-  ]),
+  color: PropTypes.oneOf(["danger", "gray", "warning", "success"]),
+  onClose: PropTypes.func,
 };
 
 Alert.defaultProps = {
-  disabled: false,
+  icon: null,
   color: "success",
+  onClose: undefined,
 };

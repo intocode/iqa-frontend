@@ -1,27 +1,24 @@
 export const mainTheme = {
   colors: {
-    primary: {
-      text: "white",
-      backgroundColor: "#409EFF",
-    },
     success: {
       text: "white",
-      backgroundColor: "#67C23A",
+      main: "#67C23A",
+      addition: "#f0f9eb",
     },
     danger: {
       text: "white",
-      backgroundColor: "#F56C6C",
+      main: "#F56C6C",
+      addition: "#fef0f0",
     },
-    secondary: {
+    gray: {
       text: "white",
-      backgroundColor: "#909399",
+      main: "#909399",
+      addition: "#f4f4f5",
     },
     warning: {
       text: "white",
-      backgroundColor: "#E6A23C",
-    },
-    search: {
-      backgroundColor: "white",
+      main: "#E6A23C",
+      addition: "#fdf6ec",
     },
   },
 };

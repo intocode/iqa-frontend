@@ -1,27 +1,35 @@
 import { Alert } from "../components/Alert/Alert";
+
 export default {
   title: "Example/Alert",
   component: Alert,
   argTypes: {
-    // color: { control: "color" },
     color: {
-      options: ["success", "secondary", "danger", "warning"],
+      options: ["success", "gray", "danger", "warning"],
       control: { type: "radio" },
     },
   },
 };
 
-const Template = (args) => <Alert {...args}>Alert</Alert>;
+const Template = (args) => (
+  <Alert {...args}>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
+    ipsam magnam maxime quia quod repellendus sapiente unde ut.
+  </Alert>
+);
 
-export const Variants = Template.bind({});
-Variants.args = {
-  contrast: false,
-  onClose: false,
+export const Default = Template.bind({});
+Default.args = {};
+
+export const Contrasted = Template.bind({});
+Contrasted.args = {
+  contrast: true,
 };
 
-export const Disabled = Template.bind({});
-Disabled.args = {
-  disabled: true,
-  contrast: false,
-  onClose: false,
+export const InsideBlock = (args) => {
+  return (
+    <div style={{ width: 400, margin: "auto" }}>
+      <Default {...args} />
+    </div>
+  );
 };
