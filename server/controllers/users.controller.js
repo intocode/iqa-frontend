@@ -27,10 +27,43 @@ module.exports.usersController = {
         { expiresIn: JWT_EXPIRES_IN }
       );
 
-      res.redirect(`${process.env.CLIENT_CALLBACK_URL}?token=${token}`);
+      res.send(`
+        <!doctype html>
+        <html lang='en'>
+          <head>
+            <title>waiting...</title>
+            
+            <script>
+              window.opener.postMessage({
+                app: 'iqa',
+                accessToken: '${token}'
+              }, '*');
+              window.close();
+            </script>
+          </head>
+        </html>
+      `);
     } catch (e) {
       res.json({ error: e.toString() });
     }
+  },
+  authFailure: (req, res) => {
+    res.send(`
+        <!doctype html>
+        <html lang='en'>
+          <head>
+            <title>waiting...</title>
+            
+            <script>
+              window.opener.postMessage({
+                app: 'iqa',
+                error: 'authorization failure'
+              }, '*');
+              window.close();
+            </script>
+          </head>
+        </html>
+      `);
   },
   userCheck: async (req, res) => {
     res.json(`hello ${req.user.name}`);

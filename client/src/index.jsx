@@ -1,7 +1,10 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import { createGlobalStyle } from "styled-components";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './app/App';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { AuthProvider } from './common/context/Auth/AuthProvider';
+import { mainTheme } from './components/shared/theme';
+import 'bootstrap/dist/css/bootstrap-grid.min.css';
 
 const Global = createGlobalStyle`
 * {
@@ -12,8 +15,14 @@ const Global = createGlobalStyle`
 `;
 ReactDOM.render(
   <React.StrictMode>
-    <Global />
-    <App />
+    <ThemeProvider theme={mainTheme}>
+      <AuthProvider>
+        <Global />
+        <App />
+      </AuthProvider>
+    </ThemeProvider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
+
+// fixme: structure folders by redux best practices guide

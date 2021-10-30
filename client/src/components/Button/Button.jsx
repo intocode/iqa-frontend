@@ -1,12 +1,12 @@
-import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
+import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 
 const StyledLoading = styled.div`
   display: inline-block;
   width: 20px;
   height: 20px;
   &:after {
-    content: " ";
+    content: ' ';
     display: block;
     margin-top: 7px;
     width: 10px;
@@ -27,10 +27,14 @@ const StyledLoading = styled.div`
 `;
 
 const StyledButton = styled.button`
-  padding: 9px 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 15px;
   border: none;
   outline: none;
   cursor: pointer;
+  line-height: 20px;
 
   color: ${(props) => props.theme.colors[props.color].main};
   background-color: ${(props) => {
@@ -52,41 +56,62 @@ const StyledButton = styled.button`
     }
   }}
 
-  border-radius: ${(props) => (props.rounded ? "24px" : "4px")};
+  border-radius: ${(props) => (props.rounded ? '24px' : '4px')};
 
   &[disabled] {
     opacity: 0.5;
   }
+  
+  & .start-icon {
+    display: inherit;
+    margin-right: 5px;
+    
+    & svg {
+      height: 20px;
+      width: 20px;
+    }
+  }
 `;
 
-export const Button = ({ children, disabled, loading, ...props }) => {
+export const Button = ({
+  children,
+  disabled,
+  loading,
+  startIcon,
+  ...props
+}) => {
   return (
     <StyledButton {...props} disabled={disabled || loading}>
       {loading ? (
         <>
           {/*fixme неверное отображение иконки (видно в сторибук)*/}
-          <StyledLoading /> Loading
+          <StyledLoading /> {children}
         </>
       ) : (
-        children
+        <>
+          {startIcon && <span className="start-icon">{startIcon}</span>}
+          {children}
+        </>
       )}
     </StyledButton>
   );
 };
 
 Button.propTypes = {
+  startIcon: PropTypes.element,
   children: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   loading: PropTypes.bool,
   contrast: PropTypes.bool,
-  color: PropTypes.oneOf(["danger", "gray", "warning", "success"]),
+  color: PropTypes.oneOf(['danger', 'gray', 'warning', 'success']),
   rounded: PropTypes.bool,
 };
 
 Button.defaultProps = {
+  startIcon: null,
   disabled: false,
   loading: false,
   contrast: false,
   rounded: false,
-  color: "success",
+  color: 'success',
 };

@@ -9,12 +9,15 @@ router.get('/auth/check', authMiddleware, usersController.userCheck);
 
 router.get('/auth/github', passport.authenticate('github'));
 
-router.get('/auth/github/callback',
+router.get(
+  '/auth/github/callback',
   passport.authenticate('github', {
-    failureRedirect: process.env.CLIENT_CALLBACK_URL + '?failure=1'
+    failureRedirect: '/auth/github/failure',
   }),
   usersController.authUser
 );
+
+router.get('/auth/github/failure', usersController.authFailure);
 
 router.get('/logout', (req, res) => {
   req.logOut();

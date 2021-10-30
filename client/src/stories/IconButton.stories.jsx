@@ -1,10 +1,10 @@
-import { IconButton } from "../components/IconButton/IconButton";
+import { IconButton } from '../components/IconButton/IconButton';
 
 export default {
-  title: "Example/IconButton",
+  title: 'Example/IconButton',
   component: IconButton,
   argTypes: {
-    color: { control: "color" },
+    color: { control: 'color' },
   },
 };
 
