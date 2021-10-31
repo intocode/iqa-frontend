@@ -13,15 +13,13 @@ module.exports.usersController = {
           name: req.user.username,
           githubId: req.user.id,
           email: req.user.emails[0].value,
+          avatarURL: req.user.avatarURL,
         });
       }
 
       const token = jwt.sign(
         {
           userId: candidate._id,
-          name: candidate.name,
-          githubId: candidate.githubId,
-          email: req.user.email,
         },
         JWT_SECRET_KEY,
         { expiresIn: JWT_EXPIRES_IN }
