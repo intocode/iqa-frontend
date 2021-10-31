@@ -9,8 +9,13 @@ const userSchema = mongoose.Schema(
     },
     email: {
       type: String,
+      required: true,
     },
     githubId: {
+      type: String,
+      required: true,
+    },
+    avatarURL: {
       type: String,
       required: true,
     },
