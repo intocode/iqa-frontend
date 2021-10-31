@@ -26,7 +26,7 @@ export const useAuth = () => {
     window.addEventListener('message', windowMessageListener);
 
     window.open(AUTHORIZE_SERVICE_URL);
-  }, []);
+  }, [setAuthToken]);
 
   const logout = useCallback(() => {
     setAuthToken("");

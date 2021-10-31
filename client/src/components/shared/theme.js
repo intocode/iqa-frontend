@@ -21,4 +21,11 @@ export const mainTheme = {
       addition: "#fdf6ec",
     },
   },
+
+  palette: {
+    blue: {
+      400: 'lightblue',
+      900: 'blue'
+    }
+  }
 };
