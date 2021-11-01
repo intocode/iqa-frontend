@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js -q",
-    "prepare": "husky install"
+    "start": "nodemon index.js -q"
   },
   "eslintConfig": {
     "extends": [
@@ -42,19 +41,14 @@
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
+    "@types/morgan": "^1.9.3",
     "@types/passport": "^1.0.7",
     "@types/passport-github2": "^1.2.5",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.2",
-    "husky": "^7.0.2",
-    "lint-staged": "^11.2.3",
     "nodemon": "^2.0.14",
     "prettier": "^2.4.1"
-  },
-  "lint-staged": {
-    "*.js": "eslint --cache --fix",
-    "*.{js,css,md}": "prettier --write"
   }
 }
