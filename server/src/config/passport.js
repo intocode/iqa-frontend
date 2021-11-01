@@ -19,7 +19,7 @@ passport.use(
       scope: ['user:email'],
     },
     (accessToken, refreshToken, profile, done) => {
-      done(null, profile)
+      done(null, profile);
     }
   )
 );

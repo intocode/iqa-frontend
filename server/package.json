@@ -2,22 +2,11 @@
   "name": "interview-questions-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "nodemon index.js -q"
-  },
-  "eslintConfig": {
-    "extends": [
-      "airbnb",
-      "prettier"
-    ],
-    "rules": {
-      "no-console": "off",
-      "no-unused-vars": "warn"
-    }
-  },
-  "prettier": {
-    "singleQuote": true
+    "start": "nodemon src/index.js -q",
+    "lint": "eslint ./src --cache --report-unused-disable-directives --max-warnings 0",
+    "prettier": "prettier --write ./src"
   },
   "repository": {
     "type": "git",
