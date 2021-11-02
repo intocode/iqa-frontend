@@ -11,4 +11,5 @@ export default {
 const Template = (args) => <IconButton {...args} />;
 
 export const Variants = Template.bind({});
+
 Variants.args = {};
