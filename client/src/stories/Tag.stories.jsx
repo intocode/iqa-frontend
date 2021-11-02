@@ -1,13 +1,13 @@
-import { Tag } from "../components/Tag/Tag";
-import styled from "styled-components";
+import { Tag } from '../components/Tag/Tag';
+import styled from 'styled-components';
 
 export default {
-  title: "Example/Tag",
+  title: 'Example/Tag',
   component: Tag,
   argTypes: {
     color: {
-      options: ["success", "gray", "danger", "warning"],
-      control: { type: "radio" },
+      options: ['success', 'gray', 'danger', 'warning'],
+      control: { type: 'radio' },
     },
   },
 };
@@ -22,19 +22,30 @@ const StyledDecorator = styled.div`
     margin-left: 15px;
   }
 `;
-export const All = (args) => {
+export const All = () => {
   return (
     <StyledDecorator>
-      <Tag {...args} color="success">
+      <Tag color="success">success</Tag>
+      <Tag color="danger">danger</Tag>
+      <Tag color="gray">gray</Tag>
+      <Tag color="warning">warning</Tag>
+    </StyledDecorator>
+  );
+};
+
+export const NoGuttersAll = () => {
+  return (
+    <StyledDecorator>
+      <Tag color="success" noGutters={true}>
         success
       </Tag>
-      <Tag {...args} color="danger">
+      <Tag color="danger" noGutters>
         danger
       </Tag>
-      <Tag {...args} color="gray">
+      <Tag color="gray" noGutters>
         gray
       </Tag>
-      <Tag {...args} color="warning">
+      <Tag color="warning" noGutters>
         warning
       </Tag>
     </StyledDecorator>

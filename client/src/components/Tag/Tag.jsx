@@ -1,7 +1,7 @@
-import React from "react";
-import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
-import closeIcon from "../../assets/close.svg";
+import React from 'react';
+import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
+import closeIcon from '../../assets/close.svg';
 
 const StyledTag = styled.div`
   display: inline-flex;
@@ -9,7 +9,7 @@ const StyledTag = styled.div`
   justify-content: center;
   cursor: pointer;
   border-radius: 4px;
-  padding: 5px 8px;
+  padding: ${(props) => (props.noGutters ? '2px 8px' : '5px 8px')};
   
   ${(props) => {
     return css`
@@ -39,10 +39,13 @@ export const Tag = ({ children, onRemove, ...props }) => {
 
 Tag.propTypes = {
   children: PropTypes.string.isRequired,
-  color: PropTypes.oneOf(["danger", "gray", "warning", "success"]),
+  color: PropTypes.oneOf(['danger', 'gray', 'warning', 'success']),
   onRemove: PropTypes.func,
+  noGutters: PropTypes.bool,
 };
 
 Tag.defaultProps = {
-  color: "success",
+  color: 'success',
+  onRemove: undefined,
+  noGutters: false,
 };
