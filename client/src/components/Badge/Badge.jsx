@@ -1,48 +1,39 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
-const StyledButton = styled.button`
+const StyledDiv = styled.div`
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 5px 15px;
-  background: #ffffff;
-  border: ${(props) => (props.content ? '1px solid #e4e7ed' : 'none')};
-  outline: none;
-  line-height: 20px;
 `;
 
 const StyledBadge = styled.span`
+  position: absolute;
   ${(props) => {
     if (!props.content) {
       return css`
-        position: absolute;
-        top: +1px;
-        right: +7px;
+        top: -1px;
+        right: 9px;
         width: 10px;
         height: 10px;
-        background: #f56c6c;
-        color: #ffffff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        background-color: ${(props) => {
+          return props.theme.colors[props.color].main;
+        }};
         border: 1px solid #ffffff;
         border-radius: 50%;
       `;
     }
     return css`
-      position: absolute;
-      top: -10px;
-      right: -10px;
+      top: -4px;
+      right: 0;
       background-color: ${(props) => {
         return props.theme.colors[props.color].main;
       }};
       color: #ffffff;
-      display: inline-block;
-      justify-content: center;
-      align-items: center;
       border-radius: 24px;
+      font-size: 13px;
       padding: 1px 7px;
       :after {
         content: '${(props) => props.content}';
@@ -51,19 +42,19 @@ const StyledBadge = styled.span`
   }}
 `;
 
-export const Badge = ({ children, ...props }) => {
+export const Badge = ({ color, content, children }) => {
   return (
-    <StyledButton {...props}>
-      <StyledBadge {...props} />
+    <StyledDiv>
       {children}
-    </StyledButton>
+      <StyledBadge color={color} content={content} />
+    </StyledDiv>
   );
 };
 
 Badge.propTypes = {
   children: PropTypes.string.isRequired,
-  color: PropTypes.oneOf(['danger', 'warning', 'primary']),
-  content: PropTypes.string,
+  color: PropTypes.oneOf(['danger', 'warning', 'success', 'gray']),
+  content: PropTypes.oneOf([PropTypes.number, PropTypes.string]),
 };
 
 Badge.defaultProps = {
