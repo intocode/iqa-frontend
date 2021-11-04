@@ -6,4 +6,4 @@ const StyledDivider = styled.hr`
   background-color: #e4e7ed;
 `;
 
-export const Divider = () => <StyledDivider />;
+export const Divider = (props) => <StyledDivider {...props} />;

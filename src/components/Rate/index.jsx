@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { AVAILABLE_THEME_COLORS } from '../../app/constants';
 
 const StyledRate = styled.div`
   font-weight: bold;
@@ -93,7 +94,7 @@ Rate.propTypes = {
   currentRate: PropTypes.number.isRequired,
   isUpped: PropTypes.bool,
   isDowned: PropTypes.bool,
-  color: PropTypes.oneOf(['danger', 'gray', 'warning', 'success']),
+  color: PropTypes.oneOf(AVAILABLE_THEME_COLORS),
 };
 
 Rate.defaultProps = {

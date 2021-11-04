@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import { AVAILABLE_THEME_COLORS, DEFAULT_COLOR } from '../../app/constants';
 
 const StyledTypography = styled.div`
   color: ${(props) => props.theme.colors[props.color].main};
@@ -48,11 +49,11 @@ export const Typography = ({ variant, children, ...props }) => (
 
 Typography.propTypes = {
   children: PropTypes.string.isRequired,
-  color: PropTypes.oneOf(['danger', 'gray', 'warning', 'success']),
+  color: PropTypes.oneOf(AVAILABLE_THEME_COLORS),
   variant: PropTypes.oneOf(['header', 'caption', 'small', 'extraSmall']),
 };
 
 Typography.defaultProps = {
-  color: 'success',
+  color: DEFAULT_COLOR,
   variant: 'caption',
 };

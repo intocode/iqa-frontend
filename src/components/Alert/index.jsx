@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import closeIcon from '../../assets/close.svg';
+import { AVAILABLE_THEME_COLORS, DEFAULT_COLOR } from '../../app/constants';
 
 const StyledAlert = styled.div`
   display: flex;
@@ -57,13 +58,13 @@ Alert.propTypes = {
   icon: PropTypes.node,
   children: PropTypes.string.isRequired,
   contrast: PropTypes.bool,
-  color: PropTypes.oneOf(['danger', 'gray', 'warning', 'success']),
+  color: PropTypes.oneOf(AVAILABLE_THEME_COLORS),
   onClose: PropTypes.func,
 };
 
 Alert.defaultProps = {
   icon: null,
-  color: 'success',
+  color: DEFAULT_COLOR,
   onClose: undefined,
   contrast: false,
 };

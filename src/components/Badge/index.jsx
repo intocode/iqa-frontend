@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import { AVAILABLE_THEME_COLORS, DEFAULT_COLOR } from '../../app/constants';
 
 const StyledDiv = styled.div`
   position: relative;
@@ -47,11 +48,11 @@ export const Badge = ({ color, content, children }) => (
 
 Badge.propTypes = {
   children: PropTypes.node.isRequired,
-  color: PropTypes.oneOf(['danger', 'warning', 'success', 'gray']),
+  color: PropTypes.oneOf(AVAILABLE_THEME_COLORS),
   content: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 Badge.defaultProps = {
   content: null,
-  color: 'danger',
+  color: DEFAULT_COLOR,
 };

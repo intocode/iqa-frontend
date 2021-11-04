@@ -1,5 +1,5 @@
 import { ThemeProvider } from 'styled-components';
-import { mainTheme } from '../src/components/shared/theme';
+import { theme } from '../src/app/theme';
 
 export const parameters = {
   backgrounds: {
@@ -26,7 +26,7 @@ export const parameters = {
 
 export const decorators = [
   (Story) => (
-    <ThemeProvider theme={mainTheme}>
+    <ThemeProvider theme={theme}>
       <Story />
     </ThemeProvider>
   ),

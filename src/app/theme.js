@@ -1,5 +1,12 @@
-export const mainTheme = {
+export const theme = {
+  defaultColor: 'primary',
+
   colors: {
+    primary: {
+      text: 'white',
+      main: '#409EFF',
+      addition: '#ECF5FF',
+    },
     success: {
       text: 'white',
       main: '#67C23A',

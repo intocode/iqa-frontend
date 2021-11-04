@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import App from './app/App';
 import { AuthProvider } from './common/context/Auth/AuthProvider';
-import { mainTheme } from './components/shared/theme';
+import { theme } from './app/theme';
 import 'bootstrap/dist/css/bootstrap-grid.min.css';
 
 const Global = createGlobalStyle`
@@ -15,7 +15,7 @@ const Global = createGlobalStyle`
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={mainTheme}>
+    <ThemeProvider theme={theme}>
       <AuthProvider>
         <Global />
         <App />

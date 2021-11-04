@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import { AVAILABLE_THEME_COLORS, DEFAULT_COLOR } from '../../app/constants';
 
 const StyledLoading = styled.div`
   display: inline-block;
@@ -92,7 +93,7 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   loading: PropTypes.bool,
   contrast: PropTypes.bool,
-  color: PropTypes.oneOf(['danger', 'gray', 'warning', 'success']),
+  color: PropTypes.oneOf(AVAILABLE_THEME_COLORS),
   rounded: PropTypes.bool,
 };
 
@@ -100,7 +101,7 @@ Button.defaultProps = {
   startIcon: null,
   disabled: false,
   loading: false,
-  contrast: false,
+  contrast: true,
   rounded: false,
-  color: 'success',
+  color: DEFAULT_COLOR,
 };
