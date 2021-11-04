@@ -1,6 +1,8 @@
+import axios from 'axios';
 import { useAuth } from '../common/context/Auth/useAuth';
 import { Button } from '../components/Button';
 import { ReactComponent as GitHubIcon } from '../assets/github-com-icon.svg';
+import { Alert } from '../components/Alert';
 
 function App() {
   const { executeLoggingInProcess, token, logout } = useAuth();
@@ -25,7 +27,22 @@ function App() {
         </div>
       </div>
       <hr />
-      <div className="alert alert-info" />
+      {token && (
+        <>
+          <Alert>Hello</Alert>
+          <Button
+            color="primary"
+            onClick={async () => {
+              await axios.get('http://localhost:3030/auth/check');
+
+              // eslint-disable-next-line no-console
+              console.log(axios.defaults);
+            }}
+          >
+            make request
+          </Button>
+        </>
+      )}
     </div>
   );
 }
