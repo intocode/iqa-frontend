@@ -1,6 +1,9 @@
 const lsPrefix = 'iqa_';
 
-export const LS_TOKEN_KEY = `${lsPrefix}accessToken`;
-export const LS_PROFILE_KEY = `${lsPrefix}profile`;
+export const PRODUCTION = process.env.NODE_ENV === 'production';
 
-export const AUTHORIZE_SERVICE_URL = 'http://localhost:3030/auth/github';
+export const LS_TOKEN_KEY = `${lsPrefix}accessToken`;
+
+export const AUTHORIZE_SERVICE_URL = PRODUCTION
+  ? '/auth/github'
+  : 'http://localhost:3030/auth/github';
