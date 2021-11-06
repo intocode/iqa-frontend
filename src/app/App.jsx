@@ -6,6 +6,7 @@ import { useAuth } from '../common/context/Auth/useAuth';
 import { Button } from '../components/Button';
 import { ReactComponent as GitHubIcon } from '../assets/github-com-icon.svg';
 import { Alert } from '../components/Alert';
+import QuestionAddForm from '../features/questions/QuestionAddForm';
 
 function App() {
   const dispatch = useDispatch();
@@ -54,6 +55,7 @@ function App() {
           </Button>
         </>
       )}
+      <QuestionAddForm />
     </div>
   );
 }
