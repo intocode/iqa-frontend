@@ -20,12 +20,15 @@
     "build": "react-scripts build",
     "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
+    "fix": "npm run lint:fix && npm run prettier",
     "lint": "npm run lint:js && npm run lint:styles",
-    "lint:js": "eslint ./src --ext /js,.jsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint ./src --ext .js,.jsx --fix",
+    "lint:js": "eslint ./src --ext .js,.jsx --report-unused-disable-directives --max-warnings 0",
     "lint:styles": "stylelint './src/**/*.jsx'",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prettier": "prettier . --write"
   },
   "browserslist": {
     "production": [
@@ -62,7 +65,7 @@
     "stylelint-processor-styled-components": "1.10.0"
   },
   "lint-staged": {
-    "*.{js,jsx,css,md}": "prettier --write",
+    "*.{js,jsx,css,md}": "prettier . --write",
     "*": "npm run check"
   }
 }
