@@ -8,25 +8,29 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(() => localStorage.getItem(LS_TOKEN_KEY));
 
   const setAuthToken = useCallback((newToken) => {
-    setToken(newToken);
-  }, []);
+    setToken(() => {
+      if (newToken) {
+        axios.defaults.headers.authorization = `Bearer ${newToken}`;
+        localStorage.setItem(LS_TOKEN_KEY, newToken);
+      } else {
+        axios.defaults.headers.authorization = ``;
+        localStorage.removeItem(LS_TOKEN_KEY);
+      }
 
-  // реакция на смену токена
-  useEffect(() => {
-    axios.defaults.headers.authorization = `Bearer ${token}`;
-    localStorage.setItem(LS_TOKEN_KEY, token);
-  }, [token]);
+      return newToken;
+    });
+  }, []);
 
   // перехватчик axios на случай, если слетит авторизация
   useEffect(() => {
     axios.interceptors.response.use(null, (error) => {
       if (error.response?.status === 401) {
-        setAuthToken(null);
+        setToken(null);
       }
 
       return Promise.reject(error);
     });
-  }, [setAuthToken]);
+  }, [setToken]);
 
   return (
     <AuthContext.Provider value={{ token, setAuthToken }}>
