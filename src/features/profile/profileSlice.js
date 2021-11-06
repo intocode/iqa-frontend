@@ -26,9 +26,9 @@ const profileSlice = createSlice({
       state.loading = true;
     },
 
-    [fetchProfile.fulfilled]: (state, payload) => {
+    [fetchProfile.fulfilled]: (state, action) => {
       state.loading = false;
-      state.data = payload;
+      state.data = action.payload;
     },
   },
 });
