@@ -1,11 +1,22 @@
 import axios from 'axios';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchProfile } from '../features/profile/profileSlice';
 import { useAuth } from '../common/context/Auth/useAuth';
 import { Button } from '../components/Button';
 import { ReactComponent as GitHubIcon } from '../assets/github-com-icon.svg';
 import { Alert } from '../components/Alert';
 
 function App() {
+  const dispatch = useDispatch();
+
   const { executeLoggingInProcess, token, logout } = useAuth();
+
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchProfile());
+    }
+  }, [dispatch, token]);
 
   return (
     <div className="container">
