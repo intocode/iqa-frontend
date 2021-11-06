@@ -16,6 +16,13 @@ module.exports = {
 
     // styled-components часто требует пробрасывания всех пропсов
     'react/jsx-props-no-spreading': 'off',
+
+    // отключаем из-за использования immer в редьюсерах
+    // https://redux-toolkit.js.org/usage/immer-reducers#linting-state-mutations
+    'no-param-reassign': [
+      'error',
+      { props: true, ignorePropertyModificationsFor: ['state'] },
+    ],
   },
   overrides: [
     {
