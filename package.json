@@ -28,7 +28,8 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "prepare": "husky install",
-    "prettier": "prettier . --write"
+    "prettier": "prettier . --write",
+    "chromatic": "chromatic"
   },
   "browserslist": {
     "production": [
@@ -51,6 +52,7 @@
     "@storybook/react": "^6.3.12",
     "@types/jest": "^27.0.2",
     "@types/react-router-dom": "^5.3.2",
+    "chromatic": "^6.0.5",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
     "husky": "^7.0.4",
