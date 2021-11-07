@@ -24,7 +24,7 @@
     "lint": "npm run lint:js && npm run lint:styles",
     "lint:fix": "eslint ./src --ext .js,.jsx --fix",
     "lint:js": "eslint ./src --ext .js,.jsx --report-unused-disable-directives --max-warnings 0",
-    "lint:styles": "stylelint './src/**/*.jsx'",
+    "lint:styles": "stylelint ./src/**/*.jsx",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "prepare": "husky install",
