@@ -17,7 +17,7 @@ jobs:
   # Other jobs
 
   # 👇 Adds Chromatic as a job
-  chromatic-deployment: 
+  chromatic-deployment:
     docker:
       - image: circleci/node:12
     working_directory: ~/repo
@@ -45,4 +45,4 @@ workflows:
             - node/test # only run deploy-via-git job if the build job has completed
   chromatic-deploy:
     jobs:
-      - chromatic-deployment # 👈 Runs the Chromatic job implemented above    
+      - chromatic-deployment # 👈 Runs the Chromatic job implemented above
