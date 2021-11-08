@@ -29,7 +29,7 @@
     "build-storybook": "build-storybook -s public",
     "prepare": "husky install",
     "prettier": "prettier . --write",
-    "chromatic": "chromatic"
+    "chromatic": "chromatic --project-token f39831066072"
   },
   "browserslist": {
     "production": [
