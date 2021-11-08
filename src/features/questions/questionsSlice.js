@@ -1,5 +1,10 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+  createAsyncThunk,
+  createSelector,
+  createSlice,
+} from '@reduxjs/toolkit';
 import axios from 'axios';
+import { find } from 'styled-components/test-utils';
 
 export const fetchQuestions = createAsyncThunk(
   'questions/fetch',
@@ -14,14 +19,13 @@ export const fetchQuestions = createAsyncThunk(
   }
 );
 
-const initialState = {
-  loading: false,
-  data: {},
-};
-
 const questionsSlice = createSlice({
   name: 'questions',
-  initialState,
+  initialState: {
+    questions: [],
+    loading: false,
+    error: '',
+  },
   extraReducers: {
     [fetchQuestions.pending]: (state) => {
       state.loading = true;
@@ -32,5 +36,12 @@ const questionsSlice = createSlice({
     },
   },
 });
+
+const selectQuestionsAll = (state) => state.questions;
+
+export const selectQuestionById = (id) =>
+  createSelector(selectQuestionsAll, ({ questions }) =>
+    questions.find((question) => question._id === id)
+  );
 
 export default questionsSlice.reducer;
