@@ -32,17 +32,17 @@ const StyledDecorator = styled.div`
 
 export const All = () => (
   <StyledDecorator>
-    <Badge content={5} color="danger">
-      <Button color="danger">Click me</Button>
+    <Badge content={5} color="primary">
+      <Button color="gray">Click me</Button>
     </Badge>
     <Badge content={12} color="warning">
-      <Button color="warning">Click me</Button>
+      <Button color="success">Click me</Button>
     </Badge>
-    <Badge color="warning">
-      <Button color="warning">Click me</Button>
-    </Badge>
-    <Badge color="danger">
+    <Badge color="success">
       <Button color="danger">Click me</Button>
+    </Badge>
+    <Badge color="gray">
+      <Button color="primary">Click me</Button>
     </Badge>
   </StyledDecorator>
 );
