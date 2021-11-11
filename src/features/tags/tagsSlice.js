@@ -15,11 +15,11 @@ export const fetchTags = createAsyncThunk('tags/fetch', async (_, thunkAPI) => {
   }
 });
 
-export const fetchTagsByQuestion = createAsyncThunk(
-  'tags/fetchBy',
-  async (questionId, thunkAPI) => {
+export const fetchTagsByQuery = createAsyncThunk(
+  'tags/fetchByQuery',
+  async (query, thunkAPI) => {
     try {
-      const response = await axios.get(`/tags/question/${questionId}`);
+      const response = await axios.get(`/tags?q=${query}`);
 
       return response.data;
     } catch (e) {
@@ -28,18 +28,15 @@ export const fetchTagsByQuestion = createAsyncThunk(
   }
 );
 
-export const addTag = createAsyncThunk(
-  'tags/add',
-  async ({ data, questionId }, thunkAPI) => {
-    try {
-      const response = await axios.post(`/tags/question/${questionId}`, data);
+export const addTag = createAsyncThunk('tags/add', async (data, thunkAPI) => {
+  try {
+    const response = await axios.post(`/tags`, data);
 
-      return response.data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
-    }
+    return response.data;
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e.message);
   }
-);
+});
 
 const tagsSlice = createSlice({
   name: 'tags',
@@ -49,25 +46,17 @@ const tagsSlice = createSlice({
     error: '',
   },
   extraReducers: {
-    [fetchTagsByQuestion.pending]: (state) => {
+    [fetchTagsByQuery.pending]: (state) => {
       state.loading = true;
     },
-    [fetchTagsByQuestion.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.tags = action.payload;
-    },
-    [fetchTags.pending]: (state) => {
-      state.loading = true;
-    },
-    [fetchTags.fulfilled]: (state, action) => {
+    [fetchTagsByQuery.fulfilled]: (state, action) => {
       state.loading = false;
       state.tags = action.payload;
     },
     [addTag.pending]: (state) => {
       state.loading = true;
     },
-    [addTag.fulfilled]: (state, action) => {
-      state.tags.push(action.payload.tag);
+    [addTag.fulfilled]: (state) => {
       state.loading = false;
     },
     [addTag.rejected]: (state, action) => {
@@ -83,11 +72,6 @@ export const selectTags = createSelector(
   selectTagsState,
   (state) => state.tags
 );
-
-export const selectTagsByQuestionId = (questionId) =>
-  createSelector(selectTagsState, (state) =>
-    state.tags.filter((tag) => tag.question._id === questionId)
-  );
 
 export const selectTagsError = createSelector(
   selectTagsState,
