@@ -35,8 +35,8 @@ export const All = () => (
     <Badge content={5} color="primary">
       <Button color="gray">Click me</Button>
     </Badge>
-    <Badge content={12} color="danger">
-      <Button color="warning">Click me</Button>
+    <Badge content={12} color="warning">
+      <Button color="success">Click me</Button>
     </Badge>
     <Badge color="success">
       <Button color="danger">Click me</Button>
