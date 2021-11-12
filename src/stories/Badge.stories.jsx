@@ -24,6 +24,17 @@ const Template = (args) => {
 export const Default = Template.bind({});
 Default.args = {};
 
+export const ContainsLink = () => (
+  <>
+    <Badge content={5}>
+      <a href="https://www.google.com/">google link</a>
+    </Badge>
+    <Badge color="danger">
+      <a href="https://ya.ru/">yandex link</a>
+    </Badge>
+  </>
+);
+
 const StyledDecorator = styled.div`
   & > div {
     margin-left: 15px;
