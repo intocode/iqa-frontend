@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import { Button } from '../components/Button';
 
 export default {
@@ -28,3 +29,18 @@ export const Rounded = Template.bind({});
 Rounded.args = {
   rounded: true,
 };
+
+const StyledDecorator = styled.div`
+  & > button {
+    margin-right: 15px;
+  }
+`;
+export const All = () => (
+  <StyledDecorator>
+    <Button color="primary">Click me</Button>
+    <Button color="success">Click me</Button>
+    <Button color="danger">Click me</Button>
+    <Button color="gray">Click me</Button>
+    <Button color="warning">Click me</Button>
+  </StyledDecorator>
+);
