@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import { AVAILABLE_THEME_COLORS, DEFAULT_COLOR } from '../../app/constants';
+import { AVAILABLE_THEME_COLORS, DEFAULT_COLOR } from '../../../app/constants';
 
 const StyledTypography = styled.div`
   color: ${(props) => props.theme.colors[props.color].main};

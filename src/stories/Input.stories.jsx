@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Input } from '../components/Input';
+import { Input } from '../components/ui/Input';
 
 export default {
   title: 'Example/Input',

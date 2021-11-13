@@ -14,5 +14,5 @@ export const Paper = ({ children, ...props }) => (
 );
 
 Paper.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };

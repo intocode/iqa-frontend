@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import closeIcon from '../../assets/close.svg';
-import { AVAILABLE_THEME_COLORS, DEFAULT_COLOR } from '../../app/constants';
+import { AVAILABLE_THEME_COLORS, DEFAULT_COLOR } from '../../../app/constants';
 
 const StyledAlert = styled.div`
   display: flex;
