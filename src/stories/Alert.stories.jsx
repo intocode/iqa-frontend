@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Alert } from '../components/Alert';
+import { Alert } from '../components/ui/Alert';
 
 export default {
   title: 'Example/Alert',

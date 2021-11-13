@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { Button } from '../components/Button';
-import { Input } from '../components/Input';
-import { Paper } from '../components/Paper';
-import { Tag } from '../components/Tag';
+import { Button } from '../components/ui/Button';
+import { Input } from '../components/ui/Input';
+import { Paper } from '../components/ui/Paper';
+import { Tag } from '../components/ui/Tag';
 
 export default {
   title: 'Example/PageAddQuestion',

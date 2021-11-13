@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { ThemeProvider } from 'styled-components';
 import { Provider as ReduxProvider } from 'react-redux';
 import axios from 'axios';
-import App from './app/App';
+import { BrowserRouter } from 'react-router-dom';
+import { App } from './app/App';
 import { AuthProvider } from './common/context/Auth/AuthProvider';
 import { theme } from './app/theme';
 import 'bootstrap/dist/css/bootstrap-grid.min.css';
@@ -21,8 +22,10 @@ ReactDOM.render(
     <ThemeProvider theme={theme}>
       <ReduxProvider store={store}>
         <AuthProvider>
-          <GlobalStyles />
-          <App />
+          <BrowserRouter>
+            <GlobalStyles />
+            <App />
+          </BrowserRouter>
         </AuthProvider>
       </ReduxProvider>
     </ThemeProvider>

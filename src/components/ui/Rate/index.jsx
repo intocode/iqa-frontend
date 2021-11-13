@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { AVAILABLE_THEME_COLORS } from '../../app/constants';
+import { AVAILABLE_THEME_COLORS } from '../../../app/constants';
 
 const StyledRate = styled.div`
   font-weight: bold;

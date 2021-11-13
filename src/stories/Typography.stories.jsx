@@ -1,4 +1,4 @@
-import { Typography } from '../components/Typography';
+import { Typography } from '../components/ui/Typography';
 
 export default {
   title: 'Example/Typography',

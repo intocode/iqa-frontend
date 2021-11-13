@@ -1,4 +1,4 @@
-import { Divider } from '../components/Divider';
+import { Divider } from '../components/ui/Divider';
 
 export default {
   title: 'Example/Divider',
