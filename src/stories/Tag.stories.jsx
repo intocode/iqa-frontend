@@ -6,7 +6,7 @@ export default {
   component: Tag,
   argTypes: {
     color: {
-      options: ['success', 'gray', 'danger', 'warning'],
+      options: ['success', 'gray', 'danger', 'warning', 'primary'],
       control: { type: 'radio' },
     },
   },

@@ -7,7 +7,7 @@ export default {
   component: Badge,
   argTypes: {
     color: {
-      options: ['danger', 'warning'],
+      options: ['danger', 'warning', 'primary'],
       control: { type: 'radio' },
     },
   },
