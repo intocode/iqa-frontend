@@ -89,7 +89,7 @@ export const Button = ({
 
 Button.propTypes = {
   startIcon: PropTypes.element,
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
   disabled: PropTypes.bool,
   loading: PropTypes.bool,
   contrast: PropTypes.bool,
