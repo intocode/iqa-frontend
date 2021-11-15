@@ -1,4 +1,4 @@
-import { Rate } from '../components/Rate';
+import { Rate } from '../components/ui/Rate';
 
 export default {
   title: 'Example/Rate',

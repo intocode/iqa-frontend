@@ -49,8 +49,9 @@ const questionsSlice = createSlice({
     },
     [fetchQuestions.fulfilled]: (state, action) => {
       state.loading = false;
-      state.data = action.payload;
+      state.questions = action.payload;
     },
+
     [addQuestion.pending]: (state) => {
       state.loading = true;
     },

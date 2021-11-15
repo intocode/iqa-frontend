@@ -7,12 +7,17 @@ export default {
 export const PageQuestion = () => {
   const questions = [
     {
-      name: 'kuduzow',
-      text: 'Как проверить, что число является четным, при этом не используя деления по модулю или деления с остатком (оператора %)?',
-      date: 'Добавлено неделю назад',
-      avatar: 'http://cs622426.vk.me/v622426834/409d/baLqspYwi84.jpg',
+      user: {
+        name: 'kuduzow',
+        avatarURL: 'http://cs622426.vk.me/v622426834/409d/baLqspYwi84.jpg',
+      },
+      question: {
+        question:
+          'Как проверить, что число является четным, при этом не используя деления по модулю или деления с остатком (оператора %)?',
+        date: 'Добавлено неделю назад',
+      },
       currentRate: 10,
-      tag: [
+      tags: [
         {
           name: 'React',
         },
@@ -25,39 +30,48 @@ export const PageQuestion = () => {
       ],
     },
     {
-      name: 'alvi',
-      text: 'Что такое деструктуризация объекта (Object Destructuring)?',
-      date: 'Добавлено сегодня',
-      avatar: 'http://cs622426.vk.me/v622426834/409d/baLqspYwi84.jpg',
-      currentRate: 3,
-      tag: [
+      user: {
+        name: 'kuduzow',
+        avatarURL: 'http://cs622426.vk.me/v622426834/409d/baLqspYwi84.jpg',
+      },
+      question: {
+        question:
+          'Как проверить, что число является четным, при этом не используя деления по модулю или деления с остатком (оператора %)?',
+        date: 'Добавлено неделю назад',
+      },
+      currentRate: 10,
+      tags: [
         {
-          name: 'Bootstrap',
+          name: 'React',
         },
         {
           name: 'Express',
         },
         {
-          name: 'Асинхронность',
+          name: 'Node js',
         },
       ],
     },
-
     {
-      name: 'vakha',
-      text: 'В чем разница между spread-оператором и rest-оператором?',
-      date: 'Добавлено вчера',
-      avatar: 'http://cs622426.vk.me/v622426834/409d/baLqspYwi84.jpg',
-      currentRate: 4,
-      tag: [
+      user: {
+        name: 'kuduzow',
+        avatarURL: 'http://cs622426.vk.me/v622426834/409d/baLqspYwi84.jpg',
+      },
+      question: {
+        question:
+          'Как проверить, что число является четным, при этом не используя деления по модулю или деления с остатком (оператора %)?',
+        date: 'Добавлено неделю назад',
+      },
+      currentRate: 10,
+      tags: [
         {
-          name: 'JavaScript',
+          name: 'React',
         },
         {
-          name: 'Material UI',
+          name: 'Express',
         },
         {
-          name: 'Redux Thunk',
+          name: 'Node js',
         },
       ],
     },
@@ -66,13 +80,10 @@ export const PageQuestion = () => {
   return questions.map((question) => {
     return (
       <QuestionBlock
-        question={question.text}
-        text={question.text}
-        date={question.date}
-        name={question.name}
-        avatar={question.avatar}
+        question={question.question}
+        user={question.user}
         currentRate={question.currentRate}
-        tag={question.tag}
+        tags={question.tags}
       />
     );
   });

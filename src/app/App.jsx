@@ -1,61 +1,16 @@
-import axios from 'axios';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchProfile } from '../features/profile/profileSlice';
-import { useAuth } from '../common/context/Auth/useAuth';
-import { Button } from '../components/Button';
-import { ReactComponent as GitHubIcon } from '../assets/github-com-icon.svg';
-import { Alert } from '../components/Alert';
+import { Route, Switch } from 'react-router-dom';
+import { Header } from '../components/Layout/Header';
+import { QuestionsList } from '../features/questions/QuestionsList';
 
-function App() {
-  const dispatch = useDispatch();
-
-  const { executeLoggingInProcess, token, logout } = useAuth();
-
-  useEffect(() => {
-    if (token) {
-      dispatch(fetchProfile());
-    }
-  }, [dispatch, token]);
-
+export const App = () => {
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-auto">
-          {token ? (
-            <Button color="gray" onClick={logout}>
-              Выйти
-            </Button>
-          ) : (
-            <Button
-              color="gray"
-              startIcon={<GitHubIcon />}
-              onClick={executeLoggingInProcess}
-            >
-              Sign In with GitHub
-            </Button>
-          )}
-        </div>
-      </div>
-      <hr />
-      {token && (
-        <>
-          <Alert>Hello</Alert>
-          <Button
-            color="primary"
-            onClick={async () => {
-              await axios.get('http://localhost:3030/auth/check');
-
-              // eslint-disable-next-line no-console
-              console.log(axios.defaults);
-            }}
-          >
-            make request
-          </Button>
-        </>
-      )}
-    </div>
+    <>
+      <Header />
+      <Switch>
+        <Route path="/">
+          <QuestionsList />
+        </Route>
+      </Switch>
+    </>
   );
-}
-
-export default App;
+};

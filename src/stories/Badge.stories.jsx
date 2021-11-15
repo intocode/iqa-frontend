@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { Badge } from '../components/Badge';
-import { Button } from '../components/Button';
+import { Badge } from '../components/ui/Badge';
+import { Button } from '../components/ui/Button';
 
 export default {
   title: 'Example/Badge',
@@ -23,6 +23,17 @@ const Template = (args) => {
 
 export const Default = Template.bind({});
 Default.args = {};
+
+export const ContainsLink = () => (
+  <>
+    <Badge content={5}>
+      <a href="https://www.google.com/">google link</a>
+    </Badge>
+    <Badge color="danger">
+      <a href="https://ya.ru/">yandex link</a>
+    </Badge>
+  </>
+);
 
 const StyledDecorator = styled.div`
   & > div {

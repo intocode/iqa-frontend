@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Alert } from '../components/Alert';
+import { Alert } from '../components/ui/Alert';
 
 export default {
   title: 'Example/Alert',
@@ -39,45 +39,45 @@ const StyledDecorator = styled.div`
   }
 `;
 
-export const All = (args) => (
+export const All = () => (
   <StyledDecorator>
-    <Alert {...args} color="primary">
+    <Alert color="primary">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
       ipsam magnam maxime quia quod repellendus sapiente unde ut.
     </Alert>
-    <Alert {...args} color="warning">
+    <Alert color="warning">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
       ipsam magnam maxime quia quod repellendus sapiente unde ut.
     </Alert>
-    <Alert {...args} color="success">
+    <Alert color="success">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
       ipsam magnam maxime quia quod repellendus sapiente unde ut.
     </Alert>
-    <Alert {...args} color="gray">
+    <Alert color="gray">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
       ipsam magnam maxime quia quod repellendus sapiente unde ut.
     </Alert>
-    <Alert {...args} color="danger">
+    <Alert color="danger">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
       ipsam magnam maxime quia quod repellendus sapiente unde ut.
     </Alert>
-    <Alert {...args} color="primary" contrast>
+    <Alert color="primary" contrast>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
       ipsam magnam maxime quia quod repellendus sapiente unde ut.
     </Alert>
-    <Alert {...args} color="warning" contrast>
+    <Alert color="warning" contrast>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
       ipsam magnam maxime quia quod repellendus sapiente unde ut.
     </Alert>
-    <Alert {...args} color="success" contrast>
+    <Alert color="success" contrast>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
       ipsam magnam maxime quia quod repellendus sapiente unde ut.
     </Alert>
-    <Alert {...args} color="gray" contrast>
+    <Alert color="gray" contrast>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
       ipsam magnam maxime quia quod repellendus sapiente unde ut.
     </Alert>
-    <Alert {...args} color="danger" contrast>
+    <Alert color="danger" contrast>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
       ipsam magnam maxime quia quod repellendus sapiente unde ut.
     </Alert>

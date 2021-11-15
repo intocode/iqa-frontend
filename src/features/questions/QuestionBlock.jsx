@@ -1,12 +1,9 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { Paper } from '../../components/Paper';
-import { Tag } from '../../components/Tag';
-import { Rate } from '../../components/Rate';
+import { Paper } from '../../components/ui/Paper';
+import { Tag } from '../../components/ui/Tag';
 
 const StyledQuestionBlock = styled.div`
-  width: 50%;
-  margin: auto;
   & > div {
     margin-bottom: 20px;
   }
@@ -44,47 +41,47 @@ const StyledTag = styled.div`
   }
 `;
 
-export const QuestionBlock = ({
-  question,
-  name,
-  currentRate,
-  date,
-  tag,
-  avatar,
-}) => {
+export const QuestionBlock = ({ question, user, tags }) => {
   return (
     <StyledQuestionBlock>
       <Paper>
         <StyledPaperHeader>
           <StyledAvatr>
-            <img src={avatar} alt="" />
-            <p>{name}</p>
-            <div>{date}</div>
+            <img src={user.avatarURL} alt="" />
+            <p>{user.name}</p>
+            <div>{question.date}</div>
           </StyledAvatr>
           <StyledTag>
-            {tag.map((item) => {
-              return <Tag>{item.name}</Tag>;
-            })}
+            {tags.map((tag) => (
+              <Tag key={tag.name} noGutters>
+                {tag.name}
+              </Tag>
+            ))}
           </StyledTag>
         </StyledPaperHeader>
-        <h3>{question}</h3>
-        <div>
-          <Rate currentRate={currentRate} />
-        </div>
+        <h3>{question.question}</h3>
       </Paper>
     </StyledQuestionBlock>
   );
 };
 
 QuestionBlock.propTypes = {
-  question: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  avatar: PropTypes.string.isRequired,
-  currentRate: PropTypes.number.isRequired,
-  date: PropTypes.string.isRequired,
-  tag: PropTypes.arrayOf(
+  question: PropTypes.shape({
+    question: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+  }).isRequired,
+
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    avatarURL: PropTypes.string.isRequired,
+  }).isRequired,
+
+  tags: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
     })
   ).isRequired,
+
+  // FIXME: фича еще не внесена в проект
+  // rate: PropTypes.number.isRequired,
 };

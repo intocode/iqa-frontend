@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Tag } from '../components/Tag';
+import { Tag } from '../components/ui/Tag';
 
 export default {
   title: 'Example/Tag',

@@ -1,4 +1,4 @@
-import { SelectItem } from '../components/Select/SelectItem';
+import { SelectItem } from '../components/ui/Select/SelectItem';
 
 export default {
   component: SelectItem,
