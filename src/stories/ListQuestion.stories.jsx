@@ -1,4 +1,4 @@
-import { QuestionBlock } from '../features/questions/QuestionBlock';
+import { CardQuestion } from './Question.stories';
 
 export default {
   title: 'Question/List',
@@ -77,14 +77,7 @@ export const PageQuestion = () => {
     },
   ];
 
-  return questions.map((question) => {
-    return (
-      <QuestionBlock
-        question={question.question}
-        user={question.user}
-        currentRate={question.currentRate}
-        tags={question.tags}
-      />
-    );
+  return questions.map(() => {
+    return <CardQuestion />;
   });
 };
