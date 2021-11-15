@@ -5,33 +5,9 @@ export default {
   title: 'Example/Alert',
   component: Alert,
   argTypes: {
-    color: {
-      options: ['success', 'gray', 'danger', 'warning'],
-      control: { type: 'radio' },
-    },
+    color: { control: 'color' },
   },
 };
-
-const Template = (args) => (
-  <Alert {...args}>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
-    ipsam magnam maxime quia quod repellendus sapiente unde ut.
-  </Alert>
-);
-
-export const Default = Template.bind({});
-Default.args = {};
-
-export const Contrasted = Template.bind({});
-Contrasted.args = {
-  contrast: true,
-};
-
-export const InsideBlock = (args) => (
-  <div style={{ width: 400, margin: 'auto' }}>
-    <Default {...args} />
-  </div>
-);
 
 const StyledDecorator = styled.div`
   & > div {
@@ -39,7 +15,7 @@ const StyledDecorator = styled.div`
   }
 `;
 
-export const All = () => (
+export const Default = () => (
   <StyledDecorator>
     <Alert color="primary">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
@@ -61,6 +37,11 @@ export const All = () => (
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
       ipsam magnam maxime quia quod repellendus sapiente unde ut.
     </Alert>
+  </StyledDecorator>
+);
+
+export const Contrasted = () => (
+  <StyledDecorator>
     <Alert color="primary" contrast>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
       ipsam magnam maxime quia quod repellendus sapiente unde ut.
@@ -82,4 +63,10 @@ export const All = () => (
       ipsam magnam maxime quia quod repellendus sapiente unde ut.
     </Alert>
   </StyledDecorator>
+);
+
+export const InsideBlock = () => (
+  <div style={{ width: 400, margin: 'auto' }}>
+    <Default />
+  </div>
 );
