@@ -56,13 +56,9 @@ const StyledButton = styled.button`
     opacity: 0.5;
   }
   & .start-icon {
-    display: inherit;
-    margin-right: 5px;
-
-    & svg {
-      height: 20px;
-      width: 20px;
-    }
+    margin-right: 10px;
+    height: 18px;
+    width: 18px;
   }
 `;
 
@@ -80,7 +76,7 @@ export const Button = ({
       </>
     ) : (
       <>
-        {startIcon && <span className="start-icon">{startIcon}</span>}
+        {startIcon && <img className="start-icon" src={startIcon} alt="" />}
         {children}
       </>
     )}
@@ -101,7 +97,7 @@ Button.defaultProps = {
   startIcon: null,
   disabled: false,
   loading: false,
-  contrast: true,
+  contrast: false,
   rounded: false,
   color: DEFAULT_COLOR,
 };
