@@ -13,12 +13,21 @@ const Template = (args) => {
     setState(ev.target.value);
   };
 
-  return (
-    <>
-      <Input value={state} onChange={handleChange} {...args} />
-      {state}
-    </>
-  );
+  return <Input value={state} onChange={handleChange} {...args} />;
 };
 
 export const Default = Template.bind({});
+Default.args = {
+  placeholder: 'placeholder...',
+};
+
+export const WithValue = Template.bind({});
+WithValue.args = {
+  value: 'some text...',
+};
+
+export const WithPassword = Template.bind({});
+WithPassword.args = {
+  value: 'some text...',
+  type: 'password',
+};

@@ -7,6 +7,12 @@ const StyledInput = styled.input`
   padding: 8px;
   outline: 0;
   box-sizing: border-box;
+  font-size: 14px;
+  line-height: 22px;
+
+  &::placeholder {
+    color: #c0c4cc;
+  }
 `;
 
 export const Input = (props) => {
