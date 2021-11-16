@@ -30,7 +30,7 @@ const StyledTypography = styled.div`
 
     if (props.variant === 'extraSmall') {
       return css`
-        font-size: 12px;
+        font-size: 9px;
         font-weight: 400;
       `;
     }
