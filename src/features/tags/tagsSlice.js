@@ -45,7 +45,19 @@ const tagsSlice = createSlice({
     loading: false,
     error: '',
   },
+  reducers: {
+    removeTag: (state, action) => {
+      state.tags = state.tags.filter((tag) => tag._id !== action.payload);
+    },
+  },
   extraReducers: {
+    [fetchTags.pending]: (state) => {
+      state.loading = true;
+    },
+    [fetchTags.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.tags = action.payload;
+    },
     [fetchTagsByQuery.pending]: (state) => {
       state.loading = true;
     },
@@ -77,5 +89,7 @@ export const selectTagsError = createSelector(
   selectTagsState,
   (state) => state.error
 );
+
+export const { removeTag } = tagsSlice.actions;
 
 export default tagsSlice.reducer;
