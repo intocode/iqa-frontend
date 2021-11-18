@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import { useAuth } from '../../common/context/Auth/useAuth';
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
@@ -6,8 +8,15 @@ import { Logo } from './Logo';
 
 export const Header = () => {
   const { token, executeLoggingInProcess, logout } = useAuth();
+  const StyledHeader = styled.div`
+    background-color: white;
+    .header_link {
+      text-decoration: none;
+    }
+  `;
+  const handleAddQuestion = () => {};
   return (
-    <div style={{ backgroundColor: 'white' }}>
+    <StyledHeader>
       <div className="container mb-2 py-2">
         <div className="row align-items-center">
           <div className="col d-flex align-items-center">
@@ -26,26 +35,30 @@ export const Header = () => {
                   className="me-3"
                   contrast={false}
                   color="primary"
-                  onClick={logout}
+                  onClick={handleAddQuestion}
                 >
                   Добавить вопрос
                 </Button>
-                <Button contrast={false} color="primary" onClick={logout}>
-                  Выйти
-                </Button>
+                <Link to="/" className="header_link">
+                  <Button contrast={false} color="primary" onClick={logout}>
+                    Выйти
+                  </Button>
+                </Link>
               </>
             ) : (
-              <Button
-                contrast={false}
-                color="primary"
-                onClick={executeLoggingInProcess}
-              >
-                Login with GitHub
-              </Button>
+              <Link to="/" className="header_link">
+                <Button
+                  contrast={false}
+                  color="primary"
+                  onClick={executeLoggingInProcess}
+                >
+                  Login with GitHub
+                </Button>
+              </Link>
             )}
           </div>
         </div>
       </div>
-    </div>
+    </StyledHeader>
   );
 };
