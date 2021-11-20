@@ -4,18 +4,31 @@ import { AVAILABLE_THEME_COLORS, DEFAULT_COLOR } from '../../../app/constants';
 
 const StyledLoading = styled.div`
   display: inline-block;
-  &::after {
-    content: ' ';
+  margin-right: 8px;
+  position: relative;
+  width: 11px;
+  height: 11px;
+  & > div {
+    box-sizing: border-box;
     display: block;
-    margin-right: 5px;
-    width: 10px;
-    height: 10px;
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    border: 1px solid #fff;
     border-radius: 50%;
-    border: 3px solid;
-    border-color: #66b3ff transparent;
-    animation: lds-dual-ring 1.2s linear infinite;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #fff transparent transparent transparent;
   }
-  @keyframes lds-dual-ring {
+  & > div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  & > div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  & > div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+  @keyframes lds-ring {
     0% {
       transform: rotate(0deg);
     }
@@ -30,14 +43,11 @@ const StyledButton = styled.button`
   align-items: center;
   justify-content: center;
   padding: 5px 15px;
-
   border: 1px solid ${(props) => props.theme.colors[props.color].main};
   border-radius: ${(props) => (props.rounded ? '24px' : '4px')};
-
   outline: none;
   cursor: pointer;
   line-height: 20px;
-
   ${(props) => {
     if (props.contrast) {
       return css`
@@ -45,20 +55,17 @@ const StyledButton = styled.button`
         background-color: ${props.theme.colors[props.color].main};
       `;
     }
-
     return css`
       color: ${props.theme.colors[props.color].main};
       background-color: ${props.theme.colors[props.color].addition};
     `;
   }}
-
   &[disabled] {
     opacity: 0.5;
   }
   & .start-icon {
     display: inherit;
     margin-right: 5px;
-
     & svg {
       height: 20px;
       width: 20px;
@@ -76,7 +83,13 @@ export const Button = ({
   <StyledButton {...props} disabled={disabled || loading}>
     {loading ? (
       <>
-        <StyledLoading /> {children}
+        <StyledLoading>
+          <div />
+          <div />
+          <div />
+          <div />
+        </StyledLoading>
+        {children}
       </>
     ) : (
       <>
