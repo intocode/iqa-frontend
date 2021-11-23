@@ -1,4 +1,8 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+  createAsyncThunk,
+  createSlice,
+  createSelector,
+} from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const fetchProfile = createAsyncThunk(
@@ -32,5 +36,12 @@ const profileSlice = createSlice({
     },
   },
 });
+
+const selectProfileState = (state) => state.profile;
+
+export const selectProfile = createSelector(
+  selectProfileState,
+  (state) => state.data
+);
 
 export default profileSlice.reducer;

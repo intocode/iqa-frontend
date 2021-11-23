@@ -26,7 +26,7 @@ export const addQuestion = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
@@ -37,10 +37,14 @@ const questionsSlice = createSlice({
     questions: [],
     loading: false,
     error: '',
+    success: false,
   },
   reducers: {
     resetStatus: (state) => {
       state.error = '';
+    },
+    resetSuccess: (state) => {
+      state.success = false;
     },
   },
   extraReducers: {
@@ -54,14 +58,16 @@ const questionsSlice = createSlice({
 
     [addQuestion.pending]: (state) => {
       state.loading = true;
+      state.success = false;
     },
     [addQuestion.fulfilled]: (state, action) => {
       state.questions.push(action.payload);
+      state.success = true;
       state.error = '';
       state.loading = false;
     },
     [addQuestion.rejected]: (state, action) => {
-      state.error = action.payload;
+      state.error = JSON.stringify(action.payload.errors);
       state.loading = false;
     },
   },
@@ -79,6 +85,11 @@ export const selectQuestionsLoading = createSelector(
   (state) => state.loading
 );
 
+export const selectQuestionsSuccess = createSelector(
+  selectQuestionsState,
+  (state) => state.success
+);
+
 export const selectQuestionsError = createSelector(
   selectQuestionsState,
   (state) => state.error
@@ -89,6 +100,6 @@ export const selectQuestions = createSelector(
   (state) => state.questions
 );
 
-export const { resetStatus } = questionsSlice.actions;
+export const { resetStatus, resetSuccess } = questionsSlice.actions;
 
 export default questionsSlice.reducer;

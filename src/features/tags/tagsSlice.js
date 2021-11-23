@@ -34,7 +34,7 @@ export const addTag = createAsyncThunk('tags/add', async (data, thunkAPI) => {
 
     return response.data;
   } catch (e) {
-    return thunkAPI.rejectWithValue(e.message);
+    return thunkAPI.rejectWithValue(e.response.data);
   }
 });
 
@@ -45,7 +45,22 @@ const tagsSlice = createSlice({
     loading: false,
     error: '',
   },
+  reducers: {
+    removeTag: (state, action) => {
+      state.tags = state.tags.filter((tag) => tag._id !== action.payload);
+    },
+    resetTagStatus: (state) => {
+      state.error = '';
+    },
+  },
   extraReducers: {
+    [fetchTags.pending]: (state) => {
+      state.loading = true;
+    },
+    [fetchTags.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.tags = action.payload;
+    },
     [fetchTagsByQuery.pending]: (state) => {
       state.loading = true;
     },
@@ -56,11 +71,12 @@ const tagsSlice = createSlice({
     [addTag.pending]: (state) => {
       state.loading = true;
     },
-    [addTag.fulfilled]: (state) => {
+    [addTag.fulfilled]: (state, action) => {
       state.loading = false;
+      state.tags.push(action.payload);
     },
     [addTag.rejected]: (state, action) => {
-      state.error = action.payload;
+      state.error = JSON.stringify(action.payload.errors);
       state.loading = false;
     },
   },
@@ -77,5 +93,7 @@ export const selectTagsError = createSelector(
   selectTagsState,
   (state) => state.error
 );
+
+export const { removeTag, resetTagStatus } = tagsSlice.actions;
 
 export default tagsSlice.reducer;
