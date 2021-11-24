@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Paper } from '../../components/ui/Paper';
 import { Tag } from '../../components/ui/Tag';
+import { Rate } from '../../components/ui/Rate';
+import { addRate } from './questionsSlice';
 
 const StyledQuestionBlock = styled.div`
   & > div {
@@ -42,7 +46,38 @@ const StyledTag = styled.div`
   }
 `;
 
-export const QuestionBlock = ({ question, user, tags }) => {
+export const QuestionBlock = ({
+  question,
+  user,
+  tags,
+  rate,
+  isDowned,
+  isUpped,
+}) => {
+  const dispatch = useDispatch();
+
+  const [colorOfRate, setColorOfRate] = useState({
+    isUpped,
+    isDowned,
+  });
+
+  const handleRateUp = (data) => {
+    dispatch(addRate(data));
+    setColorOfRate({
+      ...colorOfRate,
+      isUpped: !colorOfRate.isUpped,
+      isDowned: false,
+    });
+  };
+
+  const handleRateDown = (data) => {
+    dispatch(addRate(data));
+    setColorOfRate({
+      ...colorOfRate,
+      isDowned: !colorOfRate.isDowned,
+      isUpped: false,
+    });
+  };
   return (
     <StyledQuestionBlock>
       <Paper>
@@ -61,6 +96,13 @@ export const QuestionBlock = ({ question, user, tags }) => {
           </StyledTag>
         </StyledPaperHeader>
         <h3>{question.question}</h3>
+        <Rate
+          isUpped={colorOfRate.isUpped}
+          isDowned={colorOfRate.isDowned}
+          onUp={() => handleRateUp({ volume: 1, id: question.id })}
+          onDown={() => handleRateDown({ volume: -1, id: question.id })}
+          currentRate={rate}
+        />
       </Paper>
     </StyledQuestionBlock>
   );
@@ -68,6 +110,7 @@ export const QuestionBlock = ({ question, user, tags }) => {
 
 QuestionBlock.propTypes = {
   question: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     question: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
   }).isRequired,
@@ -83,6 +126,12 @@ QuestionBlock.propTypes = {
     })
   ).isRequired,
 
-  // FIXME: фича еще не внесена в проект
-  // rate: PropTypes.number.isRequired,
+  rate: PropTypes.number.isRequired,
+  isUpped: PropTypes.bool,
+  isDowned: PropTypes.bool,
+};
+
+QuestionBlock.defaultProps = {
+  isUpped: false,
+  isDowned: false,
 };
