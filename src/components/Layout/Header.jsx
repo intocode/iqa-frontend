@@ -15,6 +15,7 @@ export const Header = () => {
       text-decoration: none;
     }
   `;
+  
   const handleAddQuestion = () => history.push('/create');
 
   return (
@@ -25,10 +26,14 @@ export const Header = () => {
             <div className="me-3">
               <Logo />
             </div>
-            <Typography>Главная</Typography>
-            <Badge content={5}>
-              <Typography>Избранные</Typography>
-            </Badge>
+            <Link to="/" className="header_link">
+              <Typography>Главная</Typography>
+            </Link>
+            <Link to="/favorites" className="header_link">
+              <Badge content={5}>
+                <Typography>Избранные</Typography>
+              </Badge>
+            </Link>
           </div>
           <div className="col-auto">
             {token ? (
