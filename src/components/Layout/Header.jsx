@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAuth } from '../../common/context/Auth/useAuth';
 import { Badge } from '../ui/Badge';
@@ -7,6 +7,7 @@ import { Typography } from '../ui/Typography';
 import { Logo } from './Logo';
 
 export const Header = () => {
+  const history = useHistory();
   const { token, executeLoggingInProcess, logout } = useAuth();
   const StyledHeader = styled.div`
     background-color: white;
@@ -14,7 +15,8 @@ export const Header = () => {
       text-decoration: none;
     }
   `;
-  const handleAddQuestion = () => {};
+  
+  const handleAddQuestion = () => history.push('/create');
 
   return (
     <StyledHeader>
