@@ -6,6 +6,7 @@ const StyledLoading = styled.div`
   display: inline-block;
   margin-right: 8px;
   position: relative;
+  margin-top: 2px;
   width: 11px;
   height: 11px;
   & > div {
