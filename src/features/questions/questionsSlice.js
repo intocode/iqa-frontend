@@ -31,6 +31,16 @@ export const addQuestion = createAsyncThunk(
   }
 );
 
+export const addRate = createAsyncThunk('rate/add', async (data, thunkAPI) => {
+  try {
+    const response = await axios.post(`/questions/${data.id}/rate`, data);
+
+    return { rates: response.data, questionId: data.id };
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
+
 const questionsSlice = createSlice({
   name: 'questions',
   initialState: {
@@ -68,6 +78,25 @@ const questionsSlice = createSlice({
     },
     [addQuestion.rejected]: (state, action) => {
       state.error = JSON.stringify(action.payload.errors);
+      state.loading = false;
+    },
+
+    [addRate.pending]: (state) => {
+      state.loading = true;
+    },
+    [addRate.fulfilled]: (state, action) => {
+      state.questions.forEach((item) => {
+        if (item._id === action.payload.questionId) {
+          // eslint-disable-next-line no-param-reassign
+          item.rates = action.payload.rates;
+        }
+        return item;
+      });
+      state.error = '';
+      state.loading = false;
+    },
+    [addRate.rejected]: (state, action) => {
+      state.error = action.error;
       state.loading = false;
     },
   },

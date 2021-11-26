@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import { Paper } from '../../components/ui/Paper';
 import { Tag } from '../../components/ui/Tag';
+import { Rate } from '../../components/ui/Rate';
+import { addRate } from './questionsSlice';
+import { selectProfile } from '../profile/profileSlice';
+import { useAuth } from '../../common/context/Auth/useAuth';
 
 const StyledQuestionBlock = styled.div`
   & > div {
@@ -42,7 +47,46 @@ const StyledTag = styled.div`
   }
 `;
 
-export const QuestionBlock = ({ question, user, tags }) => {
+export const QuestionBlock = ({ question, user, tags, rates }) => {
+  const { token } = useAuth();
+
+  const dispatch = useDispatch();
+
+  const profile = useSelector(selectProfile);
+
+  let isUpped = false;
+  let isDowned = false;
+
+  const valueRate = rates.reduce((acc, item) => {
+    // eslint-disable-next-line no-param-reassign
+    if (item.volume === -1) acc -= 1;
+    // eslint-disable-next-line no-param-reassign
+    if (item.volume === 1) acc += 1;
+    return acc;
+  }, 0);
+
+  if (token) {
+    rates.forEach((item) => {
+      if (item.user === profile._id && item.volume === 1) {
+        isUpped = true;
+      }
+      if (item.user === profile._id && item.volume === -1) {
+        isDowned = true;
+      }
+    });
+  }
+
+  const handleRateUp = (data) => {
+    if (token) {
+      dispatch(addRate(data));
+    }
+  };
+
+  const handleRateDown = (data) => {
+    if (token) {
+      dispatch(addRate(data));
+    }
+  };
   return (
     <StyledQuestionBlock>
       <Paper>
@@ -61,6 +105,17 @@ export const QuestionBlock = ({ question, user, tags }) => {
           </StyledTag>
         </StyledPaperHeader>
         <h3>{question.question}</h3>
+        {token ? (
+          <Rate
+            isUpped={isUpped}
+            isDowned={isDowned}
+            onUp={() => handleRateUp({ volume: 1, id: question.id })}
+            onDown={() => handleRateDown({ volume: -1, id: question.id })}
+            currentRate={valueRate}
+          />
+        ) : (
+          <Rate currentRate={valueRate} />
+        )}
       </Paper>
     </StyledQuestionBlock>
   );
@@ -68,6 +123,7 @@ export const QuestionBlock = ({ question, user, tags }) => {
 
 QuestionBlock.propTypes = {
   question: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     question: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
   }).isRequired,
@@ -83,6 +139,5 @@ QuestionBlock.propTypes = {
     })
   ).isRequired,
 
-  // FIXME: фича еще не внесена в проект
-  // rate: PropTypes.number.isRequired,
+  rates: PropTypes.arrayOf.isRequired,
 };
