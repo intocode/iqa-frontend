@@ -46,6 +46,7 @@ const questionsSlice = createSlice({
   initialState: {
     questions: [],
     loading: false,
+    processingRate: false,
     error: '',
     success: false,
   },
@@ -82,7 +83,7 @@ const questionsSlice = createSlice({
     },
 
     [addRate.pending]: (state) => {
-      state.loading = true;
+      state.processingRate = true;
     },
     [addRate.fulfilled]: (state, action) => {
       state.questions.forEach((item) => {
@@ -93,11 +94,11 @@ const questionsSlice = createSlice({
         return item;
       });
       state.error = '';
-      state.loading = false;
+      state.processingRate = false;
     },
     [addRate.rejected]: (state, action) => {
       state.error = action.error;
-      state.loading = false;
+      state.processingRate = false;
     },
   },
 });

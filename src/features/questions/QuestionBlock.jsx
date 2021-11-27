@@ -47,7 +47,7 @@ const StyledTag = styled.div`
   }
 `;
 
-export const QuestionBlock = ({ question, user, tags, rates }) => {
+export const QuestionBlock = ({ question }) => {
   const { token } = useAuth();
 
   const dispatch = useDispatch();
@@ -57,16 +57,12 @@ export const QuestionBlock = ({ question, user, tags, rates }) => {
   let isUpped = false;
   let isDowned = false;
 
-  const valueRate = rates.reduce((acc, item) => {
-    // eslint-disable-next-line no-param-reassign
-    if (item.volume === -1) acc -= 1;
-    // eslint-disable-next-line no-param-reassign
-    if (item.volume === 1) acc += 1;
-    return acc;
+  const valueRate = question.rates.reduce((acc, item) => {
+    return acc + item.volume;
   }, 0);
 
   if (token) {
-    rates.forEach((item) => {
+    question.rates.forEach((item) => {
       if (item.user === profile._id && item.volume === 1) {
         isUpped = true;
       }
@@ -76,28 +72,23 @@ export const QuestionBlock = ({ question, user, tags, rates }) => {
     });
   }
 
-  const handleRateUp = (data) => {
+  const handleChangeRate = (data) => {
     if (token) {
       dispatch(addRate(data));
     }
   };
 
-  const handleRateDown = (data) => {
-    if (token) {
-      dispatch(addRate(data));
-    }
-  };
   return (
     <StyledQuestionBlock>
       <Paper>
         <StyledPaperHeader>
           <StyledAvatr>
-            <img src={user.avatarURL} alt="" />
-            <p>{user.name}</p>
+            <img src={question.user.avatarURL} alt="" />
+            <p>{question.user.name}</p>
             <div>{question.date}</div>
           </StyledAvatr>
           <StyledTag>
-            {tags.map((tag) => (
+            {question.tags.map((tag) => (
               <Tag key={tag.name} noGutters>
                 {tag.name}
               </Tag>
@@ -109,8 +100,8 @@ export const QuestionBlock = ({ question, user, tags, rates }) => {
           <Rate
             isUpped={isUpped}
             isDowned={isDowned}
-            onUp={() => handleRateUp({ volume: 1, id: question.id })}
-            onDown={() => handleRateDown({ volume: -1, id: question.id })}
+            onUp={() => handleChangeRate({ volume: 1, id: question.id })}
+            onDown={() => handleChangeRate({ volume: -1, id: question.id })}
             currentRate={valueRate}
           />
         ) : (
@@ -126,18 +117,17 @@ QuestionBlock.propTypes = {
     id: PropTypes.string.isRequired,
     question: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
-  }).isRequired,
-
-  user: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    avatarURL: PropTypes.string.isRequired,
-  }).isRequired,
-
-  tags: PropTypes.arrayOf(
-    PropTypes.shape({
+    user: PropTypes.shape({
       name: PropTypes.string.isRequired,
-    })
-  ).isRequired,
+      avatarURL: PropTypes.string.isRequired,
+    }).isRequired,
 
-  rates: PropTypes.arrayOf.isRequired,
+    tags: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+
+    rates: PropTypes.arrayOf.isRequired,
+  }).isRequired,
 };

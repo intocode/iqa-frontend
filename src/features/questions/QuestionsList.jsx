@@ -42,11 +42,11 @@ export const QuestionsList = () => {
             id: question._id,
             question: question.question,
             date: question.createdAt,
+            name: question.user.name,
+            tags: question.tags,
+            user: question.user,
+            rates: question.rates,
           }}
-          name={question.user.name}
-          tags={question.tags}
-          user={question.user}
-          rates={question.rates}
         />
       ))}
     </StyledQuestionList>
