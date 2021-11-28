@@ -42,6 +42,6 @@ workflows:
           force: true # this parameter instructs the push to use a force flag when pushing to the heroku remote, see: https://devcenter.heroku.com/articles/git
           requires:
             - node/test # only run deploy-via-git job if the build job has completed
-  chromatic-deploy:
-    jobs:
-      - chromatic-deployment # 👈 Runs the Chromatic job implemented above
+      - chromatic-deployment: # 👈 Runs the Chromatic job implemented above
+          requires:
+            - heroku/deploy-via-git
