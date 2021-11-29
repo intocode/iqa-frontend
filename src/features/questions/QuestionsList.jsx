@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchQuestions, selectQuestions } from './questionsSlice';
-import { QuestionBlock } from './QuestionBlock';
 import { Typography } from '../../components/ui/Typography';
+import { QuestionBlock } from './QuestionBlock';
 
 const StyledQuestionList = styled.div`
   & .top {
