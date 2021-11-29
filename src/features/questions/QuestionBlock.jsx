@@ -9,19 +9,16 @@ import { selectProfile } from '../profile/profileSlice';
 import { useAuth } from '../../common/context/Auth/useAuth';
 
 const StyledQuestionBlock = styled.div`
-  & > div {
-    margin-bottom: 20px;
-  }
+  margin-bottom: 20px;
 `;
 
 const StyledPaperHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 40px;
 `;
 
-const StyledAvatr = styled.div`
+const StyledAvatar = styled.div`
   display: flex;
   align-items: center;
   & > img {
@@ -35,6 +32,10 @@ const StyledAvatr = styled.div`
     font-size: 12px;
     margin-left: 10px;
   }
+`;
+
+const StyledQuestionText = styled.h3`
+  margin: 20px 0 15px 0;
 `;
 
 const StyledTag = styled.div`
@@ -86,7 +87,7 @@ export const QuestionBlock = ({ question }) => {
             <img src={question.user.avatarURL} alt="" />
             <p>{question.user.name}</p>
             <div>{question.date}</div>
-          </StyledAvatr>
+          </StyledAvatar>
           <StyledTag>
             {question.tags.map((tag) => (
               <Tag key={tag.name} noGutters>
