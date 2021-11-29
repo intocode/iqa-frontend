@@ -1,3 +1,7 @@
+import * as dayjs from 'dayjs';
+import * as relativeTime from 'dayjs/plugin/relativeTime';
+import calendar from 'dayjs/plugin/calendar';
+import 'dayjs/locale/ru';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Paper } from '../../components/ui/Paper';
@@ -28,6 +32,7 @@ const StyledAvatr = styled.div`
   & > div {
     color: #909399;
     font-size: 12px;
+    line-height: 14px;
     margin-left: 10px;
   }
 `;
@@ -43,6 +48,10 @@ const StyledTag = styled.div`
 `;
 
 export const QuestionBlock = ({ question, user, tags }) => {
+  dayjs.extend(relativeTime);
+  dayjs.extend(calendar);
+  dayjs.locale('ru');
+
   return (
     <StyledQuestionBlock>
       <Paper>
@@ -50,7 +59,7 @@ export const QuestionBlock = ({ question, user, tags }) => {
           <StyledAvatr>
             <img src={user.avatarURL} alt="" />
             <p>{user.name}</p>
-            <div>{question.date}</div>
+            <div>добавлено {dayjs(question.date).fromNow()}</div>
           </StyledAvatr>
           <StyledTag>
             {tags.map((tag) => (
