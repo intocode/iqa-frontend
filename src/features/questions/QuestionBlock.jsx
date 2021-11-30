@@ -1,3 +1,7 @@
+import * as dayjs from 'dayjs';
+import * as relativeTime from 'dayjs/plugin/relativeTime';
+import calendar from 'dayjs/plugin/calendar';
+import 'dayjs/locale/ru';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
@@ -49,6 +53,10 @@ const StyledTag = styled.div`
 `;
 
 export const QuestionBlock = ({ question }) => {
+  dayjs.extend(relativeTime);
+  dayjs.extend(calendar);
+  dayjs.locale('ru');
+
   const { token } = useAuth();
 
   const dispatch = useDispatch();
@@ -83,10 +91,10 @@ export const QuestionBlock = ({ question }) => {
     <StyledQuestionBlock>
       <Paper>
         <StyledPaperHeader>
-          <StyledAvatr>
+          <StyledAvatar>
             <img src={question.user.avatarURL} alt="" />
             <p>{question.user.name}</p>
-            <div>{question.date}</div>
+            <div>добавлено {dayjs(question.date).fromNow()}</div>
           </StyledAvatar>
           <StyledTag>
             {question.tags.map((tag) => (
@@ -96,7 +104,7 @@ export const QuestionBlock = ({ question }) => {
             ))}
           </StyledTag>
         </StyledPaperHeader>
-        <h3>{question.question}</h3>
+        <StyledQuestionText>{question.question}</StyledQuestionText>
         {token ? (
           <Rate
             isUpped={isUpped}
