@@ -1,16 +1,22 @@
-import { Route, Switch } from 'react-router-dom';
-import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchQuestions } from '../features/questions/questionsSlice';
+import { Route, Switch } from 'react-router-dom';
+import { useAuth } from '../common/context/Auth/useAuth';
 import { Header } from '../components/Layout/Header';
+import { fetchProfile } from '../features/profile/profileSlice';
 import CreateQuestion from '../features/questions/CreateQuestion';
 import { QuestionsList } from '../features/questions/QuestionsList';
 import QuestionPage from '../features/questions/QuestionPage';
 
 
 export const App = () => {
-  const dispatch = useDispatch()
-  useEffect(() => dispatch(fetchQuestions()), [dispatch]);
+  const { token } = useAuth();
+
+  const dispatch = useDispatch();
+
+  if (token) {
+    dispatch(fetchProfile());
+  }
+
   return (
     <>
       <Header />

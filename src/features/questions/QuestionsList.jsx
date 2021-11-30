@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchQuestions, selectQuestions } from './questionsSlice';
-import { QuestionBlock } from './QuestionBlock';
 import { Typography } from '../../components/ui/Typography';
+import { QuestionBlock } from './QuestionBlock';
 
 const StyledQuestionList = styled.div`
   & .top {
@@ -40,12 +40,14 @@ export const QuestionsList = () => {
           key={question._id}
           id={question._id}
           question={{
+            id: question._id,
             question: question.question,
             date: question.createdAt,
+            name: question.user.name,
+            tags: question.tags,
+            user: question.user,
+            rates: question.rates,
           }}
-          name={question.user.name}
-          tags={question.tags}
-          user={question.user}
         />
       ))}
     </StyledQuestionList>
