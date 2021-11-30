@@ -1,11 +1,8 @@
 .idea
 .vscode
-
 .DS_Store
-
-.husky
-
 build
+storybook-static
 
 # Файл взят с https://github.com/github/gitignore/blob/master/Node.gitignore
 

@@ -15,7 +15,7 @@ export const Header = () => {
       text-decoration: none;
     }
   `;
-  
+
   const handleAddQuestion = () => history.push('/create');
 
   return (

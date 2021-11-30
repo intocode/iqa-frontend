@@ -50,6 +50,7 @@ export const Page = () => {
           <StyledDivTag>
             <Tag onRemove={3}>Redux</Tag>
             <Tag onRemove={3}>JavaScript</Tag>
+            {{}}
           </StyledDivTag>
         </div>
         <div
