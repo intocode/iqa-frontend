@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { Paper } from '../../components/ui/Paper';
 import { Tag } from '../../components/ui/Tag';
 import { Typography } from '../../components/ui/Typography';
 import { Rate } from '../../components/ui/Rate';
+import { fetchQuestions, selectQuestionById } from './questionsSlice';
 
 const StyledQuestionBlock = styled.div`
   max-width: 820px;
   margin: auto;
   & > div {
-    margin: 20px 0 
+    margin: 20px 0;
   }
 `;
 
@@ -39,7 +42,7 @@ const StyledAvatr = styled.div`
 const StyledQuestionHeader = styled.div`
   display: flex;
   justify-content: space-between;
-`
+`;
 
 const StyledTag = styled.div`
   display: flex;
@@ -56,42 +59,66 @@ const StyledComment = styled.div`
   margin: 20px auto;
 `;
 
+const StyledLink = styled.a`
+  text-decoration: none;
+`;
+
 const QuestionPage = () => {
-  const tags = [{ name: 'Node.js' }, { name: 'Express' }];
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const question = useSelector(selectQuestionById(id));
+  const [isUpped, setIsUpped] = useState();
+  const [isDowned, setIsDowned] = useState();
+  const reducer = (previousValue, currentValue) =>
+    previousValue + currentValue.volume;
+  const rate = question?.rates.reduce(reducer, 0);
+
+  useEffect(() => dispatch(fetchQuestions()), [dispatch]);
+  // eslint-disable-next-line no-console
+  console.log(question);
+
+  const onUp = () => {
+    setIsDowned(false)
+    setIsUpped(!isUpped);
+  };
+
+  const onDown = () => {
+    setIsUpped(false);
+    setIsDowned(!isDowned)
+  }
+
   return (
     <StyledQuestionBlock>
       <StyledQuestionHeader>
         <h3>Обсуждение вопроса</h3>
-        <Typography>Вернуться назад</Typography>
+        <StyledLink href="/">
+          <Typography>Вернуться назад</Typography>
+        </StyledLink>
       </StyledQuestionHeader>
       <Paper>
         <StyledPaperHeader>
           <StyledAvatr>
             <img src="" alt="" />
-            <p>Имя</p>
+            <p>{question?.user}</p>
             <div>время</div>
           </StyledAvatr>
           <StyledTag>
-            {tags.map((tag) => (
+            {question?.tags.map((tag) => (
               <Tag key={tag.name} noGutters>
                 {tag.name}
               </Tag>
             ))}
           </StyledTag>
         </StyledPaperHeader>
-        <h3>Какой-то вопрос</h3>
-        <StyledComment>
-          Мне задали этот вопрос когда я был маленьким и я не знал что ответить
-          и заплакал. После этого я написал следующий рассказ: Lorem ipsum dolor
-          sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-          commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-          velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-          occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-          mollit anim id est laborum.
-        </StyledComment>
-        <Rate>1</Rate>
+        <h3>{question?.question}</h3>
+        <StyledComment>{question?.comment}</StyledComment>
+        <Rate
+          currentRate={rate}
+          onUp={onUp}
+          isUpped={isUpped}
+          onDown={onDown}
+          isDowned={isDowned}
+        />
       </Paper>
     </StyledQuestionBlock>
   );

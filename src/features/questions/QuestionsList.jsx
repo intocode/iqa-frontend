@@ -38,6 +38,7 @@ export const QuestionsList = () => {
       {questions.map((question) => (
         <QuestionBlock
           key={question._id}
+          id={question._id}
           question={{
             question: question.question,
             date: question.createdAt,

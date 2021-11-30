@@ -42,7 +42,11 @@ const StyledTag = styled.div`
   }
 `;
 
-export const QuestionBlock = ({ question, user, tags }) => {
+const StyledLink = styled.a`
+  text-decoration: none;
+`
+
+export const QuestionBlock = ({ question, user, tags, id }) => {
   return (
     <StyledQuestionBlock>
       <Paper>
@@ -60,7 +64,9 @@ export const QuestionBlock = ({ question, user, tags }) => {
             ))}
           </StyledTag>
         </StyledPaperHeader>
-        <h3>{question.question}</h3>
+        <StyledLink href={`/page/${id}`}>
+          <h3>{question.question}</h3>
+        </StyledLink>
       </Paper>
     </StyledQuestionBlock>
   );
@@ -75,6 +81,10 @@ QuestionBlock.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string.isRequired,
     avatarURL: PropTypes.string.isRequired,
+  }).isRequired,
+
+  id: PropTypes.shape({
+    id: PropTypes.string.isRequired,
   }).isRequired,
 
   tags: PropTypes.arrayOf(
