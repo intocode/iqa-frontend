@@ -5,6 +5,7 @@ import { Header } from '../components/Layout/Header';
 import { fetchProfile } from '../features/profile/profileSlice';
 import CreateQuestion from '../features/questions/CreateQuestion';
 import { QuestionsList } from '../features/questions/QuestionsList';
+import QuestionPage from '../features/questions/QuestionPage';
 
 export const App = () => {
   const { token } = useAuth();
@@ -24,6 +25,9 @@ export const App = () => {
         </Route>
         <Route path="/create" exact>
           <CreateQuestion />
+        </Route>
+        <Route path="/question/:id" exact>
+          <QuestionPage />
         </Route>
       </Switch>
     </>

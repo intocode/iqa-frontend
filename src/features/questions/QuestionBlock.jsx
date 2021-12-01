@@ -5,6 +5,7 @@ import 'dayjs/locale/ru';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import { Paper } from '../../components/ui/Paper';
 import { Tag } from '../../components/ui/Tag';
 import { Rate } from '../../components/ui/Rate';
@@ -50,6 +51,10 @@ const StyledTag = styled.div`
   & > div:last-child {
     margin-right: 0;
   }
+`;
+
+const StyledLink = styled.a`
+  text-decoration: none;
 `;
 
 export const QuestionBlock = ({ question }) => {
@@ -104,7 +109,9 @@ export const QuestionBlock = ({ question }) => {
             ))}
           </StyledTag>
         </StyledPaperHeader>
-        <StyledQuestionText>{question.question}</StyledQuestionText>
+        <StyledLink href={`/question/${question.id}`}>
+          <StyledQuestionText>{question.question}</StyledQuestionText>
+        </StyledLink>
         {token ? (
           <Rate
             isUpped={isUpped}
