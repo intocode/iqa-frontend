@@ -4,13 +4,11 @@ import calendar from 'dayjs/plugin/calendar';
 import 'dayjs/locale/ru';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { Paper } from '../../components/ui/Paper';
 import { Tag } from '../../components/ui/Tag';
-import { Rate } from '../../components/ui/Rate';
-import { addRate } from './questionsSlice';
-import { selectProfile } from '../profile/profileSlice';
-import { useAuth } from '../../common/context/Auth/useAuth';
+import QuestionRate from './QuestionRate';
 
 const StyledQuestionBlock = styled.div`
   margin-bottom: 20px;
@@ -52,40 +50,14 @@ const StyledTag = styled.div`
   }
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
 export const QuestionBlock = ({ question }) => {
   dayjs.extend(relativeTime);
   dayjs.extend(calendar);
   dayjs.locale('ru');
-
-  const { token } = useAuth();
-
-  const dispatch = useDispatch();
-
-  const profile = useSelector(selectProfile);
-
-  let isUpped = false;
-  let isDowned = false;
-
-  const valueRate = question.rates.reduce((acc, item) => {
-    return acc + item.volume;
-  }, 0);
-
-  if (token) {
-    question.rates.forEach((item) => {
-      if (item.user === profile._id && item.volume === 1) {
-        isUpped = true;
-      }
-      if (item.user === profile._id && item.volume === -1) {
-        isDowned = true;
-      }
-    });
-  }
-
-  const handleChangeRate = (data) => {
-    if (token) {
-      dispatch(addRate(data));
-    }
-  };
 
   return (
     <StyledQuestionBlock>
@@ -104,18 +76,10 @@ export const QuestionBlock = ({ question }) => {
             ))}
           </StyledTag>
         </StyledPaperHeader>
-        <StyledQuestionText>{question.question}</StyledQuestionText>
-        {token ? (
-          <Rate
-            isUpped={isUpped}
-            isDowned={isDowned}
-            onUp={() => handleChangeRate({ volume: 1, id: question.id })}
-            onDown={() => handleChangeRate({ volume: -1, id: question.id })}
-            currentRate={valueRate}
-          />
-        ) : (
-          <Rate currentRate={valueRate} />
-        )}
+        <StyledLink to={`/question/${question.id}`}>
+          <StyledQuestionText>{question.question}</StyledQuestionText>
+        </StyledLink>
+        <QuestionRate id={question.id} />
       </Paper>
     </StyledQuestionBlock>
   );
