@@ -160,6 +160,8 @@ const CreateQuestion = () => {
         userId: profile._id,
       })
     );
+    setQuestion('');
+    setComment('');
   };
 
   useEffect(() => {
