@@ -1,7 +1,7 @@
 import React, { memo, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Rate } from '../../components/ui/Rate';
+import { Rate } from '../../components/ui';
 import { useAuth } from '../../common/context/Auth/useAuth';
 import { selectProfile } from '../profile/profileSlice';
 import { addRate, selectQuestionById } from './questionsSlice';

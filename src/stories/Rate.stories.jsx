@@ -1,7 +1,7 @@
-import { Rate } from '../components/ui/Rate';
+import { Rate } from '../components/ui';
 
 export default {
-  title: 'Example/Rate',
+  title: 'Rate',
   component: Rate,
 };
 

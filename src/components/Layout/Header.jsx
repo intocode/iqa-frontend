@@ -6,15 +6,16 @@ import { Button } from '../ui/Button';
 import { Typography } from '../ui/Typography';
 import { Logo } from './Logo';
 
+const StyledHeader = styled.div`
+  background-color: white;
+  .header_link {
+    text-decoration: none;
+  }
+`;
+
 export const Header = () => {
   const history = useHistory();
   const { token, executeLoggingInProcess, logout } = useAuth();
-  const StyledHeader = styled.div`
-    background-color: white;
-    .header_link {
-      text-decoration: none;
-    }
-  `;
 
   const handleAddQuestion = () => history.push('/create');
 

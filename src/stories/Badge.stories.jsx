@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-import { Badge } from '../components/ui/Badge';
-import { Button } from '../components/ui/Button';
+import { Badge, Button } from '../components/ui';
 
 export default {
-  title: 'Example/Badge',
+  title: 'Badge',
   component: Badge,
   argTypes: {
     color: {

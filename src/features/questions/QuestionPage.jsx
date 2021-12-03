@@ -2,13 +2,11 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
-import * as dayjs from 'dayjs';
-import * as relativeTime from 'dayjs/plugin/relativeTime';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import calendar from 'dayjs/plugin/calendar';
 import 'dayjs/locale/ru';
-import { Paper } from '../../components/ui/Paper';
-import { Tag } from '../../components/ui/Tag';
-import { Typography } from '../../components/ui/Typography';
+import { Paper, Tag, Typography } from '../../components/ui';
 import { fetchQuestions, selectQuestionById } from './questionsSlice';
 import QuestionRate from './QuestionRate';
 

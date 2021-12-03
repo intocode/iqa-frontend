@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { Select } from '../components/ui/Select';
-import { SelectItem } from '../components/ui/Select/SelectItem';
+import { Select, SelectItem } from '../components/ui';
 
 export default {
   component: Select,

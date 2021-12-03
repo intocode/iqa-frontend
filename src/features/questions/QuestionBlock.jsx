@@ -6,9 +6,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Paper } from '../../components/ui/Paper';
-import { Typography } from '../../components/ui/Typography';
-import { Tag } from '../../components/ui/Tag';
+import { Paper, Typography, Tag } from '../../components/ui';
 import QuestionRate from './QuestionRate';
 
 dayjs.extend(relativeTime);

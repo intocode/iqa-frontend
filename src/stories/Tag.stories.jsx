@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { Tag } from '../components/ui/Tag';
+import { Tag } from '../components/ui';
 
 export default {
-  title: 'Example/Tag',
+  title: 'Tag',
   component: Tag,
   argTypes: {
     color: {
