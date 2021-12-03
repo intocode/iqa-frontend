@@ -2,11 +2,14 @@ import { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Button } from '../../components/ui/Button';
-import { Input } from '../../components/ui/Input';
-import { Paper } from '../../components/ui/Paper';
-import { Tag } from '../../components/ui/Tag';
-import { Typography } from '../../components/ui/Typography';
+import {
+  Alert,
+  Button,
+  Input,
+  Paper,
+  Tag,
+  Typography,
+} from '../../components/ui';
 import { selectProfile } from '../profile/profileSlice';
 import {
   addTag,
@@ -23,7 +26,6 @@ import {
   selectQuestionsLoading,
   resetSuccess,
 } from './questionsSlice';
-import { Alert } from '../../components/ui/Alert';
 
 const placeholderForTextArea =
   'Расскажи как был задан вопрос, какой ответ ты дал, оказался ли он верным и т.д. Любые сведения, которые могут помочь другим соискателям..';

@@ -1,7 +1,7 @@
 import { Logo } from '../components/Layout/Logo';
 
 export default {
-  title: 'Logo/Logo',
+  title: 'Logo',
   component: Logo,
 };
 

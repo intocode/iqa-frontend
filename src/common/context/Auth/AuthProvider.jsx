@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { AuthContext } from './index';
@@ -22,15 +22,13 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   // перехватчик axios на случай, если слетит авторизация
-  useEffect(() => {
-    axios.interceptors.response.use(null, (error) => {
-      if (error.response?.status === 401) {
-        setToken(null);
-      }
+  axios.interceptors.response.use(null, (error) => {
+    if (error.response?.status === 401) {
+      setToken(null);
+    }
 
-      return Promise.reject(error);
-    });
-  }, [setToken]);
+    return Promise.reject(error);
+  });
 
   return (
     <AuthContext.Provider value={{ token, setAuthToken }}>

@@ -89,8 +89,8 @@ export const Rate = ({
 );
 
 Rate.propTypes = {
-  onUp: PropTypes.func.isRequired,
-  onDown: PropTypes.func.isRequired,
+  onUp: PropTypes.func,
+  onDown: PropTypes.func,
   currentRate: PropTypes.number.isRequired,
   isUpped: PropTypes.bool,
   isDowned: PropTypes.bool,
@@ -98,6 +98,8 @@ Rate.propTypes = {
 };
 
 Rate.defaultProps = {
+  onUp: () => {},
+  onDown: () => {},
   isUpped: false,
   isDowned: false,
   color: 'gray',

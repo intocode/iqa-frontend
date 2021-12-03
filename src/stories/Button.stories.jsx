@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { Button } from '../components/ui/Button';
+import { Button } from '../components/ui';
 
 export default {
-  title: 'Example/Button',
+  title: 'Button',
   component: Button,
   argTypes: {
     color: { control: 'color' },

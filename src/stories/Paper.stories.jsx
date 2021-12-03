@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { Paper } from '../components/ui/Paper';
+import { Paper } from '../components/ui';
 
 export default {
-  title: 'Example/Paper',
+  title: 'Paper',
   component: Paper,
 };
 

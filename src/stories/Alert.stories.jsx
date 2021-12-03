@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { Alert } from '../components/ui/Alert';
+import { Alert } from '../components/ui';
 
 export default {
-  title: 'Example/Alert',
+  title: 'Alert',
   component: Alert,
   argTypes: {
     color: { control: 'color' },
