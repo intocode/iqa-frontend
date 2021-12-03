@@ -48,7 +48,7 @@ export const Typography = ({ variant, children, ...props }) => (
 );
 
 Typography.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
   color: PropTypes.oneOf(AVAILABLE_THEME_COLORS),
   variant: PropTypes.oneOf(['header', 'caption', 'small', 'extraSmall']),
 };

@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useAuth } from '../common/context/Auth/useAuth';
 import { Header } from '../components/Layout/Header';
 import { fetchProfile } from '../features/profile/profileSlice';
@@ -12,9 +13,11 @@ export const App = () => {
 
   const dispatch = useDispatch();
 
-  if (token) {
-    dispatch(fetchProfile());
-  }
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchProfile());
+    }
+  }, [dispatch, token]);
 
   return (
     <>
@@ -23,10 +26,10 @@ export const App = () => {
         <Route path="/" exact>
           <QuestionsList />
         </Route>
-        <Route path="/create" exact>
+        <Route path="/create">
           <CreateQuestion />
         </Route>
-        <Route path="/question/:id" exact>
+        <Route path="/question/:id">
           <QuestionPage />
         </Route>
       </Switch>
