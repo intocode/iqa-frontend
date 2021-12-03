@@ -1,5 +1,5 @@
-import * as dayjs from 'dayjs';
-import * as relativeTime from 'dayjs/plugin/relativeTime';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import calendar from 'dayjs/plugin/calendar';
 import 'dayjs/locale/ru';
 import styled from 'styled-components';
@@ -7,20 +7,15 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Paper } from '../../components/ui/Paper';
+import { Typography } from '../../components/ui/Typography';
 import { Tag } from '../../components/ui/Tag';
 import QuestionRate from './QuestionRate';
 
-const StyledQuestionBlock = styled.div`
-  margin-bottom: 20px;
-`;
+dayjs.extend(relativeTime);
+dayjs.extend(calendar);
+dayjs.locale('ru');
 
-const StyledPaperHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const StyledAvatar = styled.div`
+const StyledQuestionHeader = styled.div`
   display: flex;
   align-items: center;
   & > img {
@@ -36,63 +31,54 @@ const StyledAvatar = styled.div`
   }
 `;
 
-const StyledQuestionText = styled.h3`
-  margin: 20px 0 15px 0;
-`;
-
-const StyledTag = styled.div`
-  display: flex;
-  & > div {
-    margin-right: 10px;
-  }
-  & > div:last-child {
-    margin-right: 0;
-  }
-`;
-
 const StyledLink = styled(Link)`
   text-decoration: none;
+  color: #000;
 `;
 
 export const QuestionBlock = ({ question }) => {
-  dayjs.extend(relativeTime);
-  dayjs.extend(calendar);
-  dayjs.locale('ru');
-
   return (
-    <StyledQuestionBlock>
+    <div className="mb-4">
       <Paper>
-        <StyledPaperHeader>
-          <StyledAvatar>
-            <img src={question.user.avatarURL} alt="" />
-            <p>{question.user.name}</p>
-            <div>добавлено {dayjs(question.date).fromNow()}</div>
-          </StyledAvatar>
-          <StyledTag>
-            {question.tags.map((tag) => (
-              <Tag key={tag.name} noGutters>
-                {tag.name}
-              </Tag>
-            ))}
-          </StyledTag>
-        </StyledPaperHeader>
-        <StyledLink to={`/question/${question.id}`}>
-          <StyledQuestionText>{question.question}</StyledQuestionText>
-        </StyledLink>
-        <QuestionRate id={question.id} />
+        <div className="row justify-content-between align-items-center">
+          <div className="col">
+            <StyledQuestionHeader>
+              <img src={question.user.avatarURL} alt="" />
+              <p>{question.user.name}</p>
+              <div>добавлено {dayjs(question.createdAt).fromNow()}</div>
+            </StyledQuestionHeader>
+          </div>
+          <div className="col-auto">
+            <div className="row g-2">
+              {question.tags.map((tag) => (
+                <div key={tag.name} className="col">
+                  <Tag noGutters>{tag.name}</Tag>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="py-4">
+          <Typography variant="header">
+            <StyledLink to={`/question/${question._id}`}>
+              {question.question}
+            </StyledLink>
+          </Typography>
+        </div>
+        <QuestionRate id={question._id} />
       </Paper>
-    </StyledQuestionBlock>
+    </div>
   );
 };
 
 QuestionBlock.propTypes = {
   question: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
     question: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
+    createdAt: PropTypes.string.isRequired,
     user: PropTypes.shape({
       name: PropTypes.string.isRequired,
-      avatarURL: PropTypes.string.isRequired,
+      avatarURL: PropTypes.string, // todo: после исправления на сервере добавить .isRequired
     }).isRequired,
 
     tags: PropTypes.arrayOf(
@@ -101,6 +87,6 @@ QuestionBlock.propTypes = {
       })
     ).isRequired,
 
-    rates: PropTypes.arrayOf.isRequired,
+    rates: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
 };

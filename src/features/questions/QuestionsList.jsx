@@ -1,26 +1,8 @@
-import styled from 'styled-components';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchQuestions, selectQuestions } from './questionsSlice';
 import { Typography } from '../../components/ui/Typography';
 import { QuestionBlock } from './QuestionBlock';
-
-const StyledQuestionList = styled.div`
-  & .top {
-    margin: 20px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    & h2 {
-      font-weight: 500;
-      font-size: 22px;
-      line-height: 22px;
-    }
-    & div {
-      font-size: 14px;
-    }
-  }
-`;
 
 export const QuestionsList = () => {
   const dispatch = useDispatch();
@@ -29,26 +11,21 @@ export const QuestionsList = () => {
 
   useEffect(() => dispatch(fetchQuestions()), [dispatch]);
 
+  // todo: добавить прелоадер
+
   return (
-    <StyledQuestionList className="container">
-      <div className="top">
-        <h2>Все вопросы</h2>
-        <Typography>Показать все вопросы</Typography>
+    <div className="container">
+      <div className="row justify-content-between align-items-center my-3">
+        <div className="col">
+          <h2>Все вопросы</h2>
+        </div>
+        <div className="col-auto">
+          <Typography>Показать популярные</Typography>
+        </div>
       </div>
       {questions.map((question) => (
-        <QuestionBlock
-          key={question._id}
-          question={{
-            id: question._id,
-            question: question.question,
-            date: question.createdAt,
-            name: question.user.name,
-            tags: question.tags,
-            user: question.user,
-            rates: question.rates,
-          }}
-        />
+        <QuestionBlock key={question._id} question={question} />
       ))}
-    </StyledQuestionList>
+    </div>
   );
 };

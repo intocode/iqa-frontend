@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -7,7 +7,7 @@ import { Input } from '../../components/ui/Input';
 import { Paper } from '../../components/ui/Paper';
 import { Tag } from '../../components/ui/Tag';
 import { Typography } from '../../components/ui/Typography';
-import { fetchProfile, selectProfile } from '../profile/profileSlice';
+import { selectProfile } from '../profile/profileSlice';
 import {
   addTag,
   removeTag,
@@ -151,7 +151,7 @@ const CreateQuestion = () => {
     }
   };
 
-  const create = () => {
+  const handleCreate = () => {
     dispatch(
       addQuestion({
         question,
@@ -163,10 +163,6 @@ const CreateQuestion = () => {
     setQuestion('');
     setComment('');
   };
-
-  useEffect(() => {
-    dispatch(fetchProfile());
-  }, [dispatch]);
 
   return (
     <StyledQuestionWrapper className="container">
@@ -204,6 +200,7 @@ const CreateQuestion = () => {
                 {tag.name}
               </Tag>
             ))}
+            {/* todo убрать дублирование ниже */}
             {!editMode && (
               <button
                 onClick={() => setEditMode(true)}
@@ -232,7 +229,11 @@ const CreateQuestion = () => {
           </StyledTagWrapper>
         </div>
         <div className="buttons">
-          <Button loading={questionsLoading} onClick={create} color="primary">
+          <Button
+            loading={questionsLoading}
+            onClick={handleCreate}
+            color="primary"
+          >
             Добавить
           </Button>
           <Link to="/" className="cancel">
