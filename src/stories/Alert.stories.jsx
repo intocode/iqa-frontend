@@ -15,6 +15,12 @@ const StyledDecorator = styled.div`
   }
 `;
 
+export const PlaygroundAlert = (args) => <Alert {...args} />;
+
+PlaygroundAlert.args = {
+  children: 'Lorem ipsum dolor!',
+};
+
 export const Default = () => (
   <StyledDecorator>
     <Alert color="primary">

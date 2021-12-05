@@ -16,10 +16,10 @@
     "styled-components": "^5.3.3"
   },
   "scripts": {
-    "check": "npm run lint && npm run test && CI=true npm run build",
+    "check": "npm run lint && CI=true npm run test && CI=true npm run build",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --watchAll=false",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "fix": "npm run lint:fix && npm run prettier",
     "lint": "npm run lint:js",
@@ -28,8 +28,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "prepare": "husky install",
-    "prettier": "prettier ./src --write",
-    "chromatic": "chromatic"
+    "prettier": "prettier ./src --write"
   },
   "browserslist": {
     "production": [
@@ -44,12 +43,14 @@
     ]
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^6.4.4",
-    "@storybook/addon-essentials": "^6.4.4",
-    "@storybook/addon-links": "^6.4.4",
-    "@storybook/node-logger": "^6.4.4",
+    "@storybook/addon-actions": "^6.4.7",
+    "@storybook/addon-essentials": "^6.4.7",
+    "@storybook/addon-links": "^6.4.7",
+    "@storybook/node-logger": "^6.4.7",
     "@storybook/preset-create-react-app": "^3.2.0",
-    "@storybook/react": "^6.4.4",
+    "@storybook/react": "^6.4.7",
+    "@testing-library/jest-dom": "^5.16.0",
+    "@testing-library/react": "^12.1.2",
     "@types/jest": "^27.0.3",
     "@types/react-dom": "^17.0.11",
     "@types/react-router-dom": "^5.3.2",
@@ -59,7 +60,7 @@
     "eslint-config-prettier": "^8.3.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.1.2",
-    "prettier": "^2.5.0"
+    "prettier": "^2.5.1"
   },
   "lint-staged": {
     "*.{js,jsx,css,md}": "prettier . --write",

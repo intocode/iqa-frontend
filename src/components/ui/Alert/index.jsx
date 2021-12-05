@@ -40,12 +40,8 @@ const StyledAlert = styled.div`
 export const Alert = ({ children, icon, onClose, ...props }) => {
   return (
     <StyledAlert {...props}>
-      <div>
-        {icon} {children}
-      </div>
+      {icon} {children}
       {onClose && (
-        // fixme заменить div на button,
-        //  сделать cursor: pointer, сделать цвет икса как у текста
         <button type="button" onClick={onClose}>
           <img src={closeIcon} alt="" />
         </button>
