@@ -41,7 +41,7 @@ export const QuestionBlock = ({ question }) => {
         <div className="row justify-content-between align-items-center">
           <div className="col">
             <StyledQuestionHeader>
-              <img src={question.user.avatarURL} alt="" />
+              <img src={question.user.avatar.thumbnail} alt="" />
               <p>{question.user.name}</p>
               <div>добавлено {dayjs(question.createdAt).fromNow()}</div>
             </StyledQuestionHeader>
@@ -76,7 +76,10 @@ QuestionBlock.propTypes = {
     createdAt: PropTypes.string.isRequired,
     user: PropTypes.shape({
       name: PropTypes.string.isRequired,
-      avatarURL: PropTypes.string, // todo: после исправления на сервере добавить .isRequired
+      avatar: PropTypes.shape({
+        thumbnail: PropTypes.string,
+        full: PropTypes.string,
+      }),
     }).isRequired,
 
     tags: PropTypes.arrayOf(
