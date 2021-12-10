@@ -25,7 +25,9 @@ export const Header = () => {
         <div className="row align-items-center">
           <div className="col d-flex align-items-center">
             <div className="me-3">
-              <Logo />
+              <Link to="/">
+                <Logo />
+              </Link>
             </div>
             <Link to="/" className="header_link">
               <Typography>Главная</Typography>
