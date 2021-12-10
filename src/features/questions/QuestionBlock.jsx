@@ -13,6 +13,14 @@ dayjs.extend(relativeTime);
 dayjs.extend(calendar);
 dayjs.locale('ru');
 
+const StyledQuestionBlock = styled.div`
+  max-width: 820px;
+  margin: auto;
+  & > div {
+    margin: 20px 0;
+  }
+`;
+
 const StyledQuestionHeader = styled.div`
   display: flex;
   align-items: center;
@@ -34,38 +42,53 @@ const StyledLink = styled(Link)`
   color: #000;
 `;
 
+const StyledTag = styled.div`
+  display: flex;
+  & > div {
+    margin-right: 10px;
+  }
+  & > div:last-child {
+    margin-right: 0;
+  }
+`;
+
+const StyledPaperHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+`;
+
+const StyledQuestion = styled.div`
+  margin-bottom: 40px;
+`
+
 export const QuestionBlock = ({ question }) => {
   return (
-    <div className="mb-4">
+    <StyledQuestionBlock>
       <Paper>
-        <div className="row justify-content-between align-items-center">
-          <div className="col">
-            <StyledQuestionHeader>
-              <img src={question.user.avatar.thumbnail} alt="" />
-              <p>{question.user.name}</p>
-              <div>добавлено {dayjs(question.createdAt).fromNow()}</div>
-            </StyledQuestionHeader>
-          </div>
-          <div className="col-auto">
-            <div className="row g-2">
-              {question.tags.map((tag) => (
-                <div key={tag.name} className="col">
-                  <Tag noGutters>{tag.name}</Tag>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div className="py-4">
+        <StyledPaperHeader>
+          <StyledQuestionHeader>
+            <img src={question.user.avatar.thumbnail} alt="" />
+            <p>{question.user.name}</p>
+            <div>добавлено {dayjs(question.createdAt).fromNow()}</div>
+          </StyledQuestionHeader>
+          <StyledTag>
+          {question.tags.map((tag) => (
+              <Tag noGutters>{tag.name}</Tag>
+          ))}
+          </StyledTag>
+        </StyledPaperHeader>
+        <StyledQuestion>
           <Typography variant="header">
             <StyledLink to={`/question/${question._id}`}>
               {question.question}
             </StyledLink>
           </Typography>
-        </div>
+        </StyledQuestion>
         <QuestionRate id={question._id} />
       </Paper>
-    </div>
+    </StyledQuestionBlock>
   );
 };
 
