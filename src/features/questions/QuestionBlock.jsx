@@ -69,13 +69,13 @@ export const QuestionBlock = ({ question }) => {
       <Paper>
         <StyledPaperHeader>
           <StyledQuestionHeader>
-            <img src={question.user.avatar.thumbnail} alt="" />
+            <img src={question.user?.avatar?.thumbnail} alt="" />
             <p>{question.user.name}</p>
             <div>добавлено {dayjs(question.createdAt).fromNow()}</div>
           </StyledQuestionHeader>
           <StyledTag>
           {question.tags.map((tag) => (
-              <Tag noGutters>{tag.name}</Tag>
+              <Tag key={tag.name} >{tag.name}</Tag>
           ))}
           </StyledTag>
         </StyledPaperHeader>
