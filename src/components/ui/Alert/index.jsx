@@ -7,6 +7,7 @@ const StyledAlert = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 8px 15px;
+  margin: 20px 0 20px 0;
 
   /* fixme заменить на бордер */
   box-shadow: ${(props) => props.theme.colors[props.color].main} 0 0 0 1px inset;
