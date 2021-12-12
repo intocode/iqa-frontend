@@ -72,7 +72,7 @@ const questionsSlice = createSlice({
       state.success = false;
     },
     [addQuestion.fulfilled]: (state, action) => {
-      state.questions.push(action.payload);
+      state.questions.push(action.payload.question);
       state.success = true;
       state.error = '';
       state.loading = false;
