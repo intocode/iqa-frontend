@@ -75,7 +75,7 @@ export const QuestionBlock = ({ question }) => {
           </StyledQuestionHeader>
           <StyledTag>
           {question.tags.map((tag) => (
-              <Tag key={tag.name} >{tag.name}</Tag>
+              <Tag noGutters key={tag.name} >{tag.name}</Tag>
           ))}
           </StyledTag>
         </StyledPaperHeader>
