@@ -39,10 +39,10 @@ const StyledBadge = styled.span`
   }}
 `;
 
-export const Badge = ({ color, content, children }) => (
+export const Badge = ({ color, content, children, ...props }) => (
   <StyledDiv>
     {children}
-    <StyledBadge color={color} content={content} />
+    <StyledBadge color={color} content={content} {...props} />
   </StyledDiv>
 );
 
