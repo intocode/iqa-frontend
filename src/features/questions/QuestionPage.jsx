@@ -87,7 +87,7 @@ const QuestionPage = () => {
       <Paper>
         <StyledPaperHeader>
           <StyledAvatar>
-            <img src={question?.user.avatarURL} alt="" />
+            <img src={question?.user?.avatar?.thumbnail} alt="" />
             <p>{question?.name}</p>
             <div>добавлено {dayjs(question?.createdAt).fromNow()}</div>
           </StyledAvatar>
