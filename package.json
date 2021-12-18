@@ -2,6 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.2",
     "axios": "^0.24.0",
