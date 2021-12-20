@@ -8,6 +8,7 @@ import {
 import { Typography } from '../../components/ui';
 import { QuestionBlock } from './QuestionBlock';
 import { QuestionsListPlaceholder } from './QuestionsListPlaceholder';
+import { Title } from '../../app/Title/Title';
 
 export const QuestionsList = () => {
   const dispatch = useDispatch();
@@ -20,19 +21,22 @@ export const QuestionsList = () => {
   // todo: добавить прелоадер
 
   return (
-    <div className="container">
-      <div className="row justify-content-between align-items-center my-3">
-        <div className="col">
-          <h2>Все вопросы</h2>
+    <>
+      <Title>iqa: все вопросы</Title>
+      <div className="container">
+        <div className="row justify-content-between align-items-center my-3">
+          <div className="col">
+            <h2>Все вопросы</h2>
+          </div>
+          <div className="col-auto">
+            <Typography>Показать популярные</Typography>
+          </div>
         </div>
-        <div className="col-auto">
-          <Typography>Показать популярные</Typography>
-        </div>
+        {loading && <QuestionsListPlaceholder />}
+        {questions.map((question) => (
+          <QuestionBlock key={question._id} question={question} />
+        ))}
       </div>
-      {loading && <QuestionsListPlaceholder />}
-      {questions.map((question) => (
-        <QuestionBlock key={question._id} question={question} />
-      ))}
-    </div>
+    </>
   );
 };
