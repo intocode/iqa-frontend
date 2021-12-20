@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Title } from '../../app/Title/Title';
 import {
   Alert,
   Button,
@@ -167,83 +168,91 @@ const CreateQuestion = () => {
   };
 
   return (
-    <StyledQuestionWrapper className="container">
-      {questionsError && (
-        <Alert onClose={() => dispatch(resetStatus())} color="danger">
-          {questionsError}
-        </Alert>
-      )}
-      {tagsError && (
-        <Alert onClose={() => dispatch(resetTagStatus())} color="danger">
-          {tagsError}
-        </Alert>
-      )}
-      {questionsSuccess && (
-        <Alert onClose={() => dispatch(resetSuccess())}>Вопрос добавлен!</Alert>
-      )}
-      <Paper>
-        <div className="question-title">Как звучит вопрос?</div>
-        <Input
-          onChange={(e) => setQuestion(e.target.value)}
-          value={question}
-          placeholder="Формулировка вопроса..."
-        />
-        <div className="additional">
-          <div className="comment-title">Дополнительный комментарий</div>
-          <StyledTextArea
-            onChange={(e) => setComment(e.target.value)}
-            value={comment}
-            placeholder={placeholderForTextArea}
+    <>
+      <Title>iqa: добавить вопрос</Title>
+      <StyledQuestionWrapper className="container">
+        {questionsError && (
+          <Alert onClose={() => dispatch(resetStatus())} color="danger">
+            {questionsError}
+          </Alert>
+        )}
+        {tagsError && (
+          <Alert onClose={() => dispatch(resetTagStatus())} color="danger">
+            {tagsError}
+          </Alert>
+        )}
+        {questionsSuccess && (
+          <Alert onClose={() => dispatch(resetSuccess())}>
+            Вопрос добавлен!
+          </Alert>
+        )}
+        <Paper>
+          <div className="question-title">Как звучит вопрос?</div>
+          <Input
+            onChange={(e) => setQuestion(e.target.value)}
+            value={question}
+            placeholder="Формулировка вопроса..."
           />
-          <div className="tag-title">Теги</div>
-          <StyledTagWrapper>
-            {tags.map((tag) => (
-              <Tag key={tag._id} onRemove={() => dispatch(removeTag(tag._id))}>
-                {tag.name}
-              </Tag>
-            ))}
-            {/* todo убрать дублирование ниже */}
-            {!editMode && (
-              <button
-                onClick={() => setEditMode(true)}
-                type="button"
-                className="new-tag"
-              >
-                <PlusIcon />
-                <span>New tag</span>
-              </button>
-            )}
-            {editMode && (
-              <button
-                onBlur={() => setEditMode(false)}
-                type="button"
-                className="new-tag"
-              >
-                <PlusIcon />
-                <input
-                  value={tagValue}
-                  onKeyPress={handleKeyPress}
-                  onChange={(e) => setTagValue(e.target.value)}
-                  ref={callbackRef}
-                />
-              </button>
-            )}
-          </StyledTagWrapper>
-        </div>
-        <div className="buttons">
-          <Button
-            loading={questionsLoading}
-            onClick={handleCreate}
-            color="primary"
-          >
-            Добавить
-          </Button>
-          <Link to="/" className="cancel">
-            <Typography color="gray">Отмена</Typography>
-          </Link>
-        </div>
-      </Paper>
-    </StyledQuestionWrapper>
+          <div className="additional">
+            <div className="comment-title">Дополнительный комментарий</div>
+            <StyledTextArea
+              onChange={(e) => setComment(e.target.value)}
+              value={comment}
+              placeholder={placeholderForTextArea}
+            />
+            <div className="tag-title">Теги</div>
+            <StyledTagWrapper>
+              {tags.map((tag) => (
+                <Tag
+                  key={tag._id}
+                  onRemove={() => dispatch(removeTag(tag._id))}
+                >
+                  {tag.name}
+                </Tag>
+              ))}
+              {/* todo убрать дублирование ниже */}
+              {!editMode && (
+                <button
+                  onClick={() => setEditMode(true)}
+                  type="button"
+                  className="new-tag"
+                >
+                  <PlusIcon />
+                  <span>New tag</span>
+                </button>
+              )}
+              {editMode && (
+                <button
+                  onBlur={() => setEditMode(false)}
+                  type="button"
+                  className="new-tag"
+                >
+                  <PlusIcon />
+                  <input
+                    value={tagValue}
+                    onKeyPress={handleKeyPress}
+                    onChange={(e) => setTagValue(e.target.value)}
+                    ref={callbackRef}
+                  />
+                </button>
+              )}
+            </StyledTagWrapper>
+          </div>
+          <div className="buttons">
+            <Button
+              loading={questionsLoading}
+              onClick={handleCreate}
+              color="primary"
+            >
+              Добавить
+            </Button>
+            <Link to="/" className="cancel">
+              <Typography color="gray">Отмена</Typography>
+            </Link>
+          </div>
+        </Paper>
+      </StyledQuestionWrapper>
+    </>
   );
 };
 
