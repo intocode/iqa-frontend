@@ -1,7 +1,6 @@
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAuth } from '../../common/context/Auth/useAuth';
-import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
 import { Typography } from '../ui/Typography';
 import { Logo } from './Logo';
@@ -32,11 +31,11 @@ export const Header = () => {
             <Link to="/" className="header_link">
               <Typography>Главная</Typography>
             </Link>
-            <Link to="/favorites" className="header_link">
+            {/* <Link to="/favorites" className="header_link">
               <Badge content={5}>
                 <Typography>Избранные</Typography>
               </Badge>
-            </Link>
+            </Link> */}
           </div>
           <div className="col-auto">
             {token ? (
