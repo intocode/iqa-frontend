@@ -56,7 +56,7 @@ export const Rate = ({
   ...props
 }) => (
   <StyledRate {...props} currentRate={currentRate}>
-   {/* the props are passed in StyledArrowButton because of problems with testing styled components */}
+    {/* the props are passed in StyledArrowButton because of problems with testing styled components */}
     <StyledArrowButton {...props} isUpped={isUpped} onClick={onUp}>
       <svg
         width="14"

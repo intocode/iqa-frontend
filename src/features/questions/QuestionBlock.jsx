@@ -61,7 +61,7 @@ const StyledPaperHeader = styled.div`
 
 const StyledQuestion = styled.div`
   margin-bottom: 40px;
-`
+`;
 
 export const QuestionBlock = ({ question }) => {
   return (
@@ -74,9 +74,11 @@ export const QuestionBlock = ({ question }) => {
             <div>добавлено {dayjs(question.createdAt).fromNow()}</div>
           </StyledQuestionHeader>
           <StyledTag>
-          {question.tags.map((tag) => (
-              <Tag noGutters key={tag.name} >{tag.name}</Tag>
-          ))}
+            {question.tags.map((tag) => (
+              <Tag noGutters key={tag.name}>
+                {tag.name}
+              </Tag>
+            ))}
           </StyledTag>
         </StyledPaperHeader>
         <StyledQuestion>
