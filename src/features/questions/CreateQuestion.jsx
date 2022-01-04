@@ -205,7 +205,7 @@ const CreateQuestion = () => {
               value={comment}
               placeholder={placeholderForTextArea}
             />
-            <div className="tag-title">Теги</div>
+            <div className="tag-title">Теги *</div>
             <StyledTagWrapper>
               {tags.map((tag) => (
                 <Tag
@@ -248,6 +248,7 @@ const CreateQuestion = () => {
               loading={questionsLoading}
               onClick={handleCreate}
               color="primary"
+              disabled={!tags.length}
             >
               Добавить
             </Button>
