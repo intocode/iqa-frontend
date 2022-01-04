@@ -243,6 +243,7 @@ const CreateQuestion = () => {
               loading={questionsLoading}
               onClick={handleCreate}
               color="primary"
+              disabled={!tags.length}
             >
               Добавить
             </Button>
