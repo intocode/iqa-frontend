@@ -5,7 +5,6 @@ import {
   selectQuestions,
   selectQuestionsLoading,
 } from './questionsSlice';
-import { Typography } from '../../components/ui';
 import { QuestionBlock } from './QuestionBlock';
 import { QuestionsListPlaceholder } from './QuestionsListPlaceholder';
 import { Title } from '../../app/Title/Title';
@@ -27,9 +26,6 @@ export const QuestionsList = () => {
         <div className="row justify-content-between align-items-center my-3">
           <div className="col">
             <h2>Все вопросы</h2>
-          </div>
-          <div className="col-auto">
-            <Typography>Показать популярные</Typography>
           </div>
         </div>
         {loading && <QuestionsListPlaceholder />}
