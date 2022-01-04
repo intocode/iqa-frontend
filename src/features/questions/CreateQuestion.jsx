@@ -186,6 +186,11 @@ const CreateQuestion = () => {
             Вопрос добавлен!
           </Alert>
         )}
+        <div className="row justify-content-between align-items-center my-3">
+          <div className="col">
+            <h3>Добавление вопроса</h3>
+          </div>
+        </div>
         <Paper>
           <div className="question-title">Как звучит вопрос?</div>
           <Input
