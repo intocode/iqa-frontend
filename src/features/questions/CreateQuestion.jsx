@@ -92,6 +92,7 @@ const StyledQuestionWrapper = styled.div`
 `;
 
 const StyledTextArea = styled.textarea`
+  font-family: inherit;
   width: 100%;
   height: 130px;
   border: 1px solid #e4e7ed;
