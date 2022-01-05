@@ -25,8 +25,8 @@ const StyledQuestionHeader = styled.div`
   display: flex;
   align-items: center;
   & > img {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     margin-right: 10px;
     border-radius: 24px;
   }
@@ -56,7 +56,7 @@ const StyledPaperHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 `;
 
 const StyledQuestion = styled.div`

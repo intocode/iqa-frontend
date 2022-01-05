@@ -35,11 +35,11 @@ const StyledQuestionWrapper = styled.div`
   & .question-title,
   .comment-title,
   .tag-title {
-    margin-bottom: 8px;
+    margin: 30px 0 10px;
   }
 
   & .additional {
-    margin: 20px 0;
+    margin: 30px 0;
   }
 
   & .buttons {
@@ -98,8 +98,11 @@ const StyledTextArea = styled.textarea`
   border: 1px solid #e4e7ed;
   border-radius: 4px;
   padding: 8px;
-  margin-bottom: 8px;
   outline: none;
+  &::-webkit-input-placeholder {
+    color: rgba(192, 196, 204, 1);
+  }
+  font-family: 'Noto Sans SC';
 `;
 
 const StyledTagWrapper = styled.div`
@@ -109,6 +112,10 @@ const StyledTagWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+`;
+
+const StyledTitle = styled.div`
+  margin: 20px 0;
 `;
 
 const PlusIcon = () => (
@@ -187,11 +194,9 @@ const CreateQuestion = () => {
             Вопрос добавлен!
           </Alert>
         )}
-        <div className="row justify-content-between align-items-center my-3">
-          <div className="col">
-            <h3>Добавление вопроса</h3>
-          </div>
-        </div>
+        <StyledTitle>
+          <h3>Добавление вопроса</h3>
+        </StyledTitle>
         <Paper>
           <div className="question-title">Как звучит вопрос?</div>
           <Input
