@@ -7,6 +7,10 @@ const StyledInput = styled.input`
   padding: 8px;
   outline: 0;
   box-sizing: border-box;
+  &::-webkit-input-placeholder {
+    color: rgba(192, 196, 204, 1);
+  }
+  font-family: 'Noto Sans SC';
 `;
 
 export const Input = (props) => {

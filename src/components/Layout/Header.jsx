@@ -6,6 +6,7 @@ import { Typography } from '../ui/Typography';
 import { Logo } from './Logo';
 
 const StyledHeader = styled.div`
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   background-color: white;
   .header_link {
     text-decoration: none;
@@ -20,7 +21,7 @@ export const Header = () => {
 
   return (
     <StyledHeader>
-      <div className="container mb-2 py-2">
+      <div className="container mb-2 py-3">
         <div className="row align-items-center">
           <div className="col d-flex align-items-center">
             <div className="me-3">
