@@ -15,7 +15,11 @@ export const QuestionsList = () => {
   const questions = useSelector(selectQuestions);
   const loading = useSelector(selectQuestionsLoading);
 
-  useEffect(() => dispatch(fetchQuestions()), [dispatch]);
+  useEffect(() => {
+    if (!questions.length) {
+      dispatch(fetchQuestions());
+    }
+  }, [dispatch, questions]);
 
   // todo: добавить прелоадер
 

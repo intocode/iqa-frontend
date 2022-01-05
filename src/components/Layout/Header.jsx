@@ -1,9 +1,11 @@
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 import { useAuth } from '../../common/context/Auth/useAuth';
 import { Button } from '../ui/Button';
 import { Typography } from '../ui/Typography';
 import { Logo } from './Logo';
+import { fetchQuestions } from '../../features/questions/questionsSlice';
 
 const StyledHeader = styled.div`
   background-color: white;
@@ -14,9 +16,14 @@ const StyledHeader = styled.div`
 
 export const Header = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const { token, executeLoggingInProcess, logout } = useAuth();
 
   const handleAddQuestion = () => history.push('/create');
+
+  const handleToMain = () => {
+    dispatch(fetchQuestions());
+  };
 
   return (
     <StyledHeader>
@@ -24,7 +31,7 @@ export const Header = () => {
         <div className="row align-items-center">
           <div className="col d-flex align-items-center">
             <div className="me-3">
-              <Link to="/">
+              <Link to="/" onClick={handleToMain}>
                 <Logo />
               </Link>
             </div>
