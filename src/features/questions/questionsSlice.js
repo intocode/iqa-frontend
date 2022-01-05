@@ -18,6 +18,19 @@ export const fetchQuestions = createAsyncThunk(
   }
 );
 
+export const fetchQuestionById = createAsyncThunk(
+  'questions/fetchById',
+  async (id = null, thunkAPI) => {
+    try {
+      const response = await axios.get(`/questions/${id}`);
+
+      return response.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
 export const addQuestion = createAsyncThunk(
   'questions/add',
   async (data, thunkAPI) => {
@@ -45,6 +58,7 @@ const questionsSlice = createSlice({
   name: 'questions',
   initialState: {
     questions: [],
+    openedQuestion: null,
     loading: false,
     processingRate: false,
     error: '',
@@ -65,6 +79,14 @@ const questionsSlice = createSlice({
     [fetchQuestions.fulfilled]: (state, action) => {
       state.loading = false;
       state.questions = action.payload;
+    },
+
+    [fetchQuestionById.pending]: (state) => {
+      state.loading = true;
+    },
+    [fetchQuestionById.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.openedQuestion = action.payload;
     },
 
     [addQuestion.pending]: (state) => {
@@ -128,6 +150,11 @@ export const selectQuestionsError = createSelector(
 export const selectQuestions = createSelector(
   selectQuestionsState,
   (state) => state.questions
+);
+
+export const selectOpenedQuestion = createSelector(
+  selectQuestionsState,
+  (state) => state.openedQuestion
 );
 
 export const { resetStatus, resetSuccess } = questionsSlice.actions;

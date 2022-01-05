@@ -7,7 +7,11 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import calendar from 'dayjs/plugin/calendar';
 import 'dayjs/locale/ru';
 import { Paper, Tag, Typography } from '../../components/ui';
-import { fetchQuestions, selectQuestionById } from './questionsSlice';
+import {
+  fetchQuestionById,
+  fetchQuestions,
+  selectOpenedQuestion,
+} from './questionsSlice';
 import QuestionRate from './QuestionRate';
 
 const StyledQuestionBlock = styled.div`
@@ -72,9 +76,10 @@ dayjs.locale('ru');
 const QuestionPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const question = useSelector(selectQuestionById(id));
+  const question = useSelector(selectOpenedQuestion);
 
   useEffect(() => dispatch(fetchQuestions()), [dispatch]);
+  useEffect(() => dispatch(fetchQuestionById(id)), [dispatch, id]);
 
   return (
     <StyledQuestionBlock>
@@ -101,7 +106,7 @@ const QuestionPage = () => {
         </StyledPaperHeader>
         <h3>{question?.question}</h3>
         <StyledComment>{question?.comment}</StyledComment>
-        <QuestionRate id={id} />
+        {question ? <QuestionRate id={id} /> : 'Загрузка...'}
       </Paper>
     </StyledQuestionBlock>
   );
