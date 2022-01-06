@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -156,6 +156,15 @@ const CreateQuestion = () => {
   const [comment, setComment] = useState('');
   const [tagValue, setTagValue] = useState('');
   const [editMode, setEditMode] = useState(false);
+  const [manyQuestions, setManyQuestions] = useState(false);
+
+  useEffect(() => {
+    if (/\?[^?]+\?/.test(question)) {
+      setManyQuestions(true);
+    } else {
+      setManyQuestions(false);
+    }
+  }, [question]);
 
   const callbackRef = useCallback((inputElement) => {
     if (inputElement) {
@@ -213,6 +222,11 @@ const CreateQuestion = () => {
             <img src={profile.avatarUrl} alt="" />
             <p>{profile.name}</p>
           </StyledProfile>
+          {manyQuestions && (
+            <Alert color="warning">
+              В одном посте рекомендуется публиковать только один вопрос.
+            </Alert>
+          )}
           <div className="question-title">Как звучит вопрос?</div>
           <Input
             onChange={(e) => setQuestion(e.target.value)}
