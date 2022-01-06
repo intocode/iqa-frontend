@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react';
+import React, { memo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Rate } from '../../components/ui';
@@ -18,12 +18,12 @@ const QuestionRate = ({ id }) => {
   let isUpped = false;
   let isDowned = false;
 
-  const valueRate = useMemo(
+  const valueRate = useCallback(
     () => question.rates.reduce((acc, item) => acc + item.volume, 0),
     [question]
   );
 
-  if (token) {
+  if (question && token) {
     question.rates.forEach((item) => {
       if (item.user === profile._id && item.volume === 1) {
         isUpped = true;
@@ -49,7 +49,7 @@ const QuestionRate = ({ id }) => {
       isDowned={isDowned}
       onUp={() => handleChangeRate({ volume: 1, id: question._id })}
       onDown={() => handleChangeRate({ volume: -1, id: question._id })}
-      currentRate={valueRate}
+      currentRate={question ? valueRate() : 'load...'}
     />
   );
 };
