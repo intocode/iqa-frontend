@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Paper, Typography, Tag } from '../../components/ui';
+import { Typography, Tag, Paper } from '../../components/ui';
 import QuestionRate from './QuestionRate';
 
 dayjs.extend(relativeTime);
@@ -63,38 +63,88 @@ const StyledQuestion = styled.div`
   margin-bottom: 40px;
 `;
 
-export const QuestionBlock = ({ question }) => {
+const StyledBorderBottom = styled.div`
+  border-bottom: 1px solid #f5f5f5;
+`;
+
+const StyledQuestionBottomBlock = styled.div`
+  width: 390px;
+  display: flex;
+  justify-content: space-between;
+  & > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    & > img {
+      margin-right: 5px;
+    }
+  }
+`;
+
+// const StyledFavorites = styled.p`
+//   color: #e6a23c;
+//   font-weight: 400;
+//   font-size: 12px;
+// `;
+//
+// const StyledComments = styled.p`
+//   color: #409eff;
+//   font-weight: 400;
+//   font-size: 12px;
+// `;
+
+export const QuestionBlock = ({ question, isCompactView }) => {
+  const QuestionWrapper = isCompactView ? React.Fragment : Paper;
+
   return (
     <StyledQuestionBlock>
-      <Paper>
-        <StyledPaperHeader>
-          <StyledQuestionHeader>
-            <img src={question.user?.avatar?.thumbnail} alt="" />
-            <p>{question.user.name}</p>
-            <div>добавлено {dayjs(question.createdAt).fromNow()}</div>
-          </StyledQuestionHeader>
-          <StyledTag>
-            {question.tags.map((tag) => (
-              <Tag noGutters key={tag.name}>
-                {tag.name}
-              </Tag>
-            ))}
-          </StyledTag>
-        </StyledPaperHeader>
+      <QuestionWrapper>
+        {!isCompactView && (
+          <StyledPaperHeader>
+            <StyledQuestionHeader>
+              <img src={question.user?.avatar?.thumbnail} alt="" />
+              <p>{question.user.name}</p>
+              <div>добавлено {dayjs(question.createdAt).fromNow()}</div>
+            </StyledQuestionHeader>
+            <StyledTag>
+              {question.tags.map((tag) => (
+                <Tag noGutters key={tag.name}>
+                  {tag.name}
+                </Tag>
+              ))}
+            </StyledTag>
+          </StyledPaperHeader>
+        )}
         <StyledQuestion>
-          <Typography variant="header">
+          <Typography variant={isCompactView ? 'caption' : 'header'}>
             <StyledLink to={`/question/${question._id}`}>
               {question.question}
             </StyledLink>
           </Typography>
         </StyledQuestion>
-        <QuestionRate id={question._id} />
-      </Paper>
+        <StyledQuestionBottomBlock>
+          <QuestionRate id={question._id} />
+          {/* isCompactView && (
+          <>
+            <div>
+              <img src={comments} alt="" />
+              <StyledComments>Обсуждение</StyledComments>
+            </div>
+            <div>
+              <img src={favorites} alt="" />
+              <StyledFavorites>Добавить в избранное</StyledFavorites>
+            </div>
+          </>
+        ) */}
+        </StyledQuestionBottomBlock>
+        {isCompactView && <StyledBorderBottom />}
+      </QuestionWrapper>
     </StyledQuestionBlock>
   );
 };
 
 QuestionBlock.propTypes = {
+  isCompactView: PropTypes.bool.isRequired,
   question: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     question: PropTypes.string.isRequired,

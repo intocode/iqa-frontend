@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchQuestions,
@@ -8,6 +8,7 @@ import {
 import { QuestionBlock } from './QuestionBlock';
 import { QuestionsListPlaceholder } from './QuestionsListPlaceholder';
 import { Title } from '../../app/Title/Title';
+import { Paper } from '../../components/ui';
 
 export const QuestionsList = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,10 @@ export const QuestionsList = () => {
 
   // todo: добавить прелоадер
 
+  const isCompactView = false;
+
+  const QuestionWrapper = isCompactView ? Paper : React.Fragment;
+
   return (
     <>
       <Title>iqa: все вопросы</Title>
@@ -33,9 +38,15 @@ export const QuestionsList = () => {
           </div>
         </div>
         {loading && <QuestionsListPlaceholder />}
-        {questions.map((question) => (
-          <QuestionBlock key={question._id} question={question} />
-        ))}
+        <QuestionWrapper>
+          {questions.map((question) => (
+            <QuestionBlock
+              key={question._id}
+              isCompactView={isCompactView}
+              question={question}
+            />
+          ))}
+        </QuestionWrapper>
       </div>
     </>
   );
