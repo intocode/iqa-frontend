@@ -118,6 +118,17 @@ const StyledTitle = styled.div`
   margin: 20px 0;
 `;
 
+const StyledProfile = styled.div`
+  display: flex;
+  align-items: center;
+  & > img {
+    width: 36px;
+    height: 36px;
+    border-radius: 24px;
+    margin-right: 10px;
+  }
+`;
+
 const PlusIcon = () => (
   <svg
     width="12"
@@ -198,6 +209,10 @@ const CreateQuestion = () => {
           <h3>Добавление вопроса</h3>
         </StyledTitle>
         <Paper>
+          <StyledProfile>
+            <img src={profile.avatarUrl} alt="" />
+            <p>{profile.name}</p>
+          </StyledProfile>
           <div className="question-title">Как звучит вопрос?</div>
           <Input
             onChange={(e) => setQuestion(e.target.value)}
@@ -212,7 +227,7 @@ const CreateQuestion = () => {
               placeholder={placeholderForTextArea}
             />
             <div className="tag-title">
-              Теги <sup>*</sup>
+              Теги<sup>*</sup>
             </div>
             <StyledTagWrapper>
               {tags.map((tag) => (
