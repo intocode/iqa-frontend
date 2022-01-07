@@ -227,7 +227,9 @@ const CreateQuestion = () => {
               В одном посте рекомендуется публиковать только один вопрос.
             </Alert>
           )}
-          <div className="question-title">Как звучит вопрос?</div>
+          <div className="question-title">
+            Как звучит вопрос?<sup>*</sup>
+          </div>
           <Input
             onChange={(e) => setQuestion(e.target.value)}
             value={question}
