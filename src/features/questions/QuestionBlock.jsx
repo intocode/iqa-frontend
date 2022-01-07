@@ -104,7 +104,7 @@ export const QuestionBlock = ({ question, isCompactView }) => {
             <StyledQuestionHeader>
               <img src={question.user?.avatar?.thumbnail} alt="" />
               <p>{question.user.name}</p>
-              <div>добавлено {dayjs(question.createdAt).fromNow()}</div>
+              <div>добавлен {dayjs(question.createdAt).fromNow()}</div>
             </StyledQuestionHeader>
             <StyledTag>
               {question.tags.map((tag) => (
