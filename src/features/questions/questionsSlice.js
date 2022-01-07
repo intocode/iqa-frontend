@@ -20,7 +20,7 @@ export const fetchQuestions = createAsyncThunk(
 
 export const fetchQuestionById = createAsyncThunk(
   'questions/fetchById',
-  async (id = null, thunkAPI) => {
+  async (id, thunkAPI) => {
     try {
       const response = await axios.get(`/questions/${id}`);
 
