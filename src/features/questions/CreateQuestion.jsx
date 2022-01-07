@@ -92,7 +92,6 @@ const StyledQuestionWrapper = styled.div`
 `;
 
 const StyledTextArea = styled.textarea`
-  font-family: inherit;
   width: 100%;
   height: 130px;
   border: 1px solid #e4e7ed;
@@ -102,7 +101,7 @@ const StyledTextArea = styled.textarea`
   &::-webkit-input-placeholder {
     color: rgba(192, 196, 204, 1);
   }
-  font-family: 'Noto Sans SC';
+  font-family: inherit;
 `;
 
 const StyledTagWrapper = styled.div`
