@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchQuestions,
+  resetSuccess,
   selectQuestions,
   selectQuestionsLoading,
 } from './questionsSlice';
@@ -21,6 +22,11 @@ export const QuestionsList = () => {
       dispatch(fetchQuestions());
     }
   }, [dispatch, questions]);
+
+  // очистка сообщения об успешном добавлении вопроса
+  useEffect(() => {
+    dispatch(resetSuccess());
+  }, [dispatch]);
 
   // todo: добавить прелоадер
 

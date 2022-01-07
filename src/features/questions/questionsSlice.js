@@ -4,6 +4,7 @@ import {
   createSlice,
 } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { clearTags } from '../tags/tagsSlice';
 
 export const fetchQuestions = createAsyncThunk(
   'questions/fetch',
@@ -36,6 +37,8 @@ export const addQuestion = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const response = await axios.post('/questions', data);
+
+      thunkAPI.dispatch(clearTags());
 
       return response.data;
     } catch (error) {

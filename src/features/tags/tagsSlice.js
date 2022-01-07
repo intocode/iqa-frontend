@@ -52,6 +52,10 @@ const tagsSlice = createSlice({
     resetTagStatus: (state) => {
       state.error = '';
     },
+    clearTags: (state) => {
+      // очистка массива с тегами после добавления вопроса
+      state.tags = [];
+    },
   },
   extraReducers: {
     [fetchTags.pending]: (state) => {
@@ -94,6 +98,6 @@ export const selectTagsError = createSelector(
   (state) => state.error
 );
 
-export const { removeTag, resetTagStatus } = tagsSlice.actions;
+export const { removeTag, resetTagStatus, clearTags } = tagsSlice.actions;
 
 export default tagsSlice.reducer;
