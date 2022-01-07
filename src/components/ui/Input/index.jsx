@@ -10,7 +10,7 @@ const StyledInput = styled.input`
   &::-webkit-input-placeholder {
     color: rgba(192, 196, 204, 1);
   }
-  font-family: 'Noto Sans SC';
+  font-family: inherit;
 `;
 
 export const Input = (props) => {
