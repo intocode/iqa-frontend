@@ -25,6 +25,9 @@ module.exports = {
     ],
 
     'no-underscore-dangle': ['error', { allow: ['_id'] }],
+
+    // свойство появилось в cra@5
+    'react/function-component-definition': 'off',
   },
   overrides: [
     {

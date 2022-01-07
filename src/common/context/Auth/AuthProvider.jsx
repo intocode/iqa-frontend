@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { AuthContext } from './index';
@@ -30,10 +30,13 @@ export const AuthProvider = ({ children }) => {
     return Promise.reject(error);
   });
 
+  const authValue = useMemo(
+    () => ({ token, setAuthToken }),
+    [token, setAuthToken]
+  );
+
   return (
-    <AuthContext.Provider value={{ token, setAuthToken }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
   );
 };
 
