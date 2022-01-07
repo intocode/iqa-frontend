@@ -218,7 +218,7 @@ const CreateQuestion = () => {
         </StyledTitle>
         <Paper>
           <StyledProfile>
-            <img src={profile.avatarUrl} alt="" />
+            <img src={profile.avatar?.thumbnail} alt="" />
             <p>{profile.name}</p>
           </StyledProfile>
           {manyQuestions && (
