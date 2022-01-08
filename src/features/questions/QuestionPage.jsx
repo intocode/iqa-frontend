@@ -11,8 +11,9 @@ import {
   fetchQuestionById,
   fetchQuestions,
   selectOpenedQuestion,
+  selectQuestionsLoading,
 } from './questionsSlice';
-import QuestionRate from './QuestionRate';
+import { QuestionPagePlaceholder } from './QuestionPagePlaceholder';
 
 const StyledQuestionBlock = styled.div`
   max-width: 820px;
@@ -77,6 +78,7 @@ const QuestionPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const question = useSelector(selectOpenedQuestion);
+  const loading = useSelector(selectQuestionsLoading);
 
   useEffect(() => dispatch(fetchQuestions()), [dispatch]);
   useEffect(() => dispatch(fetchQuestionById(id)), [dispatch, id]);
@@ -89,25 +91,28 @@ const QuestionPage = () => {
           <Typography>Вернуться назад</Typography>
         </StyledLink>
       </StyledQuestionHeader>
-      <Paper>
-        <StyledPaperHeader>
-          <StyledAvatar>
-            <img src={question?.user?.avatar?.thumbnail} alt="" />
-            <p>{question?.name}</p>
-            <div>добавлено {dayjs(question?.createdAt).fromNow()}</div>
-          </StyledAvatar>
-          <StyledTag>
-            {question?.tags.map((tag) => (
-              <Tag key={tag.name} noGutters>
-                {tag.name}
-              </Tag>
-            ))}
-          </StyledTag>
-        </StyledPaperHeader>
-        <h3>{question?.question}</h3>
-        <StyledComment>{question?.comment}</StyledComment>
-        {question ? <QuestionRate id={id} /> : 'Загрузка...'}
-      </Paper>
+      {loading ? (
+        <QuestionPagePlaceholder />
+      ) : (
+        <Paper>
+          <StyledPaperHeader>
+            <StyledAvatar>
+              <img src={question?.user?.avatar?.thumbnail} alt="" />
+              <p>{question?.name}</p>
+              <div>добавлено {dayjs(question?.createdAt).fromNow()}</div>
+            </StyledAvatar>
+            <StyledTag>
+              {question?.tags.map((tag) => (
+                <Tag key={tag.name} noGutters>
+                  {tag.name}
+                </Tag>
+              ))}
+            </StyledTag>
+          </StyledPaperHeader>
+          <h3>{question?.question}</h3>
+          <StyledComment>{question?.comment}</StyledComment>
+        </Paper>
+      )}
     </StyledQuestionBlock>
   );
 };
