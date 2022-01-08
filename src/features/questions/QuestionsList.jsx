@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchQuestions,
@@ -10,6 +10,7 @@ import { QuestionBlock } from './QuestionBlock';
 import { QuestionsListPlaceholder } from './QuestionsListPlaceholder';
 import { Title } from '../../app/Title/Title';
 import { Paper } from '../../components/ui';
+import { Switch } from '../../components/ui/Switch';
 
 export const QuestionsList = () => {
   const dispatch = useDispatch();
@@ -28,11 +29,11 @@ export const QuestionsList = () => {
     dispatch(resetSuccess());
   }, [dispatch]);
 
+  const [isCompactMode, setIsCompactMode] = useState(false);
+
   // todo: добавить прелоадер
 
-  const isCompactView = false;
-
-  const QuestionWrapper = isCompactView ? Paper : React.Fragment;
+  const QuestionWrapper = isCompactMode ? Paper : React.Fragment;
 
   return (
     <>
@@ -42,13 +43,22 @@ export const QuestionsList = () => {
           <div className="col">
             <h2>Все вопросы</h2>
           </div>
+          <div className="col-auto">
+            <Switch
+              on={isCompactMode}
+              onChange={() => setIsCompactMode(!isCompactMode)}
+              disabled={false}
+            >
+              Компактный вид
+            </Switch>
+          </div>
         </div>
         {loading && <QuestionsListPlaceholder />}
         <QuestionWrapper>
           {questions.map((question) => (
             <QuestionBlock
               key={question._id}
-              isCompactView={isCompactView}
+              isCompactMode={isCompactMode}
               question={question}
             />
           ))}

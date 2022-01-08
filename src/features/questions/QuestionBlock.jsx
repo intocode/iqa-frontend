@@ -93,13 +93,13 @@ const StyledQuestionBottomBlock = styled.div`
 //   font-size: 12px;
 // `;
 
-export const QuestionBlock = ({ question, isCompactView }) => {
-  const QuestionWrapper = isCompactView ? React.Fragment : Paper;
+export const QuestionBlock = ({ question, isCompactMode }) => {
+  const QuestionWrapper = isCompactMode ? React.Fragment : Paper;
 
   return (
     <StyledQuestionBlock>
       <QuestionWrapper>
-        {!isCompactView && (
+        {!isCompactMode && (
           <StyledPaperHeader>
             <StyledQuestionHeader>
               <img src={question.user?.avatar?.thumbnail} alt="" />
@@ -116,7 +116,7 @@ export const QuestionBlock = ({ question, isCompactView }) => {
           </StyledPaperHeader>
         )}
         <StyledQuestion>
-          <Typography variant={isCompactView ? 'caption' : 'header'}>
+          <Typography variant={isCompactMode ? 'caption' : 'header'}>
             <StyledLink to={`/question/${question._id}`}>
               {question.question}
             </StyledLink>
@@ -124,7 +124,7 @@ export const QuestionBlock = ({ question, isCompactView }) => {
         </StyledQuestion>
         <StyledQuestionBottomBlock>
           <QuestionRate id={question._id} />
-          {/* isCompactView && (
+          {/* isCompactMode && (
           <>
             <div>
               <img src={comments} alt="" />
@@ -137,14 +137,14 @@ export const QuestionBlock = ({ question, isCompactView }) => {
           </>
         ) */}
         </StyledQuestionBottomBlock>
-        {isCompactView && <StyledBorderBottom />}
+        {isCompactMode && <StyledBorderBottom />}
       </QuestionWrapper>
     </StyledQuestionBlock>
   );
 };
 
 QuestionBlock.propTypes = {
-  isCompactView: PropTypes.bool.isRequired,
+  isCompactMode: PropTypes.bool.isRequired,
   question: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     question: PropTypes.string.isRequired,

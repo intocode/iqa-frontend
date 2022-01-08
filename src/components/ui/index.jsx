@@ -9,6 +9,7 @@ import { Select } from './Select';
 import { SelectItem } from './Select/SelectItem';
 import { Tag } from './Tag';
 import { Typography } from './Typography';
+import { Switch } from './Switch';
 
 export {
   Alert,
@@ -22,4 +23,5 @@ export {
   SelectItem,
   Tag,
   Typography,
+  Switch,
 };
