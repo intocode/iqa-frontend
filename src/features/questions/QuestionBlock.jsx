@@ -73,7 +73,7 @@ export const QuestionBlock = ({ question }) => {
             <p>{question.user.name}</p>
             <div>добавлено {dayjs(question.createdAt).fromNow()}</div>
           </StyledQuestionHeader>
-          <StyledTag>
+          <StyledTag className="d-none d-md-block">
             {question.tags.map((tag) => (
               <Tag noGutters key={tag.name}>
                 {tag.name}
