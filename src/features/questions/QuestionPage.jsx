@@ -14,6 +14,7 @@ import {
   selectQuestionsLoading,
 } from './questionsSlice';
 import { QuestionPagePlaceholder } from './QuestionPagePlaceholder';
+import QuestionRate from './QuestionRate';
 
 const StyledQuestionBlock = styled.div`
   max-width: 820px;
@@ -111,6 +112,7 @@ const QuestionPage = () => {
           </StyledPaperHeader>
           <h3>{question?.question}</h3>
           <StyledComment>{question?.comment}</StyledComment>
+          {question ? <QuestionRate id={id} /> : 'Загрузка...'}
         </Paper>
       )}
     </StyledQuestionBlock>
