@@ -15,6 +15,7 @@ import {
 } from './questionsSlice';
 import { QuestionPagePlaceholder } from './QuestionPagePlaceholder';
 import QuestionRate from './QuestionRate';
+import QuestionComments from './QuestionComments';
 
 const StyledQuestionBlock = styled.div`
   max-width: 820px;
@@ -71,6 +72,11 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
+const StyledLine = styled.hr`
+  margin-top: 30px;
+  border: 1px solid #f5f5f5;
+`;
+
 dayjs.extend(relativeTime);
 dayjs.extend(calendar);
 dayjs.locale('ru');
@@ -113,6 +119,8 @@ const QuestionPage = () => {
           <h3>{question?.question}</h3>
           <StyledComment>{question?.comment}</StyledComment>
           {question ? <QuestionRate id={id} /> : 'Загрузка...'}
+          <StyledLine />
+          <QuestionComments />
         </Paper>
       )}
     </StyledQuestionBlock>
