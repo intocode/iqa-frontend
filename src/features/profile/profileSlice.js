@@ -18,7 +18,7 @@ export const fetchProfile = createAsyncThunk(
   }
 );
 
-export const addQuestionInFavorite = createAsyncThunk(
+export const addQuestionInFavorites = createAsyncThunk(
   'add/favorite',
   async (id, thunkAPI) => {
     try {
@@ -31,7 +31,7 @@ export const addQuestionInFavorite = createAsyncThunk(
   }
 );
 
-export const deleteQuestionInFavorite = createAsyncThunk(
+export const deleteQuestionFromFavorites = createAsyncThunk(
   'delete/favorite',
   async (id, thunkAPI) => {
     try {
@@ -48,6 +48,8 @@ const profileSlice = createSlice({
   name: 'profile',
   initialState: {
     loading: false,
+    addingToFavorites: false,
+    deletingFromFavorites: false,
     data: {},
   },
 
@@ -61,19 +63,19 @@ const profileSlice = createSlice({
       state.data = action.payload;
     },
 
-    [addQuestionInFavorite.pending]: (state) => {
-      state.loading = true;
+    [addQuestionInFavorites.pending]: (state) => {
+      state.addingToFavorites = true;
     },
-    [addQuestionInFavorite.fulfilled]: (state, action) => {
-      state.loading = false;
+    [addQuestionInFavorites.fulfilled]: (state, action) => {
+      state.addingToFavorites = false;
       state.data.favorites = action.payload;
     },
 
-    [deleteQuestionInFavorite.pending]: (state) => {
-      state.loading = true;
+    [deleteQuestionFromFavorites.pending]: (state) => {
+      state.deletingFromFavorites = true;
     },
-    [deleteQuestionInFavorite.fulfilled]: (state, action) => {
-      state.loading = false;
+    [deleteQuestionFromFavorites.fulfilled]: (state, action) => {
+      state.deletingFromFavorites = false;
       state.data.favorites = action.payload;
     },
   },

@@ -4,7 +4,7 @@ import calendar from 'dayjs/plugin/calendar';
 import 'dayjs/locale/ru';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Typography, Tag, Paper } from '../../components/ui';
@@ -13,8 +13,8 @@ import comments from '../../assets/comments.svg';
 import favorites from '../../assets/favorites.svg';
 import favoritesIn from '../../assets/favoritesIn.svg';
 import {
-  addQuestionInFavorite,
-  deleteQuestionInFavorite,
+  deleteQuestionFromFavorites,
+  addQuestionInFavorites,
   selectProfile,
 } from '../profile/profileSlice';
 import { useAuth } from '../../common/context/Auth/useAuth';
@@ -80,7 +80,6 @@ const StyledBorderBottom = styled.div`
 const StyledQuestionBottomBlock = styled.div`
   width: 390px;
   display: flex;
-  justify-content: space-between;
   & > div {
     display: flex;
     justify-content: space-between;
@@ -112,17 +111,17 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
 
   const QuestionWrapper = isCompactMode ? React.Fragment : Paper;
 
-  const questionByFavorites = user.favorites?.find(
-    (item) => item === question._id
-  );
+  const questionByFavorites = useMemo(() => {
+    return user.favorites?.find((item) => item === question._id);
+  }, [user.favorites, question]);
 
-  const logoFavorites = questionByFavorites ? favoritesIn : favorites;
+  const iconFavorites = questionByFavorites ? favoritesIn : favorites;
 
-  const handlePostOrDeleteQuestionInFavorite = () => {
+  const handleToggleFavorite = () => {
     if (questionByFavorites) {
-      dispatch(deleteQuestionInFavorite(question._id));
+      dispatch(deleteQuestionFromFavorites(question._id));
     } else {
-      dispatch(addQuestionInFavorite(question._id));
+      dispatch(addQuestionInFavorites(question._id));
     }
   };
 
@@ -154,25 +153,17 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
         </StyledQuestion>
         <StyledQuestionBottomBlock>
           <QuestionRate id={question._id} />
-          {isCompactMode && (
-            <>
-              <div>
-                <img src={comments} alt="" />
-                <StyledComments>Обсуждение</StyledComments>
-              </div>
-              {token && (
-                <div>
-                  <img src={logoFavorites} alt="" />
-                  <StyledFavorites
-                    onClick={handlePostOrDeleteQuestionInFavorite}
-                  >
-                    {questionByFavorites
-                      ? 'Удалить из избранных'
-                      : 'Добавить в избранные'}
-                  </StyledFavorites>
-                </div>
-              )}
-            </>
+          <div className="mx-4">
+            <img src={comments} alt="" />
+            <StyledComments>Обсуждение</StyledComments>
+          </div>
+          {token && (
+            <div>
+              <img src={iconFavorites} alt="" />
+              <StyledFavorites onClick={handleToggleFavorite}>
+                {questionByFavorites ? 'В избранном' : 'Добавить в избранные'}
+              </StyledFavorites>
+            </div>
           )}
         </StyledQuestionBottomBlock>
         {isCompactMode && <StyledBorderBottom />}
