@@ -92,7 +92,6 @@ const StyledQuestionWrapper = styled.div`
 `;
 
 const StyledTextArea = styled.textarea`
-  font-family: inherit;
   width: 100%;
   height: 130px;
   border: 1px solid #e4e7ed;
@@ -102,7 +101,7 @@ const StyledTextArea = styled.textarea`
   &::-webkit-input-placeholder {
     color: rgba(192, 196, 204, 1);
   }
-  font-family: 'Noto Sans SC';
+  font-family: inherit;
 `;
 
 const StyledTagWrapper = styled.div`
@@ -219,7 +218,7 @@ const CreateQuestion = () => {
         </StyledTitle>
         <Paper>
           <StyledProfile>
-            <img src={profile.avatarUrl} alt="" />
+            <img src={profile.avatar?.thumbnail} alt="" />
             <p>{profile.name}</p>
           </StyledProfile>
           {manyQuestions && (
@@ -227,7 +226,9 @@ const CreateQuestion = () => {
               В одном посте рекомендуется публиковать только один вопрос.
             </Alert>
           )}
-          <div className="question-title">Как звучит вопрос?</div>
+          <div className="question-title">
+            Как звучит вопрос?<sup>*</sup>
+          </div>
           <Input
             onChange={(e) => setQuestion(e.target.value)}
             value={question}
