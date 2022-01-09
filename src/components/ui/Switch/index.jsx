@@ -7,6 +7,7 @@ const StyledSwitch = styled.label`
   display: inline-block;
   width: 40px;
   height: 20px;
+  margin-right: 123px;
 
   input {
     opacity: 0;
@@ -50,22 +51,25 @@ const StyledSwitch = styled.label`
   }
 `;
 
-const StyledSwitchText = styled.span`
+const StyledSwitchText = styled.div`
+  position: absolute;
+  top: 3px;
+  left: 50px;
+  bottom: 2px;
+  width: 113px;
   font-size: 14px;
   line-height: 16px;
-  margin-left: 12px;
-  color: ${(props) => (props.on && '#409EFF') || '#000000'};
+  cursor: pointer;
+  color: #409eff;
 `;
 
 export const Switch = ({ children, ...props }) => {
   return (
-    <>
-      <StyledSwitch {...props}>
-        <input type="checkbox" disabled={props.disabled} />
-        <span />
-      </StyledSwitch>
-      <StyledSwitchText on={props.on}>{children}</StyledSwitchText>
-    </>
+    <StyledSwitch {...props}>
+      <input type="checkbox" disabled={props.disabled} />
+      <span />
+      <StyledSwitchText>{children}</StyledSwitchText>
+    </StyledSwitch>
   );
 };
 
