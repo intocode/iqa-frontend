@@ -12,7 +12,7 @@ import QuestionRate from './QuestionRate';
 
 const StyledQuestionBlock = styled.div`
   max-width: 820px;
-  margin: auto;
+  margin: 0 12px;
   & > div {
     margin: 20px 0;
   }
@@ -93,7 +93,7 @@ const QuestionPage = () => {
           </StyledAvatar>
           <StyledTag>
             {question?.tags.map((tag) => (
-              <Tag key={tag.name} noGutters>
+              <Tag key={tag.name} noGutters className='d-none d-md-block'>
                 {tag.name}
               </Tag>
             ))}

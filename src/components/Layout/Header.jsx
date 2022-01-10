@@ -5,7 +5,7 @@ import { useAuth } from '../../common/context/Auth/useAuth';
 import { Button } from '../ui/Button';
 import { Typography } from '../ui/Typography';
 import { Logo } from './Logo';
-import logoMenuAdaptive from '../assets/menu.svg'
+import AdaptiveMenu from './AdaptiveMenu';
 
 const StyledHeader = styled.div`
   background-color: white;
@@ -19,13 +19,6 @@ const StyledHeader = styled.div`
     position: absolute;
     top: -8px;
   }
-  .menu_mobile {
-    position: absolute;
-    width: 75%;
-    height: 1000px;
-    top: 43px;
-    background-color: #f8f9fa;
-  }
 `;
 
 export const Header = () => {
@@ -34,6 +27,8 @@ export const Header = () => {
   const { token, executeLoggingInProcess, logout } = useAuth();
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -46,51 +41,27 @@ export const Header = () => {
 
   const handleAddQuestion = () => history.push('/create');
 
-  const handleToggleMenu = () => setMenu(!menu);
+  const handleToggleMenu = () => {
+    setMenu(!menu);
+    if (!menu) {
+      document.body.style.overflowY = "clip"
+    } else {
+      document.body.style.overflowY = ""
+    }
+
+
+  }
 
   return (
     <StyledHeader>
-      {menu &&
-      <div className='adaptive_menu d-md-none'>
-        <div className='menu_mobile'>
-          <div className="col-auto pt-3">
-            {token ? (
-              <>
-                <Button
-                  className="me-3"
-                  contrast={false}
-                  color="primary"
-                  onClick={handleAddQuestion}
-                >
-                  Добавить вопрос
-                </Button>
-                <Link to="/" className="header_link">
-                  <Button contrast={false} color="primary" onClick={logout}>
-                    Выйти
-                  </Button>
-                </Link>
-              </>
-            ) : (
-              <Link to="/" className="header_link offset-3">
-                <Button
-                  contrast={false}
-                  color="primary"
-                  onClick={executeLoggingInProcess}
-                >
-                  Login with GitHub
-                </Button>
-              </Link>
-            )}
-          </div>
-        </div>
-      </div>}
+      <AdaptiveMenu menu={menu}/>
       <div className="container mb-2 py-2">
         <div className="row align-items-center">
           <div className="col d-flex align-items-center">
             <div className='adaptive_menu'>
               <div className='logo_menu d-md-none' onClick={handleToggleMenu} role="presentation">
                 <span>
-                  <img src={logoMenuAdaptive} alt="" />
+                  <Logo menuLogo={1 > 0}/>
                 </span>
               </div>
             </div>
