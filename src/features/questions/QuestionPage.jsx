@@ -104,7 +104,7 @@ const QuestionPage = () => {
             </StyledAvatar>
             <StyledTag>
               {question?.tags.map((tag) => (
-                <Tag key={tag.name} noGutters className='d-none d-md-block'>
+                <Tag key={tag.name} noGutters className="d-none d-md-block">
                   {tag.name}
                 </Tag>
               ))}

@@ -8,7 +8,7 @@ import { Typography } from '../ui/Typography';
 import { Logo } from './Logo';
 import { fetchQuestions } from '../../features/questions/questionsSlice';
 import AdaptiveMenu from './AdaptiveMenu';
-
+import iconMenu from '../assets/menu.svg';
 
 const StyledHeader = styled.div`
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -19,7 +19,7 @@ const StyledHeader = styled.div`
   .adaptive_menu {
     position: relative;
   }
-  .logo_menu {
+  .icon_menu {
     position: absolute;
     top: -8px;
   }
@@ -33,16 +33,14 @@ export const Header = () => {
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-
-
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
-    }
-    window.addEventListener("resize", handleResize);
+    };
+    window.addEventListener('resize', handleResize);
 
-    return () => window.removeEventListener("resize", handleResize);
-  }, [])
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleAddQuestion = () => history.push('/create');
 
@@ -53,24 +51,26 @@ export const Header = () => {
   const handleToggleMenu = () => {
     setMenu(!menu);
     if (!menu) {
-      document.body.style.overflowY = "clip"
+      document.body.style.overflowY = 'clip';
     } else {
-      document.body.style.overflowY = ""
+      document.body.style.overflowY = 'visible';
     }
-
-
-  }
+  };
 
   return (
     <StyledHeader>
-      <AdaptiveMenu menu={menu}/>
+      <AdaptiveMenu menu={menu} />
       <div className="container mb-2 py-2">
         <div className="row align-items-center">
           <div className="col d-flex align-items-center">
-            <div className='adaptive_menu'>
-              <div className='logo_menu d-md-none' onClick={handleToggleMenu} role="presentation">
+            <div className="adaptive_menu">
+              <div
+                className="icon_menu d-md-none"
+                onClick={handleToggleMenu}
+                role="presentation"
+              >
                 <span>
-                  <Logo menuLogo={1 > 0}/>
+                  <img src={iconMenu} alt="" />
                 </span>
               </div>
             </div>
