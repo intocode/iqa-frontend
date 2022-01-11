@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
+import { Viewer } from '@toast-ui/react-editor';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import calendar from 'dayjs/plugin/calendar';
@@ -111,7 +112,9 @@ const QuestionPage = () => {
             </StyledTag>
           </StyledPaperHeader>
           <h3>{question?.question}</h3>
-          <StyledComment>{question?.comment}</StyledComment>
+          <StyledComment>
+            <Viewer initialValue={question?.comment} />
+          </StyledComment>
           {question ? <QuestionRate id={id} /> : 'Загрузка...'}
         </Paper>
       )}

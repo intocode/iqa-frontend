@@ -1,7 +1,10 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { Editor } from '@toast-ui/react-editor';
 import { Title } from '../../app/Title/Title';
 import {
   Alert,
@@ -36,6 +39,11 @@ const StyledQuestionWrapper = styled.div`
   .comment-title,
   .tag-title {
     margin: 30px 0 10px;
+  }
+
+  .ggggggg {
+    background-color: none;
+    pointer: none;
   }
 
   & .additional {
@@ -91,19 +99,6 @@ const StyledQuestionWrapper = styled.div`
   }
 `;
 
-const StyledTextArea = styled.textarea`
-  width: 100%;
-  height: 130px;
-  border: 1px solid #e4e7ed;
-  border-radius: 4px;
-  padding: 8px;
-  outline: none;
-  &::-webkit-input-placeholder {
-    color: rgba(192, 196, 204, 1);
-  }
-  font-family: inherit;
-`;
-
 const StyledTagWrapper = styled.div`
   border: 1px solid #e4e7ed;
   border-radius: 4px;
@@ -143,6 +138,7 @@ const PlusIcon = () => (
 
 const CreateQuestion = () => {
   const dispatch = useDispatch();
+  const editorRef = useRef();
 
   const profile = useSelector(selectProfile);
   const tags = useSelector(selectTags);
@@ -194,6 +190,11 @@ const CreateQuestion = () => {
     setComment('');
   };
 
+  const handleChange = () => {
+    const instance = editorRef.current.getInstance();
+    setComment(instance.getHTML());
+  };
+
   return (
     <>
       <Title>iqa: добавить вопрос</Title>
@@ -236,10 +237,20 @@ const CreateQuestion = () => {
           />
           <div className="additional">
             <div className="comment-title">Дополнительный комментарий</div>
-            <StyledTextArea
-              onChange={(e) => setComment(e.target.value)}
-              value={comment}
+            <Editor
               placeholder={placeholderForTextArea}
+              previewStyle="vertical"
+              height="200px"
+              initialEditType="markdown"
+              useCommandShortcut
+              usageStatistics={false}
+              value={comment}
+              onChange={handleChange}
+              ref={editorRef}
+              toolbarItems={[
+                ['heading', 'bold', 'italic', 'strike'],
+                ['hr', 'quote'],
+              ]}
             />
             <div className="tag-title">
               Теги<sup>*</sup>
