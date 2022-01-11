@@ -31,19 +31,14 @@ import {
   resetSuccess,
 } from './questionsSlice';
 
-const placeholderForTextArea =
-  'Расскажи как был задан вопрос, какой ответ ты дал, оказался ли он верным и т.д. Любые сведения, которые могут помочь другим соискателям..';
+// const placeholderForTextArea =
+//   'Расскажи как был задан вопрос, какой ответ ты дал, оказался ли он верным и т.д. Любые сведения, которые могут помочь другим соискателям..';
 
 const StyledQuestionWrapper = styled.div`
   & .question-title,
   .comment-title,
   .tag-title {
     margin: 30px 0 10px;
-  }
-
-  .ggggggg {
-    background-color: none;
-    pointer: none;
   }
 
   & .additional {
@@ -238,7 +233,6 @@ const CreateQuestion = () => {
           <div className="additional">
             <div className="comment-title">Дополнительный комментарий</div>
             <Editor
-              placeholder={placeholderForTextArea}
               previewStyle="vertical"
               height="200px"
               initialEditType="markdown"
