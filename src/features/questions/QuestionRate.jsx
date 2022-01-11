@@ -23,7 +23,7 @@ const QuestionRate = ({ id }) => {
     [question]
   );
 
-  if (question && token) {
+  if (question && token && profile) {
     question.rates.forEach((item) => {
       if (item.user === profile._id && item.volume === 1) {
         isUpped = true;
@@ -40,7 +40,7 @@ const QuestionRate = ({ id }) => {
   };
 
   if (!token) {
-    return <Rate currentRate={valueRate} />;
+    return <Rate currentRate={valueRate()} />;
   }
 
   return (

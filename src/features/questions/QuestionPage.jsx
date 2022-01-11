@@ -9,7 +9,6 @@ import 'dayjs/locale/ru';
 import { Paper, Tag, Typography } from '../../components/ui';
 import {
   fetchQuestionById,
-  fetchQuestions,
   selectOpenedQuestion,
   selectQuestionsLoading,
 } from './questionsSlice';
@@ -81,7 +80,6 @@ const QuestionPage = () => {
   const question = useSelector(selectOpenedQuestion);
   const loading = useSelector(selectQuestionsLoading);
 
-  useEffect(() => dispatch(fetchQuestions()), [dispatch]);
   useEffect(() => dispatch(fetchQuestionById(id)), [dispatch, id]);
 
   return (
