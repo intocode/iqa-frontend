@@ -16,6 +16,8 @@ import {
   deleteQuestionFromFavorites,
   addQuestionInFavorites,
   selectProfile,
+  selectAddingToFavorites,
+  selectDeletingFromFavorites,
 } from '../profile/profileSlice';
 import { useAuth } from '../../common/context/Auth/useAuth';
 
@@ -106,6 +108,8 @@ const StyledComments = styled.p`
 export const QuestionBlock = ({ question, isCompactMode }) => {
   const { token } = useAuth();
   const user = useSelector(selectProfile);
+  const adding = useSelector(selectAddingToFavorites);
+  const deleting = useSelector(selectDeletingFromFavorites);
 
   const dispatch = useDispatch();
 
@@ -124,6 +128,20 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
       dispatch(addQuestionInFavorites(question._id));
     }
   };
+
+  const addingToFavorites = useMemo(() => {
+    return adding?.find((id) => id === question._id);
+  }, [adding, question]);
+
+  const addingStatus = addingToFavorites
+    ? 'Добавление'
+    : 'Добавить в избранные';
+
+  const deletingFromFavorites = useMemo(() => {
+    return deleting?.find((id) => id === question._id);
+  }, [deleting, question]);
+
+  const deletingStatus = deletingFromFavorites ? 'Удаление' : 'В избранном';
 
   return (
     <StyledQuestionBlock>
@@ -161,7 +179,7 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
             <div>
               <img src={iconFavorites} alt="" />
               <StyledFavorites onClick={handleToggleFavorite}>
-                {questionByFavorites ? 'В избранном' : 'Добавить в избранные'}
+                {questionByFavorites ? deletingStatus : addingStatus}
               </StyledFavorites>
             </div>
           )}

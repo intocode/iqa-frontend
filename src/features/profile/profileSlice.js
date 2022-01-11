@@ -22,7 +22,7 @@ export const addQuestionInFavorites = createAsyncThunk(
   'add/favorite',
   async (id, thunkAPI) => {
     try {
-      const response = await axios.post(`/user/favorites/${id}`, id);
+      const response = await axios.post(`/user/favorites/${id}`);
 
       return response.data;
     } catch (error) {
@@ -48,8 +48,8 @@ const profileSlice = createSlice({
   name: 'profile',
   initialState: {
     loading: false,
-    addingToFavorites: false,
-    deletingFromFavorites: false,
+    addingToFavorites: [],
+    deletingFromFavorites: [],
     data: {},
   },
 
@@ -63,19 +63,19 @@ const profileSlice = createSlice({
       state.data = action.payload;
     },
 
-    [addQuestionInFavorites.pending]: (state) => {
-      state.addingToFavorites = true;
+    [addQuestionInFavorites.pending]: (state, action) => {
+      state.addingToFavorites.push(action.meta.arg);
     },
     [addQuestionInFavorites.fulfilled]: (state, action) => {
-      state.addingToFavorites = false;
+      state.addingToFavorites = [];
       state.data.favorites = action.payload;
     },
 
-    [deleteQuestionFromFavorites.pending]: (state) => {
-      state.deletingFromFavorites = true;
+    [deleteQuestionFromFavorites.pending]: (state, action) => {
+      state.deletingFromFavorites.push(action.meta.arg);
     },
     [deleteQuestionFromFavorites.fulfilled]: (state, action) => {
-      state.deletingFromFavorites = false;
+      state.deletingFromFavorites = [];
       state.data.favorites = action.payload;
     },
   },
@@ -86,6 +86,16 @@ const selectProfileState = (state) => state.profile;
 export const selectProfile = createSelector(
   selectProfileState,
   (state) => state.data
+);
+
+export const selectAddingToFavorites = createSelector(
+  selectProfileState,
+  (state) => state.addingToFavorites
+);
+
+export const selectDeletingFromFavorites = createSelector(
+  selectProfileState,
+  (state) => state.deletingFromFavorites
 );
 
 export default profileSlice.reducer;
