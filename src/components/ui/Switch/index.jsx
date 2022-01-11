@@ -4,18 +4,21 @@ import styled, { css } from 'styled-components';
 
 const StyledSwitch = styled.label`
   position: relative;
-  display: inline-block;
-  width: 40px;
+  display: flex;
+  align-items: center;
   height: 20px;
-  margin-right: 123px;
+  font-size: 14px;
+  line-height: 16px;
+  cursor: pointer;
+  color: #409eff;
 
   input {
-    opacity: 0;
-    width: 0;
-    height: 0;
+    display: none;
   }
 
   span {
+    width: 40px;
+    height: 20px;
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -52,15 +55,7 @@ const StyledSwitch = styled.label`
 `;
 
 const StyledSwitchText = styled.div`
-  position: absolute;
-  top: 3px;
-  left: 50px;
-  bottom: 2px;
-  width: 113px;
-  font-size: 14px;
-  line-height: 16px;
-  cursor: pointer;
-  color: #409eff;
+  margin-left: 50px;
 `;
 
 export const Switch = ({ children, ...props }) => {
