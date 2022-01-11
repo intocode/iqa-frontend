@@ -4,17 +4,21 @@ import styled, { css } from 'styled-components';
 
 const StyledSwitch = styled.label`
   position: relative;
-  display: inline-block;
-  width: 40px;
+  display: flex;
+  align-items: center;
   height: 20px;
+  font-size: 14px;
+  line-height: 16px;
+  cursor: pointer;
+  color: #409eff;
 
   input {
-    opacity: 0;
-    width: 0;
-    height: 0;
+    display: none;
   }
 
   span {
+    width: 40px;
+    height: 20px;
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -50,22 +54,17 @@ const StyledSwitch = styled.label`
   }
 `;
 
-const StyledSwitchText = styled.span`
-  font-size: 14px;
-  line-height: 16px;
-  margin-left: 12px;
-  color: ${(props) => (props.on && '#409EFF') || '#000000'};
+const StyledSwitchText = styled.div`
+  margin-left: 50px;
 `;
 
 export const Switch = ({ children, ...props }) => {
   return (
-    <>
-      <StyledSwitch {...props}>
-        <input type="checkbox" disabled={props.disabled} />
-        <span />
-      </StyledSwitch>
-      <StyledSwitchText on={props.on}>{children}</StyledSwitchText>
-    </>
+    <StyledSwitch {...props}>
+      <input type="checkbox" disabled={props.disabled} />
+      <span />
+      <StyledSwitchText>{children}</StyledSwitchText>
+    </StyledSwitch>
   );
 };
 
