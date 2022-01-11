@@ -235,15 +235,16 @@ const CreateQuestion = () => {
             <Editor
               previewStyle="vertical"
               height="200px"
-              initialEditType="markdown"
+              initialEditType="wysiwyg"
               useCommandShortcut
               usageStatistics={false}
+              hideModeSwitch
               value={comment}
               onChange={handleChange}
               ref={editorRef}
               toolbarItems={[
                 ['heading', 'bold', 'italic', 'strike'],
-                ['hr', 'quote'],
+                ['hr', 'quote', 'code', 'codeblock'],
               ]}
             />
             <div className="tag-title">
