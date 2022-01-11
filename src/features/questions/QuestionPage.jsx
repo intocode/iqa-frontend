@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
+import { Viewer } from '@toast-ui/react-editor';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import calendar from 'dayjs/plugin/calendar';
@@ -9,7 +10,6 @@ import 'dayjs/locale/ru';
 import { Paper, Tag, Typography } from '../../components/ui';
 import {
   fetchQuestionById,
-  fetchQuestions,
   selectOpenedQuestion,
   selectQuestionsLoading,
 } from './questionsSlice';
@@ -81,7 +81,6 @@ const QuestionPage = () => {
   const question = useSelector(selectOpenedQuestion);
   const loading = useSelector(selectQuestionsLoading);
 
-  useEffect(() => dispatch(fetchQuestions()), [dispatch]);
   useEffect(() => dispatch(fetchQuestionById(id)), [dispatch, id]);
 
   return (
@@ -111,7 +110,9 @@ const QuestionPage = () => {
             </StyledTag>
           </StyledPaperHeader>
           <h3>{question?.question}</h3>
-          <StyledComment>{question?.comment}</StyledComment>
+          <StyledComment>
+            <Viewer initialValue={question?.comment} />
+          </StyledComment>
           {question ? <QuestionRate id={id} /> : 'Загрузка...'}
         </Paper>
       )}
