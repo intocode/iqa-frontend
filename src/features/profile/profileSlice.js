@@ -67,7 +67,9 @@ const profileSlice = createSlice({
       state.addingToFavorites.push(action.meta.arg);
     },
     [addQuestionInFavorites.fulfilled]: (state, action) => {
-      state.addingToFavorites = [];
+      state.addingToFavorites = state.addingToFavorites.filter(
+        (id) => id !== action.meta.arg
+      );
       state.data.favorites = action.payload;
     },
 
@@ -75,7 +77,9 @@ const profileSlice = createSlice({
       state.deletingFromFavorites.push(action.meta.arg);
     },
     [deleteQuestionFromFavorites.fulfilled]: (state, action) => {
-      state.deletingFromFavorites = [];
+      state.deletingFromFavorites = state.deletingFromFavorites.filter(
+        (id) => id !== action.meta.arg
+      );
       state.data.favorites = action.payload;
     },
   },
