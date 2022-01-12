@@ -153,7 +153,7 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
               <p>{question.user.name}</p>
               <div>добавлен {dayjs(question.createdAt).fromNow()}</div>
             </StyledQuestionHeader>
-            <StyledTag>
+            <StyledTag className="d-none d-md-block">
               {question.tags.map((tag) => (
                 <Tag noGutters key={tag.name}>
                   {tag.name}
