@@ -111,13 +111,17 @@ const questionsSlice = createSlice({
       state.processingRate = true;
     },
     [addRate.fulfilled]: (state, action) => {
-      state.questions.forEach((item) => {
-        if (item._id === action.payload.questionId) {
-          // eslint-disable-next-line no-param-reassign
-          item.rates = action.payload.rates;
-        }
-        return item;
-      });
+      if (state.questions.length !== 0) {
+        state.questions.forEach((item) => {
+          if (item._id === action.payload.questionId) {
+            // eslint-disable-next-line no-param-reassign
+            item.rates = action.payload.rates;
+          }
+          return item;
+        });
+      } else {
+        state.openedQuestion.rates = action.payload.rates;
+      }
       state.error = '';
       state.processingRate = false;
     },
@@ -129,11 +133,15 @@ const questionsSlice = createSlice({
 });
 
 const selectQuestionsState = (state) => state.questions;
+const selectOneQuestionState = (state) => state.openedQuestion;
 
 export const selectQuestionById = (id) =>
-  createSelector(selectQuestionsState, (state) =>
-    state.questions.find((question) => question._id === id)
-  );
+  createSelector([selectQuestionsState, selectOneQuestionState], (state) => {
+    if (state.questions.length !== 0) {
+      return state.questions.find((question) => question._id === id);
+    }
+    return state.openedQuestion;
+  });
 
 export const selectQuestionsLoading = createSelector(
   selectQuestionsState,
