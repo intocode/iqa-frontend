@@ -74,7 +74,7 @@ export const Header = () => {
                 </span>
               </div>
             </div>
-            <div className="me-3 offset-6 offset-md-0">
+            <div className="me-3 offset-5 offset-md-0">
               <Link to="/" onClick={handleToMain}>
                 <Logo long={windowWidth < 768} />
               </Link>

@@ -13,7 +13,7 @@ export const Logo = ({ noColor, long }) => {
     logo = longLogo;
   }
 
-  return <img src={logo} alt="" />;
+  return <img src={logo} alt="" className="d-block" />;
 };
 
 Logo.propTypes = {

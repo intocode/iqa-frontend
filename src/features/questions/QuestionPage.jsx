@@ -18,7 +18,6 @@ import QuestionRate from './QuestionRate';
 
 const StyledQuestionBlock = styled.div`
   max-width: 820px;
-  margin: 0 12px;
   & > div {
     margin: 20px 0;
   }
@@ -84,7 +83,7 @@ const QuestionPage = () => {
   useEffect(() => dispatch(fetchQuestionById(id)), [dispatch, id]);
 
   return (
-    <StyledQuestionBlock>
+    <StyledQuestionBlock className="m-3 m-md-auto">
       <StyledQuestionHeader>
         <h3>Обсуждение вопроса</h3>
         <StyledLink to="/">

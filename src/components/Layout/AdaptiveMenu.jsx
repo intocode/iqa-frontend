@@ -31,11 +31,11 @@ const AdaptiveMenu = ({ menu }) => {
       {menu && (
         <div className="adaptive_menu d-md-none">
           <div className="menu_mobile">
-            <div className="col-auto pt-3 px-5">
+            <div className="pt-3 px-5 ">
               {token ? (
                 <>
                   <Button
-                    className="me-3"
+                    className="d-block mb-2 m-auto"
                     contrast={false}
                     color="primary"
                     onClick={handleAddQuestion}
@@ -43,7 +43,12 @@ const AdaptiveMenu = ({ menu }) => {
                     Добавить вопрос
                   </Button>
                   <Link to="/" className="header_link">
-                    <Button contrast={false} color="primary" onClick={logout}>
+                    <Button
+                      className="d-block m-auto"
+                      contrast={false}
+                      color="primary"
+                      onClick={logout}
+                    >
                       Выйти
                     </Button>
                   </Link>

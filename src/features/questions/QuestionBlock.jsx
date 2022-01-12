@@ -90,6 +90,9 @@ const StyledQuestionBottomBlock = styled.div`
       margin-right: 5px;
     }
   }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const StyledFavorites = styled.p`
@@ -170,15 +173,22 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
           </Typography>
         </StyledQuestion>
         <StyledQuestionBottomBlock>
-          <QuestionRate id={question._id} />
+          <div className="flex-grow-1 flex-md-grow-0">
+            <QuestionRate id={question._id} />
+          </div>
           <div className="mx-4">
             <img src={comments} alt="" />
-            <StyledComments>Обсуждение</StyledComments>
+            <StyledComments className="d-none d-md-block">
+              Обсуждение
+            </StyledComments>
           </div>
           {token && (
             <div>
               <img src={iconFavorites} alt="" />
-              <StyledFavorites onClick={handleToggleFavorite}>
+              <StyledFavorites
+                onClick={handleToggleFavorite}
+                className="d-none d-md-block"
+              >
                 {questionByFavorites ? deletingStatus : addingStatus}
               </StyledFavorites>
             </div>
