@@ -54,8 +54,9 @@ const AdaptiveMenu = ({ menu }) => {
                   </Link>
                 </>
               ) : (
-                <Link to="/" className="header_link offset-3">
+                <Link to="/" className="header_link">
                   <Button
+                    className="d-block m-auto"
                     contrast={false}
                     color="primary"
                     onClick={executeLoggingInProcess}
