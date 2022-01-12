@@ -4,10 +4,22 @@ import calendar from 'dayjs/plugin/calendar';
 import 'dayjs/locale/ru';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { Typography, Tag, Paper } from '../../components/ui';
 import QuestionRate from './QuestionRate';
+import comments from '../../assets/comments.svg';
+import favorites from '../../assets/favorites.svg';
+import favoritesIn from '../../assets/favoritesIn.svg';
+import {
+  deleteQuestionFromFavorites,
+  addQuestionInFavorites,
+  selectProfile,
+  selectAddingToFavorites,
+  selectDeletingFromFavorites,
+} from '../profile/profileSlice';
+import { useAuth } from '../../common/context/Auth/useAuth';
 
 dayjs.extend(relativeTime);
 dayjs.extend(calendar);
@@ -70,7 +82,6 @@ const StyledBorderBottom = styled.div`
 const StyledQuestionBottomBlock = styled.div`
   width: 390px;
   display: flex;
-  justify-content: space-between;
   & > div {
     display: flex;
     justify-content: space-between;
@@ -81,20 +92,56 @@ const StyledQuestionBottomBlock = styled.div`
   }
 `;
 
-// const StyledFavorites = styled.p`
-//   color: #e6a23c;
-//   font-weight: 400;
-//   font-size: 12px;
-// `;
-//
-// const StyledComments = styled.p`
-//   color: #409eff;
-//   font-weight: 400;
-//   font-size: 12px;
-// `;
+const StyledFavorites = styled.p`
+  color: #e6a23c;
+  font-weight: 400;
+  font-size: 12px;
+  cursor: pointer;
+`;
+
+const StyledComments = styled.p`
+  color: #409eff;
+  font-weight: 400;
+  font-size: 12px;
+`;
 
 export const QuestionBlock = ({ question, isCompactMode }) => {
+  const { token } = useAuth();
+  const user = useSelector(selectProfile);
+  const adding = useSelector(selectAddingToFavorites);
+  const deleting = useSelector(selectDeletingFromFavorites);
+
+  const dispatch = useDispatch();
+
   const QuestionWrapper = isCompactMode ? React.Fragment : Paper;
+
+  const questionByFavorites = useMemo(() => {
+    return user.favorites?.find((item) => item === question._id);
+  }, [user.favorites, question]);
+
+  const iconFavorites = questionByFavorites ? favoritesIn : favorites;
+
+  const handleToggleFavorite = () => {
+    if (questionByFavorites) {
+      dispatch(deleteQuestionFromFavorites(question._id));
+    } else {
+      dispatch(addQuestionInFavorites(question._id));
+    }
+  };
+
+  const addingToFavorites = useMemo(() => {
+    return adding?.find((id) => id === question._id);
+  }, [adding, question]);
+
+  const addingStatus = addingToFavorites
+    ? 'Добавление'
+    : 'Добавить в избранные';
+
+  const deletingFromFavorites = useMemo(() => {
+    return deleting?.find((id) => id === question._id);
+  }, [deleting, question]);
+
+  const deletingStatus = deletingFromFavorites ? 'Удаление' : 'В избранном';
 
   return (
     <StyledQuestionBlock>
@@ -124,18 +171,18 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
         </StyledQuestion>
         <StyledQuestionBottomBlock>
           <QuestionRate id={question._id} />
-          {/* isCompactMode && (
-          <>
+          <div className="mx-4">
+            <img src={comments} alt="" />
+            <StyledComments>Обсуждение</StyledComments>
+          </div>
+          {token && (
             <div>
-              <img src={comments} alt="" />
-              <StyledComments>Обсуждение</StyledComments>
+              <img src={iconFavorites} alt="" />
+              <StyledFavorites onClick={handleToggleFavorite}>
+                {questionByFavorites ? deletingStatus : addingStatus}
+              </StyledFavorites>
             </div>
-            <div>
-              <img src={favorites} alt="" />
-              <StyledFavorites>Добавить в избранное</StyledFavorites>
-            </div>
-          </>
-        ) */}
+          )}
         </StyledQuestionBottomBlock>
         {isCompactMode && <StyledBorderBottom />}
       </QuestionWrapper>
