@@ -9,6 +9,7 @@ import { Logo } from './Logo';
 import { fetchQuestions } from '../../features/questions/questionsSlice';
 import AdaptiveMenu from './AdaptiveMenu';
 import iconMenu from '../assets/menu.svg';
+import iconCloseMenu from '../assets/closeMenu.svg';
 
 const StyledHeader = styled.div`
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -57,6 +58,8 @@ export const Header = () => {
     }
   };
 
+  const iconMenuAndClose = !menu ? iconMenu : iconCloseMenu;
+
   return (
     <StyledHeader>
       <AdaptiveMenu menu={menu} />
@@ -70,7 +73,7 @@ export const Header = () => {
                 role="presentation"
               >
                 <span>
-                  <img src={iconMenu} alt="" />
+                  <img src={iconMenuAndClose} alt="" />
                 </span>
               </div>
             </div>
