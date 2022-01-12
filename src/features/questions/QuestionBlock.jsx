@@ -80,16 +80,7 @@ const StyledBorderBottom = styled.div`
 `;
 
 const StyledQuestionBottomBlock = styled.div`
-  width: 390px;
   display: flex;
-  & > div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    & > img {
-      margin-right: 5px;
-    }
-  }
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -106,6 +97,16 @@ const StyledComments = styled.p`
   color: #409eff;
   font-weight: 400;
   font-size: 12px;
+`;
+
+const StyledAction = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  & > img {
+    margin-right: 5px;
+  }
 `;
 
 export const QuestionBlock = ({ question, isCompactMode }) => {
@@ -176,22 +177,19 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
           <div className="flex-grow-1 flex-md-grow-0">
             <QuestionRate id={question._id} />
           </div>
-          <div className="mx-4">
+          <StyledAction className="mx-4">
             <img src={comments} alt="" />
             <StyledComments className="d-none d-md-block">
               Обсуждение
             </StyledComments>
-          </div>
+          </StyledAction>
           {token && (
-            <div>
+            <StyledAction onClick={handleToggleFavorite}>
               <img src={iconFavorites} alt="" />
-              <StyledFavorites
-                onClick={handleToggleFavorite}
-                className="d-none d-md-block"
-              >
+              <StyledFavorites className="d-none d-md-block">
                 {questionByFavorites ? deletingStatus : addingStatus}
               </StyledFavorites>
-            </div>
+            </StyledAction>
           )}
         </StyledQuestionBottomBlock>
         {isCompactMode && <StyledBorderBottom />}
