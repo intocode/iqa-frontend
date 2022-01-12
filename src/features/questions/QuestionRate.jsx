@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Rate } from '../../components/ui';
@@ -18,7 +18,7 @@ const QuestionRate = ({ id }) => {
   let isUpped = false;
   let isDowned = false;
 
-  const valueRate = useCallback(
+  const valueRate = useMemo(
     () => question.rates.reduce((acc, item) => acc + item.volume, 0),
     [question]
   );
@@ -40,7 +40,7 @@ const QuestionRate = ({ id }) => {
   };
 
   if (!token) {
-    return <Rate currentRate={valueRate()} />;
+    return <Rate currentRate={valueRate} />;
   }
 
   return (
@@ -49,7 +49,7 @@ const QuestionRate = ({ id }) => {
       isDowned={isDowned}
       onUp={() => handleChangeRate({ volume: 1, id: question._id })}
       onDown={() => handleChangeRate({ volume: -1, id: question._id })}
-      currentRate={question ? valueRate() : 'load...'}
+      currentRate={question ? valueRate : 'load...'}
     />
   );
 };
