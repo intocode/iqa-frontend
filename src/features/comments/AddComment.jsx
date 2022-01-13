@@ -22,7 +22,7 @@ const StyledQuestionsBlock = styled.div`
   }
 `;
 const StyledTextArea = styled.textarea`
-  width: 700px;
+  width: 100%;
   max-width: 700px;
   height: 100px;
   min-height: 50px;
@@ -48,12 +48,12 @@ const AddComment = () => {
   const [text, setText] = useState('');
 
   const handleAddComment = () => {
-    dispatch(addCommentToPost({ text, id }));
-
-    setText('');
+    dispatch(addCommentToPost({ text, id })).then(() => {
+      setText('');
+    });
     setTimeout(() => {
       dispatch(resetCommentSuccess());
-    }, 3000);
+    }, 10000);
   };
 
   return (
@@ -61,7 +61,7 @@ const AddComment = () => {
       <div>
         <img src={profile.avatar?.thumbnail} alt="" />
       </div>
-      <div>
+      <div className="flex-grow-1">
         <StyledTextArea
           onChange={(e) => setText(e.target.value)}
           placeholder="Формулировка вопроса..."
