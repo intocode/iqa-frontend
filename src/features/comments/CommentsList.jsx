@@ -1,6 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
+import { Viewer } from '@toast-ui/react-editor';
 import { useSelector } from 'react-redux';
 import { Rate } from '../../components/ui';
 import { selectComments, selectCommentsSuccess } from './commentsSlice';
@@ -18,9 +19,7 @@ const StyledProfile = styled.div`
 `;
 
 const StyledCommentText = styled.div`
-  margin-top: 15px;
-  font-family: inherit;
-  font-size: 16px;
+  margin-top: 5px;
 `;
 
 const StyledTimeStamps = styled.p`
@@ -60,7 +59,9 @@ const CommentsList = () => {
               <div className="col-auto">
                 <Rate />
               </div>
-              <StyledCommentText>{comment.text}</StyledCommentText>
+              <StyledCommentText>
+                <Viewer initialValue={comment.text} />
+              </StyledCommentText>
             </div>
           </StyledSuccess>
         );
