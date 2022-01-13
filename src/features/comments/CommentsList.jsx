@@ -19,7 +19,7 @@ const StyledProfile = styled.div`
 
 const StyledCommentText = styled.div`
   margin-top: 15px;
-  font-family: Inter;
+  font-family: inherit;
   font-size: 16px;
 `;
 
