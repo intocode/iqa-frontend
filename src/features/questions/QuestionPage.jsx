@@ -65,6 +65,10 @@ const StyledTag = styled.div`
 const StyledComment = styled.div`
   max-width: 700px;
   margin: 30px auto;
+
+  .toastui-editor-contents {
+    font-size: 16px;
+  }
 `;
 
 const StyledLink = styled(Link)`
