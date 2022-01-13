@@ -19,7 +19,11 @@ const StyledProfile = styled.div`
 `;
 
 const StyledCommentText = styled.div`
-  margin-top: 5px;
+  margin-top: 10px;
+
+  .toastui-editor-contents {
+    font-size: 16px;
+  }
 `;
 
 const StyledTimeStamps = styled.p`
