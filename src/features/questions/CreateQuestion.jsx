@@ -183,11 +183,12 @@ const CreateQuestion = () => {
     );
     setQuestion('');
     setComment('');
+    editorRef.current.getInstance().reset();
   };
 
   const handleChange = () => {
     const instance = editorRef.current.getInstance();
-    setComment(instance.getHTML());
+    setComment(instance.getMarkdown());
   };
 
   return (
