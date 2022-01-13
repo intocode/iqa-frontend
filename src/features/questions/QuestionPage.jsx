@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import calendar from 'dayjs/plugin/calendar';
 import 'dayjs/locale/ru';
-import { Paper, Tag, Typography } from '../../components/ui';
+import { Divider, Paper, Tag, Typography } from '../../components/ui';
 import {
   fetchQuestionById,
   fetchQuestions,
@@ -15,7 +15,7 @@ import {
 } from './questionsSlice';
 import { QuestionPagePlaceholder } from './QuestionPagePlaceholder';
 import QuestionRate from './QuestionRate';
-import QuestionComments from './QuestionComments';
+import QuestionComments from '../comments/CommentsByQuestion';
 
 const StyledQuestionBlock = styled.div`
   max-width: 820px;
@@ -72,11 +72,6 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const StyledLine = styled.hr`
-  margin-top: 30px;
-  border: 1px solid #f5f5f5;
-`;
-
 dayjs.extend(relativeTime);
 dayjs.extend(calendar);
 dayjs.locale('ru');
@@ -119,7 +114,9 @@ const QuestionPage = () => {
           <h3>{question?.question}</h3>
           <StyledComment>{question?.comment}</StyledComment>
           {question ? <QuestionRate id={id} /> : 'Загрузка...'}
-          <StyledLine />
+          <div className="my-4">
+            <Divider />
+          </div>
           <QuestionComments />
         </Paper>
       )}
