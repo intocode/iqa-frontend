@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { Editor } from '@toast-ui/react-editor';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '../../components/ui';
@@ -20,26 +23,16 @@ const StyledQuestionsBlock = styled.div`
     margin-right: 15px;
     border-radius: 24px;
   }
-`;
-const StyledTextArea = styled.textarea`
-  width: 100%;
-  max-width: 700px;
-  height: 100px;
-  min-height: 50px;
-  border-radius: 4px;
-  border: 1px solid #e4e7ed;
-  margin-bottom: 10px;
-  padding: 15px;
-  &::-webkit-input-placeholder {
-    color: rgba(192, 196, 204, 1);
+
+  Button {
+    margin-top: 10px;
   }
-  font-family: Noto Sans Sc;
-  font-size: 14px;
 `;
 
 const AddComment = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const editorRef = useRef();
 
   const profile = useSelector(selectProfile);
   const question = useSelector(selectQuestions);
@@ -47,9 +40,15 @@ const AddComment = () => {
 
   const [text, setText] = useState('');
 
+  const handleChange = () => {
+    const instance = editorRef.current.getInstance();
+    setText(instance.getMarkdown());
+  };
+
   const handleAddComment = () => {
     dispatch(addCommentToPost({ text, id })).then(() => {
       setText('');
+      editorRef.current.getInstance().reset();
     });
     setTimeout(() => {
       dispatch(resetCommentSuccess());
@@ -62,10 +61,20 @@ const AddComment = () => {
         <img src={profile.avatar?.thumbnail} alt="" />
       </div>
       <div className="flex-grow-1">
-        <StyledTextArea
-          onChange={(e) => setText(e.target.value)}
-          placeholder="Формулировка вопроса..."
+        <Editor
+          previewStyle="vertical"
+          height="150px"
+          initialEditType="wysiwyg"
+          useCommandShortcut
+          usageStatistics={false}
+          hideModeSwitch
           value={text}
+          onChange={handleChange}
+          ref={editorRef}
+          toolbarItems={[
+            ['heading', 'bold', 'italic', 'strike'],
+            ['hr', 'quote', 'code', 'codeblock'],
+          ]}
         />
         <Button
           loading={commentsLoading}
