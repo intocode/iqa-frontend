@@ -4,7 +4,7 @@ import calendar from 'dayjs/plugin/calendar';
 import 'dayjs/locale/ru';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Typography, Tag, Paper } from '../../components/ui';
@@ -12,6 +12,9 @@ import QuestionRate from './QuestionRate';
 import comments from '../../assets/comments.svg';
 import favorites from '../../assets/favorites.svg';
 import favoritesIn from '../../assets/favoritesIn.svg';
+import deleteIcon from '../../assets/deleteIcon.svg';
+import yesIcon from '../../assets/yesIcon.svg';
+import noIcon from '../../assets/noIcon.svg';
 import {
   deleteQuestionFromFavorites,
   addQuestionInFavorites,
@@ -20,6 +23,7 @@ import {
   selectDeletingFromFavorites,
 } from '../profile/profileSlice';
 import { useAuth } from '../../common/context/Auth/useAuth';
+import { removeQuestionById } from './questionsSlice';
 
 dayjs.extend(relativeTime);
 dayjs.extend(calendar);
@@ -109,11 +113,27 @@ const StyledAction = styled.div`
   }
 `;
 
+const StyledDeleteButton = styled.div`
+  height: 0;
+  & > img {
+    width: 19px;
+    height: 19px;
+    margin: 0 5px;
+  }
+`;
+
+const StyledDeleteGroup = styled.div`
+  display: flex;
+  margin-left: 20px;
+`;
+
 export const QuestionBlock = ({ question, isCompactMode }) => {
   const { token } = useAuth();
   const user = useSelector(selectProfile);
   const adding = useSelector(selectAddingToFavorites);
   const deleting = useSelector(selectDeletingFromFavorites);
+
+  const [iconDelete, setIconDelete] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -144,6 +164,15 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
   const deletingFromFavorites = useMemo(() => {
     return deleting?.find((id) => id === question._id);
   }, [deleting, question]);
+
+  const handleNoDelete = () => {
+    setIconDelete(false);
+  };
+
+  const handleYesDelete = (id) => {
+    dispatch(removeQuestionById(id));
+    setIconDelete(false);
+  };
 
   const deletingStatus = deletingFromFavorites ? 'Удаление' : 'В избранном';
 
@@ -190,6 +219,26 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
                 {questionByFavorites ? deletingStatus : addingStatus}
               </StyledFavorites>
             </StyledAction>
+          )}
+          {user.isAdmin && (
+            <StyledDeleteGroup>
+              {iconDelete ? (
+                <>
+                  <StyledDeleteButton onClick={handleNoDelete}>
+                    <img src={noIcon} alt="" />
+                  </StyledDeleteButton>
+                  <StyledDeleteButton
+                    onClick={() => handleYesDelete(question._id)}
+                  >
+                    <img src={yesIcon} alt="" />
+                  </StyledDeleteButton>
+                </>
+              ) : (
+                <StyledDeleteButton onClick={() => setIconDelete(true)}>
+                  <img src={deleteIcon} alt="" />
+                </StyledDeleteButton>
+              )}
+            </StyledDeleteGroup>
           )}
         </StyledQuestionBottomBlock>
         {isCompactMode && <StyledBorderBottom />}

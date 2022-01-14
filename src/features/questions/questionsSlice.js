@@ -57,6 +57,19 @@ export const addRate = createAsyncThunk('rate/add', async (data, thunkAPI) => {
   }
 });
 
+export const removeQuestionById = createAsyncThunk(
+  'questions/removeById',
+  async (id, thunkAPI) => {
+    try {
+      const response = await axios.delete(`/questions/${id}/delete`);
+
+      return { response: response.data, questionId: id };
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
 const questionsSlice = createSlice({
   name: 'questions',
   initialState: {
@@ -90,6 +103,13 @@ const questionsSlice = createSlice({
     [fetchQuestionById.fulfilled]: (state, action) => {
       state.loading = false;
       state.openedQuestion = action.payload;
+    },
+
+    [removeQuestionById.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.questions = state.questions.filter(
+        (item) => item._id !== action.payload.questionId
+      );
     },
 
     [addQuestion.pending]: (state) => {
