@@ -31,8 +31,6 @@ export const QuestionsList = () => {
 
   const [isCompactMode, setIsCompactMode] = useState(false);
 
-  // todo: добавить прелоадер
-
   const QuestionWrapper = isCompactMode ? Paper : React.Fragment;
 
   return (
