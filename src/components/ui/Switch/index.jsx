@@ -44,7 +44,7 @@ const StyledSwitch = styled.label`
     }
 
     ${(props) =>
-      props.on &&
+      props.turnedOn &&
       css`
         background: #409eff;
         &:before {
@@ -69,14 +69,14 @@ export const Switch = ({ children, ...props }) => {
 };
 
 Switch.propTypes = {
-  on: PropTypes.bool,
+  turnedOn: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
   children: PropTypes.string,
 };
 
 Switch.defaultProps = {
-  on: false,
+  turnedOn: false,
   disabled: false,
   children: null,
 };

@@ -31,8 +31,6 @@ export const QuestionsList = () => {
 
   const [isCompactMode, setIsCompactMode] = useState(false);
 
-  // todo: добавить прелоадер
-
   const QuestionWrapper = isCompactMode ? Paper : React.Fragment;
 
   return (
@@ -45,7 +43,7 @@ export const QuestionsList = () => {
           </div>
           <div className="col-auto">
             <Switch
-              on={isCompactMode}
+              turnedOn={isCompactMode}
               onChange={() => setIsCompactMode(!isCompactMode)}
               disabled={false}
             >
