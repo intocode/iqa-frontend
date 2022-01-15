@@ -45,7 +45,7 @@ export const QuestionsList = () => {
           </div>
           <div className="col-auto">
             <Switch
-              on={isCompactMode}
+              turnedOn={isCompactMode}
               onChange={() => setIsCompactMode(!isCompactMode)}
               disabled={false}
             >
