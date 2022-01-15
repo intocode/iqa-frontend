@@ -18,7 +18,7 @@
     "styled-components": "^5.3.3"
   },
   "scripts": {
-    "check": "npm run prettier:check && npm run lint && cross-env CI=true npm run test && cross-env CI=true CI=true npm run build",
+    "check": "npm run prettier:check && npm run lint && cross-env CI=true npm run test && cross-env CI=true npm run build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
