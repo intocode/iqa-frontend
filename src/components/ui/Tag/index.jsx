@@ -10,7 +10,9 @@ const StyledTag = styled.div`
   justify-content: center;
   border-radius: 4px;
   padding: ${(props) => (props.noGutters ? '0px 8px' : '5px 8px')};
+  box-sizing: border-box;
   font-size: 14px;
+  line-height: 20px;
 
   ${(props) => css`
     color: ${props.theme.colors[props.color].main};
