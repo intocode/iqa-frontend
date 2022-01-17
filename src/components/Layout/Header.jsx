@@ -24,6 +24,10 @@ const StyledHeader = styled.div`
     position: absolute;
     top: -8px;
   }
+
+  .container {
+    padding: 15px;
+  }
 `;
 
 export const Header = () => {
