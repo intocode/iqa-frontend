@@ -97,6 +97,11 @@ const StyledFavorites = styled.p`
   cursor: pointer;
 `;
 
+const StyledDelete = styled.p`
+  color: #dc3545;
+  font-weight: 400;
+  font-size: 12px;
+`;
 const StyledComments = styled.p`
   color: #409eff;
   font-weight: 400;
@@ -235,7 +240,12 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
                 </>
               ) : (
                 <StyledDeleteButton onClick={() => setIconDelete(true)}>
-                  <img src={deleteIcon} alt="" />
+                  <StyledAction>
+                    <img src={deleteIcon} alt="" />
+                    <StyledDelete className="d-none d-md-block">
+                      Удалить вопрос
+                    </StyledDelete>
+                  </StyledAction>
                 </StyledDeleteButton>
               )}
             </StyledDeleteGroup>
