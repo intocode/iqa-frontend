@@ -97,6 +97,11 @@ const StyledFavorites = styled.p`
   cursor: pointer;
 `;
 
+const StyledDelete = styled.p`
+  color: #dc3545;
+  font-weight: 400;
+  font-size: 12px;
+`;
 const StyledComments = styled.p`
   color: #409eff;
   font-weight: 400;
@@ -110,6 +115,20 @@ const StyledAction = styled.div`
   cursor: pointer;
   & > img {
     margin-right: 5px;
+  }
+`;
+
+const StyledActionDelete = styled.div`
+  opacity: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  & > img {
+    margin-right: 5px;
+  }
+  :hover {
+    opacity: 1;
   }
 `;
 
@@ -235,7 +254,12 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
                 </>
               ) : (
                 <StyledDeleteButton onClick={() => setIconDelete(true)}>
-                  <img src={deleteIcon} alt="" />
+                  <StyledActionDelete>
+                    <img src={deleteIcon} alt="" />
+                    <StyledDelete className="d-none d-md-block">
+                      Удалить вопрос
+                    </StyledDelete>
+                  </StyledActionDelete>
                 </StyledDeleteButton>
               )}
             </StyledDeleteGroup>
