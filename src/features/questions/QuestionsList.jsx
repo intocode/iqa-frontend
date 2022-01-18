@@ -53,13 +53,15 @@ export const QuestionsList = () => {
         </div>
         {loading && <QuestionsListPlaceholder />}
         <QuestionWrapper>
-          {questions.map((question) => (
-            <QuestionBlock
-              key={question._id}
-              isCompactMode={isCompactMode}
-              question={question}
-            />
-          ))}
+          {loading
+            ? []
+            : questions.map((question) => (
+                <QuestionBlock
+                  key={question._id}
+                  isCompactMode={isCompactMode}
+                  question={question}
+                />
+              ))}
         </QuestionWrapper>
       </div>
     </>
