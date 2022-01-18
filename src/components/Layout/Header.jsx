@@ -1,12 +1,15 @@
 import { Link, useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useAuth } from '../../common/context/Auth/useAuth';
 import { Button } from '../ui/Button';
 import { Typography } from '../ui/Typography';
 import { Logo } from './Logo';
-import { fetchQuestions } from '../../features/questions/questionsSlice';
+import {
+  fetchQuestions,
+  selectQuestionsLoading,
+} from '../../features/questions/questionsSlice';
 import AdaptiveMenu from './AdaptiveMenu';
 import iconMenu from '../assets/menu.svg';
 import iconCloseMenu from '../assets/closeMenu.svg';
@@ -36,6 +39,8 @@ export const Header = () => {
   const { token, executeLoggingInProcess, logout } = useAuth();
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const loading = useSelector(selectQuestionsLoading);
 
   useEffect(() => {
     const handleResize = () => {
@@ -94,35 +99,39 @@ export const Header = () => {
               </Badge>
             </Link> */}
           </div>
-          <div className="col-auto d-none d-md-block">
-            {token ? (
-              <>
-                <Button
-                  className="me-3"
-                  contrast={false}
-                  color="primary"
-                  onClick={handleAddQuestion}
-                >
-                  Добавить вопрос
-                </Button>
-                <Link to="/" className="header_link">
-                  <Button contrast={false} color="primary" onClick={logout}>
-                    Выйти
+          {loading ? (
+            ''
+          ) : (
+            <div className="col-auto d-none d-md-block">
+              {token ? (
+                <>
+                  <Button
+                    className="me-3"
+                    contrast={false}
+                    color="primary"
+                    onClick={handleAddQuestion}
+                  >
+                    Добавить вопрос
+                  </Button>
+                  <Link to="/" className="header_link">
+                    <Button contrast={false} color="primary" onClick={logout}>
+                      Выйти
+                    </Button>
+                  </Link>
+                </>
+              ) : (
+                <Link to="/" className="header_link d-none d-md-block">
+                  <Button
+                    contrast={false}
+                    color="primary"
+                    onClick={executeLoggingInProcess}
+                  >
+                    Login with GitHub
                   </Button>
                 </Link>
-              </>
-            ) : (
-              <Link to="/" className="header_link d-none d-md-block">
-                <Button
-                  contrast={false}
-                  color="primary"
-                  onClick={executeLoggingInProcess}
-                >
-                  Login with GitHub
-                </Button>
-              </Link>
-            )}
-          </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </StyledHeader>
