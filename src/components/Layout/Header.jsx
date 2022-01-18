@@ -26,6 +26,7 @@ const StyledHeader = styled.div`
   }
   .container {
     padding: 15px;
+    margin: 0;
   }
 `;
 
@@ -66,7 +67,7 @@ export const Header = () => {
   return (
     <StyledHeader>
       <AdaptiveMenu menu={menu} />
-      <div className="container mb-2 py-2">
+      <div className="container mb-3 py-3">
         <div className="row align-items-center">
           <div className="col d-flex align-items-center">
             <div className="adaptive_menu">
