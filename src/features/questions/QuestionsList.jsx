@@ -19,10 +19,10 @@ export const QuestionsList = () => {
   const loading = useSelector(selectQuestionsLoading);
 
   useEffect(() => {
-    if (!questions.length) {
+    if (!questions.length && !loading) {
       dispatch(fetchQuestions());
     }
-  }, [dispatch, questions]);
+  }, [dispatch, questions, loading]);
 
   // очистка сообщения об успешном добавлении вопроса
   useEffect(() => {
