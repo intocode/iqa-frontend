@@ -91,6 +91,7 @@ const questionsSlice = createSlice({
   extraReducers: {
     [fetchQuestions.pending]: (state) => {
       state.loading = true;
+      state.questions = [];
     },
     [fetchQuestions.fulfilled]: (state, action) => {
       state.loading = false;
