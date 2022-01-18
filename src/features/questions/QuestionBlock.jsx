@@ -35,6 +35,9 @@ const StyledQuestionBlock = styled.div`
   & > div {
     margin: 20px 0;
   }
+  :hover.styleDelete {
+    opacity: 1;
+  }
 `;
 
 const StyledQuestionHeader = styled.div`
@@ -127,12 +130,10 @@ const StyledActionDelete = styled.div`
   & > img {
     margin-right: 5px;
   }
-  :hover {
-    opacity: 1;
-  }
 `;
 
 const StyledDeleteButton = styled.div`
+  cursor: pointer;
   height: 0;
   & > img {
     width: 19px;
@@ -254,7 +255,7 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
                 </>
               ) : (
                 <StyledDeleteButton onClick={() => setIconDelete(true)}>
-                  <StyledActionDelete>
+                  <StyledActionDelete className="styleDelete">
                     <img src={deleteIcon} alt="" />
                     <StyledDelete className="d-none d-md-block">
                       Удалить вопрос
