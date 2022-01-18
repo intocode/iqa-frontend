@@ -20,6 +20,7 @@ const StyledHeader = styled.div`
   .adaptive_menu {
     position: relative;
   }
+
   .icon_menu {
     position: absolute;
     top: -8px;
@@ -67,8 +68,8 @@ export const Header = () => {
   return (
     <StyledHeader>
       <AdaptiveMenu menu={menu} />
-      <div className="container mb-2 py-2">
-        <div className="row align-items-center">
+      <div className="container">
+        <div className="row justify-content-between align-items-center my-3">
           <div className="col d-flex align-items-center">
             <div className="adaptive_menu">
               <div
