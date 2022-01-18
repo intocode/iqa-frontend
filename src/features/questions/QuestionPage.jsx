@@ -102,7 +102,7 @@ const QuestionPage = () => {
           <StyledPaperHeader>
             <StyledAvatar>
               <img src={question?.user?.avatar?.thumbnail} alt="" />
-              <p>{question?.name}</p>
+              <p>{question?.user?.name}</p>
               <div>добавлено {dayjs(question?.createdAt).fromNow()}</div>
             </StyledAvatar>
             <StyledTag>
