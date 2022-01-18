@@ -118,6 +118,20 @@ const StyledAction = styled.div`
   }
 `;
 
+const StyledActionDelete = styled.div`
+  opacity: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  & > img {
+    margin-right: 5px;
+  }
+  :hover {
+    opacity: 1;
+  }
+`;
+
 const StyledDeleteButton = styled.div`
   height: 0;
   & > img {
@@ -240,12 +254,12 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
                 </>
               ) : (
                 <StyledDeleteButton onClick={() => setIconDelete(true)}>
-                  <StyledAction>
+                  <StyledActionDelete>
                     <img src={deleteIcon} alt="" />
                     <StyledDelete className="d-none d-md-block">
                       Удалить вопрос
                     </StyledDelete>
-                  </StyledAction>
+                  </StyledActionDelete>
                 </StyledDeleteButton>
               )}
             </StyledDeleteGroup>
