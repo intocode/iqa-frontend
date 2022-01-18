@@ -29,7 +29,15 @@ export const QuestionsList = () => {
     dispatch(resetSuccess());
   }, [dispatch]);
 
-  const [isCompactMode, setIsCompactMode] = useState(false);
+  const [isCompactMode, setIsCompactMode] = useState(() => {
+    const saved = localStorage.getItem('compact');
+    const initialValue = JSON.parse(saved);
+    return initialValue || '';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('compact', JSON.stringify(isCompactMode));
+  }, [isCompactMode]);
 
   const QuestionWrapper = isCompactMode ? Paper : React.Fragment;
 
