@@ -35,7 +35,7 @@ const StyledQuestionBlock = styled.div`
   & > div {
     margin: 20px 0;
   }
-  :hover.styleDelete {
+  :hover .styleDelete {
     opacity: 1;
   }
 `;
