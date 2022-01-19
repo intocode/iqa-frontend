@@ -8,7 +8,7 @@ import {
 } from './questionsSlice';
 import {
   selectIsCompactModeToogle,
-  setIsCompactMode,
+  toggleIsCompactMode,
 } from '../application/applicationSlice';
 import { QuestionBlock } from './QuestionBlock';
 import { QuestionsListPlaceholder } from './QuestionsListPlaceholder';
@@ -34,16 +34,6 @@ export const QuestionsList = () => {
     dispatch(resetSuccess());
   }, [dispatch]);
 
-  // const [isCompactMode, setIsCompactMode] = useState(() => {
-  //   const saved = localStorage.getItem('compact');
-  //   const initialValue = JSON.parse(saved);
-  //   return initialValue || '';
-  // });
-
-  // useEffect(() => {
-  //   localStorage.setItem('compact', JSON.stringify(isCompactMode));
-  // }, [isCompactMode]);
-
   const QuestionWrapper = isCompactMode ? Paper : React.Fragment;
 
   return (
@@ -57,10 +47,10 @@ export const QuestionsList = () => {
           <div className="col-auto">
             <Switch
               turnedOn={isCompactMode}
-              onChange={() => dispatch(setIsCompactMode())}
+              onChange={() => dispatch(toggleIsCompactMode())}
               disabled={false}
             >
-              Компактный вид{isCompactMode}
+              Компактный вид
             </Switch>
           </div>
         </div>

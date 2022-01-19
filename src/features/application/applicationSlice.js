@@ -6,7 +6,7 @@ const applicationSlice = createSlice({
     isCompactMode: false,
   },
   reducers: {
-    setIsCompactMode: (state) => {
+    toggleIsCompactMode: (state) => {
       state.isCompactMode = !state.isCompactMode;
     },
   },
@@ -18,6 +18,6 @@ export const selectIsCompactModeToogle = createSelector(
   (state) => state.isCompactMode
 );
 
-export const { setIsCompactMode } = applicationSlice.actions;
+export const { toggleIsCompactMode } = applicationSlice.actions;
 
 export default applicationSlice.reducer;
