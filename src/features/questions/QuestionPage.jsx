@@ -16,6 +16,7 @@ import {
 import { QuestionPagePlaceholder } from './QuestionPagePlaceholder';
 import QuestionRate from './QuestionRate';
 import QuestionComments from '../comments/CommentsByQuestion';
+import { Title } from '../../app/Title/Title';
 
 const StyledQuestionBlock = styled.div`
   max-width: 820px;
@@ -89,6 +90,7 @@ const QuestionPage = () => {
 
   return (
     <StyledQuestionBlock className="m-3 m-md-auto">
+      <Title>iqa: обсуждение</Title>
       <StyledQuestionHeader>
         <h3>Обсуждение вопроса</h3>
         <StyledLink to="/">
