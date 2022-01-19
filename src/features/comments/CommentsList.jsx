@@ -46,7 +46,7 @@ const CommentsList = () => {
         return (
           <StyledSuccess background={comm._id === comment._id && '#67C23A19'}>
             <div
-              className="row align-items-center my-4 py-2 bg-success"
+              className="row align-items-center my-3 bg-success"
               key={comment._id}
             >
               <div className="col">
