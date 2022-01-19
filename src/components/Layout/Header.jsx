@@ -99,39 +99,36 @@ export const Header = () => {
               </Badge>
             </Link> */}
           </div>
-          {loading ? (
-            ''
-          ) : (
-            <div className="col-auto d-none d-md-block">
-              {token ? (
-                <>
-                  <Button
-                    className="me-3"
-                    contrast={false}
-                    color="primary"
-                    onClick={handleAddQuestion}
-                  >
-                    Добавить вопрос
-                  </Button>
-                  <Link to="/" className="header_link">
-                    <Button contrast={false} color="primary" onClick={logout}>
-                      Выйти
-                    </Button>
-                  </Link>
-                </>
-              ) : (
-                <Link to="/" className="header_link d-none d-md-block">
-                  <Button
-                    contrast={false}
-                    color="primary"
-                    onClick={executeLoggingInProcess}
-                  >
-                    Login with GitHub
+          <div className="col-auto d-none d-md-block">
+            {token && !loading && (
+              <>
+                <Button
+                  className="me-3"
+                  contrast={false}
+                  color="primary"
+                  onClick={handleAddQuestion}
+                >
+                  Добавить вопрос
+                </Button>
+                <Link to="/" className="header_link">
+                  <Button contrast={false} color="primary" onClick={logout}>
+                    Выйти
                   </Button>
                 </Link>
-              )}
-            </div>
-          )}
+              </>
+            )}
+            {!token && (
+              <Link to="/" className="header_link d-none d-md-block">
+                <Button
+                  contrast={false}
+                  color="primary"
+                  onClick={executeLoggingInProcess}
+                >
+                  Login with GitHub
+                </Button>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </StyledHeader>
