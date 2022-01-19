@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchQuestions,
@@ -6,6 +6,10 @@ import {
   selectQuestions,
   selectQuestionsLoading,
 } from './questionsSlice';
+import {
+  selectIsCompactModeToogle,
+  setIsCompactMode,
+} from '../application/applicationSlice';
 import { QuestionBlock } from './QuestionBlock';
 import { QuestionsListPlaceholder } from './QuestionsListPlaceholder';
 import { Title } from '../../app/Title/Title';
@@ -17,6 +21,7 @@ export const QuestionsList = () => {
 
   const questions = useSelector(selectQuestions);
   const loading = useSelector(selectQuestionsLoading);
+  const isCompactMode = useSelector(selectIsCompactModeToogle);
 
   useEffect(() => {
     if (!questions.length) {
@@ -29,15 +34,15 @@ export const QuestionsList = () => {
     dispatch(resetSuccess());
   }, [dispatch]);
 
-  const [isCompactMode, setIsCompactMode] = useState(() => {
-    const saved = localStorage.getItem('compact');
-    const initialValue = JSON.parse(saved);
-    return initialValue || '';
-  });
+  // const [isCompactMode, setIsCompactMode] = useState(() => {
+  //   const saved = localStorage.getItem('compact');
+  //   const initialValue = JSON.parse(saved);
+  //   return initialValue || '';
+  // });
 
-  useEffect(() => {
-    localStorage.setItem('compact', JSON.stringify(isCompactMode));
-  }, [isCompactMode]);
+  // useEffect(() => {
+  //   localStorage.setItem('compact', JSON.stringify(isCompactMode));
+  // }, [isCompactMode]);
 
   const QuestionWrapper = isCompactMode ? Paper : React.Fragment;
 
@@ -52,10 +57,10 @@ export const QuestionsList = () => {
           <div className="col-auto">
             <Switch
               turnedOn={isCompactMode}
-              onChange={() => setIsCompactMode(!isCompactMode)}
+              onChange={() => dispatch(setIsCompactMode())}
               disabled={false}
             >
-              Компактный вид
+              Компактный вид{isCompactMode}
             </Switch>
           </div>
         </div>
