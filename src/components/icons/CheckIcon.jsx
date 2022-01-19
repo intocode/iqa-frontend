@@ -18,5 +18,4 @@ function CheckIcon() {
     </div>
   );
 }
-
 export default CheckIcon;
