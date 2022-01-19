@@ -5,7 +5,7 @@ const Placeholder = () => {
   return (
     <Paper className="mb-3">
       <div className="placeholder-glow row justify-content-between p-2 mb-3">
-        <div className="col-5 placeholder placeholder-xs" />
+        <div className="col-5 placeholder placeholder-lg" />
       </div>
       <div className="placeholder-glow mb-3">
         <div className="placeholder col-12" />
