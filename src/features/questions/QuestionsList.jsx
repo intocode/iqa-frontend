@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchQuestions,
@@ -6,6 +6,10 @@ import {
   selectQuestions,
   selectQuestionsLoading,
 } from './questionsSlice';
+import {
+  selectIsCompactModeToogle,
+  toggleIsCompactMode,
+} from '../application/applicationSlice';
 import { QuestionBlock } from './QuestionBlock';
 import { QuestionsListPlaceholder } from './QuestionsListPlaceholder';
 import { Title } from '../../app/Title/Title';
@@ -17,6 +21,7 @@ export const QuestionsList = () => {
 
   const questions = useSelector(selectQuestions);
   const loading = useSelector(selectQuestionsLoading);
+  const isCompactMode = useSelector(selectIsCompactModeToogle);
 
   useEffect(() => {
     if (!questions.length && !loading) {
@@ -28,8 +33,6 @@ export const QuestionsList = () => {
   useEffect(() => {
     dispatch(resetSuccess());
   }, [dispatch]);
-
-  const [isCompactMode, setIsCompactMode] = useState(false);
 
   const QuestionWrapper = isCompactMode ? Paper : React.Fragment;
 
@@ -44,7 +47,7 @@ export const QuestionsList = () => {
           <div className="col-auto">
             <Switch
               turnedOn={isCompactMode}
-              onChange={() => setIsCompactMode(!isCompactMode)}
+              onChange={() => dispatch(toggleIsCompactMode())}
               disabled={false}
             >
               Компактный вид
