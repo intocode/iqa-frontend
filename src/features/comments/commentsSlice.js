@@ -53,6 +53,7 @@ const commentsSlice = createSlice({
   extraReducers: {
     [fetchComments.pending]: (state) => {
       state.loading = true;
+      state.comments = [];
     },
     [fetchComments.fulfilled]: (state, action) => {
       state.loading = false;
@@ -85,6 +86,12 @@ export const selectCommentsError = createSelector(
   selectCommentsState,
   (state) => state.error
 );
+
+export const selectCommentsLoading = createSelector(
+  selectCommentsState,
+  (state) => state.loading
+);
+
 export const selectCommentsSuccess = createSelector(
   selectCommentsState,
   (state) => state.success

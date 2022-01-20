@@ -9,7 +9,6 @@ import { selectComments, selectCommentsSuccess } from './commentsSlice';
 const StyledProfile = styled.div`
   display: flex;
   align-items: center;
-
   & > img {
     width: 36px;
     height: 36px;
@@ -20,7 +19,6 @@ const StyledProfile = styled.div`
 
 const StyledCommentText = styled.div`
   margin-top: 10px;
-
   .toastui-editor-contents {
     font-size: 16px;
   }
