@@ -90,7 +90,7 @@ const QuestionPage = () => {
 
   return (
     <StyledQuestionBlock className="m-3 m-md-auto">
-      <Title>iqa: обсуждение</Title>
+      <Title>{question?.question}</Title>
       <StyledQuestionHeader>
         <h3>Обсуждение вопроса</h3>
         <StyledLink to="/">
