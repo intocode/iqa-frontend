@@ -70,7 +70,7 @@ export const Header = () => {
 
   return (
     <StyledHeader>
-      <AdaptiveMenu menu={menu} />
+      <AdaptiveMenu menu={menu} setMenu={handleToggleMenu}/>
       <div className="container mb-2 py-2">
         <div className="row align-items-center">
           <div className="col d-flex align-items-center">

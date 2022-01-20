@@ -20,11 +20,23 @@ const StyledMenu = styled.div`
   }
 `;
 
-const AdaptiveMenu = ({ menu }) => {
+const AdaptiveMenu = ({ menu, setMenu }) => {
   const history = useHistory();
   const { token, executeLoggingInProcess, logout } = useAuth();
 
-  const handleAddQuestion = () => history.push('/create');
+  const handleAddQuestion = () => {
+    history.push('/create');
+    setMenu()
+  }
+
+  const handleCLickLink = (but) => {
+    if(but === 'logout'){
+      logout();
+    } else {
+      executeLoggingInProcess();
+    }
+    setMenu();
+  }
 
   return (
     <StyledMenu>
@@ -47,7 +59,7 @@ const AdaptiveMenu = ({ menu }) => {
                       className="d-block m-auto"
                       contrast={false}
                       color="primary"
-                      onClick={logout}
+                      onClick={() => handleCLickLink('logout')}
                     >
                       Выйти
                     </Button>
@@ -59,7 +71,7 @@ const AdaptiveMenu = ({ menu }) => {
                     className="d-block m-auto"
                     contrast={false}
                     color="primary"
-                    onClick={executeLoggingInProcess}
+                    onClick={() => handleCLickLink('executeLoggingInProcess')}
                   >
                     Login with GitHub
                   </Button>
@@ -75,9 +87,11 @@ const AdaptiveMenu = ({ menu }) => {
 
 AdaptiveMenu.propTypes = {
   menu: PropTypes.bool,
+  setMenu: PropTypes.func.isRequired,
 };
 AdaptiveMenu.defaultProps = {
   menu: false,
+
 };
 
 export default AdaptiveMenu;
