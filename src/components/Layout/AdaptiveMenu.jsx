@@ -26,17 +26,17 @@ const AdaptiveMenu = ({ menu, setMenu }) => {
 
   const handleAddQuestion = () => {
     history.push('/create');
-    setMenu()
-  }
+    setMenu();
+  };
 
   const handleCLickLink = (but) => {
-    if(but === 'logout'){
+    if (but === 'logout') {
       logout();
     } else {
       executeLoggingInProcess();
     }
     setMenu();
-  }
+  };
 
   return (
     <StyledMenu>
@@ -91,7 +91,6 @@ AdaptiveMenu.propTypes = {
 };
 AdaptiveMenu.defaultProps = {
   menu: false,
-
 };
 
 export default AdaptiveMenu;
