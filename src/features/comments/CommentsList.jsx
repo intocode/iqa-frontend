@@ -1,21 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
 import { Viewer } from '@toast-ui/react-editor';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Rate } from '../../components/ui';
-import {
-  fetchComments,
-  selectComments,
-  selectCommentsLoading,
-  selectCommentsSuccess,
-} from './commentsSlice';
-import { CommentsListPlaceholder } from './CommentsListPlaceholder';
+import { selectComments, selectCommentsSuccess } from './commentsSlice';
 
 const StyledProfile = styled.div`
   display: flex;
   align-items: center;
-
   & > img {
     width: 36px;
     height: 36px;
@@ -26,7 +19,6 @@ const StyledProfile = styled.div`
 
 const StyledCommentText = styled.div`
   margin-top: 10px;
-
   .toastui-editor-contents {
     font-size: 16px;
   }
@@ -43,21 +35,11 @@ const StyledSuccess = styled.div`
 `;
 
 const CommentsList = () => {
-  const dispatch = useDispatch();
-
   const comments = useSelector(selectComments);
   const comm = useSelector(selectCommentsSuccess);
-  const loading = useSelector(selectCommentsLoading);
-
-  useEffect(() => {
-    if (!comments.length && !loading) {
-      dispatch(fetchComments());
-    }
-  }, [dispatch, comments, comm, loading]);
 
   return (
     <>
-      {loading && <CommentsListPlaceholder />}
       {comments.map((comment) => {
         return (
           <StyledSuccess background={comm._id === comment._id && '#67C23A19'}>

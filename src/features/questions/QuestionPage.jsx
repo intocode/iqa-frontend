@@ -15,7 +15,7 @@ import {
 } from './questionsSlice';
 import { QuestionPagePlaceholder } from './QuestionPagePlaceholder';
 import QuestionRate from './QuestionRate';
-import QuestionComments from '../comments/CommentsByQuestion';
+import CommentsByQuestion from '../comments/CommentsByQuestion';
 
 const StyledQuestionBlock = styled.div`
   max-width: 820px;
@@ -121,7 +121,7 @@ const QuestionPage = () => {
           <div className="my-4">
             <Divider />
           </div>
-          <QuestionComments />
+          <CommentsByQuestion />
         </Paper>
       )}
     </StyledQuestionBlock>

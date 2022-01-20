@@ -15,7 +15,7 @@ const Placeholder = () => {
   );
 };
 
-export const CommentsListPlaceholder = () => {
+export const CommentsPlaceholder = () => {
   const placeholders = new Array(4).fill(null);
   return (
     <>
