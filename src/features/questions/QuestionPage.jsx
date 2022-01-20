@@ -89,44 +89,46 @@ const QuestionPage = () => {
   useEffect(() => dispatch(fetchQuestionById(id)), [dispatch, id]);
 
   return (
-    <StyledQuestionBlock className="m-3 m-md-auto">
+    <>
       <Title>{question?.question}</Title>
-      <StyledQuestionHeader>
-        <h3>Обсуждение вопроса</h3>
-        <StyledLink to="/">
-          <Typography>Вернуться назад</Typography>
-        </StyledLink>
-      </StyledQuestionHeader>
-      {loading ? (
-        <QuestionPagePlaceholder />
-      ) : (
-        <Paper>
-          <StyledPaperHeader>
-            <StyledAvatar>
-              <img src={question?.user?.avatar?.thumbnail} alt="" />
-              <p>{question?.user?.name}</p>
-              <div>добавлено {dayjs(question?.createdAt).fromNow()}</div>
-            </StyledAvatar>
-            <StyledTag>
-              {question?.tags.map((tag) => (
-                <Tag key={tag.name} noGutters className="d-none d-md-block">
-                  {tag.name}
-                </Tag>
-              ))}
-            </StyledTag>
-          </StyledPaperHeader>
-          <h3>{question?.question}</h3>
-          <StyledComment>
-            <Viewer initialValue={question?.comment} />
-          </StyledComment>
-          {question ? <QuestionRate id={id} /> : 'Загрузка...'}
-          <div className="my-4">
-            <Divider />
-          </div>
-          <QuestionComments />
-        </Paper>
-      )}
-    </StyledQuestionBlock>
+      <StyledQuestionBlock className="m-3 m-md-auto">
+        <StyledQuestionHeader>
+          <h3>Обсуждение вопроса</h3>
+          <StyledLink to="/">
+            <Typography>Вернуться назад</Typography>
+          </StyledLink>
+        </StyledQuestionHeader>
+        {loading ? (
+          <QuestionPagePlaceholder />
+        ) : (
+          <Paper>
+            <StyledPaperHeader>
+              <StyledAvatar>
+                <img src={question?.user?.avatar?.thumbnail} alt="" />
+                <p>{question?.user?.name}</p>
+                <div>добавлено {dayjs(question?.createdAt).fromNow()}</div>
+              </StyledAvatar>
+              <StyledTag>
+                {question?.tags.map((tag) => (
+                  <Tag key={tag.name} noGutters className="d-none d-md-block">
+                    {tag.name}
+                  </Tag>
+                ))}
+              </StyledTag>
+            </StyledPaperHeader>
+            <h3>{question?.question}</h3>
+            <StyledComment>
+              <Viewer initialValue={question?.comment} />
+            </StyledComment>
+            {question ? <QuestionRate id={id} /> : 'Загрузка...'}
+            <div className="my-4">
+              <Divider />
+            </div>
+            <QuestionComments />
+          </Paper>
+        )}
+      </StyledQuestionBlock>
+    </>
   );
 };
 
