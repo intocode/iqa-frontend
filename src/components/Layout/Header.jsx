@@ -28,7 +28,12 @@ const StyledHeader = styled.div`
     top: -8px;
   }
   .container {
-    padding: 15px;
+    padding: 8px 15px;
+  }
+  @media ${(props) => props.theme.media.phone} {
+    .container {
+      padding: 24px 20px;
+    }
   }
 `;
 
@@ -71,7 +76,7 @@ export const Header = () => {
   return (
     <StyledHeader>
       <AdaptiveMenu menu={menu} />
-      <div className="container mb-2 py-2">
+      <div className="container mb-2">
         <div className="row align-items-center">
           <div className="col d-flex align-items-center">
             <div className="adaptive_menu">

@@ -35,4 +35,7 @@ export const theme = {
       900: 'blue',
     },
   },
+  media: {
+    phone: '(max-width:425px)',
+  },
 };
