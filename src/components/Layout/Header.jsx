@@ -16,7 +16,6 @@ import iconCloseMenu from '../assets/closeMenu.svg';
 
 const StyledHeader = styled.div`
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  padding: 9.5px 0;
   background-color: white;
   .header_link {
     text-decoration: none;
@@ -29,7 +28,12 @@ const StyledHeader = styled.div`
     top: -8px;
   }
   .container {
-    padding: 20px;
+    padding: 8px 15px;
+  }
+  @media ${(props) => props.theme.media.phone} {
+    .container {
+      padding: 24px 20px;
+    }
   }
 `;
 
@@ -72,7 +76,7 @@ export const Header = () => {
   return (
     <StyledHeader>
       <AdaptiveMenu menu={menu} />
-      <div className="container mb-2 py-2">
+      <div className="container mb-2">
         <div className="row align-items-center">
           <div className="col d-flex align-items-center">
             <div className="adaptive_menu">
