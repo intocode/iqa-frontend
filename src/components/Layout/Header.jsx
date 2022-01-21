@@ -16,6 +16,7 @@ import iconCloseMenu from '../assets/closeMenu.svg';
 
 const StyledHeader = styled.div`
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  padding: 9.5px 0;
   background-color: white;
   .header_link {
     text-decoration: none;
@@ -28,7 +29,7 @@ const StyledHeader = styled.div`
     top: -8px;
   }
   .container {
-    padding: 15px;
+    padding: 20px;
   }
 `;
 
