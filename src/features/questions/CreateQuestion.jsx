@@ -193,123 +193,119 @@ const CreateQuestion = () => {
     setComment(instance.getMarkdown());
   };
 
+  if (!token) return <Redirect to="/" />;
   return (
     <>
-      {!token && <Redirect to="/" />}
-      {token && (
-        <>
-          <Title>iqa: добавить вопрос</Title>
-          <StyledQuestionWrapper className="container">
-            {questionsError && (
-              <Alert onClose={() => dispatch(resetStatus())} color="danger">
-                {questionsError}
-              </Alert>
-            )}
-            {tagsError && (
-              <Alert onClose={() => dispatch(resetTagStatus())} color="danger">
-                {tagsError}
-              </Alert>
-            )}
-            {questionsSuccess && (
-              <Alert onClose={() => dispatch(resetSuccess())}>
-                Вопрос добавлен!
-              </Alert>
-            )}
-            <StyledTitle>
-              <h3>Добавление вопроса</h3>
-            </StyledTitle>
-            <Paper>
-              <StyledProfile>
-                <img src={profile.avatar?.thumbnail} alt="" />
-                <p>{profile.name}</p>
-              </StyledProfile>
-              {manyQuestions && (
-                <Alert color="warning">
-                  В одном посте рекомендуется публиковать только один вопрос.
-                </Alert>
-              )}
-              <div className="question-title">
-                Как звучит вопрос?<sup>*</sup>
-              </div>
-              <Input
-                onChange={(e) => setQuestion(e.target.value)}
-                value={question}
-                placeholder="Формулировка вопроса..."
-              />
-              <div className="additional">
-                <div className="comment-title">Дополнительный комментарий</div>
-                <Editor
-                  previewStyle="vertical"
-                  height="200px"
-                  initialEditType="wysiwyg"
-                  useCommandShortcut
-                  usageStatistics={false}
-                  hideModeSwitch
-                  value={comment}
-                  onChange={handleChange}
-                  ref={editorRef}
-                  toolbarItems={[
-                    ['heading', 'bold', 'italic', 'strike'],
-                    ['hr', 'quote', 'code', 'codeblock'],
-                  ]}
-                />
-                <div className="tag-title">
-                  Теги<sup>*</sup>
-                </div>
-                <StyledTagWrapper>
-                  {tags.map((tag) => (
-                    <Tag
-                      key={tag._id}
-                      onRemove={() => dispatch(removeTag(tag._id))}
-                    >
-                      {tag.name}
-                    </Tag>
-                  ))}
-                  {/* todo убрать дублирование ниже */}
-                  {!editMode && (
-                    <button
-                      onClick={() => setEditMode(true)}
-                      type="button"
-                      className="new-tag"
-                    >
-                      <PlusIcon />
-                      <span>New tag</span>
-                    </button>
-                  )}
-                  {editMode && (
-                    <button
-                      onBlur={() => setEditMode(false)}
-                      type="button"
-                      className="new-tag"
-                    >
-                      <PlusIcon />
-                      <input
-                        value={tagValue}
-                        onKeyPress={handleKeyPress}
-                        onChange={(e) => setTagValue(e.target.value)}
-                        ref={callbackRef}
-                      />
-                    </button>
-                  )}
-                </StyledTagWrapper>
-              </div>
-              <div className="buttons">
-                <Button
-                  loading={questionsLoading}
-                  onClick={handleCreate}
-                  color="primary"
-                  disabled={!tags.length}
+      <Title>iqa: добавить вопрос</Title>
+      <StyledQuestionWrapper className="container">
+        {questionsError && (
+          <Alert onClose={() => dispatch(resetStatus())} color="danger">
+            {questionsError}
+          </Alert>
+        )}
+        {tagsError && (
+          <Alert onClose={() => dispatch(resetTagStatus())} color="danger">
+            {tagsError}
+          </Alert>
+        )}
+        {questionsSuccess && (
+          <Alert onClose={() => dispatch(resetSuccess())}>
+            Вопрос добавлен!
+          </Alert>
+        )}
+        <StyledTitle>
+          <h3>Добавление вопроса</h3>
+        </StyledTitle>
+        <Paper>
+          <StyledProfile>
+            <img src={profile.avatar?.thumbnail} alt="" />
+            <p>{profile.name}</p>
+          </StyledProfile>
+          {manyQuestions && (
+            <Alert color="warning">
+              В одном посте рекомендуется публиковать только один вопрос.
+            </Alert>
+          )}
+          <div className="question-title">
+            Как звучит вопрос?<sup>*</sup>
+          </div>
+          <Input
+            onChange={(e) => setQuestion(e.target.value)}
+            value={question}
+            placeholder="Формулировка вопроса..."
+          />
+          <div className="additional">
+            <div className="comment-title">Дополнительный комментарий</div>
+            <Editor
+              previewStyle="vertical"
+              height="200px"
+              initialEditType="wysiwyg"
+              useCommandShortcut
+              usageStatistics={false}
+              hideModeSwitch
+              value={comment}
+              onChange={handleChange}
+              ref={editorRef}
+              toolbarItems={[
+                ['heading', 'bold', 'italic', 'strike'],
+                ['hr', 'quote', 'code', 'codeblock'],
+              ]}
+            />
+            <div className="tag-title">
+              Теги<sup>*</sup>
+            </div>
+            <StyledTagWrapper>
+              {tags.map((tag) => (
+                <Tag
+                  key={tag._id}
+                  onRemove={() => dispatch(removeTag(tag._id))}
                 >
-                  Добавить
-                </Button>
-                <Link to="/" className="cancel">
-                  <Typography color="gray">Отмена</Typography>
-                </Link>
-              </div>
-            </Paper>
-          </StyledQuestionWrapper>
-        </>
-      )}
+                  {tag.name}
+                </Tag>
+              ))}
+              {/* todo убрать дублирование ниже */}
+              {!editMode && (
+                <button
+                  onClick={() => setEditMode(true)}
+                  type="button"
+                  className="new-tag"
+                >
+                  <PlusIcon />
+                  <span>New tag</span>
+                </button>
+              )}
+              {editMode && (
+                <button
+                  onBlur={() => setEditMode(false)}
+                  type="button"
+                  className="new-tag"
+                >
+                  <PlusIcon />
+                  <input
+                    value={tagValue}
+                    onKeyPress={handleKeyPress}
+                    onChange={(e) => setTagValue(e.target.value)}
+                    ref={callbackRef}
+                  />
+                </button>
+              )}
+            </StyledTagWrapper>
+          </div>
+          <div className="buttons">
+            <Button
+              loading={questionsLoading}
+              onClick={handleCreate}
+              color="primary"
+              disabled={!tags.length}
+            >
+              Добавить
+            </Button>
+            <Link to="/" className="cancel">
+              <Typography color="gray">Отмена</Typography>
+            </Link>
+          </div>
+        </Paper>
+      </StyledQuestionWrapper>
     </>
   );
 };
