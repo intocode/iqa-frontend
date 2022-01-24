@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAuth } from '../common/context/Auth/useAuth';
 import { Header } from '../components/Layout/Header';
@@ -27,7 +27,7 @@ export const App = () => {
           <QuestionsList />
         </Route>
         <Route path="/create">
-          <CreateQuestion />
+          {token ? <CreateQuestion /> : <Redirect to="/" />}
         </Route>
         <Route path="/question/:id">
           <QuestionPage />
