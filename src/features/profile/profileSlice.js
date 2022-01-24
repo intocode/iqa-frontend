@@ -102,4 +102,9 @@ export const selectDeletingFromFavorites = createSelector(
   (state) => state.deletingFromFavorites
 );
 
+export const selectProfileLoading = createSelector(
+  selectProfileState,
+  (state) => state.loading
+);
+
 export default profileSlice.reducer;
