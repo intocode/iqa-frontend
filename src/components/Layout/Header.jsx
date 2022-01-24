@@ -6,10 +6,8 @@ import { useAuth } from '../../common/context/Auth/useAuth';
 import { Button } from '../ui/Button';
 import { Typography } from '../ui/Typography';
 import { Logo } from './Logo';
-import {
-  fetchQuestions,
-  selectQuestionsLoading,
-} from '../../features/questions/questionsSlice';
+import { fetchQuestions } from '../../features/questions/questionsSlice';
+import { selectProfileLoading } from '../../features/profile/profileSlice';
 import AdaptiveMenu from './AdaptiveMenu';
 import iconMenu from '../assets/menu.svg';
 import iconCloseMenu from '../assets/closeMenu.svg';
@@ -45,7 +43,7 @@ export const Header = () => {
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  const loading = useSelector(selectQuestionsLoading);
+  const loading = useSelector(selectProfileLoading);
 
   useEffect(() => {
     const handleResize = () => {
