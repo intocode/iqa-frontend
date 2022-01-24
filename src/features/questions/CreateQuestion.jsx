@@ -194,6 +194,7 @@ const CreateQuestion = () => {
   };
 
   if (!token) return <Redirect to="/" />;
+
   return (
     <>
       <Title>iqa: добавить вопрос</Title>
