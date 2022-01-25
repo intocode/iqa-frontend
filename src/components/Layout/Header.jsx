@@ -13,6 +13,10 @@ import {
 import AdaptiveMenu from './AdaptiveMenu';
 import iconMenu from '../assets/menu.svg';
 import iconCloseMenu from '../assets/closeMenu.svg';
+import {
+  selectIsMobileMenuToggle,
+  toggleIsMobileMenu,
+} from '../../features/application/applicationSlice';
 
 const StyledHeader = styled.div`
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -33,10 +37,10 @@ const StyledHeader = styled.div`
 `;
 
 export const Header = () => {
-  const [menu, setMenu] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
   const { token, executeLoggingInProcess, logout } = useAuth();
+  const isMobileMenu = useSelector(selectIsMobileMenuToggle);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -58,19 +62,19 @@ export const Header = () => {
   };
 
   const handleToggleMenu = () => {
-    setMenu(!menu);
-    if (!menu) {
+    dispatch(toggleIsMobileMenu());
+    if (!isMobileMenu) {
       document.body.style.overflowY = 'clip';
     } else {
       document.body.style.overflowY = 'visible';
     }
   };
 
-  const iconMenuAndClose = !menu ? iconMenu : iconCloseMenu;
+  const iconMenuAndClose = !isMobileMenu ? iconMenu : iconCloseMenu;
 
   return (
     <StyledHeader>
-      <AdaptiveMenu menu={menu} setMenu={handleToggleMenu} />
+      <AdaptiveMenu toggleMobileMenu={handleToggleMenu} />
       <div className="container mb-2 py-2">
         <div className="row align-items-center">
           <div className="col d-flex align-items-center">

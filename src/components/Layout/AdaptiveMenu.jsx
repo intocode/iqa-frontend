@@ -1,9 +1,11 @@
-import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import { useAuth } from '../../common/context/Auth/useAuth';
 import { Button } from '../ui';
+import { selectIsMobileMenuToggle } from '../../features/application/applicationSlice';
 
 const StyledMenu = styled.div`
   .adaptive_menu {
@@ -20,27 +22,25 @@ const StyledMenu = styled.div`
   }
 `;
 
-const AdaptiveMenu = ({ menu, setMenu }) => {
+const AdaptiveMenu = ({ toggleMobileMenu }) => {
+  const location = useLocation();
   const history = useHistory();
+  const isMobileMenu = useSelector(selectIsMobileMenuToggle);
   const { token, executeLoggingInProcess, logout } = useAuth();
 
   const handleAddQuestion = () => {
     history.push('/create');
-    setMenu();
   };
 
-  const handleCLickLink = (but) => {
-    if (but === 'logout') {
-      logout();
-    } else {
-      executeLoggingInProcess();
+  useEffect(() => {
+    if (isMobileMenu) {
+      toggleMobileMenu();
     }
-    setMenu();
-  };
+  }, [location.key]);
 
   return (
     <StyledMenu>
-      {menu && (
+      {isMobileMenu && (
         <div className="adaptive_menu d-md-none">
           <div className="menu_mobile">
             <div className="pt-3 px-5 ">
@@ -59,7 +59,7 @@ const AdaptiveMenu = ({ menu, setMenu }) => {
                       className="d-block m-auto"
                       contrast={false}
                       color="primary"
-                      onClick={() => handleCLickLink('logout')}
+                      onClick={logout}
                     >
                       Выйти
                     </Button>
@@ -71,7 +71,7 @@ const AdaptiveMenu = ({ menu, setMenu }) => {
                     className="d-block m-auto"
                     contrast={false}
                     color="primary"
-                    onClick={() => handleCLickLink('executeLoggingInProcess')}
+                    onClick={executeLoggingInProcess}
                   >
                     Login with GitHub
                   </Button>
@@ -86,11 +86,7 @@ const AdaptiveMenu = ({ menu, setMenu }) => {
 };
 
 AdaptiveMenu.propTypes = {
-  menu: PropTypes.bool,
-  setMenu: PropTypes.func.isRequired,
-};
-AdaptiveMenu.defaultProps = {
-  menu: false,
+  toggleMobileMenu: PropTypes.func.isRequired,
 };
 
 export default AdaptiveMenu;

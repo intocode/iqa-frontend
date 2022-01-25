@@ -4,10 +4,14 @@ const applicationSlice = createSlice({
   name: 'application',
   initialState: {
     isCompactMode: false,
+    isToggleMobileMenu: false,
   },
   reducers: {
     toggleIsCompactMode: (state) => {
       state.isCompactMode = !state.isCompactMode;
+    },
+    toggleIsMobileMenu: (state) => {
+      state.isToggleMobileMenu = !state.isToggleMobileMenu;
     },
   },
 });
@@ -18,6 +22,12 @@ export const selectIsCompactModeToogle = createSelector(
   (state) => state.isCompactMode
 );
 
-export const { toggleIsCompactMode } = applicationSlice.actions;
+export const selectIsMobileMenuToggle = createSelector(
+  selectIsCompactModeState,
+  (state) => state.isToggleMobileMenu
+);
+
+export const { toggleIsCompactMode, toggleIsMobileMenu } =
+  applicationSlice.actions;
 
 export default applicationSlice.reducer;
