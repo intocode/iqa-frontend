@@ -2,10 +2,8 @@ import React, { useEffect } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
 import { useAuth } from '../../common/context/Auth/useAuth';
 import { Button } from '../ui';
-import { selectIsMobileMenuToggle } from '../../features/application/applicationSlice';
 
 const StyledMenu = styled.div`
   .adaptive_menu {
@@ -22,10 +20,9 @@ const StyledMenu = styled.div`
   }
 `;
 
-const AdaptiveMenu = ({ toggleMobileMenu }) => {
+const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
   const location = useLocation();
   const history = useHistory();
-  const isMobileMenu = useSelector(selectIsMobileMenuToggle);
   const { token, executeLoggingInProcess, logout } = useAuth();
 
   const handleAddQuestion = () => {
@@ -33,14 +30,14 @@ const AdaptiveMenu = ({ toggleMobileMenu }) => {
   };
 
   useEffect(() => {
-    if (isMobileMenu) {
+    if (mobileMenu) {
       toggleMobileMenu();
     }
-  }, [location.key]);
+  }, [location.key]); //eslint-disable-line
 
   return (
     <StyledMenu>
-      {isMobileMenu && (
+      {mobileMenu && (
         <div className="adaptive_menu d-md-none">
           <div className="menu_mobile">
             <div className="pt-3 px-5 ">
@@ -87,6 +84,7 @@ const AdaptiveMenu = ({ toggleMobileMenu }) => {
 
 AdaptiveMenu.propTypes = {
   toggleMobileMenu: PropTypes.func.isRequired,
+  mobileMenu: PropTypes.bool.isRequired,
 };
 
 export default AdaptiveMenu;
