@@ -10,7 +10,7 @@ const StyledRate = styled.div`
   color: ${(props) => props.theme.colors.gray.main};
 
   span {
-    margin: 0 10px;
+    margin: 0 5px;
     color: ${(props) => {
       if (props.currentRate > 0) {
         return props.theme.colors.success.main;

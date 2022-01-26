@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import '@toast-ui/editor/dist/toastui-editor.css';
@@ -30,6 +30,7 @@ import {
   selectQuestionsLoading,
   resetSuccess,
 } from './questionsSlice';
+import { useAuth } from '../../common/context/Auth/useAuth';
 
 // const placeholderForTextArea =
 //   'Расскажи как был задан вопрос, какой ответ ты дал, оказался ли он верным и т.д. Любые сведения, которые могут помочь другим соискателям..';
@@ -147,6 +148,7 @@ const CreateQuestion = () => {
   const [tagValue, setTagValue] = useState('');
   const [editMode, setEditMode] = useState(false);
   const [manyQuestions, setManyQuestions] = useState(false);
+  const { token } = useAuth();
 
   useEffect(() => {
     if (/\?[^?]+\?/.test(question)) {
@@ -190,6 +192,8 @@ const CreateQuestion = () => {
     const instance = editorRef.current.getInstance();
     setComment(instance.getMarkdown());
   };
+
+  if (!token) return <Redirect to="/" />;
 
   return (
     <>
