@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useAuth } from '../../common/context/Auth/useAuth';
@@ -20,15 +20,24 @@ const StyledMenu = styled.div`
   }
 `;
 
-const AdaptiveMenu = ({ menu }) => {
+const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
+  const location = useLocation();
   const history = useHistory();
   const { token, executeLoggingInProcess, logout } = useAuth();
 
-  const handleAddQuestion = () => history.push('/create');
+  const handleAddQuestion = () => {
+    history.push('/create');
+  };
+
+  useEffect(() => {
+    if (mobileMenu) {
+      toggleMobileMenu();
+    }
+  }, [location.key]); //eslint-disable-line
 
   return (
     <StyledMenu>
-      {menu && (
+      {mobileMenu && (
         <div className="adaptive_menu d-md-none">
           <div className="menu_mobile">
             <div className="pt-3 px-5 ">
@@ -74,10 +83,8 @@ const AdaptiveMenu = ({ menu }) => {
 };
 
 AdaptiveMenu.propTypes = {
-  menu: PropTypes.bool,
-};
-AdaptiveMenu.defaultProps = {
-  menu: false,
+  toggleMobileMenu: PropTypes.func.isRequired,
+  mobileMenu: PropTypes.bool.isRequired,
 };
 
 export default AdaptiveMenu;
