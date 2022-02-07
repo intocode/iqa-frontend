@@ -18,6 +18,19 @@ export const fetchProfile = createAsyncThunk(
   }
 );
 
+export const fetchQuestionFavorites = createAsyncThunk(
+  'favorite/fetch',
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.get('/user/favorites');
+
+      return response.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
 export const addQuestionInFavorites = createAsyncThunk(
   'add/favorite',
   async (id, thunkAPI) => {
@@ -49,6 +62,7 @@ const profileSlice = createSlice({
   initialState: {
     loading: false,
     addingToFavorites: [],
+    favorites: [],
     deletingFromFavorites: [],
     data: {},
   },
@@ -61,6 +75,16 @@ const profileSlice = createSlice({
     [fetchProfile.fulfilled]: (state, action) => {
       state.loading = false;
       state.data = action.payload;
+    },
+
+    [fetchQuestionFavorites.pending]: (state) => {
+      state.loading = true;
+      state.favorites = [];
+    },
+
+    [fetchQuestionFavorites.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.favorites = action.payload;
     },
 
     [addQuestionInFavorites.pending]: (state, action) => {
@@ -90,6 +114,11 @@ const selectProfileState = (state) => state.profile;
 export const selectProfile = createSelector(
   selectProfileState,
   (state) => state.data
+);
+
+export const selectFavorites = createSelector(
+  selectProfileState,
+  (state) => state.favorites
 );
 
 export const selectAddingToFavorites = createSelector(
