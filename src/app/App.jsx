@@ -7,6 +7,7 @@ import { fetchProfile } from '../features/profile/profileSlice';
 import CreateQuestion from '../features/questions/CreateQuestion';
 import { QuestionsList } from '../features/questions/QuestionsList';
 import QuestionPage from '../features/questions/QuestionPage';
+import { FavoriteList } from '../features/profile/FavoriteList';
 
 export const App = () => {
   const { token } = useAuth();
@@ -31,6 +32,9 @@ export const App = () => {
         </Route>
         <Route path="/question/:id">
           <QuestionPage />
+        </Route>
+        <Route path="/favorites">
+          <FavoriteList />
         </Route>
       </Switch>
     </>
