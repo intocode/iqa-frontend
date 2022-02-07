@@ -24,6 +24,7 @@ import {
 } from '../profile/profileSlice';
 import { useAuth } from '../../common/context/Auth/useAuth';
 import { removeQuestionById } from './questionsSlice';
+import SpinnerIcon from '../../components/icons/SpinnerIcon';
 
 dayjs.extend(relativeTime);
 dayjs.extend(calendar);
@@ -234,7 +235,11 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
           </StyledAction>
           {token && (
             <StyledAction onClick={handleToggleFavorite}>
-              <img src={iconFavorites} alt="" />
+              {addingToFavorites || deletingFromFavorites ? (
+                <SpinnerIcon />
+              ) : (
+                <img src={iconFavorites} alt="" />
+              )}
               <StyledFavorites className="d-none d-md-block">
                 {questionByFavorites ? deletingStatus : addingStatus}
               </StyledFavorites>
