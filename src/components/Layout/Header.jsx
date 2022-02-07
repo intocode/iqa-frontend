@@ -37,10 +37,10 @@ const StyledHeader = styled.div`
 `;
 
 export const Header = () => {
-  const [menu, setMenu] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
   const { token, executeLoggingInProcess, logout } = useAuth();
+  const [mobileMenu, setMobileMenu] = useState(false);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -62,20 +62,24 @@ export const Header = () => {
   };
 
   const handleToggleMenu = () => {
-    setMenu(!menu);
-    if (!menu) {
+    if (!mobileMenu) {
+      setMobileMenu(!mobileMenu);
       document.body.style.overflowY = 'clip';
     } else {
+      setMobileMenu(!mobileMenu);
       document.body.style.overflowY = 'visible';
     }
   };
 
-  const iconMenuAndClose = !menu ? iconMenu : iconCloseMenu;
+  const iconMenuAndClose = !mobileMenu ? iconMenu : iconCloseMenu;
 
   return (
     <StyledHeader>
-      <AdaptiveMenu menu={menu} />
-      <div className="container mb-2">
+      <AdaptiveMenu
+        toggleMobileMenu={handleToggleMenu}
+        mobileMenu={mobileMenu}
+      />
+      <div className="container mb-2 py-2">
         <div className="row align-items-center">
           <div className="col d-flex align-items-center">
             <div className="adaptive_menu">

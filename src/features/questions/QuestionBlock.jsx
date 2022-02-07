@@ -224,7 +224,7 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
         </StyledQuestion>
         <StyledQuestionBottomBlock>
           <div className="flex-grow-1 flex-md-grow-0">
-            <QuestionRate id={question._id} />
+            <QuestionRate id={question._id} rates={question.rates} />
           </div>
           <StyledAction className="mx-4">
             <img src={comments} alt="" />

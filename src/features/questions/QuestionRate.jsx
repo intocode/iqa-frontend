@@ -4,27 +4,27 @@ import PropTypes from 'prop-types';
 import { Rate } from '../../components/ui';
 import { useAuth } from '../../common/context/Auth/useAuth';
 import { selectProfile } from '../profile/profileSlice';
-import { addRate, selectQuestionById } from './questionsSlice';
+import { addRate } from './questionsSlice';
 
-// при изменении оценки компонент рендериться и для других вопросов, которые неизменчивы
-const QuestionRate = ({ id }) => {
+// при изменении оценки компонент рендерится и для других вопросов, которые неизменчивы
+const QuestionRate = ({ id, rates }) => {
   const { token } = useAuth();
 
   const dispatch = useDispatch();
 
-  const question = useSelector(selectQuestionById(id));
+  // const question = useSelector(selectQuestionById(id));
   const profile = useSelector(selectProfile);
 
   let isUpped = false;
   let isDowned = false;
 
   const valueRate = useMemo(
-    () => question.rates.reduce((acc, item) => acc + item.volume, 0),
-    [question]
+    () => rates.reduce((acc, item) => acc + item.volume, 0),
+    [rates]
   );
 
-  if (question && token && profile) {
-    question.rates.forEach((item) => {
+  if (token && profile) {
+    rates.forEach((item) => {
       if (item.user === profile._id && item.volume === 1) {
         isUpped = true;
       }
@@ -47,9 +47,9 @@ const QuestionRate = ({ id }) => {
     <Rate
       isUpped={isUpped}
       isDowned={isDowned}
-      onUp={() => handleChangeRate({ volume: 1, id: question._id })}
-      onDown={() => handleChangeRate({ volume: -1, id: question._id })}
-      currentRate={question ? valueRate : 'load...'}
+      onUp={() => handleChangeRate({ volume: 1, id })}
+      onDown={() => handleChangeRate({ volume: -1, id })}
+      currentRate={valueRate}
     />
   );
 };
@@ -58,4 +58,5 @@ export default memo(QuestionRate);
 
 QuestionRate.propTypes = {
   id: PropTypes.string.isRequired,
+  rates: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

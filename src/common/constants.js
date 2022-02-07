@@ -1,10 +1,8 @@
+import { getBaseUrl } from './utils/url';
+
 const lsPrefix = 'iqa_';
 
-export const PRODUCTION = process.env.NODE_ENV === 'production';
-
-export const BASE_API_URL = PRODUCTION
-  ? 'https://iqa-backend.herokuapp.com/'
-  : 'https://iqa-backend.herokuapp.com/';
+export const BASE_API_URL = getBaseUrl();
 
 export const LS_TOKEN_KEY = `${lsPrefix}accessToken`;
 
