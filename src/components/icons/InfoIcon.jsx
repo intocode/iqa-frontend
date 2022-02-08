@@ -17,16 +17,16 @@ function InfoIcon() {
         <path
           d="M8 10.6667V8"
           stroke="white"
-          strokewidth="2"
-          strokelinecap="round"
-          strokelinejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M8 5.33337H8.00667"
           stroke="white"
-          strokewidth="2"
-          strokelinecap="round"
-          strokelinejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     </div>

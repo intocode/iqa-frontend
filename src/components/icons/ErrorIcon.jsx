@@ -17,16 +17,16 @@ function ErrorIcon() {
         <path
           d="M10.6667 5.33325L5.33333 10.6666"
           stroke="white"
-          strokewidth="2"
-          strokelinecap="round"
-          strokelinejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M5.33333 5.33325L10.6667 10.6666"
           stroke="white"
-          strokewidth="2"
-          strokelinecap="round"
-          strokelinejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     </div>

@@ -10,8 +10,8 @@ function PlusIcon() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M6 2V10" stroke="#606266" strokelinejoin="round" />
-        <path d="M2 6H10" stroke="#606266" strokelinejoin="round" />
+        <path d="M6 2V10" stroke="#606266" strokeLinejoin="round" />
+        <path d="M2 6H10" stroke="#606266" strokeLinejoin="round" />
       </svg>
     </div>
   );

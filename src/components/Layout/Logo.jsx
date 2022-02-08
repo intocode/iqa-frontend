@@ -1,19 +1,19 @@
 import PropTypes from 'prop-types';
-import logoDefualt from '../assets/logo.svg';
-import logoNoColor from '../assets/logoNoColor.svg';
-import longLogo from '../assets/longLogo.svg';
+import LogoIcon from '../icons/LogoIcon';
+import LogoNoColorIcon from '../icons/LogoNoColorIcon';
+import LongLogoIcon from '../icons/LongLogoIcon';
 
 export const Logo = ({ noColor, long }) => {
-  let logo = logoDefualt;
+  let logo = <LogoIcon />;
 
   if (noColor) {
-    logo = logoNoColor;
+    logo = <LogoNoColorIcon />;
   }
   if (long) {
-    logo = longLogo;
+    logo = <LongLogoIcon />;
   }
 
-  return <img src={logo} alt="" className="d-block" />;
+  return logo;
 };
 
 Logo.propTypes = {

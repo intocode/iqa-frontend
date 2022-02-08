@@ -9,12 +9,12 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Typography, Tag, Paper } from '../../components/ui';
 import QuestionRate from './QuestionRate';
-import comments from '../../assets/comments.svg';
-import favorites from '../../assets/favorites.svg';
-import favoritesIn from '../../assets/favoritesIn.svg';
-import deleteIcon from '../../assets/deleteIcon.svg';
-import yesIcon from '../../assets/yesIcon.svg';
-import noIcon from '../../assets/noIcon.svg';
+import CommentsIcon from '../../components/icons/CommentsIcon';
+import FavoritesIcon from '../../components/icons/FavoritesIcon';
+import FavoritesInIcon from '../../components/icons/FavoritesInIcon';
+import DeleteIcon from '../../components/icons/DeleteIcon';
+import YesIcon from '../../components/icons/YesIcon';
+import NoIcon from '../../components/icons/NoIcon';
 import {
   deleteQuestionFromFavorites,
   addQuestionInFavorites,
@@ -163,7 +163,11 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
     return user.favorites?.find((item) => item === question._id);
   }, [user.favorites, question]);
 
-  const iconFavorites = questionByFavorites ? favoritesIn : favorites;
+  const iconFavorites = questionByFavorites ? (
+    <FavoritesInIcon />
+  ) : (
+    <FavoritesIcon />
+  );
 
   const handleToggleFavorite = () => {
     if (questionByFavorites) {
@@ -226,15 +230,15 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
           <div className="flex-grow-1 flex-md-grow-0">
             <QuestionRate id={question._id} />
           </div>
-          <StyledAction className="mx-4">
-            <img src={comments} alt="" />
+          <StyledAction className="mx-4 d-flex align-items-center">
+            <CommentsIcon />
             <StyledComments className="d-none d-md-block">
               Обсуждение
             </StyledComments>
           </StyledAction>
           {token && (
             <StyledAction onClick={handleToggleFavorite}>
-              <img src={iconFavorites} alt="" />
+              {iconFavorites}
               <StyledFavorites className="d-none d-md-block">
                 {questionByFavorites ? deletingStatus : addingStatus}
               </StyledFavorites>
@@ -245,18 +249,18 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
               {iconDelete ? (
                 <>
                   <StyledDeleteButton onClick={handleNoDelete}>
-                    <img src={noIcon} alt="" />
+                    <NoIcon />
                   </StyledDeleteButton>
                   <StyledDeleteButton
                     onClick={() => handleYesDelete(question._id)}
                   >
-                    <img src={yesIcon} alt="" />
+                    <YesIcon />
                   </StyledDeleteButton>
                 </>
               ) : (
                 <StyledDeleteButton onClick={() => setIconDelete(true)}>
                   <StyledActionDelete className="styleDelete">
-                    <img src={deleteIcon} alt="" />
+                    <DeleteIcon />
                     <StyledDelete className="d-none d-md-block">
                       Удалить вопрос
                     </StyledDelete>
