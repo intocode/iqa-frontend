@@ -26,7 +26,7 @@ export const App = () => {
   return (
     <>
       <Header />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div />}>
         <Switch>
           <Route path="/" exact>
             <QuestionsList />
