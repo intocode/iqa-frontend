@@ -24,6 +24,7 @@ import {
 } from '../profile/profileSlice';
 import { useAuth } from '../../common/context/Auth/useAuth';
 import { removeQuestionById } from './questionsSlice';
+import SpinnerIcon from '../../components/icons/SpinnerIcon';
 
 dayjs.extend(relativeTime);
 dayjs.extend(calendar);
@@ -228,7 +229,7 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
         </StyledQuestion>
         <StyledQuestionBottomBlock>
           <div className="flex-grow-1 flex-md-grow-0">
-            <QuestionRate id={question._id} />
+            <QuestionRate id={question._id} rates={question.rates} />
           </div>
           <StyledAction className="mx-4 d-flex align-items-center">
             <CommentsIcon />
@@ -239,6 +240,11 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
           {token && (
             <StyledAction onClick={handleToggleFavorite}>
               {iconFavorites}
+              {addingToFavorites || deletingFromFavorites ? (
+                <SpinnerIcon />
+              ) : (
+                <img src={iconFavorites} alt="" />
+              )}
               <StyledFavorites className="d-none d-md-block">
                 {questionByFavorites ? deletingStatus : addingStatus}
               </StyledFavorites>

@@ -120,7 +120,11 @@ const QuestionPage = () => {
             <StyledComment>
               <Viewer initialValue={question?.comment} />
             </StyledComment>
-            {question ? <QuestionRate id={id} /> : 'Загрузка...'}
+            {question ? (
+              <QuestionRate id={id} rates={question.rates} />
+            ) : (
+              'Загрузка...'
+            )}
             <div className="my-4">
               <Divider />
             </div>

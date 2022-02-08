@@ -3,7 +3,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useAuth } from '../../common/context/Auth/useAuth';
-import { Button } from '../ui';
+import { Button, Typography } from '../ui';
 
 const StyledMenu = styled.div`
   .adaptive_menu {
@@ -18,6 +18,14 @@ const StyledMenu = styled.div`
     background-color: #f8f9fa;
     box-shadow: 200px -4px 0px -5px rgba(0, 0, 0, 0.31);
   }
+  .counter {
+    font-size: 12px;
+    color: white;
+    background-color: #409eff;
+    margin-left: 8px;
+    padding: 1px 6px;
+    border-radius: 24px;
+  }
 `;
 
 const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
@@ -28,6 +36,9 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
   const handleAddQuestion = () => {
     history.push('/create');
   };
+  // const handleFavorites = () => {
+  //   history.push('/favorites');
+  // };
 
   useEffect(() => {
     if (mobileMenu) {
@@ -51,6 +62,15 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
                   >
                     Добавить вопрос
                   </Button>
+                  <Link
+                    to="/favorites"
+                    className="header_link mb-2 m-auto d-flex"
+                  >
+                    <Typography className="mb-2 m-auto">
+                      Избранные <span className="counter">43</span>
+                    </Typography>
+                  </Link>
+
                   <Link to="/" className="header_link">
                     <Button
                       className="d-block m-auto"

@@ -11,6 +11,7 @@ import { selectProfileLoading } from '../../features/profile/profileSlice';
 import AdaptiveMenu from './AdaptiveMenu';
 import iconMenu from '../assets/menu.svg';
 import iconCloseMenu from '../assets/closeMenu.svg';
+import { Badge } from '../ui';
 
 const StyledHeader = styled.div`
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -100,11 +101,13 @@ export const Header = () => {
             <Link to="/" className="header_link d-none d-md-block ">
               <Typography>Главная</Typography>
             </Link>
-            {/* <Link to="/favorites" className="header_link">
-              <Badge content={5}>
-                <Typography>Избранные</Typography>
-              </Badge>
-            </Link> */}
+            {token && (
+              <Link to="/favorites" className="header_link">
+                <Badge content={5}>
+                  <Typography>Избранные</Typography>
+                </Badge>
+              </Link>
+            )}
           </div>
           <div className="col-auto d-none d-md-block">
             {token && !loading && (
