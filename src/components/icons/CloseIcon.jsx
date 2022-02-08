@@ -10,8 +10,8 @@ function CloseIcon() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M9 3L3 9" stroke="#C0C4CC" strokelinejoin="round" />
-        <path d="M3 3L9 9" stroke="#C0C4CC" strokelinejoin="round" />
+        <path d="M9 3L3 9" stroke="#C0C4CC" strokeLinejoin="round" />
+        <path d="M3 3L9 9" stroke="#C0C4CC" strokeLinejoin="round" />
       </svg>
     </div>
   );

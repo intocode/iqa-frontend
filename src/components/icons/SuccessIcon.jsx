@@ -17,9 +17,9 @@ function SuccessIcon() {
         <path
           d="M10.6667 6L6.99999 10L5.33333 8.18182"
           stroke="white"
-          strokewidth="2"
-          strokelinecap="round"
-          strokelinejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     </div>
