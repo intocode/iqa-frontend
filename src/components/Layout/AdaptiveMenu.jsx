@@ -36,6 +36,9 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
   const handleAddQuestion = () => {
     history.push('/create');
   };
+  const handleFavorites = () => {
+    history.push('/favorites');
+  };
 
   useEffect(() => {
     if (mobileMenu) {
@@ -67,6 +70,7 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
                       Избранные <span className="counter">43</span>
                     </Typography>
                   </Link>
+
                   <Link to="/" className="header_link">
                     <Button
                       className="d-block m-auto"
