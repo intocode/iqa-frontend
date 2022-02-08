@@ -101,13 +101,11 @@ export const Header = () => {
             <Link to="/" className="header_link d-none d-md-block ">
               <Typography>Главная</Typography>
             </Link>
-            {token && (
-              <Link to="/favorites" className="header_link">
-                <Badge content={5}>
-                  <Typography>Избранные</Typography>
-                </Badge>
-              </Link>
-            )}
+            <Link to="/favorites" className="header_link d-none d-md-block">
+              <Badge content={5}>
+                <Typography>Избранные</Typography>
+              </Badge>
+            </Link>
           </div>
           <div className="col-auto d-none d-md-block">
             {token && !loading && (

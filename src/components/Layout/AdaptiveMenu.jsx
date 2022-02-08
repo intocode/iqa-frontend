@@ -18,6 +18,14 @@ const StyledMenu = styled.div`
     background-color: #f8f9fa;
     box-shadow: 200px -4px 0px -5px rgba(0, 0, 0, 0.31);
   }
+  .counter {
+    font-size: 12px;
+    color: white;
+    background-color: #409eff;
+    margin-left: 8px;
+    padding: 1px 6px;
+    border-radius: 24px;
+  }
 `;
 
 const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
@@ -27,9 +35,6 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
 
   const handleAddQuestion = () => {
     history.push('/create');
-  };
-  const handleFavorites = () => {
-    history.push('/favorites');
   };
 
   useEffect(() => {
@@ -54,14 +59,14 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
                   >
                     Добавить вопрос
                   </Button>
-                  <Button
-                    className="d-block mb-2 m-auto"
-                    contrast={false}
-                    color="primary"
-                    onClick={handleFavorites}
+                  <Link
+                    to="/favorites"
+                    className="header_link mb-2 m-auto d-flex"
                   >
-                    <Typography>Избранные</Typography>
-                  </Button>
+                    <Typography className="mb-2 m-auto">
+                      Избранные <span className="counter">43</span>
+                    </Typography>
+                  </Link>
                   <Link to="/" className="header_link">
                     <Button
                       className="d-block m-auto"
