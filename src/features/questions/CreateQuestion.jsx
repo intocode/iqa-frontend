@@ -234,6 +234,7 @@ const CreateQuestion = () => {
             onChange={(e) => setQuestion(e.target.value)}
             value={question}
             placeholder="Формулировка вопроса..."
+            autoFocus
           />
           <div className="additional">
             <div className="comment-title">Дополнительный комментарий</div>
@@ -251,6 +252,7 @@ const CreateQuestion = () => {
                 ['heading', 'bold', 'italic', 'strike'],
                 ['hr', 'quote', 'code', 'codeblock'],
               ]}
+              autofocus={false}
             />
             <div className="tag-title">
               Теги<sup>*</sup>
