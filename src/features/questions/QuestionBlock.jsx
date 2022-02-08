@@ -4,17 +4,12 @@ import calendar from 'dayjs/plugin/calendar';
 import 'dayjs/locale/ru';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import React, { useMemo, useState } from 'react';
+import React, { lazy, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Typography, Tag, Paper } from '../../components/ui';
 import QuestionRate from './QuestionRate';
 import comments from '../../assets/comments.svg';
-import favorites from '../../assets/favorites.svg';
-import favoritesIn from '../../assets/favoritesIn.svg';
-import deleteIcon from '../../assets/deleteIcon.svg';
-import yesIcon from '../../assets/yesIcon.svg';
-import noIcon from '../../assets/noIcon.svg';
 import {
   deleteQuestionFromFavorites,
   addQuestionInFavorites,
@@ -25,6 +20,12 @@ import {
 import { useAuth } from '../../common/context/Auth/useAuth';
 import { removeQuestionById } from './questionsSlice';
 import SpinnerIcon from '../../components/icons/SpinnerIcon';
+
+const favorites = lazy(() => import('../../assets/favorites.svg'));
+const favoritesIn = lazy(() => import('../../assets/favoritesIn.svg'));
+const deleteIcon = lazy(() => import('../../assets/deleteIcon.svg'));
+const yesIcon = lazy(() => import('../../assets/yesIcon.svg'));
+const noIcon = lazy(() => import('../../assets/noIcon.svg'));
 
 dayjs.extend(relativeTime);
 dayjs.extend(calendar);
