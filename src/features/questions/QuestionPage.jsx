@@ -1,4 +1,4 @@
-import React, { lazy, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
@@ -14,10 +14,9 @@ import {
   selectQuestionsLoading,
 } from './questionsSlice';
 import { QuestionPagePlaceholder } from './QuestionPagePlaceholder';
+import QuestionRate from './QuestionRate';
 import CommentsByQuestion from '../comments/CommentsByQuestion';
 import { Title } from '../../app/Title/Title';
-
-const QuestionRate = lazy(() => import('./QuestionRate'));
 
 const StyledQuestionBlock = styled.div`
   max-width: 820px;

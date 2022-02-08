@@ -4,13 +4,13 @@ import { useEffect, lazy, Suspense } from 'react';
 import { useAuth } from '../common/context/Auth/useAuth';
 import { Header } from '../components/Layout/Header';
 import { fetchProfile } from '../features/profile/profileSlice';
-import { QuestionsList } from '../features/questions/QuestionsList';
-import { FavoriteList } from '../features/profile/FavoriteList';
 
 const CreateQuestion = lazy(() =>
   import('../features/questions/CreateQuestion')
 );
 const QuestionPage = lazy(() => import('../features/questions/QuestionPage'));
+const QuestionsList = lazy(() => import('../features/questions/QuestionsList'));
+const FavoriteList = lazy(() => import('../features/profile/FavoriteList'));
 
 export const App = () => {
   const { token } = useAuth();
