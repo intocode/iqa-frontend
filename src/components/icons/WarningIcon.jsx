@@ -17,16 +17,16 @@ function WarningIcon() {
         <path
           d="M8 5.33337V8.00004"
           stroke="white"
-          strokewidth="2"
-          strokelinecap="round"
-          strokelinejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M8 10.6666H8.00667"
           stroke="white"
-          strokewidth="2"
-          strokelinecap="round"
-          strokelinejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     </div>

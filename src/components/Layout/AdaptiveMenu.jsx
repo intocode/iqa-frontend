@@ -36,9 +36,9 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
   const handleAddQuestion = () => {
     history.push('/create');
   };
-  const handleFavorites = () => {
-    history.push('/favorites');
-  };
+  // const handleFavorites = () => {
+  //   history.push('/favorites');
+  // };
 
   useEffect(() => {
     if (mobileMenu) {
