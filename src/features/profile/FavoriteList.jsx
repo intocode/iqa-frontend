@@ -16,7 +16,7 @@ import {
 } from './profileSlice';
 import { QuestionBlock } from '../questions/QuestionBlock';
 
-export const FavoriteList = () => {
+const FavoriteList = () => {
   const dispatch = useDispatch();
 
   const questions = useSelector(selectFavorites);
@@ -68,3 +68,5 @@ export const FavoriteList = () => {
     </>
   );
 };
+
+export default FavoriteList;
