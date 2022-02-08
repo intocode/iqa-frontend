@@ -3,7 +3,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useAuth } from '../../common/context/Auth/useAuth';
-import { Button } from '../ui';
+import { Button, Typography } from '../ui';
 
 const StyledMenu = styled.div`
   .adaptive_menu {
@@ -28,6 +28,9 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
   const handleAddQuestion = () => {
     history.push('/create');
   };
+  const handleFavorites = () => {
+    history.push('/favorites');
+  };
 
   useEffect(() => {
     if (mobileMenu) {
@@ -50,6 +53,14 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
                     onClick={handleAddQuestion}
                   >
                     Добавить вопрос
+                  </Button>
+                  <Button
+                    className="d-block mb-2 m-auto"
+                    contrast={false}
+                    color="primary"
+                    onClick={handleFavorites}
+                  >
+                    <Typography>Избранные</Typography>
                   </Button>
                   <Link to="/" className="header_link">
                     <Button

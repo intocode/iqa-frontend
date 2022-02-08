@@ -101,7 +101,7 @@ export const Header = () => {
             <Link to="/" className="header_link d-none d-md-block ">
               <Typography>Главная</Typography>
             </Link>
-            {token && !loading && (
+            {token && (
               <Link to="/favorites" className="header_link">
                 <Badge content={5}>
                   <Typography>Избранные</Typography>
