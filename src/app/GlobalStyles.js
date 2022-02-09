@@ -5,6 +5,7 @@ export const GlobalStyles = createGlobalStyle`
 * {
   box-sizing: border-box;
   margin: 0;
+  text-rendering: geometricPrecision;
 }
 
 html, body {
