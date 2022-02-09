@@ -4,17 +4,15 @@ import calendar from 'dayjs/plugin/calendar';
 import 'dayjs/locale/ru';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Typography, Tag, Paper } from '../../components/ui';
+import { Typography, Tag, Paper, Divider } from '../../components/ui';
 import QuestionRate from './QuestionRate';
 import CommentsIcon from '../../components/icons/CommentsIcon';
 import FavoritesIcon from '../../components/icons/FavoritesIcon';
 import FavoritesInIcon from '../../components/icons/FavoritesInIcon';
 import DeleteIcon from '../../components/icons/DeleteIcon';
-import YesIcon from '../../components/icons/YesIcon';
-import NoIcon from '../../components/icons/NoIcon';
 import {
   deleteQuestionFromFavorites,
   addQuestionInFavorites,
@@ -31,29 +29,12 @@ dayjs.extend(calendar);
 dayjs.locale('ru');
 
 const StyledQuestionBlock = styled.div`
-  max-width: 820px;
-  margin: auto;
-  & > div {
-    margin: 20px 0;
-  }
-  :hover .styleDelete {
+  &:hover .styleDelete {
     opacity: 1;
   }
-`;
 
-const StyledQuestionHeader = styled.div`
-  display: flex;
-  align-items: center;
-  & > img {
-    width: 36px;
-    height: 36px;
-    margin-right: 10px;
-    border-radius: 24px;
-  }
-  & > div {
-    color: #909399;
-    font-size: 12px;
-    margin-left: 10px;
+  img.avatar {
+    border-radius: 50%;
   }
 `;
 
@@ -76,80 +57,23 @@ const StyledTag = styled.div`
   }
 `;
 
-const StyledPaperHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 30px;
-`;
-
-const StyledQuestion = styled.div`
-  margin-bottom: 40px;
-`;
-
-const StyledBorderBottom = styled.div`
-  border-bottom: 1px solid #f5f5f5;
-`;
-
-const StyledQuestionBottomBlock = styled.div`
-  display: flex;
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-`;
-
-const StyledFavorites = styled.p`
+const StyledFavorites = styled.div`
   color: #e6a23c;
   font-weight: 400;
   font-size: 12px;
   cursor: pointer;
 `;
 
-const StyledDelete = styled.p`
+const StyledDelete = styled.div`
   color: #dc3545;
   font-weight: 400;
   font-size: 12px;
+  cursor: pointer;
 `;
-const StyledComments = styled.p`
+const StyledComments = styled.div`
   color: #409eff;
   font-weight: 400;
   font-size: 12px;
-`;
-
-const StyledAction = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  & > img {
-    margin-right: 5px;
-  }
-`;
-
-const StyledActionDelete = styled.div`
-  opacity: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  & > img {
-    margin-right: 5px;
-  }
-`;
-
-const StyledDeleteButton = styled.div`
-  cursor: pointer;
-  height: 0;
-  & > img {
-    width: 19px;
-    height: 19px;
-    margin: 0 5px;
-  }
-`;
-
-const StyledDeleteGroup = styled.div`
-  display: flex;
-  margin-left: 20px;
 `;
 
 export const QuestionBlock = ({ question, isCompactMode }) => {
@@ -157,8 +81,6 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
   const user = useSelector(selectProfile);
   const adding = useSelector(selectAddingToFavorites);
   const deleting = useSelector(selectDeletingFromFavorites);
-
-  const [iconDelete, setIconDelete] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -194,93 +116,95 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
     return deleting?.find((id) => id === question._id);
   }, [deleting, question]);
 
-  const handleNoDelete = () => {
-    setIconDelete(false);
-  };
-
-  const handleYesDelete = (id) => {
-    dispatch(removeQuestionById(id));
-    setIconDelete(false);
-  };
-
   const deletingStatus = deletingFromFavorites ? 'Удаление' : 'В избранном';
 
   return (
-    <StyledQuestionBlock>
+    <StyledQuestionBlock className="mb-4">
       <QuestionWrapper>
         {!isCompactMode && (
-          <StyledPaperHeader>
-            <StyledQuestionHeader>
-              <img src={question.user?.avatar?.thumbnail} alt="" />
-              <p>{question.user.name}</p>
-              <div>добавлен {dayjs(question.createdAt).fromNow()}</div>
-            </StyledQuestionHeader>
-            <StyledTag className="d-none d-md-block">
+          <div className="row mb-4">
+            <div className="col">
+              <div className="d-flex align-items-center">
+                <img
+                  src={question.user?.avatar?.thumbnail}
+                  alt=""
+                  className="avatar"
+                />
+                <span className="mx-2">{question.user.name}</span>
+                <Typography variant="small" color="gray">
+                  добавлен {dayjs(question.createdAt).fromNow()}
+                </Typography>
+              </div>
+            </div>
+            <StyledTag className="col-auto d-none d-md-block">
               {question.tags.map((tag) => (
                 <Tag noGutters key={tag.name}>
                   {tag.name}
                 </Tag>
               ))}
             </StyledTag>
-          </StyledPaperHeader>
+          </div>
         )}
-        <StyledQuestion>
+        <div className="mb-4">
           <Typography variant={isCompactMode ? 'caption' : 'header'}>
             <StyledLink to={`/question/${question._id}`}>
               {question.question}
             </StyledLink>
           </Typography>
-        </StyledQuestion>
-        <StyledQuestionBottomBlock>
-          <div className="flex-grow-1 flex-md-grow-0">
+        </div>
+        <div className="row">
+          <div className="col-auto">
             <QuestionRate id={question._id} rates={question.rates} />
           </div>
-          <StyledAction className="mx-4 d-flex align-items-center">
-            <CommentsIcon />
-            <StyledComments className="d-none d-md-block">
-              Обсуждение
-            </StyledComments>
-          </StyledAction>
-          {token && (
-            <StyledAction onClick={handleToggleFavorite}>
-              {iconFavorites}
-              {addingToFavorites || deletingFromFavorites ? (
-                <SpinnerIcon />
-              ) : (
-                <img src={iconFavorites} alt="" />
-              )}
-              <StyledFavorites className="d-none d-md-block">
-                {questionByFavorites ? deletingStatus : addingStatus}
-              </StyledFavorites>
-            </StyledAction>
-          )}
-          {user.isAdmin && (
-            <StyledDeleteGroup>
-              {iconDelete ? (
-                <>
-                  <StyledDeleteButton onClick={handleNoDelete}>
-                    <NoIcon />
-                  </StyledDeleteButton>
-                  <StyledDeleteButton
-                    onClick={() => handleYesDelete(question._id)}
+          <div className="col">
+            <div className="row justify-content-end justify-content-md-start">
+              <div className="col-auto">
+                <div className="d-flex align-items-center">
+                  <CommentsIcon />
+                  <StyledComments className="d-none d-md-block">
+                    Обсуждение
+                  </StyledComments>
+                </div>
+              </div>
+
+              {token && (
+                <div className="col-auto">
+                  <div
+                    role="button"
+                    aria-hidden
+                    onClick={handleToggleFavorite}
+                    className="d-flex"
                   >
-                    <YesIcon />
-                  </StyledDeleteButton>
-                </>
-              ) : (
-                <StyledDeleteButton onClick={() => setIconDelete(true)}>
-                  <StyledActionDelete className="styleDelete">
+                    {addingToFavorites || deletingFromFavorites ? (
+                      <SpinnerIcon />
+                    ) : (
+                      iconFavorites
+                    )}
+                    <StyledFavorites className="d-none d-md-block">
+                      {questionByFavorites ? deletingStatus : addingStatus}
+                    </StyledFavorites>
+                  </div>
+                </div>
+              )}
+
+              {user.isAdmin && (
+                <div className="col-auto">
+                  <div
+                    aria-hidden
+                    onClick={() => dispatch(removeQuestionById(question._id))}
+                    className="d-flex align-items-center"
+                  >
                     <DeleteIcon />
                     <StyledDelete className="d-none d-md-block">
                       Удалить вопрос
                     </StyledDelete>
-                  </StyledActionDelete>
-                </StyledDeleteButton>
+                  </div>
+                </div>
               )}
-            </StyledDeleteGroup>
-          )}
-        </StyledQuestionBottomBlock>
-        {isCompactMode && <StyledBorderBottom />}
+            </div>
+          </div>
+        </div>
+        {isCompactMode && <Divider className="mt-3" />}
       </QuestionWrapper>
     </StyledQuestionBlock>
   );

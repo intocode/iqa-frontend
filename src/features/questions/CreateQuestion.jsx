@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import { Title } from '../../app/Title/Title';
+import PlusIcon from '../../components/icons/PlusIcon';
 import {
   Alert,
   Button,
@@ -32,31 +33,14 @@ import {
 } from './questionsSlice';
 import { useAuth } from '../../common/context/Auth/useAuth';
 
-// const placeholderForTextArea =
-//   'Расскажи как был задан вопрос, какой ответ ты дал, оказался ли он верным и т.д. Любые сведения, которые могут помочь другим соискателям..';
-
 const StyledQuestionWrapper = styled.div`
-  & .question-title,
-  .comment-title,
-  .tag-title {
-    margin: 30px 0 10px;
-  }
-
-  & .additional {
-    margin: 30px 0;
-  }
-
   & .buttons {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     & button {
-      margin-right: 27px;
+      margin-right: 25px;
     }
-  }
-
-  & .cancel {
-    text-decoration: none;
   }
 
   & .new-tag {
@@ -105,7 +89,7 @@ const StyledTagWrapper = styled.div`
 `;
 
 const StyledTitle = styled.div`
-  margin: 20px 0;
+  margin: 1.5rem 0;
 `;
 
 const StyledProfile = styled.div`
@@ -114,23 +98,10 @@ const StyledProfile = styled.div`
   & > img {
     width: 36px;
     height: 36px;
-    border-radius: 24px;
-    margin-right: 10px;
+    border-radius: 1.5rem;
+    margin-right: 0.5rem;
   }
 `;
-
-const PlusIcon = () => (
-  <svg
-    width="12"
-    height="12"
-    viewBox="0 0 12 12"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M6 2V10" stroke="#606266" strokeLinejoin="round" />
-    <path d="M2 6H10" stroke="#606266" strokeLinejoin="round" />
-  </svg>
-);
 
 const CreateQuestion = () => {
   const dispatch = useDispatch();
@@ -149,14 +120,6 @@ const CreateQuestion = () => {
   const [editMode, setEditMode] = useState(false);
   const [manyQuestions, setManyQuestions] = useState(false);
   const { token } = useAuth();
-
-  useEffect(() => {
-    if (/\?[^?]+\?/.test(question)) {
-      setManyQuestions(true);
-    } else {
-      setManyQuestions(false);
-    }
-  }, [question]);
 
   const callbackRef = useCallback((inputElement) => {
     if (inputElement) {
@@ -193,41 +156,49 @@ const CreateQuestion = () => {
     setComment(instance.getMarkdown());
   };
 
+  useEffect(() => {
+    if (/\?[^?]+\?/.test(question)) {
+      setManyQuestions(true);
+    } else {
+      setManyQuestions(false);
+    }
+  }, [question]);
+
   if (!token) return <Redirect to="/" />;
 
   return (
     <>
       <Title>iqa: добавить вопрос</Title>
       <StyledQuestionWrapper className="container">
-        {questionsError && (
-          <Alert onClose={() => dispatch(resetStatus())} color="danger">
-            {questionsError}
-          </Alert>
-        )}
-        {tagsError && (
-          <Alert onClose={() => dispatch(resetTagStatus())} color="danger">
-            {tagsError}
-          </Alert>
-        )}
-        {questionsSuccess && (
-          <Alert onClose={() => dispatch(resetSuccess())}>
-            Вопрос добавлен!
-          </Alert>
-        )}
         <StyledTitle>
           <h3>Добавление вопроса</h3>
         </StyledTitle>
         <Paper>
           <StyledProfile>
-            <img src={profile.avatar?.thumbnail} alt="" />
+            <img src={profile.avatar?.thumbnail} alt="avatar" />
             <p>{profile.name}</p>
           </StyledProfile>
+          {questionsError && (
+            <Alert onClose={() => dispatch(resetStatus())} color="danger">
+              {questionsError}
+            </Alert>
+          )}
+          {tagsError && (
+            <Alert onClose={() => dispatch(resetTagStatus())} color="danger">
+              {tagsError}
+            </Alert>
+          )}
+          {questionsSuccess && (
+            <Alert onClose={() => dispatch(resetSuccess())}>
+              Вопрос добавлен!
+            </Alert>
+          )}
           {manyQuestions && (
             <Alert color="warning">
               В одном посте рекомендуется публиковать только один вопрос.
             </Alert>
           )}
-          <div className="question-title">
+          <div className="mt-4 mb-3">
             Как звучит вопрос?<sup>*</sup>
           </div>
           <Input
@@ -236,8 +207,8 @@ const CreateQuestion = () => {
             placeholder="Формулировка вопроса..."
             autoFocus
           />
-          <div className="additional">
-            <div className="comment-title">Дополнительный комментарий</div>
+          <div>
+            <div className="mt-4 mb-3">Дополнительный комментарий</div>
             <Editor
               previewStyle="vertical"
               height="200px"
@@ -254,7 +225,7 @@ const CreateQuestion = () => {
               ]}
               autofocus={false}
             />
-            <div className="tag-title">
+            <div className="mt-4 mb-3">
               Теги<sup>*</sup>
             </div>
             <StyledTagWrapper>
@@ -294,7 +265,7 @@ const CreateQuestion = () => {
               )}
             </StyledTagWrapper>
           </div>
-          <div className="buttons">
+          <div className="buttons mt-4">
             <Button
               loading={questionsLoading}
               onClick={handleCreate}
