@@ -16,19 +16,18 @@ import { Badge } from '../ui';
 const StyledHeader = styled.div`
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   background-color: white;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+
   .header_link {
     text-decoration: none;
   }
-  .adaptive_menu {
-    position: relative;
-  }
-  .icon_menu {
+
+  .menu-icon {
     position: absolute;
-    top: -8px;
   }
-  .container {
-    padding: 8px 15px;
-  }
+
   @media ${(props) => props.theme.media.phone} {
     .container {
       padding: 24px 20px;
@@ -79,19 +78,17 @@ export const Header = () => {
         toggleMobileMenu={handleToggleMenu}
         mobileMenu={mobileMenu}
       />
-      <div className="container mb-2 py-2">
+      <div className="container">
         <div className="row align-items-center">
           <div className="col d-flex align-items-center">
-            <div className="adaptive_menu">
-              <div
-                className="icon_menu d-md-none"
-                onClick={handleToggleMenu}
-                role="presentation"
-              >
-                <span>
-                  <img src={iconMenuAndClose} alt="" />
-                </span>
-              </div>
+            <div
+              className="menu-icon d-md-none"
+              onClick={handleToggleMenu}
+              role="presentation"
+            >
+              <span>
+                <img src={iconMenuAndClose} width={32} alt="" />
+              </span>
             </div>
             <div className="me-3 offset-5 offset-md-0">
               <Link to="/" onClick={handleToMain}>
