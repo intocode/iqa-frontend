@@ -7,7 +7,11 @@ import { Button } from '../ui/Button';
 import { Typography } from '../ui/Typography';
 import { Logo } from './Logo';
 import { fetchQuestions } from '../../features/questions/questionsSlice';
-import { selectProfileLoading } from '../../features/profile/profileSlice';
+import {
+  fetchQuestionFavorites,
+  selectFavorites,
+  selectProfileLoading,
+} from '../../features/profile/profileSlice';
 import AdaptiveMenu from './AdaptiveMenu';
 import iconMenu from '../assets/menu.svg';
 import iconCloseMenu from '../assets/closeMenu.svg';
@@ -45,6 +49,13 @@ export const Header = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const loading = useSelector(selectProfileLoading);
+  const questions = useSelector(selectFavorites);
+
+  useEffect(() => {
+    if (!questions.length && !loading) {
+      dispatch(fetchQuestionFavorites());
+    }
+  }, [dispatch, questions, loading]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -103,7 +114,7 @@ export const Header = () => {
             </Link>
             {token && (
               <Link to="/favorites" className="header_link d-none d-md-block">
-                <Badge content={5}>
+                <Badge content={questions.length}>
                   <Typography>Избранные</Typography>
                 </Badge>
               </Link>
