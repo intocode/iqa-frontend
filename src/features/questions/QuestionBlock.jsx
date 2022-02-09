@@ -60,6 +60,10 @@ const StyledQuestionHeader = styled.div`
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: #000;
+
+  &:visited {
+    color: #000;
+  }
 `;
 
 const StyledTag = styled.div`

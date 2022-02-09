@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { theme } from './theme';
 
 export const GlobalStyles = createGlobalStyle`
 * {
@@ -13,5 +14,10 @@ html, body {
 
 .container {
   max-width: 844px;
+}
+
+a, a:visited {
+  color: ${theme.colors.primary.main};
+  text-decoration: none;
 }
 `;
