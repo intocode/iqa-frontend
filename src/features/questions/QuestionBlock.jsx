@@ -21,7 +21,7 @@ import {
   selectDeletingFromFavorites,
 } from '../profile/profileSlice';
 import { useAuth } from '../../common/context/Auth/useAuth';
-import { removeQuestionById } from './questionsSlice';
+import { removeQuestionById, restoreQuestionById } from './questionsSlice';
 import SpinnerIcon from '../../components/icons/SpinnerIcon';
 
 dayjs.extend(relativeTime);
@@ -118,6 +118,14 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
 
   const deletingStatus = deletingFromFavorites ? 'Удаление' : 'В избранном';
 
+  const handleToggleDelete = () => {
+    if (question.deleted) {
+      dispatch(restoreQuestionById(question._id));
+    } else {
+      dispatch(removeQuestionById(question._id));
+    }
+  };
+
   return (
     <StyledQuestionBlock className="mb-4">
       <QuestionWrapper>
@@ -191,12 +199,14 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
                 <div className="col-auto">
                   <div
                     aria-hidden
-                    onClick={() => dispatch(removeQuestionById(question._id))}
+                    onClick={handleToggleDelete}
                     className="d-flex align-items-center"
                   >
                     <DeleteIcon />
                     <StyledDelete className="d-none d-md-block">
-                      Удалить вопрос
+                      {question.deleted
+                        ? 'Восстановить вопрос'
+                        : 'Удалить вопрос'}
                     </StyledDelete>
                   </div>
                 </div>
@@ -231,5 +241,7 @@ QuestionBlock.propTypes = {
     ).isRequired,
 
     rates: PropTypes.arrayOf(PropTypes.object).isRequired,
+
+    deleted: PropTypes.bool,
   }).isRequired,
 };
