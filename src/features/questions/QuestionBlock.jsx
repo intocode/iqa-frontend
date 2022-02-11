@@ -21,7 +21,12 @@ import {
   selectDeletingFromFavorites,
 } from '../profile/profileSlice';
 import { useAuth } from '../../common/context/Auth/useAuth';
-import { removeQuestionById, restoreQuestionById } from './questionsSlice';
+import {
+  removeQuestionById,
+  restoreQuestionById,
+  selectQuestionDeleting,
+  selectQuestionRestoring,
+} from './questionsSlice';
 import SpinnerIcon from '../../components/icons/SpinnerIcon';
 import RestoreIcon from '../../components/icons/RestoreIcon';
 
@@ -83,6 +88,8 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
   const user = useSelector(selectProfile);
   const adding = useSelector(selectAddingToFavorites);
   const deleting = useSelector(selectDeletingFromFavorites);
+  const questionDeleting = useSelector(selectQuestionDeleting);
+  const questionRestoring = useSelector(selectQuestionRestoring);
 
   const dispatch = useDispatch();
 
@@ -127,6 +134,13 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
       dispatch(removeQuestionById(question._id));
     }
   };
+
+  const iconDeleting = question.deleted ? <RestoreIcon /> : <DeleteIcon />;
+  const changeDeletingSpinner = questionDeleting ? (
+    <SpinnerIcon deleting />
+  ) : (
+    <SpinnerIcon restoring />
+  );
 
   return (
     <StyledQuestionBlock className="mb-4" deleted={question.deleted}>
@@ -204,7 +218,9 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
                     onClick={handleToggleDelete}
                     className="d-flex align-items-center"
                   >
-                    {question.deleted ? <RestoreIcon /> : <DeleteIcon />}
+                    {questionDeleting || questionRestoring
+                      ? changeDeletingSpinner
+                      : iconDeleting}
                     <StyledDelete
                       className="d-none d-md-block ms-1"
                       deleted={question.deleted}

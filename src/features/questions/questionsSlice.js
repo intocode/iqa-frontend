@@ -92,6 +92,8 @@ const questionsSlice = createSlice({
     processingRate: false,
     error: '',
     success: false,
+    deleting: false,
+    restoring: false,
   },
   reducers: {
     resetStatus: (state) => {
@@ -120,10 +122,10 @@ const questionsSlice = createSlice({
     },
 
     [removeQuestionById.pending]: (state) => {
-      state.loading = true;
+      state.deleting = true;
     },
     [removeQuestionById.fulfilled]: (state, action) => {
-      state.loading = false;
+      state.deleting = false;
       state.questions = state.questions.map((item) => {
         if (item._id === action.payload.questionId) {
           // eslint-disable-next-line no-param-reassign
@@ -134,10 +136,10 @@ const questionsSlice = createSlice({
     },
 
     [restoreQuestionById.pending]: (state) => {
-      state.loading = true;
+      state.restoring = true;
     },
     [restoreQuestionById.fulfilled]: (state, action) => {
-      state.loading = false;
+      state.restoring = false;
       state.questions = state.questions.map((item) => {
         if (item._id === action.payload.questionId) {
           // eslint-disable-next-line no-param-reassign
@@ -221,6 +223,16 @@ export const selectQuestions = createSelector(
 export const selectOpenedQuestion = createSelector(
   selectQuestionsState,
   (state) => state.openedQuestion
+);
+
+export const selectQuestionDeleting = createSelector(
+  selectQuestionsState,
+  (state) => state.deleting
+);
+
+export const selectQuestionRestoring = createSelector(
+  selectQuestionsState,
+  (state) => state.restoring
 );
 
 export const { resetStatus, resetSuccess } = questionsSlice.actions;
