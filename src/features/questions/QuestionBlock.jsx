@@ -23,6 +23,7 @@ import {
 import { useAuth } from '../../common/context/Auth/useAuth';
 import { removeQuestionById, restoreQuestionById } from './questionsSlice';
 import SpinnerIcon from '../../components/icons/SpinnerIcon';
+import RestoreIcon from '../../components/icons/RestoreIcon';
 
 dayjs.extend(relativeTime);
 dayjs.extend(calendar);
@@ -36,6 +37,7 @@ const StyledQuestionBlock = styled.div`
   img.avatar {
     border-radius: 50%;
   }
+  opacity: ${(props) => (props.deleted ? 0.3 : 1)};
 `;
 
 const StyledLink = styled(Link)`
@@ -65,7 +67,7 @@ const StyledFavorites = styled.div`
 `;
 
 const StyledDelete = styled.div`
-  color: #dc3545;
+  color: ${(props) => (props.deleted ? '#3d8bfd' : '#dc3545')};
   font-weight: 400;
   font-size: 12px;
   cursor: pointer;
@@ -127,7 +129,7 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
   };
 
   return (
-    <StyledQuestionBlock className="mb-4">
+    <StyledQuestionBlock className="mb-4" deleted={question.deleted}>
       <QuestionWrapper>
         {!isCompactMode && (
           <div className="row mb-4">
@@ -202,8 +204,11 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
                     onClick={handleToggleDelete}
                     className="d-flex align-items-center"
                   >
-                    <DeleteIcon />
-                    <StyledDelete className="d-none d-md-block">
+                    {question.deleted ? <RestoreIcon /> : <DeleteIcon />}
+                    <StyledDelete
+                      className="d-none d-md-block ms-1"
+                      deleted={question.deleted}
+                    >
                       {question.deleted
                         ? 'Восстановить вопрос'
                         : 'Удалить вопрос'}
