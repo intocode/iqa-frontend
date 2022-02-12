@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetSuccess } from '../questions/questionsSlice';
 import {
@@ -18,16 +18,18 @@ import { QuestionBlock } from '../questions/QuestionBlock';
 
 const FavoriteList = () => {
   const dispatch = useDispatch();
+  const isMount = useRef(true);
 
   const questions = useSelector(selectFavorites);
   const loading = useSelector(selectProfileLoading);
   const isCompactMode = useSelector(selectIsCompactModeToogle);
 
   useEffect(() => {
-    if (!questions.length && !loading) {
+    if (!loading && isMount.current) {
       dispatch(fetchQuestionFavorites());
+      isMount.current = false;
     }
-  }, [dispatch, loading, questions]);
+  }, [dispatch, loading]);
 
   // очистка сообщения об успешном добавлении вопроса
   useEffect(() => {
@@ -54,16 +56,20 @@ const FavoriteList = () => {
             </Switch>
           </div>
         </div>
-        {loading && <QuestionsListPlaceholder />}
-        <QuestionWrapper>
-          {questions.map((question) => (
-            <QuestionBlock
-              key={question._id}
-              isCompactMode={isCompactMode}
-              question={question}
-            />
-          ))}
-        </QuestionWrapper>
+        {loading ? (
+          <QuestionsListPlaceholder />
+        ) : (
+          <QuestionWrapper>
+            {questions.map((question) => (
+              <QuestionBlock
+                key={question._id}
+                isCompactMode={isCompactMode}
+                question={question}
+              />
+            ))}
+          </QuestionWrapper>
+        )}
+        {!loading && !questions.length ? 'У вас нет избранных' : null}
       </div>
     </>
   );
