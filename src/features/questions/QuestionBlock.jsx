@@ -186,7 +186,9 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
                 <div className="d-flex align-items-center">
                   <CommentsIcon />
                   <StyledComments className="d-none d-md-block">
-                    Обсуждение
+                    {question.commentsCount > 0
+                      ? question.commentsCount
+                      : 'Обсуждение'}
                   </StyledComments>
                 </div>
               </div>
@@ -262,6 +264,7 @@ QuestionBlock.propTypes = {
     ).isRequired,
 
     rates: PropTypes.arrayOf(PropTypes.object).isRequired,
+    commentsCount: PropTypes.number.isRequired,
 
     deleted: PropTypes.bool,
   }).isRequired,
