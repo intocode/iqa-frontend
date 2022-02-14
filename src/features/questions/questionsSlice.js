@@ -70,6 +70,19 @@ export const removeQuestionById = createAsyncThunk(
   }
 );
 
+export const restoreQuestionById = createAsyncThunk(
+  'questions/restoreById',
+  async (id, thunkAPI) => {
+    try {
+      await axios.patch(`/questions/${id}/restore`);
+
+      return { questionId: id };
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
 const questionsSlice = createSlice({
   name: 'questions',
   initialState: {
@@ -79,6 +92,8 @@ const questionsSlice = createSlice({
     processingRate: false,
     error: '',
     success: false,
+    deleting: false,
+    restoring: false,
   },
   reducers: {
     resetStatus: (state) => {
@@ -106,11 +121,32 @@ const questionsSlice = createSlice({
       state.openedQuestion = action.payload;
     },
 
+    [removeQuestionById.pending]: (state) => {
+      state.deleting = true;
+    },
     [removeQuestionById.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.questions = state.questions.filter(
-        (item) => item._id !== action.payload.questionId
-      );
+      state.deleting = false;
+      state.questions = state.questions.map((item) => {
+        if (item._id === action.payload.questionId) {
+          // eslint-disable-next-line no-param-reassign
+          item.deleted = true;
+        }
+        return item;
+      });
+    },
+
+    [restoreQuestionById.pending]: (state) => {
+      state.restoring = true;
+    },
+    [restoreQuestionById.fulfilled]: (state, action) => {
+      state.restoring = false;
+      state.questions = state.questions.map((item) => {
+        if (item._id === action.payload.questionId) {
+          // eslint-disable-next-line no-param-reassign
+          item.deleted = false;
+        }
+        return item;
+      });
     },
 
     [addQuestion.pending]: (state) => {
@@ -187,6 +223,16 @@ export const selectQuestions = createSelector(
 export const selectOpenedQuestion = createSelector(
   selectQuestionsState,
   (state) => state.openedQuestion
+);
+
+export const selectQuestionDeleting = createSelector(
+  selectQuestionsState,
+  (state) => state.deleting
+);
+
+export const selectQuestionRestoring = createSelector(
+  selectQuestionsState,
+  (state) => state.restoring
 );
 
 export const { resetStatus, resetSuccess } = questionsSlice.actions;

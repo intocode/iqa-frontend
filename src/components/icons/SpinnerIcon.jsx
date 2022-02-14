@@ -5,8 +5,8 @@ const StyledLoading = styled.div`
   display: inline-block;
   margin-right: 8px;
   position: relative;
-  width: 11px;
-  height: 11px;
+  width: 14px;
+  height: 16px;
   & > div {
     box-sizing: border-box;
     display: block;
