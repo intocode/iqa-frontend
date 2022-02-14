@@ -234,7 +234,7 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
           <StyledAction className="mx-4 d-flex align-items-center">
             <CommentsIcon />
             <StyledComments className="d-none d-md-block">
-              Обсуждение
+              {question.commentsCount}
             </StyledComments>
           </StyledAction>
           {token && (
@@ -303,5 +303,6 @@ QuestionBlock.propTypes = {
     ).isRequired,
 
     rates: PropTypes.arrayOf(PropTypes.object).isRequired,
+    commentsCount: PropTypes.number.isRequired,
   }).isRequired,
 };
