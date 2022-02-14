@@ -16,7 +16,7 @@ import { Title } from '../../app/Title/Title';
 import { Paper } from '../../components/ui';
 import { Switch } from '../../components/ui/Switch';
 
-export const QuestionsList = () => {
+const QuestionsList = () => {
   const dispatch = useDispatch();
 
   const questions = useSelector(selectQuestions);
@@ -68,3 +68,5 @@ export const QuestionsList = () => {
     </>
   );
 };
+
+export default QuestionsList;

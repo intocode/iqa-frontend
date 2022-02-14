@@ -1,30 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useAuth } from '../../common/context/Auth/useAuth';
-import { Button, Typography } from '../ui';
+import { Button } from '../ui';
 
-const StyledMenu = styled.div`
-  .adaptive_menu {
-    position: relative;
-    z-index: 1;
-  }
-  .menu_mobile {
-    position: absolute;
-    width: 75%;
-    height: 1000px;
-    top: 43px;
-    background-color: #f8f9fa;
-    box-shadow: 200px -4px 0px -5px rgba(0, 0, 0, 0.31);
-  }
-  .counter {
-    font-size: 12px;
-    color: white;
-    background-color: #409eff;
-    margin-left: 8px;
-    padding: 1px 6px;
-    border-radius: 24px;
+const StyledMenu = styled.ul`
+  list-style: none;
+  position: absolute;
+  width: 75%;
+  min-height: 100vh;
+  top: 80px;
+  background-color: #f8f9fa;
+  box-shadow: 200px -4px 0px -5px rgba(0, 0, 0, 0.31);
+
+  li {
+    padding: 15px 0;
   }
 `;
 
@@ -33,12 +24,9 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
   const history = useHistory();
   const { token, executeLoggingInProcess, logout } = useAuth();
 
-  const handleAddQuestion = () => {
+  const handleAddQuestion = useCallback(() => {
     history.push('/create');
-  };
-  // const handleFavorites = () => {
-  //   history.push('/favorites');
-  // };
+  }, [history]);
 
   useEffect(() => {
     if (mobileMenu) {
@@ -46,58 +34,76 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
     }
   }, [location.key]); //eslint-disable-line
 
-  return (
-    <StyledMenu>
-      {mobileMenu && (
-        <div className="adaptive_menu d-md-none">
-          <div className="menu_mobile">
-            <div className="pt-3 px-5 ">
-              {token ? (
-                <>
-                  <Button
-                    className="d-block mb-2 m-auto"
-                    contrast={false}
-                    color="primary"
-                    onClick={handleAddQuestion}
-                  >
-                    Добавить вопрос
-                  </Button>
-                  <Link
-                    to="/favorites"
-                    className="header_link mb-2 m-auto d-flex"
-                  >
-                    <Typography className="mb-2 m-auto">
-                      Избранные <span className="counter">43</span>
-                    </Typography>
-                  </Link>
-
-                  <Link to="/" className="header_link">
-                    <Button
-                      className="d-block m-auto"
-                      contrast={false}
-                      color="primary"
-                      onClick={logout}
-                    >
-                      Выйти
-                    </Button>
-                  </Link>
-                </>
-              ) : (
-                <Link to="/" className="header_link">
-                  <Button
-                    className="d-block m-auto"
-                    contrast={false}
-                    color="primary"
-                    onClick={executeLoggingInProcess}
-                  >
-                    Login with GitHub
-                  </Button>
-                </Link>
-              )}
-            </div>
+  const menuItems = useMemo(() => {
+    return [
+      {
+        id: 1,
+        protected: true,
+        jsx: (
+          <Button
+            className="d-block mb-2"
+            contrast={false}
+            color="primary"
+            onClick={handleAddQuestion}
+          >
+            Добавить вопрос
+          </Button>
+        ),
+      },
+      {
+        id: 2,
+        protected: true,
+        jsx: (
+          <div>
+            <Link to="/favorites">Избранные</Link>
           </div>
-        </div>
-      )}
+        ),
+      },
+      {
+        id: 3,
+        protected: true,
+        jsx: (
+          <Link to="/" onClick={logout}>
+            Выйти
+          </Link>
+        ),
+      },
+      {
+        id: 4,
+        guest: true,
+        jsx: (
+          <Button
+            className="d-block m-auto"
+            contrast={false}
+            color="primary"
+            onClick={executeLoggingInProcess}
+          >
+            Login with GitHub
+          </Button>
+        ),
+      },
+    ].filter((item) => {
+      if (item.protected) {
+        return !!token;
+      }
+
+      if (item.guest) {
+        return !token;
+      }
+
+      return true;
+    });
+  }, [executeLoggingInProcess, handleAddQuestion, logout, token]);
+
+  if (!mobileMenu) return null;
+
+  return (
+    <StyledMenu className="d-md-none">
+      {menuItems.map((item) => (
+        <React.Fragment key={item.id}>
+          <li>{item.jsx}</li>
+        </React.Fragment>
+      ))}
     </StyledMenu>
   );
 };

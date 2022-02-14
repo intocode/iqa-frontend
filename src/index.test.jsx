@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { App } from './app/App';
 import { BASE_API_URL, LS_TOKEN_KEY } from './common/constants';
 import '@testing-library/jest-dom';
@@ -21,6 +21,8 @@ describe('App rendering', () => {
       </GlobalProvider>
     );
 
-    expect(container.querySelector('.placeholder')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(container.querySelector('.placeholder')).toBeInTheDocument();
+    });
   });
 });

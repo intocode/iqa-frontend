@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { lazy, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {
@@ -8,8 +8,9 @@ import {
 } from './commentsSlice';
 import { useAuth } from '../../common/context/Auth/useAuth';
 import CommentsList from './CommentsList';
-import AddComment from './AddComment';
 import { CommentsPlaceholder } from './CommentsPlaceholder';
+
+const AddComment = lazy(() => import('./AddComment'));
 
 const CommentsByQuestion = () => {
   const { token } = useAuth();
