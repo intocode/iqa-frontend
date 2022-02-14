@@ -186,7 +186,9 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
                 <div className="d-flex align-items-center">
                   <CommentsIcon />
                   <StyledComments className="d-none d-md-block">
-                    {question.commentsCount}
+                    {question.commentsCount > 0
+                      ? question.commentsCount
+                      : 'Обсуждение'}
                   </StyledComments>
                 </div>
               </div>
