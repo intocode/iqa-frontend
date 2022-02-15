@@ -92,8 +92,8 @@ const questionsSlice = createSlice({
     processingRate: false,
     error: '',
     success: false,
-    deleting: false,
-    restoring: false,
+    deletingQuestion: [],
+    restoringQuestion: [],
   },
   reducers: {
     resetStatus: (state) => {
@@ -121,11 +121,13 @@ const questionsSlice = createSlice({
       state.openedQuestion = action.payload;
     },
 
-    [removeQuestionById.pending]: (state) => {
-      state.deleting = true;
+    [removeQuestionById.pending]: (state, action) => {
+      state.deletingQuestion.push(action.meta.arg);
     },
     [removeQuestionById.fulfilled]: (state, action) => {
-      state.deleting = false;
+      state.deletingQuestion = state.deletingQuestion.filter(
+        (id) => id !== action.meta.arg
+      );
       state.questions = state.questions.map((item) => {
         if (item._id === action.payload.questionId) {
           // eslint-disable-next-line no-param-reassign
@@ -135,11 +137,13 @@ const questionsSlice = createSlice({
       });
     },
 
-    [restoreQuestionById.pending]: (state) => {
-      state.restoring = true;
+    [restoreQuestionById.pending]: (state, action) => {
+      state.restoringQuestion.push(action.meta.arg);
     },
     [restoreQuestionById.fulfilled]: (state, action) => {
-      state.restoring = false;
+      state.restoringQuestion = state.restoringQuestion.filter(
+        (id) => id !== action.meta.arg
+      );
       state.questions = state.questions.map((item) => {
         if (item._id === action.payload.questionId) {
           // eslint-disable-next-line no-param-reassign
@@ -225,14 +229,14 @@ export const selectOpenedQuestion = createSelector(
   (state) => state.openedQuestion
 );
 
-export const selectQuestionDeleting = createSelector(
+export const selectDeletingQuestion = createSelector(
   selectQuestionsState,
-  (state) => state.deleting
+  (state) => state.deletingQuestion
 );
 
-export const selectQuestionRestoring = createSelector(
+export const selectRestoringQuestion = createSelector(
   selectQuestionsState,
-  (state) => state.restoring
+  (state) => state.restoringQuestion
 );
 
 export const { resetStatus, resetSuccess } = questionsSlice.actions;

@@ -24,8 +24,8 @@ import { useAuth } from '../../common/context/Auth/useAuth';
 import {
   removeQuestionById,
   restoreQuestionById,
-  selectQuestionDeleting,
-  selectQuestionRestoring,
+  selectDeletingQuestion,
+  selectRestoringQuestion,
 } from './questionsSlice';
 import SpinnerIcon from '../../components/icons/SpinnerIcon';
 import RestoreIcon from '../../components/icons/RestoreIcon';
@@ -88,8 +88,8 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
   const user = useSelector(selectProfile);
   const adding = useSelector(selectAddingToFavorites);
   const deleting = useSelector(selectDeletingFromFavorites);
-  const questionDeleting = useSelector(selectQuestionDeleting);
-  const questionRestoring = useSelector(selectQuestionRestoring);
+  const questionDeleting = useSelector(selectDeletingQuestion);
+  const questionRestoring = useSelector(selectRestoringQuestion);
 
   const dispatch = useDispatch();
 
@@ -135,12 +135,26 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
     }
   };
 
+  const deletingQuestion = useMemo(() => {
+    return questionDeleting?.find((id) => id === question._id);
+  }, [questionDeleting, question]);
+
+  const deletingQuestionStatus = deletingQuestion
+    ? 'Удаление'
+    : 'Удалить вопрос';
+
+  const restoringQuestion = useMemo(() => {
+    return questionRestoring?.find((id) => id === question._id);
+  }, [questionRestoring, question]);
+
+  const restoringQuestionStatus = restoringQuestion
+    ? 'Восстановление'
+    : 'Восстановить вопрос';
+
   const iconDeleting = question.deleted ? <RestoreIcon /> : <DeleteIcon />;
-  const changeDeletingSpinner = questionDeleting ? (
-    <SpinnerIcon deleting />
-  ) : (
-    <SpinnerIcon restoring />
-  );
+
+  const deletingSpinner =
+    deletingQuestion || restoringQuestion ? <SpinnerIcon /> : iconDeleting;
 
   return (
     <StyledQuestionBlock className="mb-4" deleted={question.deleted}>
@@ -220,16 +234,14 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
                     onClick={handleToggleDelete}
                     className="d-flex align-items-center"
                   >
-                    {questionDeleting || questionRestoring
-                      ? changeDeletingSpinner
-                      : iconDeleting}
+                    {deletingSpinner}
                     <StyledDelete
                       className="d-none d-md-block ms-1"
                       deleted={question.deleted}
                     >
                       {question.deleted
-                        ? 'Восстановить вопрос'
-                        : 'Удалить вопрос'}
+                        ? restoringQuestionStatus
+                        : deletingQuestionStatus}
                     </StyledDelete>
                   </div>
                 </div>
