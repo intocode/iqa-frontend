@@ -24,8 +24,8 @@ import { useAuth } from '../../common/context/Auth/useAuth';
 import {
   removeQuestionById,
   restoreQuestionById,
-  selectDeletingQuestion,
-  selectRestoringQuestion,
+  selectDeletingQuestions,
+  selectRestoringQuestions,
 } from './questionsSlice';
 import SpinnerIcon from '../../components/icons/SpinnerIcon';
 import RestoreIcon from '../../components/icons/RestoreIcon';
@@ -88,8 +88,8 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
   const user = useSelector(selectProfile);
   const adding = useSelector(selectAddingToFavorites);
   const deleting = useSelector(selectDeletingFromFavorites);
-  const questionDeleting = useSelector(selectDeletingQuestion);
-  const questionRestoring = useSelector(selectRestoringQuestion);
+  const deletingQuestions = useSelector(selectDeletingQuestions);
+  const restoringQuestions = useSelector(selectRestoringQuestions);
 
   const dispatch = useDispatch();
 
@@ -136,25 +136,25 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
   };
 
   const deletingQuestion = useMemo(() => {
-    return questionDeleting?.find((id) => id === question._id);
-  }, [questionDeleting, question]);
+    return deletingQuestions.find((id) => id === question._id);
+  }, [deletingQuestions, question]);
 
   const deletingQuestionStatus = deletingQuestion
     ? 'Удаление'
     : 'Удалить вопрос';
 
   const restoringQuestion = useMemo(() => {
-    return questionRestoring?.find((id) => id === question._id);
-  }, [questionRestoring, question]);
+    return restoringQuestions.find((id) => id === question._id);
+  }, [restoringQuestions, question]);
 
   const restoringQuestionStatus = restoringQuestion
     ? 'Восстановление'
     : 'Восстановить вопрос';
 
-  const iconDeleting = question.deleted ? <RestoreIcon /> : <DeleteIcon />;
+  const deletingIcon = question.deleted ? <RestoreIcon /> : <DeleteIcon />;
 
   const deletingSpinner =
-    deletingQuestion || restoringQuestion ? <SpinnerIcon /> : iconDeleting;
+    deletingQuestion || restoringQuestion ? <SpinnerIcon /> : deletingIcon;
 
   return (
     <StyledQuestionBlock className="mb-4" deleted={question.deleted}>

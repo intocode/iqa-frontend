@@ -92,8 +92,8 @@ const questionsSlice = createSlice({
     processingRate: false,
     error: '',
     success: false,
-    deletingQuestion: [],
-    restoringQuestion: [],
+    deletingQuestions: [],
+    restoringQuestions: [],
   },
   reducers: {
     resetStatus: (state) => {
@@ -122,10 +122,10 @@ const questionsSlice = createSlice({
     },
 
     [removeQuestionById.pending]: (state, action) => {
-      state.deletingQuestion.push(action.meta.arg);
+      state.deletingQuestions.push(action.meta.arg);
     },
     [removeQuestionById.fulfilled]: (state, action) => {
-      state.deletingQuestion = state.deletingQuestion.filter(
+      state.deletingQuestions = state.deletingQuestions.filter(
         (id) => id !== action.meta.arg
       );
       state.questions = state.questions.map((item) => {
@@ -138,10 +138,10 @@ const questionsSlice = createSlice({
     },
 
     [restoreQuestionById.pending]: (state, action) => {
-      state.restoringQuestion.push(action.meta.arg);
+      state.restoringQuestions.push(action.meta.arg);
     },
     [restoreQuestionById.fulfilled]: (state, action) => {
-      state.restoringQuestion = state.restoringQuestion.filter(
+      state.restoringQuestions = state.restoringQuestions.filter(
         (id) => id !== action.meta.arg
       );
       state.questions = state.questions.map((item) => {
@@ -229,14 +229,14 @@ export const selectOpenedQuestion = createSelector(
   (state) => state.openedQuestion
 );
 
-export const selectDeletingQuestion = createSelector(
+export const selectDeletingQuestions = createSelector(
   selectQuestionsState,
-  (state) => state.deletingQuestion
+  (state) => state.deletingQuestions
 );
 
-export const selectRestoringQuestion = createSelector(
+export const selectRestoringQuestions = createSelector(
   selectQuestionsState,
-  (state) => state.restoringQuestion
+  (state) => state.restoringQuestions
 );
 
 export const { resetStatus, resetSuccess } = questionsSlice.actions;
