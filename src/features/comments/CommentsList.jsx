@@ -3,7 +3,6 @@ import dayjs from 'dayjs';
 import styled from 'styled-components';
 import { Viewer } from '@toast-ui/react-editor';
 import { useSelector } from 'react-redux';
-import { Rate } from '../../components/ui';
 import { selectComments, selectCommentsSuccess } from './commentsSlice';
 
 const StyledProfile = styled.div`
@@ -41,11 +40,11 @@ const CommentsList = () => {
     <>
       {comments.map((comment) => {
         return (
-          <StyledSuccess background={comm._id === comment._id && '#67C23A19'}>
-            <div
-              className="row align-items-center my-3 bg-success"
-              key={comment._id}
-            >
+          <StyledSuccess
+            background={comm._id === comment._id && '#67C23A19'}
+            key={comment._id}
+          >
+            <div className="row align-items-center my-3 bg-success">
               <div className="col">
                 <StyledProfile>
                   <img src={comment.author?.avatar?.thumbnail} alt="" />
@@ -57,9 +56,7 @@ const CommentsList = () => {
                   </div>
                 </StyledProfile>
               </div>
-              <div className="col-auto">
-                <Rate />
-              </div>
+              <div className="col-auto">{/* тут должен быть рейтинг */}</div>
               <StyledCommentText>
                 <Viewer initialValue={comment.text} />
               </StyledCommentText>
