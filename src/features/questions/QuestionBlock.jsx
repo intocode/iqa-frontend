@@ -183,14 +183,16 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
           <div className="col">
             <div className="row justify-content-end justify-content-md-start">
               <div className="col-auto">
-                <div className="d-flex align-items-center">
-                  <CommentsIcon />
-                  <StyledComments className="d-none d-md-block">
-                    {question.commentsCount > 0
-                      ? question.commentsCount
-                      : 'Обсуждение'}
-                  </StyledComments>
-                </div>
+                <StyledLink to={`/question/${question._id}#scroll`}>
+                  <div className="d-flex align-items-center">
+                    <CommentsIcon />
+                    <StyledComments className="d-none d-md-block">
+                      {question.commentsCount > 0
+                        ? question.commentsCount
+                        : 'Обсуждение'}
+                    </StyledComments>
+                  </div>
+                </StyledLink>
               </div>
 
               {token && (
