@@ -22,7 +22,10 @@ const CommentsByQuestion = () => {
 
   const ref = useRef(null);
 
-  if (ref.current) ref.current.scrollIntoView();
+  const { hash } = window.location;
+  if (hash !== '') {
+    if (ref.current) ref.current.scrollIntoView();
+  }
 
   useEffect(() => {
     dispatch(fetchComments(id));
