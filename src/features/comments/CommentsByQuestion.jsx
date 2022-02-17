@@ -1,4 +1,4 @@
-import React, { lazy, useEffect } from 'react';
+import React, { lazy, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {
@@ -20,12 +20,19 @@ const CommentsByQuestion = () => {
   const comments = useSelector(selectComments);
   const loading = useSelector(selectCommentsLoading);
 
+  const ref = useRef(null);
+
+  const { hash } = window.location;
+  if (hash !== '') {
+    if (ref.current) ref.current.scrollIntoView();
+  }
+
   useEffect(() => {
     dispatch(fetchComments(id));
   }, [dispatch, id]);
 
   return (
-    <div className="container my-4">
+    <div id="scroll" ref={ref} className="container my-4">
       {comments.length ? (
         <h3>Комментарии ({comments.length})</h3>
       ) : (
