@@ -7,6 +7,17 @@ version: 2.1
 orbs:
   node: circleci/node@4.1
 
+jobs:
+  check:
+    docker:
+      - image: cimg/node:15.1
+    steps:
+      - checkout
+      - node/install-packages
+      - run:
+          name: Run checks
+          command: npm run check
+
 workflows:
   # Below is the definition of your workflow.
   # Inside the workflow, you provide the jobs you want to run, e.g this workflow runs the build-and-test job above.
@@ -14,4 +25,4 @@ workflows:
   # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows
   base:
     jobs:
-      - node/test
+      - check
