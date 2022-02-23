@@ -35,10 +35,9 @@ dayjs.extend(calendar);
 dayjs.locale('ru');
 
 const StyledQuestionBlock = styled.div`
-  &:hover .styleDelete {
+  &:hover .delete {
     opacity: 1;
   }
-
   img.avatar {
     border-radius: 50%;
   }
@@ -76,7 +75,9 @@ const StyledDelete = styled.div`
   font-weight: 400;
   font-size: 12px;
   cursor: pointer;
+  opacity: 0;
 `;
+
 const StyledComments = styled.div`
   color: #409eff;
   font-weight: 400;
@@ -236,9 +237,11 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
                     onClick={handleToggleDelete}
                     className="d-flex align-items-center"
                   >
-                    {deletingSpinner}
+                    <StyledDelete className="delete">
+                      {deletingSpinner}
+                    </StyledDelete>
                     <StyledDelete
-                      className="d-none d-md-block ms-1"
+                      className="delete d-none d-md-block ms-1"
                       deleted={question.deleted}
                     >
                       {question.deleted
