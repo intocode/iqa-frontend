@@ -272,7 +272,7 @@ const CreateQuestion = () => {
               color="primary"
               disabled={!tags.length}
             >
-              Добавить
+              Опубликовать
             </Button>
             <Link to="/" className="cancel">
               <Typography color="gray">Отмена</Typography>
