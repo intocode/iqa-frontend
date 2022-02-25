@@ -62,6 +62,7 @@ const AddComment = () => {
       </div>
       <div className="flex-grow-1">
         <Editor
+          autofocus={false}
           previewStyle="vertical"
           height="150px"
           initialEditType="wysiwyg"
