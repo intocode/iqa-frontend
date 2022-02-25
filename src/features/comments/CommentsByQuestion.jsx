@@ -39,7 +39,7 @@ const CommentsByQuestion = () => {
         <h3>Нет комментариев</h3>
       )}
       {token ? <AddComment /> : ''}
-      {loading && comments.length > 0 && <CommentsPlaceholder />}
+      {loading && <CommentsPlaceholder />}
       <CommentsList />
     </div>
   );

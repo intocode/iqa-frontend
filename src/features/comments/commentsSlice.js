@@ -52,7 +52,10 @@ const commentsSlice = createSlice({
   },
   extraReducers: {
     [fetchComments.pending]: (state) => {
-      state.loading = true;
+      if (state.comments.length !== 0) {
+        state.loading = true;
+        state.comments = [];
+      }
     },
     [fetchComments.fulfilled]: (state, action) => {
       state.loading = false;
