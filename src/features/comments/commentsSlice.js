@@ -52,6 +52,8 @@ const commentsSlice = createSlice({
   },
   extraReducers: {
     [fetchComments.pending]: (state) => {
+      // Условие для того чтобы не происходил
+      // скачёк верстки если массив с комментариями пустой
       if (state.comments.length !== 0) {
         state.loading = true;
         state.comments = [];
