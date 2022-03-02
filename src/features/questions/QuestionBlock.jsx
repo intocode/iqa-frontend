@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Typography, Paper, Divider } from '../../components/ui';
+import { Paper, Divider } from '../../components/ui';
 import QuestionRate from './QuestionRate';
 import CommentsIcon from '../../components/icons/CommentsIcon';
 import FavoritesIcon from '../../components/icons/FavoritesIcon';
@@ -30,6 +30,7 @@ import {
 import SpinnerIcon from '../../components/icons/SpinnerIcon';
 import RestoreIcon from '../../components/icons/RestoreIcon';
 import { QuestionHeader } from './QuestionHeader';
+import { QuestionContent } from './QuestionContent';
 
 dayjs.extend(relativeTime);
 dayjs.extend(calendar);
@@ -154,13 +155,7 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
         {!isCompactMode && (
           <QuestionHeader isCompactMode={isCompactMode} question={question} />
         )}
-        <div className="mb-4">
-          <Typography variant={isCompactMode ? 'caption' : 'header'}>
-            <StyledLink to={`/question/${question._id}`}>
-              {question.question}
-            </StyledLink>
-          </Typography>
-        </div>
+        <QuestionContent isCompactMode={isCompactMode} question={question} />
         <div className="row">
           <div className="col-auto">
             <QuestionRate id={question._id} rates={question.rates} />
@@ -234,7 +229,6 @@ QuestionBlock.propTypes = {
   isCompactMode: PropTypes.bool.isRequired,
   question: PropTypes.shape({
     _id: PropTypes.string.isRequired,
-    question: PropTypes.string.isRequired,
     rates: PropTypes.arrayOf(PropTypes.object).isRequired,
     commentsCount: PropTypes.number.isRequired,
 
