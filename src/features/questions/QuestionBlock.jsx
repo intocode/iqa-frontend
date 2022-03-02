@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Typography, Tag, Paper, Divider } from '../../components/ui';
+import { Typography, Paper, Divider } from '../../components/ui';
 import QuestionRate from './QuestionRate';
 import CommentsIcon from '../../components/icons/CommentsIcon';
 import FavoritesIcon from '../../components/icons/FavoritesIcon';
@@ -29,6 +29,7 @@ import {
 } from './questionsSlice';
 import SpinnerIcon from '../../components/icons/SpinnerIcon';
 import RestoreIcon from '../../components/icons/RestoreIcon';
+import { QuestionHeader } from './QuestionHeader';
 
 dayjs.extend(relativeTime);
 dayjs.extend(calendar);
@@ -50,16 +51,6 @@ const StyledLink = styled(Link)`
 
   &:visited {
     color: #000;
-  }
-`;
-
-const StyledTag = styled.div`
-  display: flex;
-  & > div {
-    margin-right: 10px;
-  }
-  & > div:last-child {
-    margin-right: 0;
   }
 `;
 
@@ -161,28 +152,7 @@ export const QuestionBlock = ({ question, isCompactMode }) => {
     <StyledQuestionBlock className="mb-4" deleted={question.deleted}>
       <QuestionWrapper>
         {!isCompactMode && (
-          <div className="row mb-4">
-            <div className="col">
-              <div className="d-flex align-items-center">
-                <img
-                  src={question.user?.avatar?.thumbnail}
-                  alt=""
-                  className="avatar"
-                />
-                <span className="mx-2">{question.user.name}</span>
-                <Typography variant="small" color="gray">
-                  добавлен {dayjs(question.createdAt).fromNow()}
-                </Typography>
-              </div>
-            </div>
-            <StyledTag className="col-auto d-none d-md-block">
-              {question.tags.map((tag) => (
-                <Tag noGutters key={tag.name}>
-                  {tag.name}
-                </Tag>
-              ))}
-            </StyledTag>
-          </div>
+          <QuestionHeader isCompactMode={isCompactMode} question={question} />
         )}
         <div className="mb-4">
           <Typography variant={isCompactMode ? 'caption' : 'header'}>
@@ -265,21 +235,6 @@ QuestionBlock.propTypes = {
   question: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     question: PropTypes.string.isRequired,
-    createdAt: PropTypes.string.isRequired,
-    user: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      avatar: PropTypes.shape({
-        thumbnail: PropTypes.string,
-        full: PropTypes.string,
-      }),
-    }).isRequired,
-
-    tags: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-      })
-    ).isRequired,
-
     rates: PropTypes.arrayOf(PropTypes.object).isRequired,
     commentsCount: PropTypes.number.isRequired,
 
