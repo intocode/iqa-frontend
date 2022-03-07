@@ -4,6 +4,7 @@ import { useEffect, lazy, Suspense } from 'react';
 import { useAuth } from '../common/context/Auth/useAuth';
 import { Header } from '../components/Layout/Header';
 import { fetchProfile } from '../features/profile/profileSlice';
+import { LazyPlaceholder } from './SuspensePlaceholder';
 
 const CreateQuestion = lazy(() =>
   import('../features/questions/CreateQuestion')
@@ -26,7 +27,7 @@ export const App = () => {
   return (
     <>
       <Header />
-      <Suspense fallback={<div />}>
+      <Suspense fallback={<LazyPlaceholder />}>
         <Switch>
           <Route path="/" exact>
             <QuestionsList />
