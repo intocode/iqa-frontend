@@ -172,7 +172,7 @@ export const QuestionsActions = ({ question }) => {
             </div>
           )}
 
-          {user.isAdmin && (
+          {token && user.isAdmin && (
             <div className="col-auto">
               <div
                 aria-hidden
