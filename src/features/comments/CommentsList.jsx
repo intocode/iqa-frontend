@@ -18,6 +18,7 @@ const StyledProfile = styled.div`
 
 const StyledCommentText = styled.div`
   .toastui-editor-contents {
+    margin-top: 10px;
     font-size: 16px;
   }
 `;
