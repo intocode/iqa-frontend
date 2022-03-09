@@ -21,14 +21,16 @@ const StyledQuestionBlock = styled.div`
   img.avatar {
     border-radius: 50%;
   }
-  opacity: ${(props) => (props.deleted ? 0.3 : 1)};
+  opacity: ${(props) => (props.deleted && props.url !== '/cart' ? 0.3 : 1)};
 `;
 
 export const QuestionBlock = ({ question, isCompactMode }) => {
   const QuestionWrapper = isCompactMode ? React.Fragment : Paper;
 
+  const url = window.location.pathname;
+
   return (
-    <StyledQuestionBlock className="mb-4" deleted={question.deleted}>
+    <StyledQuestionBlock className="mb-4" deleted={question.deleted} url={url}>
       <QuestionWrapper>
         {!isCompactMode && (
           <QuestionHeader isCompactMode={isCompactMode} question={question} />
