@@ -7,7 +7,10 @@ import { Button } from '../ui/Button';
 import { Typography } from '../ui/Typography';
 import { Logo } from './Logo';
 import { fetchQuestions } from '../../features/questions/questionsSlice';
-import { selectProfileLoading } from '../../features/profile/profileSlice';
+import {
+  selectProfileLoading,
+  selectProfile,
+} from '../../features/profile/profileSlice';
 import AdaptiveMenu from './AdaptiveMenu';
 import iconMenu from '../assets/menu.svg';
 import iconCloseMenu from '../assets/closeMenu.svg';
@@ -44,6 +47,7 @@ export const Header = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const loading = useSelector(selectProfileLoading);
+  const user = useSelector(selectProfile);
 
   useEffect(() => {
     const handleResize = () => {
@@ -103,6 +107,11 @@ export const Header = () => {
                 <Badge content={5}>
                   <Typography>Избранные</Typography>
                 </Badge>
+              </Link>
+            )}
+            {token && user.isAdmin && (
+              <Link to="/cart" className="header_link d-none d-md-block">
+                <Typography>Корзина</Typography>
               </Link>
             )}
           </div>

@@ -12,6 +12,9 @@ const CreateQuestion = lazy(() =>
 const QuestionPage = lazy(() => import('../features/questions/QuestionPage'));
 const QuestionsList = lazy(() => import('../features/questions/QuestionsList'));
 const FavoriteList = lazy(() => import('../features/profile/FavoriteList'));
+const DeletedQuestionsCart = lazy(() =>
+  import('../features/questions/DeletedQuestionsCart')
+);
 
 export const App = () => {
   const { token } = useAuth();
@@ -40,6 +43,9 @@ export const App = () => {
           </Route>
           <Route path="/favorites">
             <FavoriteList />
+          </Route>
+          <Route path="/cart">
+            <DeletedQuestionsCart />
           </Route>
         </Switch>
       </Suspense>

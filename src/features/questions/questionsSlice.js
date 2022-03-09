@@ -83,6 +83,19 @@ export const restoreQuestionById = createAsyncThunk(
   }
 );
 
+export const fetchDeletedQuestions = createAsyncThunk(
+  'questions/fetchDeleted',
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.get('/questions/deleted');
+
+      return response.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
 const questionsSlice = createSlice({
   name: 'questions',
   initialState: {
@@ -101,6 +114,14 @@ const questionsSlice = createSlice({
     },
     resetSuccess: (state) => {
       state.success = false;
+    },
+    resetQuestions: (state) => {
+      state.questions = [];
+    },
+    removeRestoredFromCart: (state, action) => {
+      state.questions = state.questions.filter(
+        (item) => item._id !== action.payload
+      );
     },
   },
   extraReducers: {
@@ -190,6 +211,15 @@ const questionsSlice = createSlice({
       state.error = action.error;
       state.processingRate = false;
     },
+
+    [fetchDeletedQuestions.pending]: (state) => {
+      state.loading = true;
+      state.questions = [];
+    },
+    [fetchDeletedQuestions.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.questions = action.payload;
+    },
   },
 });
 
@@ -239,6 +269,11 @@ export const selectRestoringQuestions = createSelector(
   (state) => state.restoringQuestions
 );
 
-export const { resetStatus, resetSuccess } = questionsSlice.actions;
+export const {
+  resetStatus,
+  resetSuccess,
+  resetQuestions,
+  removeRestoredFromCart,
+} = questionsSlice.actions;
 
 export default questionsSlice.reducer;

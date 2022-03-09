@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  fetchQuestions,
-  resetSuccess,
   selectQuestions,
+  fetchDeletedQuestions,
   selectQuestionsLoading,
   resetQuestions,
 } from './questionsSlice';
@@ -11,13 +10,13 @@ import {
   selectIsCompactModeToogle,
   toggleIsCompactMode,
 } from '../application/applicationSlice';
-import { QuestionBlock } from './QuestionBlock';
 import { QuestionsListPlaceholder } from './QuestionsListPlaceholder';
-import { Title } from '../../app/Title/Title';
 import { Paper } from '../../components/ui';
+import { Title } from '../../app/Title/Title';
 import { Switch } from '../../components/ui/Switch';
+import { QuestionBlock } from './QuestionBlock';
 
-const QuestionsList = () => {
+const DeletedQuestionsCart = () => {
   const dispatch = useDispatch();
 
   const questions = useSelector(selectQuestions);
@@ -30,24 +29,19 @@ const QuestionsList = () => {
 
   useEffect(() => {
     if (!questions.length && !loading) {
-      dispatch(fetchQuestions());
+      dispatch(fetchDeletedQuestions());
     }
-  }, [dispatch, questions, loading]);
-
-  // очистка сообщения об успешном добавлении вопроса
-  useEffect(() => {
-    dispatch(resetSuccess());
-  }, [dispatch]);
+  }, [dispatch, loading, questions]);
 
   const QuestionWrapper = isCompactMode ? Paper : React.Fragment;
 
   return (
     <>
-      <Title>iqa: все вопросы</Title>
+      <Title>iqa: корзина</Title>
       <div className="container">
         <div className="row justify-content-between align-items-center my-3">
           <div className="col">
-            <h2>Все вопросы</h2>
+            <h2>Корзина</h2>
           </div>
           <div className="col-auto">
             <Switch
@@ -74,4 +68,4 @@ const QuestionsList = () => {
   );
 };
 
-export default QuestionsList;
+export default DeletedQuestionsCart;
