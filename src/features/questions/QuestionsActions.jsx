@@ -19,7 +19,6 @@ import {
   restoreQuestionById,
   selectDeletingQuestions,
   selectRestoringQuestions,
-  getUrl,
 } from './questionsSlice';
 import FavoritesInIcon from '../../components/icons/FavoritesInIcon';
 import FavoritesIcon from '../../components/icons/FavoritesIcon';
@@ -65,10 +64,6 @@ export const QuestionsActions = ({ question }) => {
   const restoringQuestions = useSelector(selectRestoringQuestions);
 
   const dispatch = useDispatch();
-
-  const url = window.location.pathname;
-
-  dispatch(getUrl(url));
 
   const questionByFavorites = useMemo(() => {
     return user.favorites?.find((item) => item === question._id);

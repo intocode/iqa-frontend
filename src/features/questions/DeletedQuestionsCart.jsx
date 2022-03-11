@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  selectQuestions,
+  selectDeletedQuestions,
   fetchDeletedQuestions,
   selectQuestionsLoading,
-  resetQuestions,
+  resetDeletedQuestions,
 } from './questionsSlice';
 import {
   selectIsCompactModeToogle,
@@ -19,19 +19,19 @@ import { QuestionBlock } from './QuestionBlock';
 const DeletedQuestionsCart = () => {
   const dispatch = useDispatch();
 
-  const questions = useSelector(selectQuestions);
+  const deletedQuestions = useSelector(selectDeletedQuestions);
   const loading = useSelector(selectQuestionsLoading);
   const isCompactMode = useSelector(selectIsCompactModeToogle);
 
   useEffect(() => {
-    dispatch(resetQuestions());
+    dispatch(resetDeletedQuestions());
   }, [dispatch]);
 
   useEffect(() => {
-    if (!questions.length && !loading) {
+    if (!deletedQuestions.length && !loading) {
       dispatch(fetchDeletedQuestions());
     }
-  }, [dispatch, loading, questions]);
+  }, [dispatch, loading, deletedQuestions]);
 
   const QuestionWrapper = isCompactMode ? Paper : React.Fragment;
 
@@ -55,7 +55,7 @@ const DeletedQuestionsCart = () => {
         </div>
         {loading && <QuestionsListPlaceholder />}
         <QuestionWrapper>
-          {questions.map((question) => (
+          {deletedQuestions.map((question) => (
             <QuestionBlock
               key={question._id}
               isCompactMode={isCompactMode}
