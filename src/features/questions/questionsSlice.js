@@ -107,6 +107,7 @@ const questionsSlice = createSlice({
     success: false,
     deletingQuestions: [],
     restoringQuestions: [],
+    url: '',
   },
   reducers: {
     resetStatus: (state) => {
@@ -118,10 +119,8 @@ const questionsSlice = createSlice({
     resetQuestions: (state) => {
       state.questions = [];
     },
-    removeRestoredFromCart: (state, action) => {
-      state.questions = state.questions.filter(
-        (item) => item._id !== action.payload
-      );
+    getUrl: (state, action) => {
+      state.url = action.payload;
     },
   },
   extraReducers: {
@@ -162,6 +161,12 @@ const questionsSlice = createSlice({
       state.restoringQuestions.push(action.meta.arg);
     },
     [restoreQuestionById.fulfilled]: (state, action) => {
+      if (state.url === '/cart') {
+        // Удаление вопроса из массива после восстановления, если мы находимся в корзине
+        state.questions = state.questions.filter(
+          (question) => question._id !== action.payload.questionId
+        );
+      }
       state.restoringQuestions = state.restoringQuestions.filter(
         (id) => id !== action.meta.arg
       );
@@ -269,11 +274,7 @@ export const selectRestoringQuestions = createSelector(
   (state) => state.restoringQuestions
 );
 
-export const {
-  resetStatus,
-  resetSuccess,
-  resetQuestions,
-  removeRestoredFromCart,
-} = questionsSlice.actions;
+export const { resetStatus, resetSuccess, resetQuestions, getUrl } =
+  questionsSlice.actions;
 
 export default questionsSlice.reducer;

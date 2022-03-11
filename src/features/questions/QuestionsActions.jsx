@@ -19,7 +19,7 @@ import {
   restoreQuestionById,
   selectDeletingQuestions,
   selectRestoringQuestions,
-  removeRestoredFromCart,
+  getUrl,
 } from './questionsSlice';
 import FavoritesInIcon from '../../components/icons/FavoritesInIcon';
 import FavoritesIcon from '../../components/icons/FavoritesIcon';
@@ -68,6 +68,8 @@ export const QuestionsActions = ({ question }) => {
 
   const url = window.location.pathname;
 
+  dispatch(getUrl(url));
+
   const questionByFavorites = useMemo(() => {
     return user.favorites?.find((item) => item === question._id);
   }, [user.favorites, question]);
@@ -103,9 +105,6 @@ export const QuestionsActions = ({ question }) => {
   const handleToggleDelete = () => {
     if (question.deleted) {
       dispatch(restoreQuestionById(question._id));
-      if (url === '/cart') {
-        dispatch(removeRestoredFromCart(question._id));
-      }
     } else {
       dispatch(removeQuestionById(question._id));
     }
