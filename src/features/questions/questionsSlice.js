@@ -100,6 +100,7 @@ const questionsSlice = createSlice({
   name: 'questions',
   initialState: {
     questions: [],
+    deletedQuestions: [],
     openedQuestion: null,
     loading: false,
     processingRate: false,
@@ -118,10 +119,8 @@ const questionsSlice = createSlice({
     resetQuestions: (state) => {
       state.questions = [];
     },
-    removeRestoredFromCart: (state, action) => {
-      state.questions = state.questions.filter(
-        (item) => item._id !== action.payload
-      );
+    resetDeletedQuestions: (state) => {
+      state.deletedQuestions = [];
     },
   },
   extraReducers: {
@@ -146,10 +145,20 @@ const questionsSlice = createSlice({
       state.deletingQuestions.push(action.meta.arg);
     },
     [removeQuestionById.fulfilled]: (state, action) => {
+      state.deletedQuestions = state.deletedQuestions.filter(
+        (question) => question._id !== action.payload.questionId
+      );
       state.deletingQuestions = state.deletingQuestions.filter(
         (id) => id !== action.meta.arg
       );
       state.questions = state.questions.map((item) => {
+        if (item._id === action.payload.questionId) {
+          // eslint-disable-next-line no-param-reassign
+          item.deleted = true;
+        }
+        return item;
+      });
+      state.deletedQuestions = state.deletedQuestions.map((item) => {
         if (item._id === action.payload.questionId) {
           // eslint-disable-next-line no-param-reassign
           item.deleted = true;
@@ -162,10 +171,20 @@ const questionsSlice = createSlice({
       state.restoringQuestions.push(action.meta.arg);
     },
     [restoreQuestionById.fulfilled]: (state, action) => {
+      state.deletedQuestions = state.deletedQuestions.filter(
+        (question) => question._id !== action.payload.questionId
+      );
       state.restoringQuestions = state.restoringQuestions.filter(
         (id) => id !== action.meta.arg
       );
       state.questions = state.questions.map((item) => {
+        if (item._id === action.payload.questionId) {
+          // eslint-disable-next-line no-param-reassign
+          item.deleted = false;
+        }
+        return item;
+      });
+      state.deletedQuestions = state.deletedQuestions.map((item) => {
         if (item._id === action.payload.questionId) {
           // eslint-disable-next-line no-param-reassign
           item.deleted = false;
@@ -214,11 +233,11 @@ const questionsSlice = createSlice({
 
     [fetchDeletedQuestions.pending]: (state) => {
       state.loading = true;
-      state.questions = [];
+      state.deletedQuestions = [];
     },
     [fetchDeletedQuestions.fulfilled]: (state, action) => {
       state.loading = false;
-      state.questions = action.payload;
+      state.deletedQuestions = action.payload;
     },
   },
 });
@@ -269,11 +288,16 @@ export const selectRestoringQuestions = createSelector(
   (state) => state.restoringQuestions
 );
 
+export const selectDeletedQuestions = createSelector(
+  selectQuestionsState,
+  (state) => state.deletedQuestions
+);
+
 export const {
   resetStatus,
   resetSuccess,
   resetQuestions,
-  removeRestoredFromCart,
+  resetDeletedQuestions,
 } = questionsSlice.actions;
 
 export default questionsSlice.reducer;

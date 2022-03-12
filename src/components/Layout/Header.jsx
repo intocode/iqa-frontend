@@ -99,11 +99,14 @@ export const Header = () => {
                 <Logo long={windowWidth < 768} />
               </Link>
             </div>
-            <Link to="/" className="header_link d-none d-md-block ">
+            <Link to="/" className="header_link d-none d-md-block me-3">
               <Typography>Главная</Typography>
             </Link>
             {token && (
-              <Link to="/favorites" className="header_link d-none d-md-block">
+              <Link
+                to="/favorites"
+                className="header_link d-none d-md-block me-3"
+              >
                 <Badge content={5}>
                   <Typography>Избранные</Typography>
                 </Badge>

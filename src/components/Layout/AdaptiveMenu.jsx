@@ -61,6 +61,10 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
       },
       {
         id: 3,
+        jsx: <Link to="/cart">Корзина</Link>,
+      },
+      {
+        id: 4,
         protected: true,
         jsx: (
           <Link to="/" onClick={logout}>
@@ -69,7 +73,7 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
         ),
       },
       {
-        id: 4,
+        id: 5,
         guest: true,
         jsx: (
           <Button
