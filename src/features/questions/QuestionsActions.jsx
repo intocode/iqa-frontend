@@ -196,7 +196,12 @@ export const QuestionsActions = ({ question }) => {
 QuestionsActions.propTypes = {
   question: PropTypes.shape({
     _id: PropTypes.string.isRequired,
-    rates: PropTypes.arrayOf(PropTypes.object).isRequired,
+    rates: PropTypes.arrayOf(
+      PropTypes.shape({
+        volume: PropTypes.number.isRequired,
+        user: PropTypes.string.isRequired,
+      })
+    ).isRequired,
     commentsCount: PropTypes.number.isRequired,
     deleted: PropTypes.bool,
   }).isRequired,
