@@ -6,7 +6,7 @@ import {
 import axios from 'axios';
 
 export const fetchQuestionsSearch = createAsyncThunk(
-  'question/search/fetch',
+  'question/search',
   async (question, thunkAPI) => {
     try {
       const response = await axios.get(`/questions?search=${question}`);

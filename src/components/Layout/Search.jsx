@@ -9,14 +9,14 @@ import {
 } from '../../features/search/searchQuestionSlice';
 
 const StyledSearch = styled.div`
-  width: 300px;
+  width: 225px;
   margin-left: 20px;
   position: relative;
 
   .questions {
     margin-top: 5px;
     position: absolute;
-    width: 300px;
+    width: 225px;
     border-radius: 3px;
     background-color: #ffffff;
     box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
@@ -64,6 +64,7 @@ const Search = () => {
 
   useEffect(() => {
     setExamination(false);
+    setQuestion('');
   }, [location.key]);
 
   return (
