@@ -15,6 +15,7 @@ import questions from '../features/questions/questionsSlice';
 import tags from '../features/tags/tagsSlice';
 import comments from '../features/comments/commentsSlice';
 import application from '../features/application/applicationSlice';
+import questionsSearch from '../features/search/searchQuestionSlice';
 
 const persistConfig = {
   key: 'root',
@@ -25,6 +26,7 @@ const persistedReducer = persistReducer(persistConfig, application);
 
 export const store = configureStore({
   reducer: {
+    questionsSearch,
     profile,
     questions,
     tags,

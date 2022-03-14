@@ -2,6 +2,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import Search from './Search';
 import { useAuth } from '../../common/context/Auth/useAuth';
 import { Button } from '../ui/Button';
 import { Typography } from '../ui/Typography';
@@ -105,6 +106,7 @@ export const Header = () => {
                 </Badge>
               </Link>
             )}
+            <Search />
           </div>
           <div className="col-auto d-none d-md-block">
             {token && !loading && (
