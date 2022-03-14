@@ -58,5 +58,10 @@ export default memo(QuestionRate);
 
 QuestionRate.propTypes = {
   id: PropTypes.string.isRequired,
-  rates: PropTypes.arrayOf(PropTypes.object).isRequired,
+  rates: PropTypes.arrayOf(
+    PropTypes.shape({
+      volume: PropTypes.number.isRequired,
+      user: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
