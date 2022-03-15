@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { SCROLL_TO_TOP_SHOW } from '../../app/constants';
 import ChevronUpIcon from '../icons/ChevronUpIcon';
 
 const StyledScroll = styled.div`
@@ -33,7 +34,7 @@ export const ScrollToTop = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  if (!windowScroll) return null;
+  if (windowScroll < SCROLL_TO_TOP_SHOW) return null;
 
   return (
     <StyledScroll onClick={scrollToTop}>
