@@ -5,6 +5,7 @@ import { useAuth } from '../common/context/Auth/useAuth';
 import { Header } from '../components/Layout/Header';
 import { fetchProfile } from '../features/profile/profileSlice';
 import { LazyPlaceholder } from './LazyPlaceholder';
+import { ScrollToTop } from '../components/Layout/ScrollToTop';
 
 const CreateQuestion = lazy(() =>
   import('../features/questions/CreateQuestion')
@@ -34,6 +35,7 @@ export const App = () => {
         <Switch>
           <Route path="/" exact>
             <QuestionsList />
+            <ScrollToTop />
           </Route>
           <Route path="/create">
             <CreateQuestion />
@@ -43,9 +45,11 @@ export const App = () => {
           </Route>
           <Route path="/favorites">
             <FavoriteList />
+            <ScrollToTop />
           </Route>
           <Route path="/cart">
             <DeletedQuestionsCart />
+            <ScrollToTop />
           </Route>
         </Switch>
       </Suspense>
