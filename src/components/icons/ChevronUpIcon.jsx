@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ChevronUpIcon({ ...props }) {
+function ChevronUpIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -8,7 +8,6 @@ function ChevronUpIcon({ ...props }) {
       height="28"
       fill="#fff"
       viewBox="0 0 16 16"
-      {...props}
     >
       <path
         fillRule="evenodd"

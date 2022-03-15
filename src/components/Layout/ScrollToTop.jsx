@@ -36,8 +36,8 @@ export const ScrollToTop = () => {
   if (!windowScroll) return null;
 
   return (
-    <StyledScroll>
-      <ChevronUpIcon onClick={scrollToTop} />
+    <StyledScroll onClick={scrollToTop}>
+      <ChevronUpIcon />
     </StyledScroll>
   );
 };
