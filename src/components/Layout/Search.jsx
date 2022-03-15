@@ -67,11 +67,11 @@ const Search = () => {
     setQuestion('');
   }, [location.key]);
 
-  const SEARCH = !!process.env.REACT_APP_FEATURE_SEARCH;
+  const { REACT_APP_FEATURE_SEARCH } = process.env;
 
   return (
     <StyledSearch>
-      {!SEARCH && (
+      {REACT_APP_FEATURE_SEARCH && (
         <Input
           onChange={(e) => handleSearch(e)}
           value={question}
