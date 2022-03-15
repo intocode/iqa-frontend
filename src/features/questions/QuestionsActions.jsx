@@ -156,7 +156,7 @@ export const QuestionsActions = ({ question }) => {
                   iconFavorites
                 )}
                 <StyledFavorites className="d-none d-md-block">
-                  {questionByFavorites ? deletingStatus : ''}
+                  {questionByFavorites && deletingStatus}
                 </StyledFavorites>
               </div>
             </div>
