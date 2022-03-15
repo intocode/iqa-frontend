@@ -67,7 +67,7 @@ export const selectQuestionsError = createSelector(
 
 export const selectQuestionsSearch = createSelector(
   selectQuestionsSearchState,
-  (state) => state.questionsSearch
+  (state) => state.questionsSearch.questionsSearch
 );
 
 export const { resetStatus, resetSuccess } = questionsSearchSlice.actions;
