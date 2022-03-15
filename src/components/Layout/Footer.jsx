@@ -41,9 +41,9 @@ export const Footer = () => {
             <Link to="/" className="me-3">
               <Typography className="footer_link">О нас</Typography>
             </Link>
-            <Link target="_blank" to="https://github.com/intocode">
+            <a target="blank" href="https://github.com/intocode/iqa-frontend">
               <Typography className="footer_link">GitHub</Typography>
-            </Link>
+            </a>
           </div>
         </div>
       </div>
