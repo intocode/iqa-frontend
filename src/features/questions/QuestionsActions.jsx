@@ -87,10 +87,6 @@ export const QuestionsActions = ({ question }) => {
     return adding?.find((id) => id === question._id);
   }, [adding, question]);
 
-  const addingStatus = addingToFavorites
-    ? 'Добавление'
-    : 'Добавить в избранные';
-
   const deletingFromFavorites = useMemo(() => {
     return deleting?.find((id) => id === question._id);
   }, [deleting, question]);
@@ -160,7 +156,7 @@ export const QuestionsActions = ({ question }) => {
                   iconFavorites
                 )}
                 <StyledFavorites className="d-none d-md-block">
-                  {questionByFavorites ? deletingStatus : addingStatus}
+                  {questionByFavorites && deletingStatus}
                 </StyledFavorites>
               </div>
             </div>

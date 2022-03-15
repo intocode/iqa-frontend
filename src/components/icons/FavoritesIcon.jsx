@@ -4,6 +4,7 @@ function FavoritesIcon() {
   return (
     <div>
       <svg
+        cursor="pointer"
         width="12"
         height="16"
         viewBox="0 0 12 16"
