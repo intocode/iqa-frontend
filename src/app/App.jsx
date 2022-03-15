@@ -35,7 +35,7 @@ export const App = () => {
         <Switch>
           <Route path="/" exact>
             <QuestionsList />
-            <ScrollToTop color="primary" />
+            <ScrollToTop />
           </Route>
           <Route path="/create">
             <CreateQuestion />
@@ -45,11 +45,11 @@ export const App = () => {
           </Route>
           <Route path="/favorites">
             <FavoriteList />
-            <ScrollToTop color="primary" />
+            <ScrollToTop />
           </Route>
           <Route path="/cart">
             <DeletedQuestionsCart />
-            <ScrollToTop color="primary" />
+            <ScrollToTop />
           </Route>
         </Switch>
       </Suspense>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ChevronUpIcon from '../icons/ChevronUpIcon';
 
@@ -7,17 +6,17 @@ const StyledScroll = styled.div`
   display: inline-block;
   width: 45px;
   height: 45px;
-  background-color: ${(props) => props.theme.colors[props.color].main};
+  background-color: ${(props) => props.theme.colors.primary.main};
   border-radius: 100%;
   padding: 8px;
   cursor: pointer;
   position: fixed;
   bottom: 60px;
   right: 20px;
-  box-shadow: 0 0 10px ${(props) => props.theme.colors[props.color].main};
+  box-shadow: 0 0 10px ${(props) => props.theme.colors.primary.main};
 `;
 
-export const ScrollToTop = ({ color }) => {
+export const ScrollToTop = () => {
   const [windowScroll, setWindowScroll] = useState(window.pageYOffset);
 
   const scrollToTop = () => {
@@ -34,13 +33,11 @@ export const ScrollToTop = ({ color }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  return windowScroll === 0 ? null : (
-    <StyledScroll color={color}>
-      <ChevronUpIcon color="#fff" onClick={scrollToTop} />
+  if (!windowScroll) return null;
+
+  return (
+    <StyledScroll>
+      <ChevronUpIcon onClick={scrollToTop} />
     </StyledScroll>
   );
-};
-
-ScrollToTop.propTypes = {
-  color: PropTypes.string.isRequired,
 };
