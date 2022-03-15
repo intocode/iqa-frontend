@@ -69,11 +69,15 @@ const Search = () => {
 
   return (
     <StyledSearch>
-      <Input
-        onChange={(e) => handleSearch(e)}
-        value={question}
-        placeholder="Поиск вопроса..."
-      />
+      {process.env.REACT_APP_FUNCTION_SEARCH === 'false' ? (
+        ''
+      ) : (
+        <Input
+          onChange={(e) => handleSearch(e)}
+          value={question}
+          placeholder="Поиск вопроса..."
+        />
+      )}
       {examination ? (
         <div className="questions">
           {search.questionsSearch.map((item) => {
