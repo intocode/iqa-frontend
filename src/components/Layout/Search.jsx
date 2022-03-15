@@ -78,23 +78,19 @@ const Search = () => {
           placeholder="Поиск вопроса..."
         />
       )}
-      {examination ? (
+      {examination && (
         <div className="questions">
-          {search.questionsSearch.map((item) => {
-            return (
-              <div className="question">
-                <Link className="question-tittle" to={`/question/${item._id}`}>
-                  {item.question}
-                </Link>
-                <div className="question-text">
-                  {item.comment.substr(0, 30)}...
-                </div>
+          {search.map((item) => (
+            <div key={item._id} className="question">
+              <Link className="question-tittle" to={`/question/${item._id}`}>
+                {item.question}
+              </Link>
+              <div className="question-text">
+                {item.comment.substr(0, 30)}...
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
-      ) : (
-        ''
       )}
     </StyledSearch>
   );
