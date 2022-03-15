@@ -87,9 +87,7 @@ export const QuestionsActions = ({ question }) => {
     return adding?.find((id) => id === question._id);
   }, [adding, question]);
 
-  const addingStatus = addingToFavorites
-    ? 'Добавление'
-    : 'Добавить в избранные';
+  const addingStatus = addingToFavorites ? 'Добавление' : '';
 
   const deletingFromFavorites = useMemo(() => {
     return deleting?.find((id) => id === question._id);
