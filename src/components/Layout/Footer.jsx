@@ -27,7 +27,7 @@ export const Footer = () => {
       <div className="container">
         <div className="d-flex justify-content-between align-items-center">
           <div className="d-flex align-items-center">
-            <div>
+            <div className="d-none d-sm-block">
               <Link to="/">
                 <LogoNoColorIcon />
               </Link>
@@ -37,7 +37,7 @@ export const Footer = () => {
               2016-2022
             </div>
           </div>
-          <div className="d-flex">
+          <div className="d-flex d-none d-sm-flex">
             <Link to="/" className="me-3">
               <Typography className="footer_link">О нас</Typography>
             </Link>
