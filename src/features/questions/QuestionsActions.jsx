@@ -34,13 +34,6 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const StyledFavorites = styled.div`
-  color: #e6a23c;
-  font-weight: 400;
-  font-size: 12px;
-  cursor: pointer;
-`;
-
 const StyledDelete = styled.div`
   color: ${(props) => (props.deleted ? '#3d8bfd' : '#dc3545')};
   font-weight: 400;
@@ -90,8 +83,6 @@ export const QuestionsActions = ({ question }) => {
   const deletingFromFavorites = useMemo(() => {
     return deleting?.find((id) => id === question._id);
   }, [deleting, question]);
-
-  const deletingStatus = deletingFromFavorites && 'Удаление';
 
   const handleToggleDelete = () => {
     if (question.deleted) {
@@ -155,9 +146,6 @@ export const QuestionsActions = ({ question }) => {
                 ) : (
                   iconFavorites
                 )}
-                <StyledFavorites className="d-none d-md-block">
-                  {questionByFavorites && deletingStatus}
-                </StyledFavorites>
               </div>
             </div>
           )}
