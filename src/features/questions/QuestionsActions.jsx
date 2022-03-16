@@ -122,27 +122,38 @@ export const QuestionsActions = ({ question }) => {
   const deletingSpinner =
     deletingQuestion || restoringQuestion ? <SpinnerIcon /> : deletingIcon;
 
+  const {
+    REACT_APP_FEATURE_COMMENTARIES,
+    REACT_APP_FEATURE_FAVORITES,
+    REACT_APP_FEATURE_RATING,
+    REACT_APP_FEATURE_DELETE_QUESTION,
+  } = process.env;
+
   return (
     <div className="row">
-      <div className="col-auto">
-        <QuestionRate id={question._id} rates={question.rates} />
-      </div>
+      {REACT_APP_FEATURE_RATING && (
+        <div className="col-auto">
+          <QuestionRate id={question._id} rates={question.rates} />
+        </div>
+      )}
       <div className="col">
         <div className="row justify-content-end justify-content-md-start">
           <div className="col-auto">
             <StyledLink to={`/question/${question._id}#scroll`}>
-              <div className="d-flex align-items-center">
-                <CommentsIcon />
-                <StyledComments className="d-none d-md-block">
-                  {question.commentsCount > 0
-                    ? question.commentsCount
-                    : 'Обсуждение'}
-                </StyledComments>
-              </div>
+              {REACT_APP_FEATURE_COMMENTARIES && (
+                <div className="d-flex align-items-center">
+                  <CommentsIcon />
+                  <StyledComments className="d-none d-md-block">
+                    {question.commentsCount > 0
+                      ? question.commentsCount
+                      : 'Обсуждение'}
+                  </StyledComments>
+                </div>
+              )}
             </StyledLink>
           </div>
 
-          {token && (
+          {REACT_APP_FEATURE_FAVORITES && token && (
             <div className="col-auto">
               <div
                 role="button"
@@ -162,7 +173,7 @@ export const QuestionsActions = ({ question }) => {
             </div>
           )}
 
-          {token && user.isAdmin && (
+          {REACT_APP_FEATURE_DELETE_QUESTION && token && user.isAdmin && (
             <div className="col-auto">
               <div
                 aria-hidden

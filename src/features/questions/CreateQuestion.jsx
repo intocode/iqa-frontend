@@ -166,6 +166,8 @@ const CreateQuestion = () => {
 
   if (!token) return <Redirect to="/" />;
 
+  const { REACT_APP_FEATURE_TAGS } = process.env;
+
   return (
     <>
       <Title>iqa: добавить вопрос</Title>
@@ -225,52 +227,56 @@ const CreateQuestion = () => {
               ]}
               autofocus={false}
             />
-            <div className="mt-4 mb-3">
-              Теги<sup>*</sup>
-            </div>
-            <StyledTagWrapper>
-              {tags.map((tag) => (
-                <Tag
-                  key={tag._id}
-                  onRemove={() => dispatch(removeTag(tag._id))}
-                >
-                  {tag.name}
-                </Tag>
-              ))}
-              {/* todo убрать дублирование ниже */}
-              {!editMode && (
-                <button
-                  onClick={() => setEditMode(true)}
-                  type="button"
-                  className="new-tag"
-                >
-                  <PlusIcon />
-                  <span>New tag</span>
-                </button>
-              )}
-              {editMode && (
-                <button
-                  onBlur={() => setEditMode(false)}
-                  type="button"
-                  className="new-tag"
-                >
-                  <PlusIcon />
-                  <input
-                    value={tagValue}
-                    onKeyPress={handleKeyPress}
-                    onChange={(e) => setTagValue(e.target.value)}
-                    ref={callbackRef}
-                  />
-                </button>
-              )}
-            </StyledTagWrapper>
+            {REACT_APP_FEATURE_TAGS && (
+              <>
+                <div className="mt-4 mb-3">
+                  Теги<sup>*</sup>
+                </div>
+                <StyledTagWrapper>
+                  {tags.map((tag) => (
+                    <Tag
+                      key={tag._id}
+                      onRemove={() => dispatch(removeTag(tag._id))}
+                    >
+                      {tag.name}
+                    </Tag>
+                  ))}
+                  {/* todo убрать дублирование ниже */}
+                  {!editMode && (
+                    <button
+                      onClick={() => setEditMode(true)}
+                      type="button"
+                      className="new-tag"
+                    >
+                      <PlusIcon />
+                      <span>New tag</span>
+                    </button>
+                  )}
+                  {editMode && (
+                    <button
+                      onBlur={() => setEditMode(false)}
+                      type="button"
+                      className="new-tag"
+                    >
+                      <PlusIcon />
+                      <input
+                        value={tagValue}
+                        onKeyPress={handleKeyPress}
+                        onChange={(e) => setTagValue(e.target.value)}
+                        ref={callbackRef}
+                      />
+                    </button>
+                  )}
+                </StyledTagWrapper>
+              </>
+            )}
           </div>
           <div className="buttons mt-4">
             <Button
               loading={questionsLoading}
               onClick={handleCreate}
               color="primary"
-              disabled={!tags.length}
+              disabled={REACT_APP_FEATURE_TAGS && !tags.length}
             >
               Опубликовать
             </Button>
