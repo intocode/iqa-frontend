@@ -91,7 +91,7 @@ export const QuestionsActions = ({ question }) => {
     return deleting?.find((id) => id === question._id);
   }, [deleting, question]);
 
-  const deletingStatus = deletingFromFavorites ? 'Удаление' : 'В избранном';
+  const deletingStatus = deletingFromFavorites && 'Удаление';
 
   const handleToggleDelete = () => {
     if (question.deleted) {
