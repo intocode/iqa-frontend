@@ -6,6 +6,7 @@ import { Header } from '../components/Layout/Header';
 import { fetchProfile } from '../features/profile/profileSlice';
 import { LazyPlaceholder } from './LazyPlaceholder';
 import { ScrollToTop } from '../components/Layout/ScrollToTop';
+import { Footer } from '../components/Layout/Footer';
 
 const CreateQuestion = lazy(() =>
   import('../features/questions/CreateQuestion')
@@ -53,6 +54,7 @@ export const App = () => {
           </Route>
         </Switch>
       </Suspense>
+      <Footer />
     </>
   );
 };
