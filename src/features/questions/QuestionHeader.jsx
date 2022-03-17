@@ -16,6 +16,8 @@ const StyledTag = styled.div`
 `;
 
 export const QuestionHeader = ({ question, isCompactMode }) => {
+  const { REACT_APP_FEATURE_TAGS } = process.env;
+
   return (
     <div>
       {!isCompactMode && (
@@ -34,11 +36,12 @@ export const QuestionHeader = ({ question, isCompactMode }) => {
             </div>
           </div>
           <StyledTag className="col-auto d-none d-md-block">
-            {question.tags.map((tag) => (
-              <Tag noGutters key={tag.name}>
-                {tag.name}
-              </Tag>
-            ))}
+            {REACT_APP_FEATURE_TAGS &&
+              question.tags.map((tag) => (
+                <Tag noGutters key={tag.name}>
+                  {tag.name}
+                </Tag>
+              ))}
           </StyledTag>
         </div>
       )}

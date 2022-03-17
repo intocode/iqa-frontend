@@ -80,6 +80,12 @@ dayjs.extend(relativeTime);
 dayjs.extend(calendar);
 dayjs.locale('ru');
 
+const {
+  REACT_APP_FEATURE_COMMENTARIES,
+  REACT_APP_FEATURE_RATING,
+  REACT_APP_FEATURE_TAGS,
+} = process.env;
+
 const QuestionPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -109,26 +115,29 @@ const QuestionPage = () => {
                 <div>добавлено {dayjs(question?.createdAt).fromNow()}</div>
               </StyledAvatar>
               <StyledTag>
-                {question?.tags.map((tag) => (
-                  <Tag key={tag.name} noGutters className="d-none d-md-block">
-                    {tag.name}
-                  </Tag>
-                ))}
+                {REACT_APP_FEATURE_TAGS &&
+                  question?.tags.map((tag) => (
+                    <Tag key={tag.name} noGutters className="d-none d-md-block">
+                      {tag.name}
+                    </Tag>
+                  ))}
               </StyledTag>
             </StyledPaperHeader>
             <h3>{question?.question}</h3>
             <StyledComment>
               <Viewer initialValue={question?.comment} />
             </StyledComment>
-            {question ? (
-              <QuestionRate id={id} rates={question.rates} />
-            ) : (
-              'Загрузка...'
-            )}
+
+            {REACT_APP_FEATURE_RATING &&
+              (question ? (
+                <QuestionRate id={id} rates={question.rates} />
+              ) : (
+                'Загрузка...'
+              ))}
             <div className="my-4">
               <Divider />
             </div>
-            <CommentsByQuestion />
+            {REACT_APP_FEATURE_COMMENTARIES && <CommentsByQuestion />}
           </Paper>
         )}
       </StyledQuestionBlock>

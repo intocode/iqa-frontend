@@ -77,6 +77,12 @@ export const Header = () => {
 
   const iconMenuAndClose = !mobileMenu ? iconMenu : iconCloseMenu;
 
+  const {
+    REACT_APP_FEATURE_ADD_QUESTION,
+    REACT_APP_FEATURE_FAVORITES,
+    REACT_APP_FEATURE_DELETE_QUESTION,
+  } = process.env;
+
   return (
     <StyledHeader>
       <AdaptiveMenu
@@ -108,12 +114,14 @@ export const Header = () => {
                 to="/favorites"
                 className="header_link d-none d-md-block me-3"
               >
-                <Badge content={5}>
-                  <Typography>Избранные</Typography>
-                </Badge>
+                {REACT_APP_FEATURE_FAVORITES && (
+                  <Badge content={5}>
+                    <Typography>Избранные</Typography>
+                  </Badge>
+                )}
               </Link>
             )}
-            {token && user.isAdmin && (
+            {REACT_APP_FEATURE_DELETE_QUESTION && token && user.isAdmin && (
               <Link to="/cart" className="header_link d-none d-md-block">
                 <Typography>Корзина</Typography>
               </Link>
@@ -123,14 +131,16 @@ export const Header = () => {
           <div className="col-auto d-none d-md-block">
             {token && !loading && (
               <>
-                <Button
-                  className="me-3"
-                  contrast={false}
-                  color="primary"
-                  onClick={handleAddQuestion}
-                >
-                  Добавить вопрос
-                </Button>
+                {REACT_APP_FEATURE_ADD_QUESTION && (
+                  <Button
+                    className="me-3"
+                    contrast={false}
+                    color="primary"
+                    onClick={handleAddQuestion}
+                  >
+                    Добавить вопрос
+                  </Button>
+                )}
                 <Link to="/" className="header_link">
                   <Button contrast={false} color="primary" onClick={logout}>
                     Выйти
