@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import '../assets/bootstrap-placeholder.css';
+import { Tag } from '../components/ui';
 
 const StyledPlaceholder = styled.div`
   max-width: 820px;
@@ -11,10 +12,26 @@ const StyledPlaceholder = styled.div`
 const Placeholder = () => {
   return (
     <StyledPlaceholder className="mb-4">
-      <div className=" placeholder">
-        <div className="placeholder-xs pt-lg-4 pb-lg-4" />
-        <div className="placeholder-xs pt-lg-4 pb-lg-5" />
-        <div className="placeholder-xs pt-lg-5 pb-lg-5" />
+      <div className="placeholder-glow d-flex justify-content-between pt-3 m-2 mb-4">
+        <div className="placeholder placeholder-lg col-5 m-1" />
+        <div className="col-4 m-1">
+          <Tag className="placeholder col-12" noGutters>
+            &nbsp;
+          </Tag>
+        </div>
+      </div>
+      <div className="placeholder-glow m-3">
+        <div className="placeholder placeholder-lg col-12 mb-1" />
+        <div className="placeholder placeholder-lg col-12 mb-1" />
+        <div className="placeholder placeholder-lg col-12 mb-1" />
+        <div className="placeholder placeholder-lg col-12 mb-1" />
+        <div className="placeholder placeholder-lg col-12 mb-1" />
+      </div>
+      <div className="placeholder-glow d-flex justify-content-between m-2 p-2">
+        <div className="placeholder col-2" />
+        <div className="placeholder col-2" />
+        <div className="placeholder col-2" />
+        <div className="placeholder col-2" />
       </div>
     </StyledPlaceholder>
   );
