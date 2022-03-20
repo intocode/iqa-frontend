@@ -15,6 +15,7 @@ const StyledScroll = styled.div`
   bottom: 60px;
   right: 20px;
   box-shadow: 0 0 10px ${(props) => props.theme.colors.primary.main};
+  z-index: 99;
 `;
 
 export const ScrollToTop = () => {

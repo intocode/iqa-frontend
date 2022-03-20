@@ -7,8 +7,12 @@ const StyledFooter = styled.div`
   display: flex;
   align-items: end;
   justify-content: space-between;
-  margin-bottom: 20px;
-  min-height: 260px;
+  padding: 10px 0;
+  width: 100%;
+  bottom: 0;
+  position: fixed;
+  background-color: #f5f5f5;
+  box-shadow: 8px 0 8px rgba(0, 0, 0, 0.1);
 
   .footer_text {
     font-size: 14px;
