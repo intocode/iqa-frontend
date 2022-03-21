@@ -1,40 +1,38 @@
 import styled from 'styled-components';
 import '../assets/bootstrap-placeholder.css';
-import { Paper } from '../components/ui';
+import { Tag } from '../components/ui';
 
 const StyledPlaceholder = styled.div`
   max-width: 820px;
-  & > div {
-    margin: 20px 0;
-  }
+  background-color: white;
+  margin: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;
 
 const Placeholder = () => {
   return (
-    <StyledPlaceholder className="m-auto">
-      <Paper className="mb-4">
-        <div className="placeholder-glow row justify-content-center m-auto mb-5 mt-5">
-          <div className="placeholder-xs col-12" />
-          <div className="placeholder-xs col-12" />
+    <StyledPlaceholder className="mb-4">
+      <div className="placeholder-glow d-flex justify-content-between pt-3 m-2 mb-4">
+        <div className="placeholder placeholder-lg col-5 m-1" />
+        <div className="col-4 m-1">
+          <Tag className="placeholder col-12" noGutters>
+            &nbsp;
+          </Tag>
         </div>
-        <div className="placeholder-glow mb-3" style={{ marginBottom: '20px' }}>
-          <div className="placeholder-xs col-12" />
-          <div className="placeholder-xs col-12" />
-        </div>
-        <div className=" placeholder-glow mb-5 mt-5">
-          <div className="placeholder-xs col-12 mb-2 mt-2" />
-          <div className="placeholder-xs col-12 mb-2 mt-2" />
-          <div className="placeholder-xs col-12 mb-2 mt-2" />
-          <div className="placeholder-xs col-12 mb-2 mt-2" />
-        </div>
-        <div className="placeholder-glow row justify-content-between m-auto mb-3 mt-5">
-          {' '}
-          <div className="placeholder-xs col-2" />{' '}
-          <div className="placeholder-xs col-3" />{' '}
-          <div className="placeholder-xs col-3" />{' '}
-          <div className="placeholder-xs col-2" />{' '}
-        </div>
-      </Paper>
+      </div>
+      <div className="placeholder-glow m-3">
+        <div className="placeholder placeholder-lg col-12 mb-1" />
+        <div className="placeholder placeholder-lg col-12 mb-1" />
+        <div className="placeholder placeholder-lg col-12 mb-1" />
+        <div className="placeholder placeholder-lg col-12 mb-1" />
+        <div className="placeholder placeholder-lg col-12 mb-1" />
+      </div>
+      <div className="placeholder-glow d-flex justify-content-between m-2 p-2">
+        <div className="placeholder col-2" />
+        <div className="placeholder col-2" />
+        <div className="placeholder col-2" />
+        <div className="placeholder col-2" />
+      </div>
     </StyledPlaceholder>
   );
 };
