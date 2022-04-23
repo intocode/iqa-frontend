@@ -1,0 +1,30 @@
+name: Stage CI
+
+env:
+  REACT_APP_FEATURE_SEARCH: on
+  REACT_APP_FEATURE_ADD_QUESTION: on
+  REACT_APP_FEATURE_FAVORITES: on
+  REACT_APP_FEATURE_DELETE_QUESTION: on
+  REACT_APP_FEATURE_TAGS: on
+  REACT_APP_FEATURE_COMMENTARIES: on
+  REACT_APP_FEATURE_RATING: on
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - run: npm ci
+      - run: npm run check
