@@ -22,7 +22,6 @@ jobs:
             cd /root/stage/iqa-frontend
             git pull origin main
             git status
-            rm -rf node_modules
             npm install
-            npm run check && npm run build
+            npm run build
             pm2 restart frontend
