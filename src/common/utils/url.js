@@ -5,7 +5,7 @@ export const getBaseUrl = () => {
   let baseUrl = 'https://iqa-be.herokuapp.com/';
 
   if (!PRODUCTION || STAGING) {
-    baseUrl = 'https://iqa-backend.herokuapp.com/';
+    baseUrl = 'https://iqa-stage-backend.intocode.ru/';
   }
 
   return baseUrl;
