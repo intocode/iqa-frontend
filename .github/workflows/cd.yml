@@ -1,0 +1,28 @@
+name: Stage CD
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Deploy using ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: 22
+          script: |
+            cd /root/stage/iqa-frontend
+            git pull origin main
+            git status
+            rm -rf node_modules
+            npm install
+            npm run check && npm run build
+            pm2 restart frontend
