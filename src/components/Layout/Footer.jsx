@@ -33,7 +33,7 @@ export const Footer = () => {
               </Link>
             </div>
             <div className="ms-3 footer_text">
-              Interview Questions And Answers Application <br />© Intocode,
+              Interview Questions And Answers Application. <br />© Intocode,
               2016-2022
             </div>
           </div>
