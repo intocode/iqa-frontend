@@ -18,10 +18,12 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: 22
+          script_stop: true
           script: |
             cd /root/stage/iqa-frontend
+            pm2 stop frontend
             git pull origin main
             git status
             npm install
             npm run build
-            pm2 restart frontend
+            pm2 start frontend
