@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { CSSTransition } from 'react-transition-group';
 import { SCROLL_TO_TOP_SHOW } from '../../app/constants';
 import ChevronUpIcon from '../icons/ChevronUpIcon';
+import '../../assets/animation-back-to-top.css';
 
 const StyledScroll = styled.div`
   display: inline-block;
@@ -19,9 +21,10 @@ const StyledScroll = styled.div`
 
 export const ScrollToTop = () => {
   const [windowScroll, setWindowScroll] = useState(window.pageYOffset);
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
   const scrollToTop = () => {
-    window.scrollTo(0, 0);
+    window.scroll({ top: 0, left: 0, behavior: 'smooth' });
   };
 
   useEffect(() => {
@@ -34,11 +37,22 @@ export const ScrollToTop = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  if (windowScroll < SCROLL_TO_TOP_SHOW) return null;
+  useEffect(() => {
+    if (windowScroll > SCROLL_TO_TOP_SHOW) {
+      setShowBackToTop(true);
+    } else setShowBackToTop(false);
+  }, [windowScroll]);
 
   return (
-    <StyledScroll onClick={scrollToTop}>
-      <ChevronUpIcon />
-    </StyledScroll>
+    <CSSTransition
+      in={showBackToTop}
+      timeout={200}
+      classNames="alert"
+      unmountOnExit
+    >
+      <StyledScroll onClick={scrollToTop}>
+        <ChevronUpIcon />
+      </StyledScroll>
+    </CSSTransition>
   );
 };
