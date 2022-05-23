@@ -24,10 +24,8 @@ const FavoriteList = () => {
   const isCompactMode = useSelector(selectIsCompactModeToogle);
 
   useEffect(() => {
-    if (!questions.length && !loading) {
-      dispatch(fetchQuestionFavorites());
-    }
-  }, [dispatch, loading, questions]);
+    dispatch(fetchQuestionFavorites());
+  }, [dispatch]);
 
   // очистка сообщения об успешном добавлении вопроса
   useEffect(() => {
@@ -56,13 +54,15 @@ const FavoriteList = () => {
         </div>
         {loading && <QuestionsListPlaceholder />}
         <QuestionWrapper>
-          {questions.map((question) => (
-            <QuestionBlock
-              key={question._id}
-              isCompactMode={isCompactMode}
-              question={question}
-            />
-          ))}
+          {questions.map((question) => {
+            return (
+              <QuestionBlock
+                key={question._id}
+                isCompactMode={isCompactMode}
+                question={question}
+              />
+            );
+          })}
         </QuestionWrapper>
       </div>
     </>
