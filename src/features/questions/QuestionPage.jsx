@@ -96,7 +96,11 @@ const QuestionPage = () => {
 
   return (
     <>
-      <Title>{`iqa: ${question?.question}`}</Title>
+      <Title>
+        {!loading && question !== null
+          ? `iqa: ${question?.question}`
+          : 'Загрузка...'}
+      </Title>
       <StyledQuestionBlock className="m-3 m-md-auto">
         <StyledQuestionHeader>
           <h3>Обсуждение вопроса</h3>
