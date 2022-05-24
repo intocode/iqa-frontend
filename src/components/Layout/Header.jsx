@@ -11,6 +11,8 @@ import { fetchQuestions } from '../../features/questions/questionsSlice';
 import {
   selectProfileLoading,
   selectProfile,
+  selectFavorites,
+  fetchQuestionFavorites,
 } from '../../features/profile/profileSlice';
 import AdaptiveMenu from './AdaptiveMenu';
 import iconMenu from '../assets/menu.svg';
@@ -49,6 +51,11 @@ export const Header = () => {
 
   const loading = useSelector(selectProfileLoading);
   const user = useSelector(selectProfile);
+  const questions = useSelector(selectFavorites);
+
+  useEffect(() => {
+    dispatch(fetchQuestionFavorites());
+  }, [dispatch, user]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -115,7 +122,7 @@ export const Header = () => {
                 className="header_link d-none d-md-block me-3"
               >
                 {REACT_APP_FEATURE_FAVORITES && (
-                  <Badge content={5}>
+                  <Badge content={questions.length}>
                     <Typography>Избранные</Typography>
                   </Badge>
                 )}
