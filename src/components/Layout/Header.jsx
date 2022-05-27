@@ -115,7 +115,7 @@ export const Header = () => {
                 className="header_link d-none d-md-block me-3"
               >
                 {REACT_APP_FEATURE_FAVORITES && (
-                  <Badge content={5}>
+                  <Badge content={user.favoritesCounter}>
                     <Typography>Избранные</Typography>
                   </Badge>
                 )}
