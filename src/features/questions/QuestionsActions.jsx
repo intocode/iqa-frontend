@@ -7,13 +7,13 @@ import QuestionRate from './QuestionRate';
 import CommentsIcon from '../../components/icons/CommentsIcon';
 import SpinnerIcon from '../../components/icons/SpinnerIcon';
 import { useAuth } from '../../common/context/Auth/useAuth';
+import { selectProfile } from '../profile/profileSlice';
 import {
   addQuestionInFavorites,
   deleteQuestionFromFavorites,
   selectAddingToFavorites,
   selectDeletingFromFavorites,
-  selectProfile,
-} from '../profile/profileSlice';
+} from '../favorites/favoriteSlice';
 import {
   removeQuestionById,
   restoreQuestionById,

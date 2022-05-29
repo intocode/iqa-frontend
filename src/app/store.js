@@ -16,6 +16,7 @@ import tags from '../features/tags/tagsSlice';
 import comments from '../features/comments/commentsSlice';
 import application from '../features/application/applicationSlice';
 import questionsSearch from '../features/search/searchQuestionSlice';
+import favorites from '../features/favorites/favoriteSlice';
 
 const persistConfig = {
   key: 'root',
@@ -32,6 +33,7 @@ export const store = configureStore({
     tags,
     comments,
     application: persistedReducer,
+    favorites,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
