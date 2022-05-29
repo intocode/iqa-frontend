@@ -13,7 +13,7 @@ const CreateQuestion = lazy(() =>
 );
 const QuestionPage = lazy(() => import('../features/questions/QuestionPage'));
 const QuestionsList = lazy(() => import('../features/questions/QuestionsList'));
-const FavoriteList = lazy(() => import('../features/profile/FavoriteList'));
+const FavoriteList = lazy(() => import('../features/favorites/FavoriteList'));
 const DeletedQuestionsCart = lazy(() =>
   import('../features/questions/DeletedQuestionsCart')
 );

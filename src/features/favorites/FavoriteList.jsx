@@ -9,11 +9,8 @@ import { QuestionsListPlaceholder } from '../questions/QuestionsListPlaceholder'
 import { Title } from '../../app/Title/Title';
 import { Paper } from '../../components/ui';
 import { Switch } from '../../components/ui/Switch';
-import {
-  fetchQuestionFavorites,
-  selectFavorites,
-  selectProfileLoading,
-} from './profileSlice';
+import { selectProfileLoading } from '../profile/profileSlice';
+import { fetchQuestionFavorites, selectFavorites } from './favoriteSlice';
 import { QuestionBlock } from '../questions/QuestionBlock';
 
 const FavoriteList = () => {
