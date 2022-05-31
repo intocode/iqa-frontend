@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import { Input } from '../ui';
 import {
@@ -45,7 +46,8 @@ const StyledSearch = styled.div`
     font-size: 14px;
   }
 `;
-const Search = () => {
+
+const Search = ({ nodeRef }) => {
   const location = useLocation();
   const dispatch = useDispatch();
   const search = useSelector(selectQuestionsSearch);
@@ -55,6 +57,7 @@ const Search = () => {
   const handleSearch = (e) => {
     setQuestion(e.target.value);
   };
+
   useEffect(() => {
     if (question) {
       dispatch(fetchQuestionsSearch(question));
@@ -76,6 +79,7 @@ const Search = () => {
           onChange={(e) => handleSearch(e)}
           value={question}
           placeholder="Поиск вопроса..."
+          ref={nodeRef}
         />
       )}
       {examination && (
@@ -94,6 +98,17 @@ const Search = () => {
       )}
     </StyledSearch>
   );
+};
+
+Search.propTypes = {
+  nodeRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(HTMLInputElement) }),
+  ]),
+};
+
+Search.defaultProps = {
+  nodeRef: null,
 };
 
 export default Search;

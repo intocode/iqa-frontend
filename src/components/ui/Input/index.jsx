@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import styled from 'styled-components';
 
 const StyledInput = styled.input`
@@ -13,6 +14,6 @@ const StyledInput = styled.input`
   font-family: inherit;
 `;
 
-export const Input = (props) => {
-  return <StyledInput {...props} />;
-};
+export const Input = forwardRef((props, ref) => {
+  return <StyledInput {...props} ref={ref} />;
+});

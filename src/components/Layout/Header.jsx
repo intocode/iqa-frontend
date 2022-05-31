@@ -2,7 +2,6 @@ import { Link, useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import Search from './Search';
 import { useAuth } from '../../common/context/Auth/useAuth';
 import { Button } from '../ui/Button';
 import { Typography } from '../ui/Typography';
@@ -16,6 +15,7 @@ import AdaptiveMenu from './AdaptiveMenu';
 import iconMenu from '../assets/menu.svg';
 import iconCloseMenu from '../assets/closeMenu.svg';
 import { Badge } from '../ui';
+import AnimatedSearch from './AnimatedSearch';
 
 const StyledHeader = styled.div`
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -23,6 +23,16 @@ const StyledHeader = styled.div`
   min-height: 80px;
   display: flex;
   align-items: center;
+
+  .search-box {
+    display: flex;
+    align-items: center;
+  }
+
+  .search-icon {
+    display: flex;
+    align-items: center;
+  }
 
   .header_link {
     text-decoration: none;
@@ -43,8 +53,8 @@ export const Header = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { token, executeLoggingInProcess, logout } = useAuth();
-  const [mobileMenu, setMobileMenu] = useState(false);
 
+  const [mobileMenu, setMobileMenu] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const loading = useSelector(selectProfileLoading);
@@ -126,7 +136,8 @@ export const Header = () => {
                 <Typography>Корзина</Typography>
               </Link>
             )}
-            <Search />
+
+            <AnimatedSearch />
           </div>
           <div className="col-auto d-none d-md-block">
             {token && !loading && (
