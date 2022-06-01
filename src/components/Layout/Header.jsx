@@ -114,11 +114,14 @@ export const Header = () => {
                 to="/favorites"
                 className="header_link d-none d-md-block me-3"
               >
-                {REACT_APP_FEATURE_FAVORITES && (
-                  <Badge content={user.favorites?.length}>
+                {REACT_APP_FEATURE_FAVORITES &&
+                  (user.favorites?.length ? (
+                    <Badge content={user.favorites.length}>
+                      <Typography>Избранные</Typography>
+                    </Badge>
+                  ) : (
                     <Typography>Избранные</Typography>
-                  </Badge>
-                )}
+                  ))}
               </Link>
             )}
             {REACT_APP_FEATURE_DELETE_QUESTION && token && user.isAdmin && (
