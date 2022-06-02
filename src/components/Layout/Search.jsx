@@ -9,14 +9,14 @@ import {
 } from '../../features/search/searchQuestionSlice';
 
 const StyledSearch = styled.div`
-  width: 225px;
+  width: 100%;
   margin-left: 20px;
   position: relative;
 
   .questions {
     margin-top: 5px;
     position: absolute;
-    width: 225px;
+    width: 100%;
     border-radius: 3px;
     background-color: #ffffff;
     box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
@@ -43,10 +43,6 @@ const StyledSearch = styled.div`
   .question-text {
     color: #6c757d;
     font-size: 14px;
-  }
-
-  @media (max-width: 820px) {
-    width: 200px;
   }
 `;
 

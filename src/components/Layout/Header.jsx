@@ -126,7 +126,6 @@ export const Header = () => {
                 <Typography>Корзина</Typography>
               </Link>
             )}
-
             <AnimatedSearch />
           </div>
           <div className="col-auto d-none d-md-block">

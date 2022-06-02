@@ -7,7 +7,6 @@ import Search from './Search';
 const StyledAnimatedSearch = styled.div`
   display: flex;
   align-items: center;
-  margin: 0 10px;
 
   .search-icon {
     width: 18px;
@@ -15,11 +14,13 @@ const StyledAnimatedSearch = styled.div`
     display: flex;
     align-items: center;
     cursor: pointer;
+    margin-left: 10px;
   }
 
   .search-form {
     transform: translateX(5%);
     transition: 0.2s;
+    margin-right: 20px;
   }
 
   .fade-enter {
