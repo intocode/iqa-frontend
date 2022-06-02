@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import { Input } from '../ui';
 import {
@@ -47,12 +46,14 @@ const StyledSearch = styled.div`
   }
 `;
 
-const Search = ({ nodeRef }) => {
+const Search = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const search = useSelector(selectQuestionsSearch);
   const [question, setQuestion] = useState('');
   const [examination, setExamination] = useState(false);
+
+  const ref = useRef(null);
 
   const handleSearch = (e) => {
     setQuestion(e.target.value);
@@ -64,6 +65,10 @@ const Search = ({ nodeRef }) => {
       setExamination(true);
     }
   }, [question, dispatch]);
+
+  useEffect(() => {
+    ref.current.focus();
+  }, []);
 
   useEffect(() => {
     setExamination(false);
@@ -79,7 +84,7 @@ const Search = ({ nodeRef }) => {
           onChange={(e) => handleSearch(e)}
           value={question}
           placeholder="Поиск вопроса..."
-          ref={nodeRef}
+          ref={ref}
         />
       )}
       {examination && (
@@ -98,17 +103,6 @@ const Search = ({ nodeRef }) => {
       )}
     </StyledSearch>
   );
-};
-
-Search.propTypes = {
-  nodeRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(HTMLInputElement) }),
-  ]),
-};
-
-Search.defaultProps = {
-  nodeRef: null,
 };
 
 export default Search;

@@ -24,16 +24,6 @@ const StyledHeader = styled.div`
   display: flex;
   align-items: center;
 
-  .search-box {
-    display: flex;
-    align-items: center;
-  }
-
-  .search-icon {
-    display: flex;
-    align-items: center;
-  }
-
   .header_link {
     text-decoration: none;
   }
