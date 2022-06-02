@@ -5,18 +5,21 @@ import SearchIcon from '../icons/SearchIcon';
 import Search from './Search';
 
 const StyledAnimatedSearch = styled.div`
-  width: 200px;
   display: flex;
   align-items: center;
+  margin: 0 10px;
 
   .search-icon {
+    width: 18px;
+    height: 18px;
     display: flex;
     align-items: center;
+    cursor: pointer;
   }
 
   .search-form {
     transform: translateX(5%);
-    transition: 0.4s;
+    transition: 0.2s;
   }
 
   .fade-enter {
@@ -26,7 +29,7 @@ const StyledAnimatedSearch = styled.div`
   .fade-enter-active {
     opacity: 1;
     transform: translateX(-10%);
-    transition: opacity 250ms, transform 50ms;
+    transition: opacity 100ms, transform 10ms;
   }
 
   .fade-exit {
@@ -35,7 +38,11 @@ const StyledAnimatedSearch = styled.div`
 
   .fade-exit-active {
     opacity: 0;
-    transition: opacity 250ms, transform 50ms;
+    transition: opacity 100ms, transform 10ms;
+  }
+
+  @media (max-width: 586px) {
+    display: none;
   }
 `;
 

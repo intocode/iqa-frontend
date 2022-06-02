@@ -44,6 +44,10 @@ const StyledSearch = styled.div`
     color: #6c757d;
     font-size: 14px;
   }
+
+  @media (max-width: 820px) {
+    width: 200px;
+  }
 `;
 
 const Search = () => {
