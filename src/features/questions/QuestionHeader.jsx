@@ -3,12 +3,16 @@ import 'dayjs/locale/ru';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Typography, Tag } from '../../components/ui';
+import { fetchQuestionsByTag } from './questionsSlice';
 
 const StyledTag = styled.div`
   display: flex;
   & > div {
     margin-right: 10px;
+    cursor: pointer;
   }
   & > div:last-child {
     margin-right: 0;
@@ -17,6 +21,14 @@ const StyledTag = styled.div`
 
 export const QuestionHeader = ({ question, isCompactMode }) => {
   const { REACT_APP_FEATURE_TAGS } = process.env;
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleClickTag = (tagId) => {
+    dispatch(fetchQuestionsByTag(tagId));
+    history.push('/');
+  };
 
   return (
     <div>
@@ -38,7 +50,11 @@ export const QuestionHeader = ({ question, isCompactMode }) => {
           <StyledTag className="col-auto d-none d-md-block">
             {REACT_APP_FEATURE_TAGS &&
               question.tags.map((tag) => (
-                <Tag noGutters key={tag.name}>
+                <Tag
+                  noGutters
+                  key={tag.name}
+                  onClick={() => handleClickTag(tag._id)}
+                >
                   {tag.name}
                 </Tag>
               ))}

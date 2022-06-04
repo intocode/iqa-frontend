@@ -32,6 +32,19 @@ export const fetchQuestionById = createAsyncThunk(
   }
 );
 
+export const fetchQuestionsByTag = createAsyncThunk(
+  'questions/fetchByTag',
+  async (tagId, thunkAPI) => {
+    try {
+      const response = await axios.get(`tags/${tagId}/questions`);
+
+      return response.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
 export const addQuestion = createAsyncThunk(
   'questions/add',
   async (data, thunkAPI) => {
@@ -129,6 +142,15 @@ const questionsSlice = createSlice({
       state.questions = [];
     },
     [fetchQuestions.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.questions = action.payload;
+    },
+
+    [fetchQuestionsByTag.pending]: (state) => {
+      state.loading = true;
+      state.questions = [];
+    },
+    [fetchQuestionsByTag.fulfilled]: (state, action) => {
       state.loading = false;
       state.questions = action.payload;
     },
