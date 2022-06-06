@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchQuestions,
@@ -6,6 +6,7 @@ import {
   selectQuestions,
   selectQuestionsLoading,
   resetQuestions,
+  selectQuestionsAmount,
 } from './questionsSlice';
 import {
   selectIsCompactModeToogle,
@@ -16,11 +17,16 @@ import { QuestionsListPlaceholder } from './QuestionsListPlaceholder';
 import { Title } from '../../app/Title/Title';
 import { Paper } from '../../components/ui';
 import { Switch } from '../../components/ui/Switch';
+import { Spinner } from '../../components/ui/Spinner';
 
 const QuestionsList = () => {
   const dispatch = useDispatch();
 
+  const [currentOffset, setCurrentOffset] = useState(0);
+  const [fetching, setFetching] = useState(true);
+
   const questions = useSelector(selectQuestions);
+  const questionsTotalAmount = useSelector(selectQuestionsAmount);
   const loading = useSelector(selectQuestionsLoading);
   const isCompactMode = useSelector(selectIsCompactModeToogle);
 
@@ -29,15 +35,38 @@ const QuestionsList = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (!questions.length && !loading) {
-      dispatch(fetchQuestions());
+    if (fetching) {
+      dispatch(fetchQuestions(currentOffset));
+      setCurrentOffset(currentOffset + 5);
+      setFetching(false);
     }
-  }, [dispatch, questions, loading]);
+  }, [dispatch, currentOffset, fetching, questions]);
 
   // очистка сообщения об успешном добавлении вопроса
   useEffect(() => {
     dispatch(resetSuccess());
   }, [dispatch]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const scrollHandler = (e) => {
+    if (
+      e.target.documentElement.scrollHeight -
+        (e.target.documentElement.scrollTop + window.innerHeight) <
+        100 &&
+      questionsTotalAmount > currentOffset
+    ) {
+      setFetching(true);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('scroll', scrollHandler);
+
+    // eslint-disable-next-line func-names
+    return function () {
+      document.removeEventListener('scroll', scrollHandler);
+    };
+  }, [scrollHandler]);
 
   const QuestionWrapper = isCompactMode ? Paper : React.Fragment;
 
@@ -69,6 +98,7 @@ const QuestionsList = () => {
             />
           ))}
         </QuestionWrapper>
+        {loading && <Spinner />}
       </div>
     </>
   );

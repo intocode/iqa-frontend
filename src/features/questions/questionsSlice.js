@@ -8,11 +8,11 @@ import { clearTags } from '../tags/tagsSlice';
 
 export const fetchQuestions = createAsyncThunk(
   'questions/fetch',
-  async (_, thunkAPI) => {
+  async (offset, thunkAPI) => {
     try {
-      const response = await axios.get('/questions');
+      const response = await axios.get(`/questions?limit=5&offset=${offset}`);
 
-      return response.data;
+      return { total: response.data.total, items: response.data.items };
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
     }
@@ -100,6 +100,7 @@ const questionsSlice = createSlice({
   name: 'questions',
   initialState: {
     questions: [],
+    questionsAmount: 0,
     deletedQuestions: [],
     openedQuestion: null,
     loading: false,
@@ -126,11 +127,11 @@ const questionsSlice = createSlice({
   extraReducers: {
     [fetchQuestions.pending]: (state) => {
       state.loading = true;
-      state.questions = [];
     },
     [fetchQuestions.fulfilled]: (state, action) => {
       state.loading = false;
-      state.questions = action.payload;
+      state.questionsAmount = action.payload.total;
+      state.questions.push(...action.payload.items);
     },
 
     [fetchQuestionById.pending]: (state) => {
@@ -271,6 +272,11 @@ export const selectQuestionsError = createSelector(
 export const selectQuestions = createSelector(
   selectQuestionsState,
   (state) => state.questions
+);
+
+export const selectQuestionsAmount = createSelector(
+  selectQuestionsState,
+  (state) => state.questionsAmount
 );
 
 export const selectOpenedQuestion = createSelector(
