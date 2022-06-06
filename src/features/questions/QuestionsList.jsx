@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchQuestions,
@@ -18,46 +18,54 @@ import { Title } from '../../app/Title/Title';
 import { Paper } from '../../components/ui';
 import { Switch } from '../../components/ui/Switch';
 import { Spinner } from '../../components/ui/Spinner';
+import { QUESTION_INFINITY_SCROLLING_LIMIT } from '../../common/constants';
 
 const QuestionsList = () => {
   const dispatch = useDispatch();
 
   const [currentOffset, setCurrentOffset] = useState(0);
-  const [fetching, setFetching] = useState(true);
 
   const questions = useSelector(selectQuestions);
   const questionsTotalAmount = useSelector(selectQuestionsAmount);
   const loading = useSelector(selectQuestionsLoading);
   const isCompactMode = useSelector(selectIsCompactModeToogle);
 
+  const scrollHandler = useCallback(
+    (e) => {
+      if (
+        e.target.documentElement.scrollHeight -
+          (e.target.documentElement.scrollTop + window.innerHeight) <
+          100 &&
+        questionsTotalAmount > currentOffset + QUESTION_INFINITY_SCROLLING_LIMIT
+      ) {
+        if (!loading) {
+          dispatch(
+            fetchQuestions({
+              limit: QUESTION_INFINITY_SCROLLING_LIMIT,
+              offset: currentOffset + 5,
+            })
+          );
+          setCurrentOffset(currentOffset + 5);
+        }
+      }
+    },
+    [dispatch, currentOffset, loading, questionsTotalAmount]
+  );
+
   useEffect(() => {
     dispatch(resetQuestions());
   }, [dispatch]);
 
   useEffect(() => {
-    if (fetching) {
-      dispatch(fetchQuestions(currentOffset));
-      setCurrentOffset(currentOffset + 5);
-      setFetching(false);
+    if (!loading && !questions.length) {
+      dispatch(fetchQuestions({ limit: 5, offset: 0 }));
     }
-  }, [dispatch, currentOffset, fetching, questions]);
+  }, [dispatch, loading, questions]);
 
   // очистка сообщения об успешном добавлении вопроса
   useEffect(() => {
     dispatch(resetSuccess());
   }, [dispatch]);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const scrollHandler = (e) => {
-    if (
-      e.target.documentElement.scrollHeight -
-        (e.target.documentElement.scrollTop + window.innerHeight) <
-        100 &&
-      questionsTotalAmount > currentOffset
-    ) {
-      setFetching(true);
-    }
-  };
 
   useEffect(() => {
     document.addEventListener('scroll', scrollHandler);

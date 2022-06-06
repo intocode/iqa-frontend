@@ -8,9 +8,11 @@ import { clearTags } from '../tags/tagsSlice';
 
 export const fetchQuestions = createAsyncThunk(
   'questions/fetch',
-  async (offset, thunkAPI) => {
+  async (params, thunkAPI) => {
     try {
-      const response = await axios.get(`/questions?limit=5&offset=${offset}`);
+      const response = await axios.get(
+        `/questions?limit=${params.limit}&offset=${params.offset}`
+      );
 
       return { total: response.data.total, items: response.data.items };
     } catch (e) {
