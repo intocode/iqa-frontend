@@ -32,6 +32,8 @@ const QuestionsList = () => {
   const loading = useSelector(selectQuestionsLoading);
   const isCompactMode = useSelector(selectIsCompactModeToogle);
 
+  const nextOffset = currentOffset + QUESTION_INFINITY_SCROLLING_LIMIT;
+
   const scrollHandler = useCallback(
     (e) => {
       if (
@@ -44,14 +46,14 @@ const QuestionsList = () => {
           dispatch(
             fetchQuestions({
               limit: QUESTION_INFINITY_SCROLLING_LIMIT,
-              offset: currentOffset + QUESTION_INFINITY_SCROLLING_LIMIT,
+              offset: nextOffset,
             })
           );
-          setCurrentOffset(currentOffset + QUESTION_INFINITY_SCROLLING_LIMIT);
+          setCurrentOffset(nextOffset);
         }
       }
     },
-    [dispatch, currentOffset, loading, questionsTotalAmount]
+    [dispatch, questionsTotalAmount, currentOffset, loading, nextOffset]
   );
 
   useEffect(() => {

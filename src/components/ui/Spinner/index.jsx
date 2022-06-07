@@ -1,12 +1,13 @@
 import styled, { keyframes } from 'styled-components';
+import { theme } from '../../../app/theme';
 
 const spin = keyframes`
-from {
+  from {
     transform: rotate(360deg)
-}
-to {
+  }
+  to {
     transform: rotate(0deg)
-} 
+  } 
 `;
 
 const StyledSpinner = styled.div`
@@ -15,12 +16,12 @@ const StyledSpinner = styled.div`
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: conic-gradient(lightgray, transparent);
+    background: conic-gradient(${theme.colors.gray.main}, transparent);
     margin: auto;
     animation: ${spin} 1s linear infinite;
   }
 
-  &:before {
+  &::before {
     content: '';
     position: absolute;
     width: 30px;
