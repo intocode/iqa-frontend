@@ -6,7 +6,7 @@ import {
   selectQuestions,
   selectQuestionsLoading,
   resetQuestions,
-  selectQuestionsAmount,
+  selectTotalQuestions,
 } from './questionsSlice';
 import {
   selectIsCompactModeToogle,
@@ -23,10 +23,12 @@ import { QUESTION_INFINITY_SCROLLING_LIMIT } from '../../common/constants';
 const QuestionsList = () => {
   const dispatch = useDispatch();
 
+  const scrollBorder = 100; // граница, по мере придвижения к которой делается скролл
+
   const [currentOffset, setCurrentOffset] = useState(0);
 
   const questions = useSelector(selectQuestions);
-  const questionsTotalAmount = useSelector(selectQuestionsAmount);
+  const questionsTotalAmount = useSelector(selectTotalQuestions);
   const loading = useSelector(selectQuestionsLoading);
   const isCompactMode = useSelector(selectIsCompactModeToogle);
 
@@ -35,17 +37,17 @@ const QuestionsList = () => {
       if (
         e.target.documentElement.scrollHeight -
           (e.target.documentElement.scrollTop + window.innerHeight) <
-          100 &&
+          scrollBorder &&
         questionsTotalAmount > currentOffset + QUESTION_INFINITY_SCROLLING_LIMIT
       ) {
         if (!loading) {
           dispatch(
             fetchQuestions({
               limit: QUESTION_INFINITY_SCROLLING_LIMIT,
-              offset: currentOffset + 5,
+              offset: currentOffset + QUESTION_INFINITY_SCROLLING_LIMIT,
             })
           );
-          setCurrentOffset(currentOffset + 5);
+          setCurrentOffset(currentOffset + QUESTION_INFINITY_SCROLLING_LIMIT);
         }
       }
     },
@@ -58,9 +60,14 @@ const QuestionsList = () => {
 
   useEffect(() => {
     if (!loading && !questions.length) {
-      dispatch(fetchQuestions({ limit: 5, offset: 0 }));
+      dispatch(
+        fetchQuestions({
+          limit: QUESTION_INFINITY_SCROLLING_LIMIT,
+          offset: currentOffset,
+        })
+      );
     }
-  }, [dispatch, loading, questions]);
+  }, [dispatch, loading, questions, currentOffset]);
 
   // очистка сообщения об успешном добавлении вопроса
   useEffect(() => {
@@ -70,8 +77,7 @@ const QuestionsList = () => {
   useEffect(() => {
     document.addEventListener('scroll', scrollHandler);
 
-    // eslint-disable-next-line func-names
-    return function () {
+    return () => {
       document.removeEventListener('scroll', scrollHandler);
     };
   }, [scrollHandler]);

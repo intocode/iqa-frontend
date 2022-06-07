@@ -14,7 +14,7 @@ export const fetchQuestions = createAsyncThunk(
         `/questions?limit=${params.limit}&offset=${params.offset}`
       );
 
-      return { total: response.data.total, items: response.data.items };
+      return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
     }
@@ -102,7 +102,7 @@ const questionsSlice = createSlice({
   name: 'questions',
   initialState: {
     questions: [],
-    questionsAmount: 0,
+    totalQuestions: 0,
     deletedQuestions: [],
     openedQuestion: null,
     loading: false,
@@ -132,7 +132,7 @@ const questionsSlice = createSlice({
     },
     [fetchQuestions.fulfilled]: (state, action) => {
       state.loading = false;
-      state.questionsAmount = action.payload.total;
+      state.totalQuestions = action.payload.total;
       state.questions.push(...action.payload.items);
     },
 
@@ -276,9 +276,9 @@ export const selectQuestions = createSelector(
   (state) => state.questions
 );
 
-export const selectQuestionsAmount = createSelector(
+export const selectTotalQuestions = createSelector(
   selectQuestionsState,
-  (state) => state.questionsAmount
+  (state) => state.totalQuestions
 );
 
 export const selectOpenedQuestion = createSelector(

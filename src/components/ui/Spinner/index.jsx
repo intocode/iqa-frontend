@@ -16,13 +16,7 @@ const StyledSpinner = styled.div`
     height: 50px;
     border-radius: 50%;
     background: conic-gradient(lightgray, transparent);
-  }
-
-  & {
     margin: auto;
-  }
-
-  & {
     animation: ${spin} 1s linear infinite;
   }
 
