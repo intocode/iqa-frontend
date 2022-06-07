@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchQuestions,
@@ -6,6 +6,7 @@ import {
   selectQuestions,
   selectQuestionsLoading,
   resetQuestions,
+  selectTotalQuestions,
 } from './questionsSlice';
 import {
   selectIsCompactModeToogle,
@@ -16,28 +17,72 @@ import { QuestionsListPlaceholder } from './QuestionsListPlaceholder';
 import { Title } from '../../app/Title/Title';
 import { Paper } from '../../components/ui';
 import { Switch } from '../../components/ui/Switch';
+import { Spinner } from '../../components/ui/Spinner';
+import { QUESTION_INFINITY_SCROLLING_LIMIT } from '../../common/constants';
 
 const QuestionsList = () => {
   const dispatch = useDispatch();
 
+  const scrollBorder = 100; // граница, по мере придвижения к которой делается скролл
+
+  const [currentOffset, setCurrentOffset] = useState(0);
+
   const questions = useSelector(selectQuestions);
+  const questionsTotalAmount = useSelector(selectTotalQuestions);
   const loading = useSelector(selectQuestionsLoading);
   const isCompactMode = useSelector(selectIsCompactModeToogle);
+
+  const nextOffset = currentOffset + QUESTION_INFINITY_SCROLLING_LIMIT;
+
+  const scrollHandler = useCallback(
+    (e) => {
+      if (
+        e.target.documentElement.scrollHeight -
+          (e.target.documentElement.scrollTop + window.innerHeight) <
+          scrollBorder &&
+        questionsTotalAmount > currentOffset + QUESTION_INFINITY_SCROLLING_LIMIT
+      ) {
+        if (!loading) {
+          dispatch(
+            fetchQuestions({
+              limit: QUESTION_INFINITY_SCROLLING_LIMIT,
+              offset: nextOffset,
+            })
+          );
+          setCurrentOffset(nextOffset);
+        }
+      }
+    },
+    [dispatch, questionsTotalAmount, currentOffset, loading, nextOffset]
+  );
 
   useEffect(() => {
     dispatch(resetQuestions());
   }, [dispatch]);
 
   useEffect(() => {
-    if (!questions.length && !loading) {
-      dispatch(fetchQuestions());
+    if (!loading && !questions.length) {
+      dispatch(
+        fetchQuestions({
+          limit: QUESTION_INFINITY_SCROLLING_LIMIT,
+          offset: currentOffset,
+        })
+      );
     }
-  }, [dispatch, questions, loading]);
+  }, [dispatch, loading, questions, currentOffset]);
 
   // очистка сообщения об успешном добавлении вопроса
   useEffect(() => {
     dispatch(resetSuccess());
   }, [dispatch]);
+
+  useEffect(() => {
+    document.addEventListener('scroll', scrollHandler);
+
+    return () => {
+      document.removeEventListener('scroll', scrollHandler);
+    };
+  }, [scrollHandler]);
 
   const QuestionWrapper = isCompactMode ? Paper : React.Fragment;
 
@@ -69,6 +114,7 @@ const QuestionsList = () => {
             />
           ))}
         </QuestionWrapper>
+        {loading && <Spinner />}
       </div>
     </>
   );
