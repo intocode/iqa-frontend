@@ -4,14 +4,11 @@ import { AVAILABLE_THEME_COLORS, DEFAULT_COLOR } from '../../../app/constants';
 
 const StyledDiv = styled.div`
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 15px;
 `;
 
 const StyledBadge = styled.span`
   position: absolute;
+
   ${(props) => {
     if (!props.content) {
       return css`
@@ -24,9 +21,10 @@ const StyledBadge = styled.span`
         border-radius: 50%;
       `;
     }
+
     return css`
-      top: -4px;
-      right: 0;
+      top: -8px;
+      right: -12px;
       background-color: ${props.theme.colors[props.color].main};
       color: #ffffff;
       border-radius: 24px;

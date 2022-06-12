@@ -2,11 +2,11 @@ import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { Input } from '../ui';
+import { Input } from '../../ui';
 import {
   selectQuestionsSearch,
   fetchQuestionsSearch,
-} from '../../features/search/searchQuestionSlice';
+} from '../../../features/search/searchQuestionSlice';
 
 const StyledSearch = styled.div`
   width: 100%;

@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { render, waitFor } from '@testing-library/react';
 import { App } from './app/App';
-import { BASE_API_URL, LS_TOKEN_KEY } from './common/constants';
+import { BASE_API_URL, LS_TOKEN_KEY } from './app/constants';
 import '@testing-library/jest-dom';
 import { GlobalProvider } from './app/GlobalProvider';
 

@@ -1,4 +1,4 @@
-import { Logo } from '../components/Layout/Logo';
+import { Logo } from '../components/layout/header/Logo';
 
 export default {
   title: 'Logo',

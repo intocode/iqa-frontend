@@ -1,6 +1,8 @@
 module.exports = {
   extends: ['react-app', 'airbnb', 'prettier'],
   rules: {
+    // 'no-unused-vars': 'off',
+
     // делаем error, чтобы зачищать консоли, если где-то консоль важна,
     // то правило нужно отключить на строке
     'no-console': 'error',
