@@ -2,7 +2,10 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Typography } from '../../components/ui';
+import { useSelector } from 'react-redux';
+import { Typography } from '../../../components/ui';
+import { selectIsCompactModeToogle } from '../../application/applicationSlice';
+import { questionSelectors } from '../questionsSlice';
 
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -13,7 +16,12 @@ const StyledLink = styled(Link)`
   }
 `;
 
-export const QuestionContent = ({ question, isCompactMode }) => {
+export const QuestionContent = ({ questionId }) => {
+  const isCompactMode = useSelector(selectIsCompactModeToogle);
+
+  const question = useSelector((state) =>
+    questionSelectors.selectById(state, questionId)
+  );
   return (
     <div className="mb-4">
       <Typography variant={isCompactMode ? 'caption' : 'header'}>
@@ -26,9 +34,5 @@ export const QuestionContent = ({ question, isCompactMode }) => {
 };
 
 QuestionContent.propTypes = {
-  isCompactMode: PropTypes.bool.isRequired,
-  question: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    question: PropTypes.string.isRequired,
-  }).isRequired,
+  questionId: PropTypes.string.isRequired,
 };

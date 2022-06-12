@@ -5,9 +5,9 @@ import {
 } from '@reduxjs/toolkit';
 import axios from 'axios';
 import {
-  addQuestionInFavorites,
+  addQuestionToFavorites,
   deleteQuestionFromFavorites,
-} from '../favorites/favoriteSlice';
+} from '../questions/questionsSlice';
 
 export const fetchProfile = createAsyncThunk(
   'profile/fetch',
@@ -26,7 +26,12 @@ const profileSlice = createSlice({
   name: 'profile',
   initialState: {
     loading: false,
-    data: {},
+    _id: null,
+    name: null,
+    avatar: {},
+    questionIdsThatUserFavorite: [],
+    isAdmin: false,
+    // добавить остальные поля по мере необходимости
   },
 
   extraReducers: {
@@ -34,33 +39,43 @@ const profileSlice = createSlice({
       state.loading = true;
     },
 
-    [fetchProfile.fulfilled]: (state, action) => {
+    [fetchProfile.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.data = action.payload;
+      state._id = payload._id;
+      state.name = payload.name;
+      state.avatar = payload.avatar;
+      state.questionIdsThatUserFavorite = payload.questionIdsThatUserFavorite;
+      state.isAdmin = payload.isAdmin;
     },
 
-    [addQuestionInFavorites.fulfilled]: (state, action) => {
-      state.data.favorites = action.payload;
+    [addQuestionToFavorites.pending]: (state, action) => {
+      state.questionIdsThatUserFavorite.push(action.meta.arg.questionId);
     },
 
-    [deleteQuestionFromFavorites.fulfilled]: (state, action) => {
-      state.data.favorites = action.payload;
+    [deleteQuestionFromFavorites.pending]: (state, action) => {
+      state.questionIdsThatUserFavorite =
+        state.questionIdsThatUserFavorite.filter(
+          (id) => id !== action.meta.arg.questionId
+        );
     },
   },
 });
 
-const selectProfileState = (state) => {
-  return state.profile;
-};
+const selectProfileState = (state) => state.profile;
 
 export const selectProfile = createSelector(
   selectProfileState,
-  (state) => state.data
+  (state) => state
 );
 
 export const selectProfileLoading = createSelector(
   selectProfileState,
   (state) => state.loading
+);
+
+export const selectQuestionIdsThatUserFavorite = createSelector(
+  selectProfile,
+  (state) => state.questionIdsThatUserFavorite
 );
 
 export default profileSlice.reducer;

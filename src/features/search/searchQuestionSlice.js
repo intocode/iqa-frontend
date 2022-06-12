@@ -24,7 +24,6 @@ const questionsSearchSlice = createSlice({
     questionsSearch: [],
     openedQuestion: null,
     loading: false,
-    processingRate: false,
     error: '',
     success: false,
   },

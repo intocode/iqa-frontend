@@ -2,8 +2,8 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useAuth } from '../../common/context/Auth/useAuth';
-import { Button } from '../ui';
+import { useAuth } from '../../../common/context/Auth/useAuth';
+import { Button } from '../../ui';
 
 const StyledMenu = styled.ul`
   list-style: none;

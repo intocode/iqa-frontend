@@ -1,6 +1,6 @@
 import { useCallback, useContext, useState } from 'react';
 import { AuthContext } from './index';
-import { AUTHORIZE_SERVICE_URL } from '../../constants';
+import { AUTHORIZE_SERVICE_URL } from '../../../app/constants';
 
 export const useAuth = () => {
   const { token, setAuthToken } = useContext(AuthContext);

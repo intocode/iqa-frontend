@@ -1,28 +1,87 @@
 import {
+  createAction,
   createAsyncThunk,
+  createEntityAdapter,
   createSelector,
   createSlice,
 } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { QUESTIONS_PER_PAGE } from '../../app/constants';
 import { clearTags } from '../tags/tagsSlice';
+
+const incrementPaginationOffset = createAction('questions/pagination/next');
+export const resetQuestionsList = createAction('questions/reset');
 
 export const fetchQuestions = createAsyncThunk(
   'questions/fetch',
-  async (params, thunkAPI) => {
+  async ({ deletedOnly, favoritesOnly }, thunkAPI) => {
+    const { questions } = thunkAPI.getState();
+    const { pagination } = questions;
+
+    let queryString = `limit=${pagination.limit}&offset=${pagination.offset}`;
+
+    if (deletedOnly) {
+      queryString += '&deletedOnly=true';
+    }
+
+    if (favoritesOnly) {
+      queryString += '&favoritesOnly=true';
+    }
+
     try {
-      const response = await axios.get(
-        `/questions?limit=${params.limit}&offset=${params.offset}`
-      );
+      const response = await axios.get(`/questions?${queryString}`);
 
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
     }
+  },
+  {
+    condition: (_, { getState }) => {
+      const { questions } = getState();
+
+      if (questions.fetching) {
+        // уже идет загрузка, отменяем санк..
+        return false;
+      }
+
+      return true;
+    },
+  }
+);
+
+export const fetchNextPartOfQuestions = createAsyncThunk(
+  'questions/fetch/nextPart',
+  async ({ deletedOnly, favoritesOnly }, { dispatch }) => {
+    dispatch(incrementPaginationOffset());
+    dispatch(fetchQuestions({ favoritesOnly, deletedOnly }));
+  },
+  {
+    condition: (_, { getState }) => {
+      const { questions } = getState();
+
+      // отменяем санк если уже идет загрузка
+      if (questions.fetching) {
+        return false;
+      }
+
+      // отменяем санк, если данных для загрузки больше нет
+
+      const { limit, offset, totalQuestions } = questions.pagination;
+
+      const nextOffset = limit + offset;
+
+      if (nextOffset >= totalQuestions) {
+        return false;
+      }
+
+      return true;
+    },
   }
 );
 
 export const fetchQuestionById = createAsyncThunk(
-  'questions/fetchById',
+  'questions/fetch/byId',
   async (id, thunkAPI) => {
     try {
       const response = await axios.get(`/questions/${id}`);
@@ -34,36 +93,25 @@ export const fetchQuestionById = createAsyncThunk(
   }
 );
 
-export const addQuestion = createAsyncThunk(
-  'questions/add',
-  async (data, thunkAPI) => {
-    try {
-      const response = await axios.post('/questions', data);
-
-      thunkAPI.dispatch(clearTags());
-
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  }
-);
-
-export const addRate = createAsyncThunk('rate/add', async (data, thunkAPI) => {
+// todo: добработать, исправить
+export const addQuestion = createAsyncThunk('add', async (data, thunkAPI) => {
   try {
-    const response = await axios.post(`/questions/${data.id}/rate`, data);
+    const response = await axios.post('/questions', data);
 
-    return { rates: response.data, questionId: data.id };
+    thunkAPI.dispatch(clearTags());
+
+    return response.data;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+    return thunkAPI.rejectWithValue(error.response.data);
   }
 });
 
+// todo: refactor
 export const removeQuestionById = createAsyncThunk(
-  'questions/removeById',
+  'questions/remove/byId',
   async (id, thunkAPI) => {
     try {
-      await axios.delete(`/questions/${id}/delete`);
+      await axios.delete(`/questions/${id}`);
 
       return { questionId: id };
     } catch (e) {
@@ -72,8 +120,9 @@ export const removeQuestionById = createAsyncThunk(
   }
 );
 
+// todo: refactor
 export const restoreQuestionById = createAsyncThunk(
-  'questions/restoreById',
+  'questions/restore/byId',
   async (id, thunkAPI) => {
     try {
       await axios.patch(`/questions/${id}/restore`);
@@ -85,73 +134,94 @@ export const restoreQuestionById = createAsyncThunk(
   }
 );
 
-export const fetchDeletedQuestions = createAsyncThunk(
-  'questions/fetchDeleted',
-  async (_, thunkAPI) => {
+export const addQuestionToFavorites = createAsyncThunk(
+  'questions/favorites/add',
+  async ({ questionId, userId }, { rejectWithValue }) => {
     try {
-      const response = await axios.get('/questions/deleted');
-
-      return response.data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
+      await axios.post(`/questions/${questionId}/favorites`);
+      return { questionId, userId };
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
   }
 );
 
+export const deleteQuestionFromFavorites = createAsyncThunk(
+  'questions/favorite/delete',
+  async ({ questionId, userId }, thunkAPI) => {
+    try {
+      await axios.delete(`/questions/${questionId}/favorites`);
+
+      return { questionId, userId };
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const questionsAdapter = createEntityAdapter({
+  selectId: (entity) => entity._id,
+});
+
+const initialState = questionsAdapter.getInitialState({
+  pagination: {
+    limit: QUESTIONS_PER_PAGE,
+    offset: 0,
+    totalQuestions: 0,
+  },
+  openedQuestion: null,
+  fetching: false,
+  error: null,
+  deletingQuestionIds: [],
+  restoringQuestionIds: [],
+  favoritingQuestionIds: [],
+});
+
 const questionsSlice = createSlice({
   name: 'questions',
-  initialState: {
-    questions: [],
-    totalQuestions: 0,
-    deletedQuestions: [],
-    openedQuestion: null,
-    loading: false,
-    processingRate: false,
-    error: '',
-    success: false,
-    deletingQuestions: [],
-    restoringQuestions: [],
-  },
-  reducers: {
-    resetStatus: (state) => {
-      state.error = '';
-    },
-    resetSuccess: (state) => {
-      state.success = false;
-    },
-    resetQuestions: (state) => {
-      state.questions = [];
-    },
-    resetDeletedQuestions: (state) => {
-      state.deletedQuestions = [];
-    },
-  },
+  initialState,
+
   extraReducers: {
-    [fetchQuestions.pending]: (state) => {
-      state.loading = true;
+    [incrementPaginationOffset]: (state) => {
+      state.pagination.offset += state.pagination.limit;
     },
+
+    [resetQuestionsList]: (state) => {
+      questionsAdapter.removeAll(state);
+
+      state.pagination.offset = 0;
+      state.pagination.totalQuestions = 0;
+    },
+
+    [fetchQuestions.pending]: (state) => {
+      state.fetching = true;
+    },
+
     [fetchQuestions.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.totalQuestions = action.payload.total;
-      state.questions.push(...action.payload.items);
+      state.fetching = false;
+      state.pagination.totalQuestions = action.payload.total;
+      questionsAdapter.upsertMany(state, action.payload.items);
     },
 
     [fetchQuestionById.pending]: (state) => {
-      state.loading = true;
+      state.fetching = true;
     },
+
     [fetchQuestionById.fulfilled]: (state, action) => {
-      state.loading = false;
+      state.fetching = false;
       state.openedQuestion = action.payload;
     },
 
     [removeQuestionById.pending]: (state, action) => {
-      state.deletingQuestions.push(action.meta.arg);
+      state.deletingQuestionIds.push(action.meta.arg);
     },
+
+    // todo refactor
     [removeQuestionById.fulfilled]: (state, action) => {
       state.deletedQuestions = state.deletedQuestions.filter(
         (question) => question._id !== action.payload.questionId
       );
-      state.deletingQuestions = state.deletingQuestions.filter(
+      state.deletingQuestionIds = state.deletingQuestionIds.filter(
         (id) => id !== action.meta.arg
       );
       state.questions = state.questions.map((item) => {
@@ -171,13 +241,15 @@ const questionsSlice = createSlice({
     },
 
     [restoreQuestionById.pending]: (state, action) => {
-      state.restoringQuestions.push(action.meta.arg);
+      state.restoringQuestionIds.push(action.meta.arg);
     },
+
+    // todo refactor
     [restoreQuestionById.fulfilled]: (state, action) => {
       state.deletedQuestions = state.deletedQuestions.filter(
         (question) => question._id !== action.payload.questionId
       );
-      state.restoringQuestions = state.restoringQuestions.filter(
+      state.restoringQuestionIds = state.restoringQuestionIds.filter(
         (id) => id !== action.meta.arg
       );
       state.questions = state.questions.map((item) => {
@@ -197,88 +269,82 @@ const questionsSlice = createSlice({
     },
 
     [addQuestion.pending]: (state) => {
-      state.loading = true;
-      state.success = false;
+      state.fetching = true;
     },
+
     [addQuestion.fulfilled]: (state, action) => {
       state.questions.push(action.payload.question);
-      state.success = true;
-      state.error = '';
-      state.loading = false;
+      state.error = null;
+      state.fetching = false;
     },
+
     [addQuestion.rejected]: (state, action) => {
       state.error = JSON.stringify(action.payload.errors);
-      state.loading = false;
+      state.fetching = false;
     },
 
-    [addRate.pending]: (state) => {
-      state.processingRate = true;
-    },
-    [addRate.fulfilled]: (state, action) => {
-      if (state.questions.length !== 0) {
-        state.questions.forEach((item) => {
-          if (item._id === action.payload.questionId) {
-            // eslint-disable-next-line no-param-reassign
-            item.rates = action.payload.rates;
-          }
-          return item;
-        });
-      } else {
-        state.openedQuestion.rates = action.payload.rates;
-      }
-      state.error = '';
-      state.processingRate = false;
-    },
-    [addRate.rejected]: (state, action) => {
-      state.error = action.error;
-      state.processingRate = false;
+    [addQuestionToFavorites.pending]: (state, action) => {
+      state.favoritingQuestionIds.push(action.meta.arg.questionId);
+
+      // код ниже обычно бывает в fulfilled, однако он здесь из-за
+      // эффекта анимации при клике на звезду, она сразу должна становиться выделенной
+
+      // stop preloader
+      state.favoritingQuestionIds = state.favoritingQuestionIds.filter(
+        (id) => id !== action.meta.arg.questionId
+      );
+
+      state.entities[action.meta.arg.questionId].usersThatFavoriteIt.push(
+        action.meta.arg.userId
+      );
     },
 
-    [fetchDeletedQuestions.pending]: (state) => {
-      state.loading = true;
-      state.deletedQuestions = [];
-    },
-    [fetchDeletedQuestions.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.deletedQuestions = action.payload;
+    [deleteQuestionFromFavorites.pending]: (state, action) => {
+      state.favoritingQuestionIds.push(action.meta.arg.questionId);
+
+      // читай коммент к кейсу выше
+
+      // stop preloader
+      state.favoritingQuestionIds = state.favoritingQuestionIds.filter(
+        (id) => id !== action.meta.arg.questionId
+      );
+
+      state.entities[action.meta.arg.questionId].usersThatFavoriteIt =
+        state.entities[action.meta.arg.questionId].usersThatFavoriteIt.filter(
+          (id) => id !== action.meta.arg.userId
+        );
     },
   },
 });
 
 const selectQuestionsState = (state) => state.questions;
-const selectOneQuestionState = (state) => state.openedQuestion;
 
+export const questionSelectors = questionsAdapter.getSelectors(
+  (state) => state.questions
+);
+
+// todo refactor
 export const selectQuestionById = (id) =>
-  createSelector([selectQuestionsState, selectOneQuestionState], (state) => {
+  createSelector([selectQuestionsState], (state) => {
     if (state.questions.length !== 0) {
       return state.questions.find((question) => question._id === id);
     }
     return state.openedQuestion;
   });
 
-export const selectQuestionsLoading = createSelector(
+export const selectQuestionsFetching = createSelector(
   selectQuestionsState,
-  (state) => state.loading
+  (state) => state.fetching
 );
 
-export const selectQuestionsSuccess = createSelector(
-  selectQuestionsState,
-  (state) => state.success
-);
-
-export const selectQuestionsError = createSelector(
-  selectQuestionsState,
-  (state) => state.error
-);
-
-export const selectQuestions = createSelector(
+export const selectAllQuestionsList = createSelector(
   selectQuestionsState,
   (state) => state.questions
 );
 
-export const selectTotalQuestions = createSelector(
+export const selectQuestionsPagination = createSelector(
   selectQuestionsState,
-  (state) => state.totalQuestions
+  (state) => state.pagination
 );
 
 export const selectOpenedQuestion = createSelector(
@@ -288,24 +354,17 @@ export const selectOpenedQuestion = createSelector(
 
 export const selectDeletingQuestions = createSelector(
   selectQuestionsState,
-  (state) => state.deletingQuestions
+  (state) => state.deletingQuestionIds
 );
 
 export const selectRestoringQuestions = createSelector(
   selectQuestionsState,
-  (state) => state.restoringQuestions
+  (state) => state.restoringQuestionIds
 );
 
-export const selectDeletedQuestions = createSelector(
-  selectQuestionsState,
-  (state) => state.deletedQuestions
-);
-
-export const {
-  resetStatus,
-  resetSuccess,
-  resetQuestions,
-  resetDeletedQuestions,
-} = questionsSlice.actions;
+export const selectIsFavoritingQuestion = (questionId) =>
+  createSelector(selectQuestionsState, (state) =>
+    state.favoritingQuestionIds.find((id) => id === questionId)
+  );
 
 export default questionsSlice.reducer;

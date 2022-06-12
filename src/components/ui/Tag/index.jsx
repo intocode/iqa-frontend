@@ -1,24 +1,30 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import closeIcon from '../../assets/close.svg';
-import { AVAILABLE_THEME_COLORS, DEFAULT_COLOR } from '../../../app/constants';
 
 const StyledTag = styled.div`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
-  padding: ${(props) => (props.noGutters ? '0px 8px' : '5px 8px')};
-  box-sizing: border-box;
-  font-size: 14px;
-  line-height: 20px;
+  padding: 2px 5px;
+  border: 1px solid transparent;
 
-  ${(props) => css`
-    color: ${props.theme.colors[props.color].main};
-    background-color: ${props.theme.colors[props.color].addition};
-    border: 1px solid ${props.theme.colors[props.color].main};
-  `}
+  border-radius: 4px;
+  line-height: 20px;
+  font-size: 14px;
+  color: ${(props) => props.theme.colors.gray.main};
+
+  &::before {
+    content: '#';
+    margin-right: 1px;
+  }
+
+  &:hover {
+    border: 1px solid ${(props) => props.theme.colors.gray.main};
+    background: ${(props) => props.theme.colors.gray.addition};
+    cursor: pointer;
+  }
 
   button {
     cursor: pointer;
@@ -42,13 +48,9 @@ export const Tag = ({ children, onRemove, ...props }) => (
 
 Tag.propTypes = {
   children: PropTypes.string.isRequired,
-  color: PropTypes.oneOf(AVAILABLE_THEME_COLORS),
   onRemove: PropTypes.func,
-  noGutters: PropTypes.bool,
 };
 
 Tag.defaultProps = {
-  color: DEFAULT_COLOR,
   onRemove: undefined,
-  noGutters: false,
 };

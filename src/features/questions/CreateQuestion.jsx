@@ -19,18 +19,10 @@ import { selectProfile } from '../profile/profileSlice';
 import {
   addTag,
   removeTag,
-  resetTagStatus,
   selectTags,
   selectTagsError,
 } from '../tags/tagsSlice';
-import {
-  addQuestion,
-  resetStatus,
-  selectQuestionsSuccess,
-  selectQuestionsError,
-  selectQuestionsLoading,
-  resetSuccess,
-} from './questionsSlice';
+import { addQuestion, selectQuestionsFetching } from './questionsSlice';
 import { useAuth } from '../../common/context/Auth/useAuth';
 
 const StyledQuestionWrapper = styled.div`
@@ -110,9 +102,7 @@ const CreateQuestion = () => {
   const profile = useSelector(selectProfile);
   const tags = useSelector(selectTags);
   const tagsError = useSelector(selectTagsError);
-  const questionsError = useSelector(selectQuestionsError);
-  const questionsSuccess = useSelector(selectQuestionsSuccess);
-  const questionsLoading = useSelector(selectQuestionsLoading);
+  const questionsLoading = useSelector(selectQuestionsFetching);
 
   const [question, setQuestion] = useState('');
   const [comment, setComment] = useState('');
@@ -180,21 +170,7 @@ const CreateQuestion = () => {
             <img src={profile.avatar?.thumbnail} alt="avatar" />
             <p>{profile.name}</p>
           </StyledProfile>
-          {questionsError && (
-            <Alert onClose={() => dispatch(resetStatus())} color="danger">
-              {questionsError}
-            </Alert>
-          )}
-          {tagsError && (
-            <Alert onClose={() => dispatch(resetTagStatus())} color="danger">
-              {tagsError}
-            </Alert>
-          )}
-          {questionsSuccess && (
-            <Alert onClose={() => dispatch(resetSuccess())}>
-              Вопрос добавлен!
-            </Alert>
-          )}
+          {tagsError && <Alert сolor="danger">{tagsError}</Alert>}
           {manyQuestions && (
             <Alert color="warning">
               В одном посте рекомендуется публиковать только один вопрос.

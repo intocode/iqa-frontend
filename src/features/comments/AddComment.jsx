@@ -6,7 +6,7 @@ import { Editor } from '@toast-ui/react-editor';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '../../components/ui';
-import { selectQuestions } from '../questions/questionsSlice';
+import { selectAllQuestionsList } from '../questions/questionsSlice';
 import {
   addCommentToPost,
   resetCommentSuccess,
@@ -35,7 +35,7 @@ const AddComment = () => {
   const editorRef = useRef();
 
   const profile = useSelector(selectProfile);
-  const question = useSelector(selectQuestions);
+  const question = useSelector(selectAllQuestionsList);
   const commentsLoading = useSelector(selectCommentsAdding);
 
   const [text, setText] = useState('');

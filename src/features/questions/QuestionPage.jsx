@@ -11,10 +11,9 @@ import { Divider, Paper, Tag, Typography } from '../../components/ui';
 import {
   fetchQuestionById,
   selectOpenedQuestion,
-  selectQuestionsLoading,
+  selectQuestionsFetching,
 } from './questionsSlice';
 import { QuestionPagePlaceholder } from './QuestionPagePlaceholder';
-import QuestionRate from './QuestionRate';
 import CommentsByQuestion from '../comments/CommentsByQuestion';
 import { Title } from '../../app/Title/Title';
 
@@ -80,17 +79,13 @@ dayjs.extend(relativeTime);
 dayjs.extend(calendar);
 dayjs.locale('ru');
 
-const {
-  REACT_APP_FEATURE_COMMENTARIES,
-  REACT_APP_FEATURE_RATING,
-  REACT_APP_FEATURE_TAGS,
-} = process.env;
+const { REACT_APP_FEATURE_COMMENTARIES, REACT_APP_FEATURE_TAGS } = process.env;
 
 const QuestionPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const question = useSelector(selectOpenedQuestion);
-  const loading = useSelector(selectQuestionsLoading);
+  const loading = useSelector(selectQuestionsFetching);
 
   useEffect(() => dispatch(fetchQuestionById(id)), [dispatch, id]);
 
@@ -110,15 +105,15 @@ const QuestionPage = () => {
           <Paper>
             <StyledPaperHeader>
               <StyledAvatar>
-                <img src={question?.user?.avatar?.thumbnail} alt="" />
-                <p>{question?.user?.name}</p>
+                <img src={question?.author?.avatar?.thumbnail} alt="" />
+                <p>{question?.author?.name}</p>
                 <div>добавлено {dayjs(question?.createdAt).fromNow()}</div>
               </StyledAvatar>
               <StyledTag>
                 {REACT_APP_FEATURE_TAGS &&
                   question?.tags.map((tag) => (
-                    <Tag key={tag.name} noGutters className="d-none d-md-block">
-                      {tag.name}
+                    <Tag key={tag} noGutters className="d-none d-md-block">
+                      {tag}
                     </Tag>
                   ))}
               </StyledTag>
@@ -127,13 +122,6 @@ const QuestionPage = () => {
             <StyledComment>
               <Viewer initialValue={question?.comment} />
             </StyledComment>
-
-            {REACT_APP_FEATURE_RATING &&
-              (question ? (
-                <QuestionRate id={id} rates={question.rates} />
-              ) : (
-                'Загрузка...'
-              ))}
             <div className="my-4">
               <Divider />
             </div>

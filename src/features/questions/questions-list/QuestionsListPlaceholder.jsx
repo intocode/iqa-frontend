@@ -1,5 +1,5 @@
-import '../../assets/bootstrap-placeholder.css';
-import { Paper, Tag } from '../../components/ui';
+import '../../../assets/bootstrap-placeholder.css';
+import { Paper, Tag } from '../../../components/ui';
 
 const Placeholder = () => {
   return (
