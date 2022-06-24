@@ -5,7 +5,7 @@ export const getBaseUrl = () => {
   let baseUrl = 'https://iqa-server.intocode.ru/';
 
   if (!PRODUCTION || STAGING) {
-    baseUrl = 'http://localhost:3030/';
+    baseUrl = 'https://iqa-stage-backend.intocode.ru/';
   }
 
   return baseUrl;
