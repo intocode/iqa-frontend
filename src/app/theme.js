@@ -14,7 +14,7 @@ export const theme = {
     },
     danger: {
       text: 'white',
-      main: '#F56C6C',
+      main: '#DC3545',
       addition: '#fef0f0',
     },
     gray: {

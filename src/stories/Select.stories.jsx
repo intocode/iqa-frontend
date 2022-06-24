@@ -17,11 +17,7 @@ export const Default = () => {
   const [value, setValue] = useState(null);
 
   return (
-    <Select
-      label={<b>Какой итем?</b>}
-      value={value}
-      onChange={(v) => setValue(v)}
-    >
+    <Select label={<b>Какой итем?</b>} value={value} onChange={(v) => setValue(v)}>
       <SelectItem value={1}>item 1</SelectItem>
       <SelectItem value={2}>item 2</SelectItem>
       <SelectItem value={3}>item 3</SelectItem>

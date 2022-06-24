@@ -94,9 +94,7 @@ const Search = () => {
               <Link className="question-tittle" to={`/question/${item._id}`}>
                 {item.question}
               </Link>
-              <div className="question-text">
-                {item.comment.substr(0, 30)}...
-              </div>
+              <div className="question-text">{item.comment.substr(0, 30)}...</div>
             </div>
           ))}
         </div>

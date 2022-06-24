@@ -8,10 +8,9 @@ export default {
 
 const Template = (args) => (
   <Paper {...args}>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut
-    blanditiis ea exercitationem harum ipsa laboriosam maxime mollitia obcaecati
-    provident quod, ratione, voluptate! Corporis eius eligendi quaerat quasi
-    sapiente voluptates?
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aut blanditiis ea
+    exercitationem harum ipsa laboriosam maxime mollitia obcaecati provident quod, ratione,
+    voluptate! Corporis eius eligendi quaerat quasi sapiente voluptates?
   </Paper>
 );
 
@@ -26,10 +25,9 @@ const StyledDecorator = styled.div`
 export const Centered = (args) => (
   <StyledDecorator>
     <Paper {...args}>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos ea
-      eos excepturi ipsum laudantium maxime provident quia ratione veritatis.
-      Architecto libero, magnam magni molestias officia qui quos ratione veniam
-      voluptatum.
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos ea eos excepturi ipsum
+      laudantium maxime provident quia ratione veritatis. Architecto libero, magnam magni molestias
+      officia qui quos ratione veniam voluptatum.
     </Paper>
   </StyledDecorator>
 );

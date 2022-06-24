@@ -44,12 +44,7 @@ export const ScrollToTop = () => {
   }, [windowScroll]);
 
   return (
-    <CSSTransition
-      in={showBackToTop}
-      timeout={200}
-      classNames="alert"
-      unmountOnExit
-    >
+    <CSSTransition in={showBackToTop} timeout={200} classNames="alert" unmountOnExit>
       <StyledScroll onClick={scrollToTop}>
         <ChevronUpIcon />
       </StyledScroll>

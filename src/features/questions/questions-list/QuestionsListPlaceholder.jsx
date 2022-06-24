@@ -17,10 +17,8 @@ const Placeholder = () => {
         <div className="placeholder col-12" />
       </div>
       <div className="placeholder-glow">
-        <div className="placeholder col-1" />{' '}
-        <div className="placeholder col-3" />{' '}
-        <div className="placeholder col-3" />{' '}
-        <div className="placeholder col-2" />
+        <div className="placeholder col-1" /> <div className="placeholder col-3" />{' '}
+        <div className="placeholder col-3" /> <div className="placeholder col-2" />
       </div>
     </Paper>
   );

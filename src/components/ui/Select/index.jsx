@@ -42,9 +42,8 @@ export const Select = ({ children, onChange, value, label }) => {
     })
   );
 
-  const selectedOption = childrenArray.find(
-    (child) => child.props.value === value
-  )?.props?.children;
+  const selectedOption = childrenArray.find((child) => child.props.value === value)?.props
+    ?.children;
 
   return (
     <StyledSelect>

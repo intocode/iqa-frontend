@@ -6,10 +6,7 @@ import {
   selectQuestionsFetching,
   resetQuestionsList,
 } from '../questionsSlice';
-import {
-  selectIsCompactModeToogle,
-  toggleIsCompactMode,
-} from '../../application/applicationSlice';
+import { selectIsCompactModeToogle, toggleIsCompactMode } from '../../application/applicationSlice';
 import { QuestionsListPlaceholder } from './QuestionsListPlaceholder';
 import { Title } from '../../../app/Title/Title';
 import { Paper, Switch, Spinner } from '../../../components/ui';
@@ -34,8 +31,7 @@ const QuestionsList = () => {
 
       const { documentElement } = e.target;
       const position =
-        documentElement.scrollHeight -
-        (documentElement.scrollTop + window.innerHeight);
+        documentElement.scrollHeight - (documentElement.scrollTop + window.innerHeight);
 
       if (position < scrollBorder) {
         dispatch(fetchNextPartOfQuestions({ favoritesOnly, deletedOnly }));

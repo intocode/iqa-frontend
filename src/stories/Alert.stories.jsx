@@ -24,24 +24,24 @@ PlaygroundAlert.args = {
 export const Default = () => (
   <StyledDecorator>
     <Alert color="primary">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
-      ipsam magnam maxime quia quod repellendus sapiente unde ut.
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum ipsam magnam maxime
+      quia quod repellendus sapiente unde ut.
     </Alert>
     <Alert color="warning">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
-      ipsam magnam maxime quia quod repellendus sapiente unde ut.
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum ipsam magnam maxime
+      quia quod repellendus sapiente unde ut.
     </Alert>
     <Alert color="success">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
-      ipsam magnam maxime quia quod repellendus sapiente unde ut.
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum ipsam magnam maxime
+      quia quod repellendus sapiente unde ut.
     </Alert>
     <Alert color="gray">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
-      ipsam magnam maxime quia quod repellendus sapiente unde ut.
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum ipsam magnam maxime
+      quia quod repellendus sapiente unde ut.
     </Alert>
     <Alert color="danger">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
-      ipsam magnam maxime quia quod repellendus sapiente unde ut.
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum ipsam magnam maxime
+      quia quod repellendus sapiente unde ut.
     </Alert>
   </StyledDecorator>
 );
@@ -49,24 +49,24 @@ export const Default = () => (
 export const Contrasted = () => (
   <StyledDecorator>
     <Alert color="primary" contrast>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
-      ipsam magnam maxime quia quod repellendus sapiente unde ut.
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum ipsam magnam maxime
+      quia quod repellendus sapiente unde ut.
     </Alert>
     <Alert color="warning" contrast>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
-      ipsam magnam maxime quia quod repellendus sapiente unde ut.
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum ipsam magnam maxime
+      quia quod repellendus sapiente unde ut.
     </Alert>
     <Alert color="success" contrast>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
-      ipsam magnam maxime quia quod repellendus sapiente unde ut.
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum ipsam magnam maxime
+      quia quod repellendus sapiente unde ut.
     </Alert>
     <Alert color="gray" contrast>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
-      ipsam magnam maxime quia quod repellendus sapiente unde ut.
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum ipsam magnam maxime
+      quia quod repellendus sapiente unde ut.
     </Alert>
     <Alert color="danger" contrast>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum
-      ipsam magnam maxime quia quod repellendus sapiente unde ut.
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate harum ipsam magnam maxime
+      quia quod repellendus sapiente unde ut.
     </Alert>
   </StyledDecorator>
 );

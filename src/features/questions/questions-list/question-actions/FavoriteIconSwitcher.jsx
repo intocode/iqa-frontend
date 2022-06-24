@@ -1,9 +1,16 @@
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import FavoritesIcon from '../../../../components/icons/FavoritesIcon';
 import FavoritesInIcon from '../../../../components/icons/FavoritesInIcon';
+import { selectProfile } from '../../../profile/profileSlice';
+import { questionSelectors } from '../../questionsSlice';
 
-const FavoriteIconSwitcher = ({ usersList, myId }) => {
-  if (usersList.includes(myId)) {
+const FavoriteIconSwitcher = ({ questionId }) => {
+  const profile = useSelector(selectProfile);
+
+  const question = useSelector((state) => questionSelectors.selectById(state, questionId));
+
+  if (question.usersThatFavoriteIt.includes(profile._id)) {
     return <FavoritesInIcon />;
   }
 
@@ -11,8 +18,7 @@ const FavoriteIconSwitcher = ({ usersList, myId }) => {
 };
 
 FavoriteIconSwitcher.propTypes = {
-  usersList: PropTypes.arrayOf(PropTypes.string).isRequired,
-  myId: PropTypes.string.isRequired,
+  questionId: PropTypes.PropTypes.string.isRequired,
 };
 
 export default FavoriteIconSwitcher;

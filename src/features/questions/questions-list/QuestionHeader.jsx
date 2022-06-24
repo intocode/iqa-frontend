@@ -18,14 +18,13 @@ const StyledTag = styled.div`
 
 const StyledHeader = styled.div`
   & img.avatar {
+    width: 36px;
     border-radius: 50%;
   }
 `;
 
 export const QuestionHeader = ({ questionId }) => {
-  const question = useSelector((state) =>
-    questionSelectors.selectById(state, questionId)
-  );
+  const question = useSelector((state) => questionSelectors.selectById(state, questionId));
   const { REACT_APP_FEATURE_TAGS } = process.env;
 
   return (
@@ -33,11 +32,7 @@ export const QuestionHeader = ({ questionId }) => {
       <div className="row mb-4">
         <div className="col">
           <div className="d-flex align-items-center">
-            <img
-              src={question.author?.avatar?.thumbnail}
-              alt=""
-              className="avatar"
-            />
+            <img src={question.author?.avatar?.thumbnail} alt="" className="avatar" />
             <span className="mx-2">{question.author.name}</span>
             <Typography variant="small" color="gray">
               добавлен {dayjs(question.createdAt).fromNow()}

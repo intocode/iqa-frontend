@@ -23,9 +23,7 @@ const StyledComments = styled.div`
 export const CommentsAction = ({ questionId }) => {
   const { REACT_APP_FEATURE_COMMENTARIES } = process.env;
 
-  const question = useSelector((state) =>
-    questionSelectors.selectById(state, questionId)
-  );
+  const question = useSelector((state) => questionSelectors.selectById(state, questionId));
 
   if (!REACT_APP_FEATURE_COMMENTARIES) return null;
 

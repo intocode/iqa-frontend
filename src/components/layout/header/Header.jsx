@@ -25,7 +25,7 @@ const StyledHeader = styled.div`
     position: absolute;
   }
 
-  @media ${(props) => props.theme.media.phone} {
+  @media ${({ theme }) => theme.media.phone} {
     .container {
       padding: 24px 20px;
     }
@@ -73,18 +73,11 @@ export const Header = () => {
 
   return (
     <StyledHeader>
-      <AdaptiveMenu
-        toggleMobileMenu={handleToggleMenu}
-        mobileMenu={mobileMenu}
-      />
+      <AdaptiveMenu toggleMobileMenu={handleToggleMenu} mobileMenu={mobileMenu} />
       <div className="container">
         <div className="row align-items-center">
           <div className="col d-flex align-items-center">
-            <div
-              className="menu-icon d-md-none"
-              onClick={handleToggleMenu}
-              role="presentation"
-            >
+            <div className="menu-icon d-md-none" onClick={handleToggleMenu} role="presentation">
               <img src={iconMenuAndClose} width={32} alt="iqa logotype" />
             </div>
             <div className="offset-5 offset-md-0">
@@ -97,35 +90,33 @@ export const Header = () => {
 
             <AnimatedSearch />
           </div>
-          {token ? (
-            <div className="col-auto d-none d-md-block">
-              {REACT_APP_FEATURE_ADD_QUESTION && (
-                <Button
-                  className="me-3"
-                  contrast={false}
-                  color="primary"
-                  onClick={handleAddQuestion}
-                >
-                  Добавить вопрос
-                </Button>
-              )}
-              <Link to="/" className="header_link">
-                <Button contrast={false} color="primary" onClick={logout}>
-                  Выйти
+          <div className="col-auto d-none d-md-block">
+            {token ? (
+              <>
+                {REACT_APP_FEATURE_ADD_QUESTION && (
+                  <Button
+                    className="me-3"
+                    contrast={false}
+                    color="primary"
+                    onClick={handleAddQuestion}
+                  >
+                    Добавить вопрос
+                  </Button>
+                )}
+                <Link to="/" className="header_link">
+                  <Button contrast={false} color="primary" onClick={logout}>
+                    Выйти
+                  </Button>
+                </Link>
+              </>
+            ) : (
+              <Link to="/" className="header_link d-none d-md-block">
+                <Button contrast={false} color="primary" onClick={executeLoggingInProcess}>
+                  Login with GitHub
                 </Button>
               </Link>
-            </div>
-          ) : (
-            <Link to="/" className="header_link d-none d-md-block">
-              <Button
-                contrast={false}
-                color="primary"
-                onClick={executeLoggingInProcess}
-              >
-                Login with GitHub
-              </Button>
-            </Link>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </StyledHeader>

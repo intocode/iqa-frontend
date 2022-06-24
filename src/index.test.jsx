@@ -9,9 +9,7 @@ import { GlobalProvider } from './app/GlobalProvider';
 // import 'bootstrap/dist/css/bootstrap-grid.min.css';
 
 axios.defaults.baseURL = BASE_API_URL;
-axios.defaults.headers.authorization = `Bearer ${localStorage.getItem(
-  LS_TOKEN_KEY
-)}`;
+axios.defaults.headers.authorization = `Bearer ${localStorage.getItem(LS_TOKEN_KEY)}`;
 
 describe('App rendering', () => {
   it('renders without crash', async () => {

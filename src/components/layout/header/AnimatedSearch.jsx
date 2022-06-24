@@ -55,9 +55,7 @@ const AnimatedSearch = () => {
       <SwitchTransition>
         <CSSTransition
           key={openSearch}
-          addEndListener={(node, done) =>
-            node.addEventListener('transitionend', done, false)
-          }
+          addEndListener={(node, done) => node.addEventListener('transitionend', done, false)}
           classNames="fade"
         >
           {openSearch ? (

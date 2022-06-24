@@ -7,21 +7,9 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import { Title } from '../../app/Title/Title';
 import PlusIcon from '../../components/icons/PlusIcon';
-import {
-  Alert,
-  Button,
-  Input,
-  Paper,
-  Tag,
-  Typography,
-} from '../../components/ui';
+import { Alert, Button, Input, Paper, Tag, Typography } from '../../components/ui';
 import { selectProfile } from '../profile/profileSlice';
-import {
-  addTag,
-  removeTag,
-  selectTags,
-  selectTagsError,
-} from '../tags/tagsSlice';
+import { addTag, removeTag, selectTags, selectTagsError } from '../tags/tagsSlice';
 import { addQuestion, selectQuestionsFetching } from './questionsSlice';
 import { useAuth } from '../../common/context/Auth/useAuth';
 
@@ -210,30 +198,19 @@ const CreateQuestion = () => {
                 </div>
                 <StyledTagWrapper>
                   {tags.map((tag) => (
-                    <Tag
-                      key={tag._id}
-                      onRemove={() => dispatch(removeTag(tag._id))}
-                    >
+                    <Tag key={tag._id} onRemove={() => dispatch(removeTag(tag._id))}>
                       {tag.name}
                     </Tag>
                   ))}
                   {/* todo убрать дублирование ниже */}
                   {!editMode && (
-                    <button
-                      onClick={() => setEditMode(true)}
-                      type="button"
-                      className="new-tag"
-                    >
+                    <button onClick={() => setEditMode(true)} type="button" className="new-tag">
                       <PlusIcon />
                       <span>New tag</span>
                     </button>
                   )}
                   {editMode && (
-                    <button
-                      onBlur={() => setEditMode(false)}
-                      type="button"
-                      className="new-tag"
-                    >
+                    <button onBlur={() => setEditMode(false)} type="button" className="new-tag">
                       <PlusIcon />
                       <input
                         value={tagValue}

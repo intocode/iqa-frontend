@@ -30,14 +30,9 @@ export const AuthProvider = ({ children }) => {
     return Promise.reject(error);
   });
 
-  const authValue = useMemo(
-    () => ({ token, setAuthToken }),
-    [token, setAuthToken]
-  );
+  const authValue = useMemo(() => ({ token, setAuthToken }), [token, setAuthToken]);
 
-  return (
-    <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>;
 };
 
 AuthProvider.propTypes = {

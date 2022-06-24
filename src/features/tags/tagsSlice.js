@@ -1,8 +1,4 @@
-import {
-  createSlice,
-  createAsyncThunk,
-  createSelector,
-} from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const fetchTags = createAsyncThunk('tags/fetch', async (_, thunkAPI) => {
@@ -15,18 +11,15 @@ export const fetchTags = createAsyncThunk('tags/fetch', async (_, thunkAPI) => {
   }
 });
 
-export const fetchTagsByQuery = createAsyncThunk(
-  'tags/fetchByQuery',
-  async (query, thunkAPI) => {
-    try {
-      const response = await axios.get(`/tags?q=${query}`);
+export const fetchTagsByQuery = createAsyncThunk('tags/fetchByQuery', async (query, thunkAPI) => {
+  try {
+    const response = await axios.get(`/tags?q=${query}`);
 
-      return response.data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
-    }
+    return response.data;
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e.message);
   }
-);
+});
 
 export const addTag = createAsyncThunk('tags/add', async (data, thunkAPI) => {
   try {
@@ -88,15 +81,9 @@ const tagsSlice = createSlice({
 
 const selectTagsState = (state) => state.tags;
 
-export const selectTags = createSelector(
-  selectTagsState,
-  (state) => state.tags
-);
+export const selectTags = createSelector(selectTagsState, (state) => state.tags);
 
-export const selectTagsError = createSelector(
-  selectTagsState,
-  (state) => state.error
-);
+export const selectTagsError = createSelector(selectTagsState, (state) => state.error);
 
 export const { removeTag, resetTagStatus, clearTags } = tagsSlice.actions;
 

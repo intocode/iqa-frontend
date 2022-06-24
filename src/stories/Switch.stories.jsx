@@ -16,10 +16,6 @@ Default.args = {};
 export const Click = () => {
   const [isCompactMode, setIsCompactMode] = useState(false);
   return (
-    <Switch
-      on={isCompactMode}
-      onChange={() => setIsCompactMode(!isCompactMode)}
-      disabled={false}
-    />
+    <Switch on={isCompactMode} onChange={() => setIsCompactMode(!isCompactMode)} disabled={false} />
   );
 };

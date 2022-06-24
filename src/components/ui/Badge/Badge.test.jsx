@@ -33,9 +33,7 @@ describe('Badge', () => {
   it('should render the props.content to Badge', () => {
     const num = 3;
     const component = render(<BadgeTest content={num}>test</BadgeTest>);
-    const tagProps = component.container
-      .querySelector('span')
-      .getAttribute('content');
+    const tagProps = component.container.querySelector('span').getAttribute('content');
     expect(Number(tagProps)).toEqual(3);
   });
 

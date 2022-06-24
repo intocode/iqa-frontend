@@ -16,7 +16,8 @@ import {
 } from '../../questionsSlice';
 
 const StyledDelete = styled.div`
-  color: ${({ deleted }) => (deleted ? '#3d8bfd' : '#dc3545')};
+  color: ${({ deleted, theme }) =>
+    deleted ? theme.colors.primary.main : theme.colors.danger.main};
   font-weight: 400;
   font-size: 14px;
   cursor: pointer;
@@ -27,15 +28,13 @@ export const DeleteAction = ({ questionId }) => {
   const { token } = useAuth();
   const dispatch = useDispatch();
 
+  const { REACT_APP_FEATURE_DELETE_QUESTION } = process.env;
+
   const profile = useSelector(selectProfile);
   const deletingQuestions = useSelector(selectDeletingQuestions);
   const restoringQuestions = useSelector(selectRestoringQuestions);
 
-  const { REACT_APP_FEATURE_DELETE_QUESTION } = process.env;
-
-  const question = useSelector((state) =>
-    questionSelectors.selectById(state, questionId)
-  );
+  const question = useSelector((state) => questionSelectors.selectById(state, questionId));
 
   const handleToggleDelete = () => {
     if (question.deleted) {
@@ -45,43 +44,34 @@ export const DeleteAction = ({ questionId }) => {
     }
   };
 
-  const deletingQuestion = useMemo(() => {
-    return deletingQuestions.find((id) => id === question._id);
-  }, [deletingQuestions, question]);
+  const isDeliting = useMemo(
+    () => deletingQuestions.find((id) => id === question._id),
+    [deletingQuestions, question]
+  );
 
-  const deletingQuestionStatus = deletingQuestion
-    ? 'Удаление'
-    : 'Удалить вопрос';
+  const isRestoring = useMemo(
+    () => restoringQuestions.find((id) => id === question._id),
+    [restoringQuestions, question]
+  );
 
-  const restoringQuestion = useMemo(() => {
-    return restoringQuestions.find((id) => id === question._id);
-  }, [restoringQuestions, question]);
+  const deleteButtonCaption = isDeliting ? 'Удаление' : 'Удалить вопрос';
 
-  const restoringQuestionStatus = restoringQuestion
-    ? 'Восстановление'
-    : 'Восстановить вопрос';
+  const restoreButtonCaption = isRestoring ? 'Восстановление' : 'Восстановить вопрос';
 
   const deletingIcon = question.deleted ? <RestoreIcon /> : <DeleteIcon />;
 
-  const deletingSpinner =
-    deletingQuestion || restoringQuestion ? <SpinnerIcon /> : deletingIcon;
+  const isProcessing = isDeliting || isRestoring;
 
-  if (!REACT_APP_FEATURE_DELETE_QUESTION || !token || !profile.isAdmin)
-    return null;
+  if (!REACT_APP_FEATURE_DELETE_QUESTION || !token || !profile.isAdmin) return null;
 
   return (
     <div className="col-auto">
-      <div
-        aria-hidden
-        onClick={handleToggleDelete}
-        className="d-flex align-items-center"
-      >
-        <StyledDelete className="delete">{deletingSpinner}</StyledDelete>
-        <StyledDelete
-          className="delete d-none d-md-block"
-          deleted={question.deleted}
-        >
-          {question.deleted ? restoringQuestionStatus : deletingQuestionStatus}
+      <div aria-hidden onClick={handleToggleDelete} className="d-flex align-items-center">
+        <StyledDelete className="delete">
+          {isProcessing ? <SpinnerIcon /> : deletingIcon}
+        </StyledDelete>
+        <StyledDelete className="delete d-none d-md-block" deleted={question.deleted}>
+          {question.deleted ? restoreButtonCaption : deleteButtonCaption}
         </StyledDelete>
       </div>
     </div>
