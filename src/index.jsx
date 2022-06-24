@@ -12,9 +12,7 @@ import 'bootstrap/dist/css/bootstrap-grid.min.css';
 import { GlobalProvider } from './app/GlobalProvider';
 
 axios.defaults.baseURL = BASE_API_URL;
-axios.defaults.headers.authorization = `Bearer ${localStorage.getItem(
-  LS_TOKEN_KEY
-)}`;
+axios.defaults.headers.authorization = `Bearer ${localStorage.getItem(LS_TOKEN_KEY)}`;
 
 dayjs.extend(relativeTime);
 dayjs.extend(calendar);

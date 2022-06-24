@@ -10,18 +10,17 @@ import { selectIsCompactModeToogle } from '../../application/applicationSlice';
 import { questionSelectors } from '../questionsSlice';
 
 const StyledQuestionBlock = styled.div`
+  opacity: ${(props) => (props.deleted ? 0.3 : 1)};
+  transition: all 0.5s;
+
   &:hover .delete {
     opacity: 1;
   }
-
-  opacity: ${(props) => (props.deleted ? 0.3 : 1)};
 `;
 
 export const QuestionBlock = ({ questionId }) => {
   const isCompactMode = useSelector(selectIsCompactModeToogle);
-  const question = useSelector((state) =>
-    questionSelectors.selectById(state, questionId)
-  );
+  const question = useSelector((state) => questionSelectors.selectById(state, questionId));
 
   const QuestionWrapper = isCompactMode ? React.Fragment : Paper;
 

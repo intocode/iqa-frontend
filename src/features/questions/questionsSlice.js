@@ -80,18 +80,15 @@ export const fetchNextPartOfQuestions = createAsyncThunk(
   }
 );
 
-export const fetchQuestionById = createAsyncThunk(
-  'questions/fetch/byId',
-  async (id, thunkAPI) => {
-    try {
-      const response = await axios.get(`/questions/${id}`);
+export const fetchQuestionById = createAsyncThunk('questions/fetch/byId', async (id, thunkAPI) => {
+  try {
+    const response = await axios.get(`/questions/${id}`);
 
-      return response.data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
-    }
+    return response.data;
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e.message);
   }
-);
+});
 
 // todo: добработать, исправить
 export const addQuestion = createAsyncThunk('add', async (data, thunkAPI) => {
@@ -216,27 +213,15 @@ const questionsSlice = createSlice({
       state.deletingQuestionIds.push(action.meta.arg);
     },
 
-    // todo refactor
     [removeQuestionById.fulfilled]: (state, action) => {
-      state.deletedQuestions = state.deletedQuestions.filter(
-        (question) => question._id !== action.payload.questionId
-      );
+      // stop preloader
       state.deletingQuestionIds = state.deletingQuestionIds.filter(
-        (id) => id !== action.meta.arg
+        (id) => id !== action.payload.questionId
       );
-      state.questions = state.questions.map((item) => {
-        if (item._id === action.payload.questionId) {
-          // eslint-disable-next-line no-param-reassign
-          item.deleted = true;
-        }
-        return item;
-      });
-      state.deletedQuestions = state.deletedQuestions.map((item) => {
-        if (item._id === action.payload.questionId) {
-          // eslint-disable-next-line no-param-reassign
-          item.deleted = true;
-        }
-        return item;
+
+      questionsAdapter.updateOne(state, {
+        id: action.payload.questionId,
+        changes: { deleted: true },
       });
     },
 
@@ -244,27 +229,15 @@ const questionsSlice = createSlice({
       state.restoringQuestionIds.push(action.meta.arg);
     },
 
-    // todo refactor
     [restoreQuestionById.fulfilled]: (state, action) => {
-      state.deletedQuestions = state.deletedQuestions.filter(
-        (question) => question._id !== action.payload.questionId
-      );
+      // stop preloader
       state.restoringQuestionIds = state.restoringQuestionIds.filter(
-        (id) => id !== action.meta.arg
+        (id) => id !== action.payload.questionId
       );
-      state.questions = state.questions.map((item) => {
-        if (item._id === action.payload.questionId) {
-          // eslint-disable-next-line no-param-reassign
-          item.deleted = false;
-        }
-        return item;
-      });
-      state.deletedQuestions = state.deletedQuestions.map((item) => {
-        if (item._id === action.payload.questionId) {
-          // eslint-disable-next-line no-param-reassign
-          item.deleted = false;
-        }
-        return item;
+
+      questionsAdapter.updateOne(state, {
+        id: action.payload.questionId,
+        changes: { deleted: false },
       });
     },
 
@@ -294,9 +267,7 @@ const questionsSlice = createSlice({
         (id) => id !== action.meta.arg.questionId
       );
 
-      state.entities[action.meta.arg.questionId].usersThatFavoriteIt.push(
-        action.meta.arg.userId
-      );
+      state.entities[action.meta.arg.questionId].usersThatFavoriteIt.push(action.meta.arg.userId);
     },
 
     [deleteQuestionFromFavorites.pending]: (state, action) => {
@@ -309,19 +280,16 @@ const questionsSlice = createSlice({
         (id) => id !== action.meta.arg.questionId
       );
 
-      state.entities[action.meta.arg.questionId].usersThatFavoriteIt =
-        state.entities[action.meta.arg.questionId].usersThatFavoriteIt.filter(
-          (id) => id !== action.meta.arg.userId
-        );
+      state.entities[action.meta.arg.questionId].usersThatFavoriteIt = state.entities[
+        action.meta.arg.questionId
+      ].usersThatFavoriteIt.filter((id) => id !== action.meta.arg.userId);
     },
   },
 });
 
 const selectQuestionsState = (state) => state.questions;
 
-export const questionSelectors = questionsAdapter.getSelectors(
-  (state) => state.questions
-);
+export const questionSelectors = questionsAdapter.getSelectors((state) => state.questions);
 
 // todo refactor
 export const selectQuestionById = (id) =>

@@ -1,7 +1,7 @@
 module.exports = {
   extends: ['react-app', 'airbnb', 'prettier'],
   rules: {
-    // 'no-unused-vars': 'off',
+    'no-unused-vars': 'off',
 
     // делаем error, чтобы зачищать консоли, если где-то консоль важна,
     // то правило нужно отключить на строке
@@ -21,10 +21,7 @@ module.exports = {
 
     // отключаем из-за использования immer в редьюсерах
     // https://redux-toolkit.js.org/usage/immer-reducers#linting-state-mutations
-    'no-param-reassign': [
-      'error',
-      { props: true, ignorePropertyModificationsFor: ['state'] },
-    ],
+    'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['state'] }],
 
     'no-underscore-dangle': ['error', { allow: ['_id'] }],
 

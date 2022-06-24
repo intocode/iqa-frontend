@@ -1,26 +1,16 @@
-import {
-  createAsyncThunk,
-  createSlice,
-  createSelector,
-} from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, createSelector } from '@reduxjs/toolkit';
 import axios from 'axios';
-import {
-  addQuestionToFavorites,
-  deleteQuestionFromFavorites,
-} from '../questions/questionsSlice';
+import { addQuestionToFavorites, deleteQuestionFromFavorites } from '../questions/questionsSlice';
 
-export const fetchProfile = createAsyncThunk(
-  'profile/fetch',
-  async (_, thunkAPI) => {
-    try {
-      const response = await axios.get('/user/profile');
+export const fetchProfile = createAsyncThunk('profile/fetch', async (_, thunkAPI) => {
+  try {
+    const response = await axios.get('/user/profile');
 
-      return response.data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
-    }
+    return response.data;
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e.message);
   }
-);
+});
 
 const profileSlice = createSlice({
   name: 'profile',
@@ -53,25 +43,18 @@ const profileSlice = createSlice({
     },
 
     [deleteQuestionFromFavorites.pending]: (state, action) => {
-      state.questionIdsThatUserFavorite =
-        state.questionIdsThatUserFavorite.filter(
-          (id) => id !== action.meta.arg.questionId
-        );
+      state.questionIdsThatUserFavorite = state.questionIdsThatUserFavorite.filter(
+        (id) => id !== action.meta.arg.questionId
+      );
     },
   },
 });
 
 const selectProfileState = (state) => state.profile;
 
-export const selectProfile = createSelector(
-  selectProfileState,
-  (state) => state
-);
+export const selectProfile = createSelector(selectProfileState, (state) => state);
 
-export const selectProfileLoading = createSelector(
-  selectProfileState,
-  (state) => state.loading
-);
+export const selectProfileLoading = createSelector(selectProfileState, (state) => state.loading);
 
 export const selectQuestionIdsThatUserFavorite = createSelector(
   selectProfile,

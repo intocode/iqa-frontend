@@ -15,16 +15,8 @@ function IconIcon() {
           stroke="white"
           strokeLinejoin="round"
         />
-        <path
-          d="M9.91668 12.25V7.58331H4.08334V12.25"
-          stroke="white"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M4.08334 1.75V4.66667H8.75001"
-          stroke="white"
-          strokeLinejoin="round"
-        />
+        <path d="M9.91668 12.25V7.58331H4.08334V12.25" stroke="white" strokeLinejoin="round" />
+        <path d="M4.08334 1.75V4.66667H8.75001" stroke="white" strokeLinejoin="round" />
       </svg>
     </div>
   );

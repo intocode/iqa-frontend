@@ -73,13 +73,7 @@ const StyledButton = styled.button`
   }
 `;
 
-export const Button = ({
-  children,
-  disabled,
-  loading,
-  startIcon,
-  ...props
-}) => (
+export const Button = ({ children, disabled, loading, startIcon, ...props }) => (
   <StyledButton {...props} disabled={disabled || loading}>
     {loading ? (
       <>

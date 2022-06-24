@@ -14,9 +14,7 @@ export default {
 
 // const Template = (args) => <SelectItem {...args} />
 
-export const Default = (args) => (
-  <SelectItem {...args}>default item</SelectItem>
-);
+export const Default = (args) => <SelectItem {...args}>default item</SelectItem>;
 
 export const Selected = (args) => (
   <SelectItem selected {...args}>

@@ -1,107 +1,80 @@
 import {
   createAsyncThunk,
+  createEntityAdapter,
   createSelector,
   createSlice,
 } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const fetchComments = createAsyncThunk(
-  'comments/fetch',
-  async (id, thunkAPI) => {
-    try {
-      const response = await axios.get(`/questions/${id}/comments`);
+export const fetchComments = createAsyncThunk('comments/fetch', async (questionId, thunkAPI) => {
+  try {
+    const response = await axios.get(`/questions/${questionId}/comments`);
 
-      return response.data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
-    }
+    return response.data.items;
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e.message);
   }
-);
+});
 
-export const addCommentToPost = createAsyncThunk(
-  'comments/add',
-  async (data, thunkAPI) => {
-    try {
-      const response = await axios.post(`/questions/${data.id}/comments`, {
-        text: data.text,
-      });
+export const addComment = createAsyncThunk('comments/add', async ({ id, text }, thunkAPI) => {
+  try {
+    const response = await axios.post(`/questions/${id}/comments`, { text });
 
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data);
   }
-);
+});
+
+const commentsAdapter = createEntityAdapter({
+  selectId: (entity) => entity._id,
+});
+
+const initialState = commentsAdapter.getInitialState({
+  fetching: false,
+  adding: false,
+});
 
 const commentsSlice = createSlice({
   name: 'comments',
-  initialState: {
-    comments: [],
-    loading: false,
-    adding: false,
-    error: '',
-    success: [],
-  },
-  reducers: {
-    resetCommentStatus: (state) => {
-      state.error = '';
-    },
-    resetCommentSuccess: (state) => {
-      state.success = [];
-    },
-  },
+  initialState,
+
   extraReducers: {
     [fetchComments.pending]: (state) => {
-      // Условие для того чтобы не происходил
-      // скачёк верстки если массив с комментариями пустой
-      if (state.comments.length !== 0) {
-        state.loading = true;
-        state.comments = [];
-      }
+      state.fetching = true;
     },
+
     [fetchComments.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.comments = action.payload;
+      commentsAdapter.upsertMany(state, action.payload);
+      state.fetching = false;
     },
-    [addCommentToPost.pending]: (state) => {
+
+    [addComment.pending]: (state) => {
       state.adding = true;
     },
-    [addCommentToPost.fulfilled]: (state, action) => {
+
+    [addComment.fulfilled]: (state, action) => {
+      commentsAdapter.addOne(state, action.payload);
+
       state.adding = false;
-      state.comments.push(action.payload);
-      state.success = action.payload;
     },
   },
 });
 
 const selectCommentsState = (state) => state.comments;
 
-export const selectComments = createSelector(
-  selectCommentsState,
-  (state) => state.comments
-);
+export const commentsSelectors = commentsAdapter.getSelectors(selectCommentsState);
 
-export const selectCommentsAdding = createSelector(
-  selectCommentsState,
-  (state) => state.adding
-);
+export const selectComments = createSelector(selectCommentsState, (state) => state.comments);
 
-export const selectCommentsError = createSelector(
-  selectCommentsState,
-  (state) => state.error
-);
+export const selectCommentsAdding = createSelector(selectCommentsState, (state) => state.adding);
 
-export const selectCommentsLoading = createSelector(
-  selectCommentsState,
-  (state) => state.loading
-);
+export const selectCommentsError = createSelector(selectCommentsState, (state) => state.error);
 
-export const selectCommentsSuccess = createSelector(
-  selectCommentsState,
-  (state) => state.success
-);
+export const selectCommentsLoading = createSelector(selectCommentsState, (state) => state.loading);
 
-export const { resetCommentSuccess, resetCommentStatus } =
-  commentsSlice.actions;
+export const selectCommentsSuccess = createSelector(selectCommentsState, (state) => state.success);
+
+export const { resetCommentSuccess, resetCommentStatus } = commentsSlice.actions;
 
 export default commentsSlice.reducer;

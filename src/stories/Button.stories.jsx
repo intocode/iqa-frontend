@@ -42,9 +42,7 @@ SaveIcon.propTypes = {
   color: PropTypes.string.isRequired,
 };
 
-export const ContainsIcon = () => (
-  <Button startIcon={<SaveIcon color="#fff" />}>Click me</Button>
-);
+export const ContainsIcon = () => <Button startIcon={<SaveIcon color="#fff" />}>Click me</Button>;
 
 export const Variants = () => (
   <StyledDecorator>

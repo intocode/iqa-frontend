@@ -1,42 +1,29 @@
 import React, { useState, useRef } from 'react';
-import styled from 'styled-components';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
 import { Button } from '../../components/ui';
-import { selectAllQuestionsList } from '../questions/questionsSlice';
-import {
-  addCommentToPost,
-  resetCommentSuccess,
-  selectCommentsAdding,
-} from './commentsSlice';
+import { addComment, selectCommentsAdding } from './commentsSlice';
 import { selectProfile } from '../profile/profileSlice';
 
-const StyledQuestionsBlock = styled.div`
-  display: flex;
-  margin-top: 30px;
-  padding: 0 10px;
-
-  & > div > img {
-    margin-right: 15px;
-    border-radius: 24px;
-  }
-
-  Button {
-    margin-top: 10px;
+const StyledAvatar = styled.div`
+  & img {
+    width: 48px;
+    border-radius: 50%;
   }
 `;
 
 const AddComment = () => {
-  const { id } = useParams();
   const dispatch = useDispatch();
+
+  const { id } = useParams();
   const editorRef = useRef();
 
   const profile = useSelector(selectProfile);
-  const question = useSelector(selectAllQuestionsList);
-  const commentsLoading = useSelector(selectCommentsAdding);
+  const commentAdding = useSelector(selectCommentsAdding);
 
   const [text, setText] = useState('');
 
@@ -46,46 +33,49 @@ const AddComment = () => {
   };
 
   const handleAddComment = () => {
-    dispatch(addCommentToPost({ text, id })).then(() => {
+    dispatch(addComment({ text, id })).then(() => {
       setText('');
       editorRef.current.getInstance().reset();
     });
-    setTimeout(() => {
-      dispatch(resetCommentSuccess());
-    }, 10000);
   };
 
+  const toolbarItems = [
+    ['heading', 'bold', 'italic', 'strike'],
+    ['hr', 'quote', 'code', 'codeblock'],
+  ];
+
   return (
-    <StyledQuestionsBlock>
-      <div>
-        <img src={profile.avatar?.thumbnail} alt="" />
+    <div>
+      <div className="row mb-3">
+        <div className="col-auto">
+          <StyledAvatar>
+            <img src={profile.avatar?.thumbnail} alt="аватарка" />
+          </StyledAvatar>
+        </div>
+        <div className="col">
+          <Editor
+            autofocus={false}
+            previewStyle="vertical"
+            height="150px"
+            initialEditType="wysiwyg"
+            useCommandShortcut
+            hideModeSwitch
+            value={text}
+            onChange={handleChange}
+            ref={editorRef}
+            toolbarItems={toolbarItems}
+          />
+          <Button
+            className="mt-3"
+            loading={commentAdding}
+            onClick={handleAddComment}
+            disabled={!/[^\s]/.test(text)}
+          >
+            Опубликовать
+          </Button>
+        </div>
       </div>
-      <div className="flex-grow-1">
-        <Editor
-          autofocus={false}
-          previewStyle="vertical"
-          height="150px"
-          initialEditType="wysiwyg"
-          useCommandShortcut
-          usageStatistics={false}
-          hideModeSwitch
-          value={text}
-          onChange={handleChange}
-          ref={editorRef}
-          toolbarItems={[
-            ['heading', 'bold', 'italic', 'strike'],
-            ['hr', 'quote', 'code', 'codeblock'],
-          ]}
-        />
-        <Button
-          loading={commentsLoading}
-          onClick={handleAddComment}
-          disabled={!question.length || !/[^\s]/.test(text)}
-        >
-          Опубликовать
-        </Button>
-      </div>
-    </StyledQuestionsBlock>
+    </div>
   );
 };
 

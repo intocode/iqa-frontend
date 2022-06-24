@@ -9,9 +9,7 @@ const StyledPaper = styled.div`
   border-radius: 4px;
 `;
 
-export const Paper = ({ children, ...props }) => (
-  <StyledPaper {...props}>{children}</StyledPaper>
-);
+export const Paper = ({ children, ...props }) => <StyledPaper {...props}>{children}</StyledPaper>;
 
 Paper.propTypes = {
   children: PropTypes.node.isRequired,

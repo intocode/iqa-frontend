@@ -7,13 +7,11 @@ import { fetchProfile } from '../features/profile/profileSlice';
 import { LazyPlaceholder } from './LazyPlaceholder';
 import { Footer } from '../components/layout/Footer';
 
-const QuestionPage = lazy(() => import('../features/questions/QuestionPage'));
+const QuestionPage = lazy(() => import('../features/questions/question-page/QuestionPage'));
 // const CreateQuestion = lazy(() =>
 //   import('../features/questions/CreateQuestion')
 // );
-const QuestionsList = lazy(() =>
-  import('../features/questions/questions-list/QuestionsList')
-);
+const QuestionsList = lazy(() => import('../features/questions/questions-list/QuestionsList'));
 
 const routes = [
   {

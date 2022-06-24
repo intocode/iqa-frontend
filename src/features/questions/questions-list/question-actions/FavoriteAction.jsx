@@ -25,29 +25,31 @@ export const FavoriteAction = ({ questionId }) => {
 
   const profile = useSelector(selectProfile);
 
-  const question = useSelector((state) =>
-    questionSelectors.selectById(state, questionId)
-  );
+  const question = useSelector((state) => questionSelectors.selectById(state, questionId));
 
   const handleToggleFavorite = () => {
-    if (question.usersThatFavoriteIt.includes(profile._id)) {
-      dispatch(
-        deleteQuestionFromFavorites({
-          questionId: question._id,
-          userId: profile._id,
-        })
-      );
+    if (token) {
+      if (question.usersThatFavoriteIt.includes(profile._id)) {
+        dispatch(
+          deleteQuestionFromFavorites({
+            questionId: question._id,
+            userId: profile._id,
+          })
+        );
+      } else {
+        dispatch(
+          addQuestionToFavorites({
+            questionId: question._id,
+            userId: profile._id,
+          })
+        );
+      }
     } else {
-      dispatch(
-        addQuestionToFavorites({
-          questionId: question._id,
-          userId: profile._id,
-        })
-      );
+      // todo сделать окно запроса авторизации
     }
   };
 
-  if (!REACT_APP_FEATURE_FAVORITES || !token) return null;
+  if (!REACT_APP_FEATURE_FAVORITES) return null;
 
   return (
     <div className="col-auto">
@@ -58,14 +60,9 @@ export const FavoriteAction = ({ questionId }) => {
         className="d-flex align-items-center"
       >
         <div>
-          <FavoriteIconSwitcher
-            usersList={question.usersThatFavoriteIt}
-            myId={profile._id}
-          />
+          <FavoriteIconSwitcher questionId={questionId} />
         </div>
-        <StyledFavoritesCounter>
-          {question.usersThatFavoriteIt.length}
-        </StyledFavoritesCounter>
+        <StyledFavoritesCounter>{question.usersThatFavoriteIt.length}</StyledFavoritesCounter>
       </div>
     </div>
   );

@@ -15,11 +15,7 @@ function SearchIcon() {
           stroke="#49a2fe"
           strokeLinejoin="round"
         />
-        <path
-          d="M12.85 12.85L9.71249 9.71252"
-          stroke="#49a2fe"
-          strokeLinejoin="round"
-        />
+        <path d="M12.85 12.85L9.71249 9.71252" stroke="#49a2fe" strokeLinejoin="round" />
       </svg>
     </div>
   );
