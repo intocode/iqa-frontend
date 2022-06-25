@@ -1,0 +1,3 @@
+{
+  "*{.json,.jsx,.js,.css,.html,.yml}": "npm run check"
+}
