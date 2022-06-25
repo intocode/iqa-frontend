@@ -103,7 +103,6 @@ export const addQuestion = createAsyncThunk('add', async (data, thunkAPI) => {
   }
 });
 
-// todo: refactor
 export const removeQuestionById = createAsyncThunk(
   'questions/remove/byId',
   async (id, thunkAPI) => {
@@ -117,7 +116,6 @@ export const removeQuestionById = createAsyncThunk(
   }
 );
 
-// todo: refactor
 export const restoreQuestionById = createAsyncThunk(
   'questions/restore/byId',
   async (id, thunkAPI) => {

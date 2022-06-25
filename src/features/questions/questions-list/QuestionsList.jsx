@@ -7,7 +7,6 @@ import {
   resetQuestionsList,
 } from '../questionsSlice';
 import { selectIsCompactModeToogle, toggleIsCompactMode } from '../../application/applicationSlice';
-import { QuestionsListPlaceholder } from './QuestionsListPlaceholder';
 import { Title } from '../../../app/Title/Title';
 import { Paper, Switch, Spinner } from '../../../components/ui';
 import { useOnScroll } from '../../../common/hooks/useOnScroll';
@@ -66,16 +65,11 @@ const QuestionsList = () => {
             <h2>Все вопросы</h2>
           </div>
           <div className="col-auto">
-            <Switch
-              turnedOn={isCompactMode}
-              onChange={() => dispatch(toggleIsCompactMode())}
-              disabled={false}
-            >
+            <Switch turnedOn={isCompactMode} onChange={() => dispatch(toggleIsCompactMode())}>
               Компактный вид
             </Switch>
           </div>
         </div>
-        {fetching && <QuestionsListPlaceholder />}
         <QuestionWrapper>
           <QuestionsListMapper />
         </QuestionWrapper>
