@@ -1,4 +1,4 @@
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../../common/context/Auth/useAuth';
@@ -33,8 +33,6 @@ const StyledHeader = styled.div`
 `;
 
 export const Header = () => {
-  const history = useHistory();
-
   // todo: рефакторить мобильную версию. Возможно нужен вынос в хук или в контекст
 
   const { token, executeLoggingInProcess, logout } = useAuth();
@@ -52,9 +50,6 @@ export const Header = () => {
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
-  // todo: заменить на Link
-  const handleAddQuestion = () => history.push('/create');
 
   const handleToggleMenu = () => {
     if (!mobileMenu) {
@@ -94,14 +89,11 @@ export const Header = () => {
             {token ? (
               <>
                 {REACT_APP_FEATURE_ADD_QUESTION && (
-                  <Button
-                    className="me-3"
-                    contrast={false}
-                    color="primary"
-                    onClick={handleAddQuestion}
-                  >
-                    Добавить вопрос
-                  </Button>
+                  <Link to="/create" className="header_link">
+                    <Button className="me-3" contrast={false} color="primary">
+                      Добавить вопрос
+                    </Button>
+                  </Link>
                 )}
                 <Link to="/" className="header_link">
                   <Button contrast={false} color="primary" onClick={logout}>
