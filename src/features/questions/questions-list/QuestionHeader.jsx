@@ -28,7 +28,7 @@ export const QuestionHeader = ({ questionId }) => {
   const { REACT_APP_FEATURE_TAGS } = process.env;
 
   return (
-    <StyledHeader>
+    <StyledHeader data-testid="not-for-compact">
       <div className="row mb-4">
         <div className="col">
           <div className="d-flex align-items-center">
