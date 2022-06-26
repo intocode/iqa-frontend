@@ -25,7 +25,7 @@ export const QuestionBlock = ({ questionId }) => {
   const QuestionWrapper = isCompactMode ? React.Fragment : Paper;
 
   return (
-    <StyledQuestionBlock className="mb-4" deleted={question.deleted}>
+    <StyledQuestionBlock data-testid="question-block" className="mb-4" deleted={question.deleted}>
       <QuestionWrapper>
         {isCompactMode || <QuestionHeader questionId={questionId} />}
 
