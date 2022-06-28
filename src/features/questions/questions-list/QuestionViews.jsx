@@ -5,28 +5,20 @@ import styled from 'styled-components';
 import QuestionViewsIcon from '../../../components/icons/QuestionViewsIcon';
 import { questionSelectors } from '../questionsSlice';
 
+const StyledViews = styled.div`
+  width: 60px;
+
+  span {
+    font-size: 14px;
+    color: #909399;
+  }
+`;
+
 const QuestionViews = ({ questionId }) => {
   const question = useSelector((state) => questionSelectors.selectById(state, questionId));
 
-  const StyledViews = styled.div`
-    display: flex;
-    width: 60px;
-    justify-content: space-between;
-    align-items: center;
-
-    span {
-      font-size: 14px;
-    }
-
-    .logoSvg {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-  `;
-
   return (
-    <StyledViews>
+    <StyledViews className="d-flex align-items-center justify-content-between">
       <QuestionViewsIcon />
       <span>{question.views}</span>
     </StyledViews>
