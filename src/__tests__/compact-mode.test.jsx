@@ -28,7 +28,9 @@ describe('Header rendering', () => {
     );
 
     // дожидаемся подгрузки вопросов
-    await waitFor(() => expect(screen.getAllByTestId('question-block')[0]).toBeInTheDocument());
+    await waitFor(() => expect(screen.getAllByTestId('question-block')[0]).toBeInTheDocument(), {
+      timeout: 4000,
+    });
 
     // кликаем на "Компактный вид"
     fireEvent.click(screen.getByLabelText(/Компактный/));
