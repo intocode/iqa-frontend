@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import { useAuth } from '../../../common/context/Auth/useAuth';
 import { Button } from '../../ui/Button';
 import { Logo } from './Logo';
@@ -9,6 +10,11 @@ import iconMenu from '../../assets/menu.svg';
 import iconCloseMenu from '../../assets/closeMenu.svg';
 import AnimatedSearch from './AnimatedSearch';
 import { HeaderMenu } from './header-menu/HeaderMenu';
+import { selectProfile } from '../../../features/profile/profileSlice';
+import Popover from '../../ui/Popover';
+import { Paper, Typography } from '../../ui';
+import { LinkToFavorites } from './header-menu/LinkToFavorites';
+import { LinkToDeleted } from './header-menu/LinkToDeleted';
 
 const StyledHeader = styled.div`
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -32,24 +38,64 @@ const StyledHeader = styled.div`
   }
 `;
 
+const StyledAvatar = styled.div`
+  & > img {
+    width: 36px;
+    height: 36px;
+    margin-right: 10px;
+    border-radius: 24px;
+  }
+`;
+
+const StyledMenuProfile = styled.div`
+  line-height: 1.7;
+  border-top: 1px solid #f5f5f5;
+  border-bottom: 1px solid #f5f5f5;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;
+
 export const Header = () => {
   // todo: рефакторить мобильную версию. Возможно нужен вынос в хук или в контекст
 
   const { token, executeLoggingInProcess, logout } = useAuth();
 
   const [mobileMenu, setMobileMenu] = useState(false);
+  const [openMenuProfile, setOpenMenuProfile] = useState(false);
+
+  const ref = useRef();
+  const refMenuProfile = useRef();
 
   // todo: зачем это нужно?
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const profile = useSelector(selectProfile);
 
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
+
+    const handleClickOutside = (event) => {
+      if (refMenuProfile.current && !event.path.includes(refMenuProfile.current)) {
+        setOpenMenuProfile(false);
+      }
+    };
+
+    document.body.addEventListener('click', handleClickOutside);
     window.addEventListener('resize', handleResize);
 
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      document.body.removeEventListener('click', handleClickOutside);
+    };
   }, []);
+
+  useEffect(() => {
+    setOpenMenuProfile(false);
+  }, [token]);
 
   const handleToggleMenu = () => {
     if (!mobileMenu) {
@@ -59,6 +105,10 @@ export const Header = () => {
       setMobileMenu(!mobileMenu);
       document.body.style.overflowY = 'visible';
     }
+  };
+
+  const handleOpenMenuProfile = () => {
+    setOpenMenuProfile(!openMenuProfile);
   };
 
   // todo: рефакторить
@@ -85,7 +135,7 @@ export const Header = () => {
 
             <AnimatedSearch />
           </div>
-          <div className="col-auto d-none d-md-block">
+          <div className="col-auto d-none d-md-flex align-items-center">
             {token ? (
               <>
                 {REACT_APP_FEATURE_ADD_QUESTION && (
@@ -95,11 +145,29 @@ export const Header = () => {
                     </Button>
                   </Link>
                 )}
-                <Link to="/" className="header_link">
-                  <Button contrast={false} color="primary" onClick={logout}>
-                    Выйти
-                  </Button>
-                </Link>
+                <div ref={refMenuProfile}>
+                  <StyledAvatar onClick={handleOpenMenuProfile} ref={ref} className="d-md-flex">
+                    <img src={profile.avatar?.thumbnail} alt="" />
+                  </StyledAvatar>
+                  {openMenuProfile && (
+                    <Popover
+                      open={openMenuProfile}
+                      anchorEl={ref}
+                      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                    >
+                      <Paper className="d-flex flex-column">
+                        <div>@{profile.name}</div>
+                        <StyledMenuProfile>
+                          <LinkToFavorites />
+                          <LinkToDeleted />
+                        </StyledMenuProfile>
+                        <Link to="/" className="d-none d-md-block">
+                          <Typography onClick={logout}>Выйти</Typography>
+                        </Link>
+                      </Paper>
+                    </Popover>
+                  )}
+                </div>
               </>
             ) : (
               <Link to="/" className="header_link d-none d-md-block">

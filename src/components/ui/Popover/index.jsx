@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 const StyledPopover = styled.div`
   position: absolute;
+  z-index: 1;
   ${(props) => css`
     top: ${props.top}px;
     left: ${props.left}px;
