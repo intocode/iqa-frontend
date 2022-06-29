@@ -7,8 +7,8 @@ import { Logo } from './Logo';
 import AdaptiveMenu from './AdaptiveMenu';
 import iconMenu from '../../assets/menu.svg';
 import iconCloseMenu from '../../assets/closeMenu.svg';
-import AnimatedSearch from './AnimatedSearch';
 import { HeaderMenu } from './header-menu/HeaderMenu';
+import Search from './Search';
 
 const StyledHeader = styled.div`
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -81,9 +81,9 @@ export const Header = () => {
               </Link>
             </div>
 
-            <HeaderMenu />
+            <Search />
 
-            <AnimatedSearch />
+            <HeaderMenu />
           </div>
           <div className="col-auto d-none d-md-block">
             {token ? (
