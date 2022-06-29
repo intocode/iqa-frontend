@@ -8,7 +8,6 @@ import { Logo } from './Logo';
 import AdaptiveMenu from './AdaptiveMenu';
 import iconMenu from '../../assets/menu.svg';
 import iconCloseMenu from '../../assets/closeMenu.svg';
-import { HeaderMenu } from './header-menu/HeaderMenu';
 import { selectProfile } from '../../../features/profile/profileSlice';
 import Popover from '../../ui/Popover';
 import { Divider, Paper, Typography } from '../../ui';
@@ -140,8 +139,6 @@ export const Header = () => {
             </div>
 
             <Search />
-
-            <HeaderMenu />
           </div>
           <div className="col-auto d-none d-md-flex align-items-center">
             {token ? (
