@@ -10,7 +10,7 @@ export const LinkToFavorites = () => {
   if (!REACT_APP_FEATURE_FAVORITES || !token) return null;
 
   return (
-    <Link to="/?favoritesOnly=true" className="d-none d-md-block">
+    <Link to="/?favoritesOnly=true" className="d-none d-md-block mt-2">
       <Typography>Сохраненные</Typography>
     </Link>
   );

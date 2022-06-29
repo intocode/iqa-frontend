@@ -12,7 +12,7 @@ import AnimatedSearch from './AnimatedSearch';
 import { HeaderMenu } from './header-menu/HeaderMenu';
 import { selectProfile } from '../../../features/profile/profileSlice';
 import Popover from '../../ui/Popover';
-import { Paper, Typography } from '../../ui';
+import { Divider, Paper, Typography } from '../../ui';
 import { LinkToFavorites } from './header-menu/LinkToFavorites';
 import { LinkToDeleted } from './header-menu/LinkToDeleted';
 
@@ -49,12 +49,20 @@ const StyledAvatar = styled.div`
 
 const StyledMenuProfile = styled.div`
   line-height: 1.7;
-  border-top: 1px solid #f5f5f5;
-  border-bottom: 1px solid #f5f5f5;
-  padding-top: 5px;
-  padding-bottom: 5px;
   margin-top: 10px;
   margin-bottom: 10px;
+`;
+
+const StyledWrappeAvatar = styled.div`
+  cursor: pointer;
+`;
+
+const StyledWrapperPaper = styled.div`
+  margin-top: 5px;
+  & > div {
+    font-size: 14px;
+    color: #909399;
+  }
 `;
 
 export const Header = () => {
@@ -146,25 +154,33 @@ export const Header = () => {
                   </Link>
                 )}
                 <div ref={refMenuProfile}>
-                  <StyledAvatar onClick={handleOpenMenuProfile} ref={ref} className="d-md-flex">
-                    <img src={profile.avatar?.thumbnail} alt="" />
-                  </StyledAvatar>
+                  <StyledWrappeAvatar>
+                    <StyledAvatar onClick={handleOpenMenuProfile} ref={ref} className="d-md-flex">
+                      <img className="m-auto" src={profile.avatar?.thumbnail} alt="" />
+                    </StyledAvatar>
+                  </StyledWrappeAvatar>
                   {openMenuProfile && (
                     <Popover
                       open={openMenuProfile}
                       anchorEl={ref}
                       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                     >
-                      <Paper className="d-flex flex-column">
-                        <div>@{profile.name}</div>
-                        <StyledMenuProfile>
-                          <LinkToFavorites />
-                          <LinkToDeleted />
-                        </StyledMenuProfile>
-                        <Link to="/" className="d-none d-md-block">
-                          <Typography onClick={logout}>Выйти</Typography>
-                        </Link>
-                      </Paper>
+                      <StyledWrapperPaper>
+                        <Paper className="d-flex flex-column">
+                          <div>@{profile.name}</div>
+                          <div role="presentation" onClick={() => handleOpenMenuProfile()}>
+                            <StyledMenuProfile>
+                              <Divider />
+                              <LinkToFavorites />
+                              <LinkToDeleted />
+                              <Divider />
+                            </StyledMenuProfile>
+                            <Link to="/" className="d-none d-md-block">
+                              <Typography onClick={logout}>Выйти</Typography>
+                            </Link>
+                          </div>
+                        </Paper>
+                      </StyledWrapperPaper>
                     </Popover>
                   )}
                 </div>
