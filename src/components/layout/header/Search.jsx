@@ -7,6 +7,7 @@ import {
   selectQuestionsSearch,
   fetchQuestionsSearch,
 } from '../../../features/search/searchQuestionSlice';
+import SearchIcon from '../../icons/SearchIcon';
 
 const StyledSearch = styled.div`
   width: 100%;
@@ -24,7 +25,12 @@ const StyledSearch = styled.div`
   }
 
   input {
-    border-color: #409eff;
+    border-color: #909399;
+    height: 40px;
+  }
+
+  input::placeholder {
+    font-size: 14px;
   }
 
   .question {
@@ -43,6 +49,12 @@ const StyledSearch = styled.div`
   .question-text {
     color: #6c757d;
     font-size: 14px;
+  }
+
+  .search-icon {
+    position: absolute;
+    top: 11px;
+    right: 7px;
   }
 `;
 
@@ -80,12 +92,15 @@ const Search = () => {
   return (
     <StyledSearch>
       {REACT_APP_FEATURE_SEARCH && (
-        <Input
-          onChange={(e) => handleSearch(e)}
-          value={question}
-          placeholder="Поиск вопроса..."
-          ref={ref}
-        />
+        <>
+          <Input
+            onChange={(e) => handleSearch(e)}
+            value={question}
+            placeholder="Поиск..."
+            ref={ref}
+          />
+          <SearchIcon />
+        </>
       )}
       {examination && (
         <div className="questions">

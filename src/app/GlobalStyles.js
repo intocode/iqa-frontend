@@ -13,6 +13,16 @@ html, body {
   background-color: #F5F5F5;
 }
 
+html {
+  height: 100%;
+}
+
+body {
+  position: relative;
+  min-height: 100%;
+  padding-bottom: 50px;
+}
+
 .container {
   max-width: 844px;
 }

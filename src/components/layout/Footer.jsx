@@ -8,7 +8,11 @@ const StyledFooter = styled.div`
   align-items: end;
   justify-content: space-between;
   margin-bottom: 20px;
-  min-height: 260px;
+  margin-top: 60px;
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
 
   .footer_text {
     font-size: 14px;

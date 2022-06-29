@@ -8,13 +8,13 @@ import { Logo } from './Logo';
 import AdaptiveMenu from './AdaptiveMenu';
 import iconMenu from '../../assets/menu.svg';
 import iconCloseMenu from '../../assets/closeMenu.svg';
-import AnimatedSearch from './AnimatedSearch';
 import { HeaderMenu } from './header-menu/HeaderMenu';
 import { selectProfile } from '../../../features/profile/profileSlice';
 import Popover from '../../ui/Popover';
 import { Divider, Paper, Typography } from '../../ui';
 import { LinkToFavorites } from './header-menu/LinkToFavorites';
 import { LinkToDeleted } from './header-menu/LinkToDeleted';
+import Search from './Search';
 
 const StyledHeader = styled.div`
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -139,9 +139,9 @@ export const Header = () => {
               </Link>
             </div>
 
-            <HeaderMenu />
+            <Search />
 
-            <AnimatedSearch />
+            <HeaderMenu />
           </div>
           <div className="col-auto d-none d-md-flex align-items-center">
             {token ? (
