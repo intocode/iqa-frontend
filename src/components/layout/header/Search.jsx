@@ -10,7 +10,7 @@ import {
 import SearchIcon from '../../icons/SearchIcon';
 
 const StyledSearch = styled.div`
-  width: 100%;
+  width: 300px;
   margin-left: 20px;
   position: relative;
 
@@ -77,10 +77,6 @@ const Search = () => {
       setExamination(true);
     }
   }, [question, dispatch]);
-
-  useEffect(() => {
-    ref.current.focus();
-  }, []);
 
   useEffect(() => {
     setExamination(false);
