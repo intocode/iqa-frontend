@@ -6,11 +6,10 @@ import QuestionViewsIcon from '../../../components/icons/QuestionViewsIcon';
 import { questionSelectors } from '../questionsSlice';
 
 const StyledViews = styled.div`
-  width: 60px;
-
   span {
     font-size: 14px;
     color: #909399;
+    padding-left: 4px;
   }
 `;
 
@@ -18,10 +17,12 @@ const QuestionViews = ({ questionId }) => {
   const question = useSelector((state) => questionSelectors.selectById(state, questionId));
 
   return (
-    <StyledViews className="d-flex align-items-center justify-content-between">
-      <QuestionViewsIcon />
-      <span>{question.views}</span>
-    </StyledViews>
+    <div className="col-auto">
+      <StyledViews className="d-flex">
+        <QuestionViewsIcon />
+        <span>{question.views}</span>
+      </StyledViews>
+    </div>
   );
 };
 
