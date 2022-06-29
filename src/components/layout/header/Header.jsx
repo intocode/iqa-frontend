@@ -52,6 +52,11 @@ const StyledMenuProfile = styled.div`
   margin-bottom: 10px;
 `;
 
+const StyledMenuList = styled.ul`
+  list-style: none;
+  padding: 0;
+`;
+
 const StyledWrappeAvatar = styled.div`
   cursor: pointer;
 `;
@@ -168,8 +173,14 @@ export const Header = () => {
                           <div role="presentation" onClick={() => handleOpenMenuProfile()}>
                             <StyledMenuProfile>
                               <Divider />
-                              <LinkToFavorites />
-                              <LinkToDeleted />
+                              <StyledMenuList>
+                                <li className="mt-2">
+                                  <LinkToFavorites />
+                                </li>
+                                <li className="mb-2">
+                                  <LinkToDeleted />
+                                </li>
+                              </StyledMenuList>
                               <Divider />
                             </StyledMenuProfile>
                             <Link to="/" className="d-none d-md-block">
