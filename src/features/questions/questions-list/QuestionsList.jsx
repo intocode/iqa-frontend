@@ -60,10 +60,6 @@ const QuestionsList = () => {
 
   const QuestionWrapper = isCompactMode ? Paper : React.Fragment;
 
-  if (fetching) {
-    return <Spinner />;
-  }
-
   return (
     <>
       <Title>iqa: все вопросы</Title>
@@ -85,6 +81,8 @@ const QuestionsList = () => {
         ) : (
           <QuestionSavesAreEmpty />
         )}
+
+        {fetching && <Spinner />}
       </div>
     </>
   );
