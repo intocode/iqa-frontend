@@ -13,7 +13,7 @@ import { Paper, Switch, Spinner } from '../../../components/ui';
 import { useOnScroll } from '../../../common/hooks/useOnScroll';
 import QuestionsListMapper from './QuestionsListMapper';
 import { useQueryString } from '../../../common/hooks/useQueryString';
-import QuestionSavesAreEmpty from './QuestionSavesAreEmpty';
+import QuestionEmptyFolder from './QuestionEmptyFolder';
 
 const QuestionsList = () => {
   const dispatch = useDispatch();
@@ -74,14 +74,13 @@ const QuestionsList = () => {
             </Switch>
           </div>
         </div>
-        {questionsIds.length ? (
+        {!questionsIds.length && !fetching ? (
+          <QuestionEmptyFolder />
+        ) : (
           <QuestionWrapper>
             <QuestionsListMapper />
           </QuestionWrapper>
-        ) : (
-          <QuestionSavesAreEmpty />
         )}
-
         {fetching && <Spinner />}
       </div>
     </>

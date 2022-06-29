@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import folder from '../../../components/assets/folder-x 1.svg';
+import Folder from '../../../components/icons/Folder';
 
 const StaledWrapper = styled.div`
   display: flex;
@@ -16,15 +16,15 @@ const StaledWrapper = styled.div`
   }
 `;
 
-const QuestionSavesAreEmpty = () => {
+const QuestionEmptyFolder = () => {
   return (
     <StaledWrapper>
       <div className="inner">
-        <img src={folder} alt="" />
+        <Folder />
         <p>В данном разделе нет записей</p>
       </div>
     </StaledWrapper>
   );
 };
 
-export default QuestionSavesAreEmpty;
+export default QuestionEmptyFolder;
