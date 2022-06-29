@@ -12,7 +12,10 @@ const spin = keyframes`
 
 const StyledSpinner = styled.div`
   & {
-    position: relative;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%);
     width: 50px;
     height: 50px;
     border-radius: 50%;
