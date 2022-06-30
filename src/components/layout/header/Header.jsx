@@ -41,8 +41,8 @@ const StyledAvatar = styled.div`
   & > img {
     width: 36px;
     height: 36px;
-    margin-right: 10px;
-    border-radius: 24px;
+    border-radius: 50%;
+    cursor: pointer;
   }
 `;
 
@@ -55,10 +55,6 @@ const StyledMenuProfile = styled.div`
 const StyledMenuList = styled.ul`
   list-style: none;
   padding: 0;
-`;
-
-const StyledWrappeAvatar = styled.div`
-  cursor: pointer;
 `;
 
 const StyledWrapperPaper = styled.div`
@@ -78,7 +74,7 @@ export const Header = () => {
   const [openMenuProfile, setOpenMenuProfile] = useState(false);
 
   const ref = useRef();
-  const refMenuProfile = useRef();
+  // const refMenuProfile = useRef();
 
   // todo: зачем это нужно?
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -90,18 +86,10 @@ export const Header = () => {
       setWindowWidth(window.innerWidth);
     };
 
-    const handleClickOutside = (event) => {
-      if (refMenuProfile.current && !event.path.includes(refMenuProfile.current)) {
-        setOpenMenuProfile(false);
-      }
-    };
-
-    document.body.addEventListener('click', handleClickOutside);
     window.addEventListener('resize', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      document.body.removeEventListener('click', handleClickOutside);
     };
   }, []);
 
@@ -155,22 +143,21 @@ export const Header = () => {
                     </Button>
                   </Link>
                 )}
-                <div ref={refMenuProfile}>
-                  <StyledWrappeAvatar>
-                    <StyledAvatar onClick={handleOpenMenuProfile} ref={ref} className="d-md-flex">
-                      <img className="m-auto" src={profile.avatar?.thumbnail} alt="" />
-                    </StyledAvatar>
-                  </StyledWrappeAvatar>
+                <div>
+                  <StyledAvatar onClick={handleOpenMenuProfile} ref={ref} className="d-md-flex">
+                    <img className="m-auto" src={profile.avatar?.thumbnail} alt="" />
+                  </StyledAvatar>
                   {openMenuProfile && (
                     <Popover
                       open={openMenuProfile}
+                      setOpen={setOpenMenuProfile}
                       anchorEl={ref}
                       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                     >
                       <StyledWrapperPaper>
                         <Paper className="d-flex flex-column">
                           <div>@{profile.name}</div>
-                          <div role="presentation" onClick={() => handleOpenMenuProfile()}>
+                          <div role="presentation" onClick={handleOpenMenuProfile}>
                             <StyledMenuProfile>
                               <Divider />
                               <StyledMenuList>

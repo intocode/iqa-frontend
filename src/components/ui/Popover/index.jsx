@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -11,7 +11,7 @@ const StyledPopover = styled.div`
   `}
 `;
 
-const Popover = ({ anchorEl, open, children, anchorOrigin }) => {
+const Popover = ({ anchorEl, open, setOpen, children, anchorOrigin }) => {
   // Стайт для сохранения ширины контента(children)
   const [widthContent, setWidthContent] = useState(null);
   // Стайт для сохранения позиции popover-а по высоте
@@ -77,6 +77,25 @@ const Popover = ({ anchorEl, open, children, anchorOrigin }) => {
     }
   }, [anchorEl, anchorOrigin.horizontal, anchorOrigin.vertical, widthContent]);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        ref.current &&
+        !event.path.includes(ref.current) &&
+        anchorEl.current &&
+        !event.path.includes(anchorEl.current)
+      ) {
+        setOpen(!open);
+      }
+    };
+
+    document.body.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.body.removeEventListener('click', handleClickOutside);
+    };
+  }, [anchorEl, open, setOpen]);
+
   if (!open) {
     return null;
   }
@@ -92,6 +111,7 @@ Popover.propTypes = {
   anchorEl: PropTypes.shape({ current: PropTypes.instanceOf(Element) }).isRequired,
   children: PropTypes.node.isRequired,
   open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
   anchorOrigin: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
