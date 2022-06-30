@@ -11,7 +11,7 @@ const StyledPopover = styled.div`
   `}
 `;
 
-const Popover = ({ anchorEl, open, setOpen, children, anchorOrigin }) => {
+const Popover = ({ anchorEl, open, onClose, children, anchorOrigin }) => {
   // Стайт для сохранения ширины контента(children)
   const [widthContent, setWidthContent] = useState(null);
   // Стайт для сохранения позиции popover-а по высоте
@@ -85,7 +85,7 @@ const Popover = ({ anchorEl, open, setOpen, children, anchorOrigin }) => {
         anchorEl.current &&
         !event.path.includes(anchorEl.current)
       ) {
-        setOpen(!open);
+        onClose(!open);
       }
     };
 
@@ -94,7 +94,7 @@ const Popover = ({ anchorEl, open, setOpen, children, anchorOrigin }) => {
     return () => {
       document.body.removeEventListener('click', handleClickOutside);
     };
-  }, [anchorEl, open, setOpen]);
+  }, [anchorEl, open, onClose]);
 
   if (!open) {
     return null;
@@ -111,7 +111,7 @@ Popover.propTypes = {
   anchorEl: PropTypes.shape({ current: PropTypes.instanceOf(Element) }).isRequired,
   children: PropTypes.node.isRequired,
   open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
   anchorOrigin: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 

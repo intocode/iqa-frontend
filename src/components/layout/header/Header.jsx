@@ -146,7 +146,7 @@ export const Header = () => {
                   {openMenuProfile && (
                     <Popover
                       open={openMenuProfile}
-                      setOpen={setOpenMenuProfile}
+                      onClose={setOpenMenuProfile}
                       anchorEl={ref}
                       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                     >
