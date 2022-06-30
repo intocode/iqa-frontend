@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Typography } from '../../../ui';
-import { LinkToDeleted } from './LinkToDeleted';
-import { LinkToFavorites } from './LinkToFavorites';
 
 const StyledUl = styled.ul`
   list-style: none;
@@ -23,12 +21,6 @@ export const HeaderMenu = () => {
           <Link to="/" className="d-none d-md-block">
             <Typography>Главная</Typography>
           </Link>
-        </li>
-        <li>
-          <LinkToFavorites />
-        </li>
-        <li>
-          <LinkToDeleted />
         </li>
       </StyledUl>
     </div>
