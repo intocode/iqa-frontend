@@ -74,7 +74,6 @@ export const Header = () => {
   const [openMenuProfile, setOpenMenuProfile] = useState(false);
 
   const ref = useRef();
-  // const refMenuProfile = useRef();
 
   // todo: зачем это нужно?
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
