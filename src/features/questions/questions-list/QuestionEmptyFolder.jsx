@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import Folder from '../../../components/icons/EmptyFolderIcon';
+import { theme } from '../../../app/theme';
 
 const StaledWrapper = styled.div`
   margin-top: 40px;
-  p {
-    color: #909399ff;
+  .noEntry {
+    color: ${theme.colors.gray.main};
     font-size: 22px;
     font-weight: 400;
   }
@@ -20,7 +21,7 @@ const QuestionEmptyFolder = () => {
     <StaledWrapper>
       <div className="inner">
         <Folder />
-        <div>В данном разделе нет записей</div>
+        <div className="noEntry">В данном разделе нет записей</div>
       </div>
     </StaledWrapper>
   );
