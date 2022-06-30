@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import closeIcon from '../../assets/close.svg';
+import CloseIcon from '../../icons/CloseIcon';
 
 const StyledTag = styled.div`
   display: inline-flex;
@@ -40,7 +40,7 @@ export const Tag = ({ children, onRemove, ...props }) => (
     {children}
     {onRemove && (
       <button type="button" onClick={onRemove}>
-        <img src={closeIcon} alt="" />
+        <CloseIcon />
       </button>
     )}
   </StyledTag>
