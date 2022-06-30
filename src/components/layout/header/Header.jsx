@@ -93,10 +93,6 @@ export const Header = () => {
     };
   }, []);
 
-  useEffect(() => {
-    setOpenMenuProfile(false);
-  }, [token]);
-
   const handleToggleMenu = () => {
     if (!mobileMenu) {
       setMobileMenu(!mobileMenu);
