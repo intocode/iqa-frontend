@@ -5,6 +5,7 @@ import {
   fetchNextPartOfQuestions,
   selectQuestionsFetching,
   resetQuestionsList,
+  questionSelectors,
 } from '../questionsSlice';
 import { selectIsCompactModeToogle, toggleIsCompactMode } from '../../application/applicationSlice';
 import { Title } from '../../../app/Title/Title';
@@ -12,6 +13,7 @@ import { Paper, Switch, Spinner } from '../../../components/ui';
 import { useOnScroll } from '../../../common/hooks/useOnScroll';
 import QuestionsListMapper from './QuestionsListMapper';
 import { useQueryString } from '../../../common/hooks/useQueryString';
+import QuestionEmptyFolder from './QuestionEmptyFolder';
 
 const QuestionsList = () => {
   const dispatch = useDispatch();
@@ -22,6 +24,8 @@ const QuestionsList = () => {
 
   const fetching = useSelector(selectQuestionsFetching);
   const isCompactMode = useSelector(selectIsCompactModeToogle);
+
+  const questionsIds = useSelector(questionSelectors.selectIds);
 
   const scrollHandler = useCallback(
     (e) => {
@@ -70,9 +74,13 @@ const QuestionsList = () => {
             </Switch>
           </div>
         </div>
-        <QuestionWrapper>
-          <QuestionsListMapper />
-        </QuestionWrapper>
+        {!questionsIds.length && !fetching ? (
+          <QuestionEmptyFolder />
+        ) : (
+          <QuestionWrapper>
+            <QuestionsListMapper />
+          </QuestionWrapper>
+        )}
         {fetching && <Spinner />}
       </div>
     </>
