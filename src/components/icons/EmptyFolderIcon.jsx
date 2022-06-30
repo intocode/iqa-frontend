@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MyComponent = () => {
+const EmptyFolderIcon = () => {
   return (
     <svg
       width="128"
@@ -21,4 +21,4 @@ const MyComponent = () => {
   );
 };
 
-export default MyComponent;
+export default EmptyFolderIcon;
