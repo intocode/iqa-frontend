@@ -1,16 +1,16 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import closeIcon from '../../assets/close.svg';
+import CloseIcon from '../../icons/CloseIcon';
 import { AVAILABLE_THEME_COLORS, DEFAULT_COLOR } from '../../../app/constants';
 
 const StyledAlert = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 8px 15px;
-  margin: 20px 0;
+  align-items: center;
+  padding: 5px 10px;
 
-  /* fixme заменить на бордер */
-  box-shadow: ${(props) => props.theme.colors[props.color].main} 0 0 0 1px inset;
+  border: 1px solid transparent;
+  border-color: ${(props) => props.theme.colors[props.color].main};
 
   border-radius: 4px;
 
@@ -30,8 +30,6 @@ const StyledAlert = styled.div`
   }}
 
   button {
-    align-self: flex-start;
-    margin-top: 5px;
     background-color: inherit;
     border: none;
     cursor: pointer;
@@ -44,7 +42,7 @@ export const Alert = ({ children, icon, onClose, ...props }) => {
       {icon} {children}
       {onClose && (
         <button type="button" onClick={onClose}>
-          <img src={closeIcon} alt="" />
+          <CloseIcon />
         </button>
       )}
     </StyledAlert>
@@ -60,7 +58,7 @@ Alert.propTypes = {
 };
 
 Alert.defaultProps = {
-  icon: null,
+  icon: undefined,
   color: DEFAULT_COLOR,
   onClose: undefined,
   contrast: false,

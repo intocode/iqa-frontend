@@ -1,7 +1,6 @@
 import { screen, render, fireEvent } from '@testing-library/react';
 import { Tag as RealTag } from '.';
 import { theme } from '../../../app/theme';
-import closeIcon from '../../assets/close.svg';
 import '@testing-library/jest-dom';
 
 const Tag = (props) => <RealTag theme={theme} {...props} />;
@@ -27,9 +26,9 @@ describe('Tag', () => {
 
       expect(button).toBeTruthy();
 
-      expect(button.firstChild.nodeName.toLowerCase()).toEqual('img');
+      expect(button.firstChild.nodeName.toLowerCase()).toEqual('svg');
 
-      expect(button.firstChild.getAttribute('src')).toEqual(closeIcon);
+      // expect(button.firstChild.getAttribute('src')).toEqual(closeIcon);
     });
 
     it('runs onRemove function when click on button', () => {
