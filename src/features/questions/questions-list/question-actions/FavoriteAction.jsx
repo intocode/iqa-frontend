@@ -17,6 +17,10 @@ const StyledFavoritesCounter = styled.div`
   padding-left: 5px;
 `;
 
+const StyledFavorites = styled.div`
+  margin-top: -17px;
+`;
+
 export const FavoriteAction = ({ questionId }) => {
   const { token } = useAuth();
   const dispatch = useDispatch();
@@ -53,17 +57,19 @@ export const FavoriteAction = ({ questionId }) => {
 
   return (
     <div className="col-auto">
-      <div
-        role="button"
-        aria-hidden
-        onClick={handleToggleFavorite}
-        className="d-flex align-items-center"
-      >
-        <div>
-          <FavoriteIconSwitcher questionId={questionId} />
+      <StyledFavorites>
+        <div
+          role="button"
+          aria-hidden
+          onClick={handleToggleFavorite}
+          className="d-flex align-items-center"
+        >
+          <div>
+            <FavoriteIconSwitcher questionId={questionId} />
+          </div>
+          <StyledFavoritesCounter>{question.usersThatFavoriteIt.length}</StyledFavoritesCounter>
         </div>
-        <StyledFavoritesCounter>{question.usersThatFavoriteIt.length}</StyledFavoritesCounter>
-      </div>
+      </StyledFavorites>
     </div>
   );
 };
