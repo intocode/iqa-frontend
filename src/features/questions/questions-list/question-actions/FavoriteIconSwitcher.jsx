@@ -3,20 +3,19 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { selectProfile } from '../../../profile/profileSlice';
 import { questionSelectors } from '../../questionsSlice';
-import logo from '../../../../components/assets/sprite.svg';
+import favoritesIcon from '../../../../components/assets/sprite.svg';
 
 const FavoritesIconAnimation = styled.div`
   cursor: pointer;
-  height: 50px;
-  width: 50px;
+  height: 49px;
+  width: 49px;
   margin-right: -15px;
-  background-image: url(${logo});
+  background-image: url(${favoritesIcon});
   background-position: right;
-  background-repeat: no-repeat;
   background-size: 2900%;
-  animation: heart-burst 0.8s steps(27) 1;
+  animation: star-burst 0.4s steps(27) 1;
 
-  @keyframes heart-burst {
+  @keyframes star-burst {
     from {
       background-position: left;
     }
@@ -27,12 +26,11 @@ const FavoritesIconAnimation = styled.div`
 `;
 const StyledFavoritesIcon = styled.div`
   cursor: pointer;
-  height: 50px;
-  width: 50px;
+  height: 49px;
+  width: 49px;
   margin-right: -15px;
-  background-image: url(${logo});
+  background-image: url(${favoritesIcon});
   background-position: left;
-  background-repeat: no-repeat;
   background-size: 2700%;
 `;
 
