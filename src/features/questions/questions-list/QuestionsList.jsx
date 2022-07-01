@@ -14,6 +14,7 @@ import { useOnScroll } from '../../../common/hooks/useOnScroll';
 import QuestionsListMapper from './QuestionsListMapper';
 import { useQueryString } from '../../../common/hooks/useQueryString';
 import QuestionEmptyFolder from './QuestionEmptyFolder';
+import { generateTitle } from '../../../common/utils/title';
 
 const QuestionsList = () => {
   const dispatch = useDispatch();
@@ -62,7 +63,7 @@ const QuestionsList = () => {
 
   return (
     <>
-      <Title>iqa: все вопросы</Title>
+      <Title>{`iqa: ${generateTitle(deletedOnly, favoritesOnly)}`}</Title>
       <div className="container">
         <div className="row justify-content-between align-items-center my-3">
           <div className="col">
