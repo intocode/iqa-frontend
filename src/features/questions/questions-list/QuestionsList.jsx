@@ -14,6 +14,7 @@ import { useOnScroll } from '../../../common/hooks/useOnScroll';
 import QuestionsListMapper from './QuestionsListMapper';
 import { useQueryString } from '../../../common/hooks/useQueryString';
 import QuestionEmptyFolder from './QuestionEmptyFolder';
+import { generateTitle } from '../../../common/utils/title';
 
 const QuestionsList = () => {
   const dispatch = useDispatch();
@@ -59,14 +60,15 @@ const QuestionsList = () => {
   }, [deletedOnly, dispatch, favoritesOnly]);
 
   const QuestionWrapper = isCompactMode ? Paper : React.Fragment;
+  const generatedTitle = generateTitle(deletedOnly, favoritesOnly);
 
   return (
     <>
-      <Title>iqa: все вопросы</Title>
+      <Title>{`iqa: ${generatedTitle}`}</Title>
       <div className="container">
         <div className="row justify-content-between align-items-center my-3">
           <div className="col">
-            <h2>Все вопросы</h2>
+            <h2>{generatedTitle}</h2>
           </div>
           <div className="col-auto">
             <Switch turnedOn={isCompactMode} onChange={() => dispatch(toggleIsCompactMode())}>
