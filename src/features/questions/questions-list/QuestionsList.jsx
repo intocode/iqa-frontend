@@ -67,7 +67,7 @@ const QuestionsList = () => {
       <div className="container">
         <div className="row justify-content-between align-items-center my-3">
           <div className="col">
-            <h2>Все вопросы</h2>
+            <h2>{generateTitle(deletedOnly, favoritesOnly)}</h2>
           </div>
           <div className="col-auto">
             <Switch turnedOn={isCompactMode} onChange={() => dispatch(toggleIsCompactMode())}>

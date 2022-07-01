@@ -1,9 +1,9 @@
 export const generateTitle = (deletedOnly, savedOnly) => {
-  if (!deletedOnly && !savedOnly) {
-    return 'Все вопросы';
+  if (savedOnly) {
+    return 'Сохраненные вопросы';
   }
   if (deletedOnly) {
     return 'Корзина';
   }
-  return 'Сохраненные вопросы';
+  return 'Все вопросы';
 };
