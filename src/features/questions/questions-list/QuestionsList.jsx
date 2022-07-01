@@ -60,14 +60,15 @@ const QuestionsList = () => {
   }, [deletedOnly, dispatch, favoritesOnly]);
 
   const QuestionWrapper = isCompactMode ? Paper : React.Fragment;
+  const generatedTitle = generateTitle(deletedOnly, favoritesOnly);
 
   return (
     <>
-      <Title>{`iqa: ${generateTitle(deletedOnly, favoritesOnly)}`}</Title>
+      <Title>{`iqa: ${generatedTitle}`}</Title>
       <div className="container">
         <div className="row justify-content-between align-items-center my-3">
           <div className="col">
-            <h2>{generateTitle(deletedOnly, favoritesOnly)}</h2>
+            <h2>{generatedTitle}</h2>
           </div>
           <div className="col-auto">
             <Switch turnedOn={isCompactMode} onChange={() => dispatch(toggleIsCompactMode())}>
