@@ -48,9 +48,21 @@ const profileSlice = createSlice({
       );
     },
   },
+  reducers: {
+    resetProfile: (state) => {
+      state.loading = false;
+      state._id = null;
+      state.name = null;
+      state.avatar = {};
+      state.questionIdsThatUserFavorite = [];
+      state.isAdmin = false;
+    },
+  },
 });
 
 const selectProfileState = (state) => state.profile;
+
+export const { resetProfile } = profileSlice.actions;
 
 export const selectProfile = createSelector(selectProfileState, (state) => state);
 
