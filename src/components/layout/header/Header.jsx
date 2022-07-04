@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useAuth } from '../../../common/context/Auth/useAuth';
 import { Button } from '../../ui/Button';
 import { Logo } from './Logo';
 import AdaptiveMenu from './AdaptiveMenu';
 import iconMenu from '../../assets/menu.svg';
 import iconCloseMenu from '../../assets/closeMenu.svg';
-import { selectProfile } from '../../../features/profile/profileSlice';
+import { resetProfile, selectProfile } from '../../../features/profile/profileSlice';
 import Popover from '../../ui/Popover';
 import { Divider, Paper, Typography } from '../../ui';
 import { LinkToFavorites } from './header-menu/LinkToFavorites';
@@ -71,9 +71,12 @@ export const Header = () => {
   const { token, executeLoggingInProcess, logout } = useAuth();
 
   const [mobileMenu, setMobileMenu] = useState(false);
+
   const [openMenuProfile, setOpenMenuProfile] = useState(false);
 
   const ref = useRef();
+
+  const dispatch = useDispatch();
 
   // todo: зачем это нужно?
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -101,16 +104,18 @@ export const Header = () => {
       document.body.style.overflowY = 'visible';
     }
   };
-
   const handleOpenMenuProfile = () => {
     setOpenMenuProfile(!openMenuProfile);
   };
 
+  const handleClick = () => {
+    dispatch(resetProfile());
+    logout();
+  };
   // todo: рефакторить
   const iconMenuAndClose = !mobileMenu ? iconMenu : iconCloseMenu;
 
   const { REACT_APP_FEATURE_ADD_QUESTION } = process.env;
-
   return (
     <StyledHeader>
       <AdaptiveMenu toggleMobileMenu={handleToggleMenu} mobileMenu={mobileMenu} />
@@ -166,7 +171,7 @@ export const Header = () => {
                               <Divider />
                             </StyledMenuProfile>
                             <Link to="/" className="d-none d-md-block">
-                              <Typography onClick={logout}>Выйти</Typography>
+                              <Typography onClick={handleClick}>Выйти</Typography>
                             </Link>
                           </div>
                         </Paper>
