@@ -14,6 +14,7 @@ import { Divider, Paper, Typography } from '../../ui';
 import { LinkToFavorites } from './header-menu/LinkToFavorites';
 import { LinkToDeleted } from './header-menu/LinkToDeleted';
 import Search from './Search';
+import ArrowAvatar from '../../icons/ArrowAvatar';
 
 const StyledHeader = styled.div`
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -38,11 +39,20 @@ const StyledHeader = styled.div`
 `;
 
 const StyledAvatar = styled.div`
+  display: flex;
+  align-items: center;
+
   & > img {
     width: 36px;
     height: 36px;
     border-radius: 50%;
     cursor: pointer;
+  }
+
+  .arrow-avatar-block {
+    cursor: pointer;
+    margin-left: 5px;
+    color: ${({ theme }) => theme.colors.gray.main};
   }
 `;
 
@@ -146,6 +156,9 @@ export const Header = () => {
                 <div>
                   <StyledAvatar onClick={handleOpenMenuProfile} ref={ref} className="d-md-flex">
                     <img className="m-auto" src={profile.avatar?.thumbnail} alt="" />
+                    <div className="arrow-avatar-block">
+                      <ArrowAvatar />
+                    </div>
                   </StyledAvatar>
                   {openMenuProfile && (
                     <Popover
