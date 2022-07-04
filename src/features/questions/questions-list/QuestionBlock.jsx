@@ -8,7 +8,7 @@ import { QuestionContent } from './QuestionContent';
 import { QuestionsActions } from './question-actions/QuestionsActions';
 import { selectIsCompactModeToogle } from '../../application/applicationSlice';
 import { questionSelectors } from '../questionsSlice';
-import { QuestionsLastComment } from './QuestionsLastComment';
+import { CommentView } from '../../comments/CommentView';
 
 const StyledQuestionBlock = styled.div`
   opacity: ${(props) => (props.deleted ? 0.3 : 1)};
@@ -31,7 +31,11 @@ export const QuestionBlock = ({ questionId }) => {
         {isCompactMode || <QuestionHeader questionId={questionId} />}
 
         <QuestionContent questionId={questionId} />
-        {isCompactMode || <QuestionsLastComment questionId={questionId} />}
+
+        {isCompactMode ||
+          (question.lastComment && (
+            <CommentView comment={question.lastComment} lastComment="true" />
+          ))}
         <QuestionsActions questionId={questionId} />
 
         {isCompactMode && <Divider className="mt-3" />}
