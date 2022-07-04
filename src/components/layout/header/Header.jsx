@@ -49,10 +49,15 @@ const StyledAvatar = styled.div`
     cursor: pointer;
   }
 
-  .arrow-avatar-block {
+  .downArrow,
+  .upArrow {
+    color: ${({ theme }) => theme.colors.gray.main};
     cursor: pointer;
     margin-left: 5px;
-    color: ${({ theme }) => theme.colors.gray.main};
+    transform: rotate(180deg);
+  }
+  .upArrow {
+    transform: rotate(0deg);
   }
 `;
 
@@ -156,7 +161,7 @@ export const Header = () => {
                 <div>
                   <StyledAvatar onClick={handleOpenMenuProfile} ref={ref} className="d-md-flex">
                     <img className="m-auto" src={profile.avatar?.thumbnail} alt="" />
-                    <div className="arrow-avatar-block">
+                    <div className={openMenuProfile ? 'downArrow' : 'upArrow'}>
                       <ArrowAvatar />
                     </div>
                   </StyledAvatar>
