@@ -7,8 +7,6 @@ const StyledFooter = styled.div`
   display: flex;
   align-items: end;
   justify-content: space-between;
-  margin-bottom: 20px;
-  margin-top: 60px;
   position: absolute;
   right: 0;
   left: 0;
