@@ -32,10 +32,9 @@ export const QuestionBlock = ({ questionId }) => {
 
         <QuestionContent questionId={questionId} />
 
-        {isCompactMode ||
-          (question.lastComment && (
-            <CommentView comment={question.lastComment} lastComment="true" />
-          ))}
+        {!isCompactMode && question.lastComment && (
+          <CommentView comment={question.lastComment} lastComment />
+        )}
         <QuestionsActions questionId={questionId} />
 
         {isCompactMode && <Divider className="mt-3" />}
