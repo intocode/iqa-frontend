@@ -3,7 +3,16 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import React from 'react';
 import dayjs from 'dayjs';
-import { LastComment } from '../../components/ui/LastComment';
+
+const StyledWrapper = styled.div`
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 25px;
+  & > div {
+    margin-bottom: 0 !important;
+  }
+`;
 
 const StyledProfile = styled.div`
   display: flex;
@@ -41,10 +50,10 @@ const StyledTime = styled.span`
 `;
 
 export const CommentView = ({ comment, lastComment }) => {
-  const StyledWrapper = lastComment ? LastComment : React.Fragment;
+  const Wrapper = lastComment ? StyledWrapper : React.Fragment;
 
   return (
-    <StyledWrapper>
+    <Wrapper>
       <div className="row align-items mb-4 g-1">
         <div className="col-auto">
           <StyledProfile>
@@ -61,7 +70,7 @@ export const CommentView = ({ comment, lastComment }) => {
           </StyledCommentText>
         </div>
       </div>
-    </StyledWrapper>
+    </Wrapper>
   );
 };
 
