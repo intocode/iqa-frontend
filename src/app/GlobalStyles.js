@@ -20,7 +20,7 @@ html {
 body {
   position: relative;
   min-height: 100%;
-  padding-bottom: 50px;
+  padding-bottom: 60px;
 }
 
 .container {
