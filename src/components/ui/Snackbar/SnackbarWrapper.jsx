@@ -15,11 +15,7 @@ const SnackbarWrapper = ({ children }) => {
 };
 
 SnackbarWrapper.propTypes = {
-  children: PropTypes.node,
-};
-
-SnackbarWrapper.defaultProps = {
-  children: undefined,
+  children: PropTypes.node.isRequired,
 };
 
 export default SnackbarWrapper;

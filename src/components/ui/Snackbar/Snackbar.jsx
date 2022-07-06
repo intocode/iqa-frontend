@@ -22,17 +22,9 @@ const StyledSnackbar = styled.div`
   }
 `;
 
-const StyledSnackbarWithChildren = styled.div`
-  div {
-    button {
-      color: black;
-    }
-  }
-`;
-
 const Snackbar = ({ onClose, message, children }) => {
   return children ? (
-    <StyledSnackbarWithChildren>{children}</StyledSnackbarWithChildren>
+    <> {children} </>
   ) : (
     <StyledSnackbar>
       {message}
@@ -46,15 +38,13 @@ const Snackbar = ({ onClose, message, children }) => {
 };
 
 Snackbar.propTypes = {
-  onClose: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
   message: PropTypes.string,
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
 };
 
 Snackbar.defaultProps = {
-  onClose: undefined,
   message: '',
-  children: undefined,
 };
 
 export default Snackbar;
