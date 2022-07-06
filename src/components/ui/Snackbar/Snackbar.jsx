@@ -4,18 +4,15 @@ import PropTypes from 'prop-types';
 import CloseIcon from '../../icons/CloseIcon';
 
 const StyledSnackbar = styled.div`
-  width: 397px;
-  height: 60px;
+  width: 100%;
   background: #4f4f4f;
   border-radius: 4px;
   color: #ffffff;
-  position: fixed;
-  bottom: 20px;
-  right: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 5px 10px;
+  margin-top: 10px;
 
   button {
     background-color: inherit;
@@ -26,16 +23,7 @@ const StyledSnackbar = styled.div`
 `;
 
 const StyledSnackbarWithChildren = styled.div`
-  width: 397px;
-  height: 60px;
-  position: fixed;
-  bottom: 20px;
-  right: 10px;
-
   div {
-    width: 100%;
-    height: 100%;
-
     button {
       color: black;
     }
@@ -60,7 +48,7 @@ const Snackbar = ({ onClose, message, children }) => {
 Snackbar.propTypes = {
   onClose: PropTypes.func,
   message: PropTypes.string,
-  children: PropTypes.func,
+  children: PropTypes.node,
 };
 
 Snackbar.defaultProps = {
