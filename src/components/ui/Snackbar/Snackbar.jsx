@@ -23,9 +23,9 @@ const StyledSnackbar = styled.div`
 `;
 
 const Snackbar = ({ onClose, message, children }) => {
-  return children ? (
-    <> {children} </>
-  ) : (
+  if (children) return children;
+
+  return (
     <StyledSnackbar>
       {message}
       {onClose && (
@@ -40,11 +40,12 @@ const Snackbar = ({ onClose, message, children }) => {
 Snackbar.propTypes = {
   onClose: PropTypes.func.isRequired,
   message: PropTypes.string,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 Snackbar.defaultProps = {
   message: '',
+  children: undefined,
 };
 
 export default Snackbar;
