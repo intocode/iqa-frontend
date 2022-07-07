@@ -1,19 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import { FavoriteAction } from './FavoriteAction';
 import { CommentsAction } from './CommentsAction';
 import { DeleteAction } from './DeleteAction';
 import QuestionViews from '../QuestionViews';
 
+const QuestionsActionsWrapper = styled.div`
+  margin-top: -10px;
+`;
+
 export const QuestionsActions = ({ questionId }) => {
   return (
-    <div className="row justify-content-end justify-content-md-start">
-      <FavoriteAction questionId={questionId} />
-      <CommentsAction questionId={questionId} />
-      <QuestionViews questionId={questionId} />
-      <DeleteAction questionId={questionId} />
-    </div>
+    <QuestionsActionsWrapper>
+      <div className="row justify-content-end justify-content-md-start">
+        <FavoriteAction questionId={questionId} />
+        <CommentsAction questionId={questionId} />
+        <QuestionViews questionId={questionId} />
+        <DeleteAction questionId={questionId} />
+      </div>
+    </QuestionsActionsWrapper>
   );
 };
 
