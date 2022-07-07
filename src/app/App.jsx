@@ -13,6 +13,10 @@ const QuestionPage = lazy(() => import('../features/questions/question-page/Ques
 // );
 const QuestionsList = lazy(() => import('../features/questions/questions-list/QuestionsList'));
 
+const QuestionPageUser = lazy(() =>
+  import('../features/questions/questions-list/QuestionPageUser')
+);
+
 const routes = [
   {
     key: 10,
@@ -29,6 +33,11 @@ const routes = [
     key: 30,
     component: QuestionPage,
     path: '/question/:id',
+  },
+  {
+    key: 40,
+    component: QuestionPageUser,
+    path: '/profile',
   },
 ];
 

@@ -15,6 +15,7 @@ import { LinkToFavorites } from './header-menu/LinkToFavorites';
 import { LinkToDeleted } from './header-menu/LinkToDeleted';
 import Search from './Search';
 import ArrowAvatar from '../../icons/ArrowAvatar';
+import LinkToPageUser from './header-menu/LinkToPageUser';
 
 const StyledHeader = styled.div`
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -55,6 +56,7 @@ const StyledAvatar = styled.div`
     cursor: pointer;
     margin-left: 5px;
     transform: rotate(180deg);
+    transition: 0.3s;
   }
   .upArrow {
     transform: rotate(0deg);
@@ -180,6 +182,9 @@ export const Header = () => {
                               <Divider />
                               <StyledMenuList>
                                 <li className="mt-2">
+                                  <LinkToPageUser />
+                                </li>
+                                <li>
                                   <LinkToFavorites />
                                 </li>
                                 <li className="mb-2">
