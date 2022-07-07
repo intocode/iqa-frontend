@@ -9,7 +9,7 @@ const FavoritesIconAnimation = styled.div`
   cursor: pointer;
   height: 49px;
   width: 49px;
-  margin-right: -15px;
+  margin: -20px -15px;
   background-image: url(${favoritesIcon});
   background-position: right;
   background-size: 2900%;
@@ -28,7 +28,7 @@ const StyledFavoritesIcon = styled.div`
   cursor: pointer;
   height: 49px;
   width: 49px;
-  margin-right: -15px;
+  margin: -20px -15px;
   background-image: url(${favoritesIcon});
   background-position: left;
   background-size: 2700%;
