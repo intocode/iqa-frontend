@@ -21,6 +21,7 @@ const profileSlice = createSlice({
     avatar: {},
     questionIdsThatUserFavorite: [],
     isAdmin: false,
+    createdAt: null,
     // добавить остальные поля по мере необходимости
   },
 
@@ -36,6 +37,7 @@ const profileSlice = createSlice({
       state.avatar = payload.avatar;
       state.questionIdsThatUserFavorite = payload.questionIdsThatUserFavorite;
       state.isAdmin = payload.isAdmin;
+      state.createdAt = payload.createdAt;
     },
 
     [addQuestionToFavorites.pending]: (state, action) => {
@@ -56,6 +58,7 @@ const profileSlice = createSlice({
       state.avatar = {};
       state.questionIdsThatUserFavorite = [];
       state.isAdmin = false;
+      state.createdAt = null;
     },
   },
 });

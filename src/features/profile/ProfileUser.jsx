@@ -1,15 +1,13 @@
 import React from 'react';
-import dayjs from 'dayjs';
 import styled from 'styled-components';
+import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
-import { selectProfile } from '../../profile/profileSlice';
-import { Paper } from '../../../components/ui';
-import { theme } from '../../../app/theme';
-import { selectOpenedQuestion } from '../questionsSlice';
+import { selectProfile } from './profileSlice';
+import { Paper } from '../../components/ui';
+import { theme } from '../../app/theme';
 
-const QuestionPageUser = () => {
+const ProfileUser = () => {
   const profile = useSelector(selectProfile);
-  const question = useSelector(selectOpenedQuestion);
 
   const StyledAvatar = styled.div`
     & > img {
@@ -54,14 +52,14 @@ const QuestionPageUser = () => {
           <div className="col-4 mt-3">
             <span className="nameUser">Профиль @{profile.name}</span>
             <StyledAvatar>
-              <img className="m-auto mt-3" src={profile.avatar?.thumbnail} alt="" />
+              <img className="m-auto mt-3" src={profile.avatar?.full} alt="" />
             </StyledAvatar>
           </div>
           <div className="col-8 mt-5">
             <Paper className="pageUser">
               <div className="userData">
                 <div className="registration-date">
-                  зарегистрирован {dayjs(question?.createdAt).fromNow()}
+                  зарегистрирован {dayjs(profile.createdAt).fromNow()}
                 </div>
                 <div className="userName">Атамазов Насырбек</div>
                 <div className="userEmail">atamazov00@mail.ru</div>
@@ -74,4 +72,4 @@ const QuestionPageUser = () => {
   );
 };
 
-export default QuestionPageUser;
+export default ProfileUser;

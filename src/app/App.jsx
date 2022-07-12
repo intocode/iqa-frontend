@@ -13,9 +13,7 @@ const QuestionPage = lazy(() => import('../features/questions/question-page/Ques
 // );
 const QuestionsList = lazy(() => import('../features/questions/questions-list/QuestionsList'));
 
-const QuestionPageUser = lazy(() =>
-  import('../features/questions/questions-list/QuestionPageUser')
-);
+const QuestionPageUser = lazy(() => import('../features/profile/ProfileUser'));
 
 const routes = [
   {
