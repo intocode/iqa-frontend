@@ -20,7 +20,6 @@ const ProfileUser = () => {
 
   const StyledPageUser = styled.div`
     .pageUser {
-      width: 560px;
       margin-left: -20px;
     }
 
