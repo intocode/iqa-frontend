@@ -15,6 +15,7 @@ import { LinkToFavorites } from './header-menu/LinkToFavorites';
 import { LinkToDeleted } from './header-menu/LinkToDeleted';
 import Search from './Search';
 import ArrowAvatar from '../../icons/ArrowAvatar';
+import LinkToProfilePage from './header-menu/LinkToProfilePage';
 
 const StyledHeader = styled.div`
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -180,6 +181,9 @@ export const Header = () => {
                               <Divider />
                               <StyledMenuList>
                                 <li className="mt-2">
+                                  <LinkToProfilePage />
+                                </li>
+                                <li>
                                   <LinkToFavorites />
                                 </li>
                                 <li className="mb-2">
