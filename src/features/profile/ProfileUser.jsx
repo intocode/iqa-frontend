@@ -59,7 +59,7 @@ const ProfileUser = () => {
             <Paper className="pageUser">
               <div className="userData">
                 <div className="registration-date">
-                  зарегистрирован {dayjs(profile.createdAt).fromNow()}
+                  Зарегистрирован {dayjs(profile.createdAt).fromNow()}
                 </div>
                 <div className="userName">Атамазов Насырбек</div>
                 <div className="userEmail">atamazov00@mail.ru</div>
