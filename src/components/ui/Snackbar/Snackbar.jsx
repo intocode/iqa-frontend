@@ -38,14 +38,15 @@ const Snackbar = ({ onClose, message, children }) => {
 };
 
 Snackbar.propTypes = {
-  onClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
   message: PropTypes.string,
   children: PropTypes.node,
 };
 
 Snackbar.defaultProps = {
+  onClose: null,
   message: '',
-  children: undefined,
+  children: null,
 };
 
 export default Snackbar;

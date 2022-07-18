@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { setSnackbar } from '../application/applicationSlice';
 
 export const fetchTags = createAsyncThunk('tags/fetch', async (_, thunkAPI) => {
   try {
@@ -7,7 +8,7 @@ export const fetchTags = createAsyncThunk('tags/fetch', async (_, thunkAPI) => {
 
     return response.data;
   } catch (e) {
-    return thunkAPI.rejectWithValue(e.message);
+    return thunkAPI.dispatch(setSnackbar(e));
   }
 });
 
@@ -17,7 +18,7 @@ export const fetchTagsByQuery = createAsyncThunk('tags/fetchByQuery', async (que
 
     return response.data;
   } catch (e) {
-    return thunkAPI.rejectWithValue(e.message);
+    return thunkAPI.dispatch(setSnackbar(e));
   }
 });
 
@@ -27,7 +28,7 @@ export const addTag = createAsyncThunk('tags/add', async (data, thunkAPI) => {
 
     return response.data;
   } catch (e) {
-    return thunkAPI.rejectWithValue(e.response.data);
+    return thunkAPI.dispatch(setSnackbar(e));
   }
 });
 

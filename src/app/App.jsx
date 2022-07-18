@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { useEffect, lazy, Suspense } from 'react';
 import { useAuth } from '../common/context/Auth/useAuth';
@@ -6,6 +6,8 @@ import { Header } from '../components/layout/header/Header';
 import { fetchProfile } from '../features/profile/profileSlice';
 import { LazyPlaceholder } from './LazyPlaceholder';
 import { Footer } from '../components/layout/Footer';
+import SnackbarWithReject from '../features/application/SnackbarWithReject';
+import { selectSnackbarState } from '../features/application/applicationSlice';
 
 const QuestionPage = lazy(() => import('../features/questions/question-page/QuestionPage'));
 // const CreateQuestion = lazy(() =>
@@ -42,6 +44,8 @@ const routes = [
 export const App = () => {
   const { token } = useAuth();
 
+  const snackbarErrors = useSelector(selectSnackbarState);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -61,6 +65,7 @@ export const App = () => {
         </Switch>
       </Suspense>
       <Footer />
+      {snackbarErrors.length ? <SnackbarWithReject /> : null}
     </>
   );
 };

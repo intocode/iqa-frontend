@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, createSelector } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { setSnackbar } from '../application/applicationSlice';
 import { addQuestionToFavorites, deleteQuestionFromFavorites } from '../questions/questionsSlice';
 
 export const fetchProfile = createAsyncThunk('profile/fetch', async (_, thunkAPI) => {
@@ -8,7 +9,7 @@ export const fetchProfile = createAsyncThunk('profile/fetch', async (_, thunkAPI
 
     return response.data;
   } catch (e) {
-    return thunkAPI.rejectWithValue(e.message);
+    return thunkAPI.dispatch(setSnackbar(e));
   }
 });
 
