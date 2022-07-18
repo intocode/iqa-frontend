@@ -4,10 +4,17 @@ const applicationSlice = createSlice({
   name: 'application',
   initialState: {
     isCompactMode: false,
+    errors: [],
   },
   reducers: {
     toggleIsCompactMode: (state) => {
       state.isCompactMode = !state.isCompactMode;
+    },
+    setSnackbar: (state, action) => {
+      state.errors.push(action.payload.message);
+    },
+    closeSnackbar: (state, action) => {
+      state.errors = state.errors.filter((_, index) => index !== action.payload);
     },
   },
 });
@@ -18,6 +25,15 @@ export const selectIsCompactModeToogle = createSelector(
   (state) => state.isCompactMode
 );
 
-export const { toggleIsCompactMode } = applicationSlice.actions;
+export const selectSnackbarState = createSelector(
+  (state) => {
+    return state.application;
+  },
+  (state) => {
+    return state.errors;
+  }
+);
+
+export const { toggleIsCompactMode, setSnackbar, closeSnackbar } = applicationSlice.actions;
 
 export default applicationSlice.reducer;

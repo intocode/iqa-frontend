@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { setSnackbar } from '../application/applicationSlice';
 
 export const fetchQuestionsSearch = createAsyncThunk(
   'question/search',
@@ -9,7 +10,7 @@ export const fetchQuestionsSearch = createAsyncThunk(
 
       return response.data;
     } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
+      return thunkAPI.dispatch(setSnackbar(e));
     }
   }
 );

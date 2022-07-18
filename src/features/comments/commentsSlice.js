@@ -5,6 +5,7 @@ import {
   createSlice,
 } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { setSnackbar } from '../application/applicationSlice';
 
 export const fetchComments = createAsyncThunk('comments/fetch', async (questionId, thunkAPI) => {
   try {
@@ -12,7 +13,7 @@ export const fetchComments = createAsyncThunk('comments/fetch', async (questionI
 
     return response.data.items;
   } catch (e) {
-    return thunkAPI.rejectWithValue(e.message);
+    return thunkAPI.dispatch(setSnackbar(e));
   }
 });
 
@@ -22,7 +23,7 @@ export const addComment = createAsyncThunk('comments/add', async ({ id, text }, 
 
     return response.data;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
+    return thunkAPI.dispatch(setSnackbar(error));
   }
 });
 

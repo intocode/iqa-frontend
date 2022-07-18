@@ -7,6 +7,7 @@ import {
 } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { QUESTIONS_PER_PAGE } from '../../app/constants';
+import { setSnackbar } from '../application/applicationSlice';
 import { clearTags } from '../tags/tagsSlice';
 
 const incrementPaginationOffset = createAction('questions/pagination/next');
@@ -33,7 +34,7 @@ export const fetchQuestions = createAsyncThunk(
 
       return response.data;
     } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
+      return thunkAPI.dispatch(setSnackbar(e));
     }
   },
   {
@@ -86,7 +87,7 @@ export const fetchQuestionById = createAsyncThunk('questions/fetch/byId', async 
 
     return response.data;
   } catch (e) {
-    return thunkAPI.rejectWithValue(e.message);
+    return thunkAPI.dispatch(setSnackbar(e));
   }
 });
 
@@ -99,7 +100,7 @@ export const addQuestion = createAsyncThunk('add', async (data, thunkAPI) => {
 
     return response.data;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
+    return thunkAPI.dispatch(setSnackbar(error));
   }
 });
 
@@ -111,7 +112,7 @@ export const removeQuestionById = createAsyncThunk(
 
       return { questionId: id };
     } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
+      return thunkAPI.dispatch(setSnackbar(e));
     }
   }
 );
@@ -124,19 +125,19 @@ export const restoreQuestionById = createAsyncThunk(
 
       return { questionId: id };
     } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
+      return thunkAPI.dispatch(setSnackbar(e));
     }
   }
 );
 
 export const addQuestionToFavorites = createAsyncThunk(
   'questions/favorites/add',
-  async ({ questionId, userId }, { rejectWithValue }) => {
+  async ({ questionId, userId }, thunkAPI) => {
     try {
       await axios.post(`/questions/${questionId}/favorites`);
       return { questionId, userId };
     } catch (error) {
-      return rejectWithValue(error.message);
+      return thunkAPI.dispatch(setSnackbar(error));
     }
   }
 );
@@ -149,7 +150,7 @@ export const deleteQuestionFromFavorites = createAsyncThunk(
 
       return { questionId, userId };
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.dispatch(setSnackbar(error));
     }
   }
 );
