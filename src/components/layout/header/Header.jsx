@@ -79,6 +79,11 @@ const StyledWrapperPaper = styled.div`
     font-size: 14px;
     color: #909399;
   }
+  .fullName {
+    font-size: 16px;
+    color: black;
+    padding-bottom: 5px;
+  }
 `;
 
 export const Header = () => {
@@ -175,6 +180,7 @@ export const Header = () => {
                     >
                       <StyledWrapperPaper>
                         <Paper className="d-flex flex-column">
+                          <div className="fullName">{profile.fullName}</div>
                           <div>@{profile.name}</div>
                           <div role="presentation" onClick={handleOpenMenuProfile}>
                             <StyledMenuProfile>
