@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import React from 'react';
 import dayjs from 'dayjs';
+import { CommentsActions } from './comment-actions/CommentsActions';
 
 const StyledWrapper = styled.div`
   background-color: #f5f5f5;
@@ -49,6 +50,10 @@ const StyledTime = styled.span`
   }
 `;
 
+const StyledCommentActions = styled.div`
+  display: flex;
+`;
+
 export const CommentView = ({ comment, lastComment }) => {
   const Wrapper = lastComment ? StyledWrapper : React.Fragment;
 
@@ -68,6 +73,11 @@ export const CommentView = ({ comment, lastComment }) => {
           <StyledCommentText>
             <Viewer initialValue={comment.text} />
           </StyledCommentText>
+          {!lastComment && (
+            <StyledCommentActions>
+              <CommentsActions commentId={comment._id} />
+            </StyledCommentActions>
+          )}
         </div>
       </div>
     </Wrapper>

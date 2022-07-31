@@ -26,6 +26,19 @@ export const addComment = createAsyncThunk('comments/add', async ({ id, text }, 
   }
 });
 
+export const removeCommentById = createAsyncThunk(
+  'comments/remove/byId',
+  async ({ questionId, commentId }, thunkAPI) => {
+    try {
+      await axios.delete(`/questions/${questionId}/comments/${commentId}`);
+
+      return { comment: commentId };
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
 const commentsAdapter = createEntityAdapter({
   selectId: (entity) => entity._id,
 });
@@ -33,6 +46,7 @@ const commentsAdapter = createEntityAdapter({
 const initialState = commentsAdapter.getInitialState({
   fetching: false,
   adding: false,
+  deletingCommentIds: [],
 });
 
 const commentsSlice = createSlice({
@@ -58,6 +72,18 @@ const commentsSlice = createSlice({
 
       state.adding = false;
     },
+
+    [removeCommentById.pending]: (state, action) => {
+      state.deletingCommentIds.push(action.meta.arg);
+    },
+
+    [removeCommentById.fulfilled]: (state, action) => {
+      state.deletingCommentIds = state.deletingCommentIds.filter(
+        (id) => id.commentId !== action.payload.comment
+      );
+
+      commentsAdapter.removeOne(state, action.payload.comment);
+    },
   },
 });
 
@@ -72,6 +98,11 @@ export const selectCommentsAdding = createSelector(selectCommentsState, (state) 
 export const selectCommentsError = createSelector(selectCommentsState, (state) => state.error);
 
 export const selectCommentsLoading = createSelector(selectCommentsState, (state) => state.loading);
+
+export const selectCommentDeliting = createSelector(
+  selectCommentsState,
+  (state) => state.deletingCommentIds
+);
 
 export const selectCommentsSuccess = createSelector(selectCommentsState, (state) => state.success);
 
