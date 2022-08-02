@@ -18,6 +18,7 @@ const profileSlice = createSlice({
     loading: false,
     _id: null,
     name: null,
+    fullName: null,
     avatar: {},
     questionIdsThatUserFavorite: [],
     isAdmin: false,
@@ -34,6 +35,7 @@ const profileSlice = createSlice({
       state.loading = false;
       state._id = payload._id;
       state.name = payload.name;
+      state.fullName = payload.fullName;
       state.avatar = payload.avatar;
       state.questionIdsThatUserFavorite = payload.questionIdsThatUserFavorite;
       state.isAdmin = payload.isAdmin;
@@ -55,6 +57,7 @@ const profileSlice = createSlice({
       state.loading = false;
       state._id = null;
       state.name = null;
+      state.fullName = null;
       state.avatar = {};
       state.questionIdsThatUserFavorite = [];
       state.isAdmin = false;
