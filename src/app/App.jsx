@@ -8,9 +8,9 @@ import { LazyPlaceholder } from './LazyPlaceholder';
 import { Footer } from '../components/layout/Footer';
 
 const QuestionPage = lazy(() => import('../features/questions/question-page/QuestionPage'));
-// const CreateQuestion = lazy(() =>
-//   import('../features/questions/CreateQuestion')
-// );
+const CreateQuestion = lazy(() =>
+  import('../features/questions/create-question/CreateQuestionPage')
+);
 const QuestionsList = lazy(() => import('../features/questions/questions-list/QuestionsList'));
 
 const ProfileUser = lazy(() => import('../features/profile/ProfileUser'));
@@ -22,11 +22,11 @@ const routes = [
     path: '/',
     exact: true,
   },
-  // {
-  //   key: 20,
-  //   component: CreateQuestion,
-  //   path: '/create',
-  // },
+  {
+    key: 20,
+    component: CreateQuestion,
+    path: '/create',
+  },
   {
     key: 30,
     component: QuestionPage,

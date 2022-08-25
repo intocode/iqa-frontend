@@ -7,7 +7,6 @@ import {
 } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { QUESTIONS_PER_PAGE } from '../../app/constants';
-import { clearTags } from '../tags/tagsSlice';
 
 const incrementPaginationOffset = createAction('questions/pagination/next');
 export const resetQuestionsList = createAction('questions/reset');
@@ -94,8 +93,6 @@ export const fetchQuestionById = createAsyncThunk('questions/fetch/byId', async 
 export const addQuestion = createAsyncThunk('add', async (data, thunkAPI) => {
   try {
     const response = await axios.post('/questions', data);
-
-    thunkAPI.dispatch(clearTags());
 
     return response.data;
   } catch (error) {

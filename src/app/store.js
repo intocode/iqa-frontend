@@ -12,7 +12,6 @@ import {
 import storage from 'redux-persist/lib/storage';
 import profile from '../features/profile/profileSlice';
 import questions from '../features/questions/questionsSlice';
-import tags from '../features/tags/tagsSlice';
 import comments from '../features/comments/commentsSlice';
 import application from '../features/application/applicationSlice';
 import questionsSearch from '../features/search/searchQuestionSlice';
@@ -29,7 +28,6 @@ export const store = configureStore({
     questionsSearch,
     profile,
     questions,
-    tags,
     comments,
     application: persistedReducer,
   },
