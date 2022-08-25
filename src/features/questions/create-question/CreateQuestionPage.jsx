@@ -5,24 +5,14 @@ import styled from 'styled-components';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
-import { Title } from '../../app/Title/Title';
-import PlusIcon from '../../components/icons/PlusIcon';
-import { Alert, Button, Input, Paper, Tag, Typography } from '../../components/ui';
-import { selectProfile } from '../profile/profileSlice';
-import { addTag, removeTag, selectTags, selectTagsError } from '../tags/tagsSlice';
-import { addQuestion, selectQuestionsFetching } from './questionsSlice';
-import { useAuth } from '../../common/context/Auth/useAuth';
+import { Title } from '../../../app/Title/Title';
+import PlusIcon from '../../../components/icons/PlusIcon';
+import { Alert, Button, Input, Paper, Tag, Typography } from '../../../components/ui';
+import { selectProfile } from '../../profile/profileSlice';
+import { addQuestion } from '../questionsSlice';
+import { useAuth } from '../../../common/context/Auth/useAuth';
 
 const StyledQuestionWrapper = styled.div`
-  & .buttons {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    & button {
-      margin-right: 25px;
-    }
-  }
-
   & .new-tag {
     display: flex;
     align-items: center;
@@ -40,6 +30,7 @@ const StyledQuestionWrapper = styled.div`
     & svg {
       margin-right: 11px;
     }
+
     & span {
       white-space: nowrap;
       padding: 0;
@@ -52,6 +43,7 @@ const StyledQuestionWrapper = styled.div`
       max-width: 45px;
       border: none;
       background-color: transparent;
+
       &:focus {
         outline: none;
       }
@@ -59,23 +51,8 @@ const StyledQuestionWrapper = styled.div`
   }
 `;
 
-const StyledTagWrapper = styled.div`
-  border: 1px solid #e4e7ed;
-  border-radius: 4px;
-  padding: 24px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-`;
-
-const StyledTitle = styled.div`
-  margin: 1.5rem 0;
-`;
-
-const StyledProfile = styled.div`
-  display: flex;
-  align-items: center;
-  & > img {
+const StyledAvatar = styled.div`
+  img {
     width: 36px;
     height: 36px;
     border-radius: 1.5rem;
@@ -88,30 +65,40 @@ const CreateQuestion = () => {
   const editorRef = useRef();
 
   const profile = useSelector(selectProfile);
-  const tags = useSelector(selectTags);
-  const tagsError = useSelector(selectTagsError);
-  const questionsLoading = useSelector(selectQuestionsFetching);
 
-  const [question, setQuestion] = useState('');
-  const [comment, setComment] = useState('');
-  const [tagValue, setTagValue] = useState('');
-  const [editMode, setEditMode] = useState(false);
-  const [manyQuestions, setManyQuestions] = useState(false);
   const { token } = useAuth();
 
-  const callbackRef = useCallback((inputElement) => {
-    if (inputElement) {
-      inputElement.focus();
+  const [question, setQuestion] = useState('');
+  const [fullDescription, setFullDescription] = useState('');
+  const [tagValue, setTagValue] = useState('');
+
+  const [tags, setTags] = useState([]);
+
+  const [tagEditMode, setTagEditMode] = useState(false);
+  const [tooManyQuestions, setTooManyQuestions] = useState(false);
+
+  const addTag = () => {
+    if (!tags.includes(tagValue)) {
+      setTags([...tags, tagValue]);
+    }
+  };
+
+  const removeTag = (tag) => {
+    setTags(tags.filter((t) => t !== tag));
+  };
+
+  const callbackRef = useCallback((event) => {
+    if (event) {
+      event.focus();
     }
   }, []);
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      if (!tags.some((tag) => tag.name === tagValue)) {
-        dispatch(addTag({ name: tagValue }));
-      }
+      addTag(tagValue);
+
       setTagValue('');
-      setEditMode(false);
+      setTagEditMode(false);
     }
   };
 
@@ -119,29 +106,30 @@ const CreateQuestion = () => {
     dispatch(
       addQuestion({
         question,
-        comment,
+        fullDescription,
         tags,
         userId: profile._id,
       })
     );
     setQuestion('');
-    setComment('');
+    setFullDescription('');
     editorRef.current.getInstance().reset();
   };
 
   const handleChange = () => {
     const instance = editorRef.current.getInstance();
-    setComment(instance.getMarkdown());
+    setFullDescription(instance.getMarkdown());
   };
 
   useEffect(() => {
     if (/\?[^?]+\?/.test(question)) {
-      setManyQuestions(true);
+      setTooManyQuestions(true);
     } else {
-      setManyQuestions(false);
+      setTooManyQuestions(false);
     }
   }, [question]);
 
+  // если не авторизован, то кидаем на главную
   if (!token) return <Redirect to="/" />;
 
   const { REACT_APP_FEATURE_TAGS } = process.env;
@@ -150,29 +138,40 @@ const CreateQuestion = () => {
     <>
       <Title>iqa: добавить вопрос</Title>
       <StyledQuestionWrapper className="container">
-        <StyledTitle>
-          <h3>Добавление вопроса</h3>
-        </StyledTitle>
+        <div className="container m-3 m-md-auto">
+          <div className="d-flex justify-content-between my-3">
+            <h3>Обсуждение вопроса</h3>
+            <Link to="/">
+              <Typography>Вернуться назад</Typography>
+            </Link>
+          </div>
+        </div>
+
         <Paper>
-          <StyledProfile>
-            <img src={profile.avatar?.thumbnail} alt="avatar" />
+          <div className="d-flex align-items-center">
+            <StyledAvatar>
+              <img src={profile.avatar?.thumbnail} alt="avatar" />
+            </StyledAvatar>
             <p>{profile.name}</p>
-          </StyledProfile>
-          {tagsError && <Alert сolor="danger">{tagsError}</Alert>}
-          {manyQuestions && (
+          </div>
+
+          {tooManyQuestions && (
             <Alert color="warning">
               В одном посте рекомендуется публиковать только один вопрос.
             </Alert>
           )}
+
           <div className="mt-4 mb-3">
             Как звучит вопрос?<sup>*</sup>
           </div>
+
           <Input
             onChange={(e) => setQuestion(e.target.value)}
             value={question}
             placeholder="Формулировка вопроса..."
             autoFocus
           />
+
           <div>
             <div className="mt-4 mb-3">Дополнительный комментарий</div>
             <Editor
@@ -182,7 +181,7 @@ const CreateQuestion = () => {
               useCommandShortcut
               usageStatistics={false}
               hideModeSwitch
-              value={comment}
+              value={fullDescription}
               onChange={handleChange}
               ref={editorRef}
               toolbarItems={[
@@ -191,26 +190,29 @@ const CreateQuestion = () => {
               ]}
               autofocus={false}
             />
+
             {REACT_APP_FEATURE_TAGS && (
               <>
                 <div className="mt-4 mb-3">
                   Теги<sup>*</sup>
                 </div>
-                <StyledTagWrapper>
+
+                <div className="d-flex">
                   {tags.map((tag) => (
-                    <Tag key={tag._id} onRemove={() => dispatch(removeTag(tag._id))}>
-                      {tag.name}
+                    <Tag key={tag} onRemove={() => removeTag(tag)} className="mx-2">
+                      {tag}
                     </Tag>
                   ))}
-                  {/* todo убрать дублирование ниже */}
-                  {!editMode && (
-                    <button onClick={() => setEditMode(true)} type="button" className="new-tag">
+
+                  {!tagEditMode && (
+                    <button onClick={() => setTagEditMode(true)} type="button" className="new-tag">
                       <PlusIcon />
                       <span>New tag</span>
                     </button>
                   )}
-                  {editMode && (
-                    <button onBlur={() => setEditMode(false)} type="button" className="new-tag">
+
+                  {tagEditMode && (
+                    <button onBlur={() => setTagEditMode(false)} type="button" className="new-tag">
                       <PlusIcon />
                       <input
                         value={tagValue}
@@ -220,22 +222,27 @@ const CreateQuestion = () => {
                       />
                     </button>
                   )}
-                </StyledTagWrapper>
+                </div>
               </>
             )}
           </div>
-          <div className="buttons mt-4">
-            <Button
-              loading={questionsLoading}
-              onClick={handleCreate}
-              color="primary"
-              disabled={REACT_APP_FEATURE_TAGS && !tags.length}
-            >
-              Опубликовать
-            </Button>
-            <Link to="/" className="cancel">
-              <Typography color="gray">Отмена</Typography>
-            </Link>
+          <div className="mt-4">
+            <div className="row align-items-center">
+              <div className="col-auto">
+                <Button
+                  onClick={handleCreate}
+                  color="primary"
+                  disabled={REACT_APP_FEATURE_TAGS && !tags.length}
+                >
+                  Опубликовать
+                </Button>
+              </div>
+              <div className="col-auto">
+                <Link to="/" className="cancel">
+                  <Typography color="gray">Отмена</Typography>
+                </Link>
+              </div>
+            </div>
           </div>
         </Paper>
       </StyledQuestionWrapper>
