@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { selectProfile } from '../../../profile/profileSlice';
 import { questionSelectors } from '../../questionsSlice';
-import favoritesIcon from '../../../../components/assets/sprite.svg';
+import favoritesIcon from '../../../../assets/sprite.svg';
 
 const FavoritesIconAnimation = styled.div`
   cursor: pointer;

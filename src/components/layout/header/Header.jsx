@@ -6,8 +6,8 @@ import { useAuth } from '../../../common/context/Auth/useAuth';
 import { Button } from '../../ui/Button';
 import { Logo } from './Logo';
 import AdaptiveMenu from './AdaptiveMenu';
-import iconMenu from '../../assets/menu.svg';
-import iconCloseMenu from '../../assets/closeMenu.svg';
+import MenuIcon from '../../icons/MenuIcon';
+import CloseMenuIcon from '../../icons/CloseMenuIcon';
 import { resetProfile, selectProfile } from '../../../features/profile/profileSlice';
 import Popover from '../../ui/Popover';
 import { Divider, Paper, Typography } from '../../ui';
@@ -134,7 +134,7 @@ export const Header = () => {
     logout();
   };
   // todo: рефакторить
-  const iconMenuAndClose = !mobileMenu ? iconMenu : iconCloseMenu;
+  const iconMenuAndClose = !mobileMenu ? <MenuIcon /> : <CloseMenuIcon />;
 
   const { REACT_APP_FEATURE_ADD_QUESTION } = process.env;
   return (
@@ -144,7 +144,7 @@ export const Header = () => {
         <div className="row align-items-center">
           <div className="col d-flex align-items-center">
             <div className="menu-icon d-md-none" onClick={handleToggleMenu} role="presentation">
-              <img src={iconMenuAndClose} width={32} alt="iqa logotype" />
+              {iconMenuAndClose}
             </div>
             <div className="offset-5 offset-md-0">
               <Link to="/">
