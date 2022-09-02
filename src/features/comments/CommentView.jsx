@@ -26,19 +26,6 @@ const StyledProfile = styled.div`
   }
 `;
 
-const StyledCommentText = styled.div`
-  margin-top: 10px;
-
-  .toastui-editor-contents {
-    font-size: 16px;
-    line-height: 1.3rem;
-
-    & pre {
-      margin-top: 1rem;
-    }
-  }
-`;
-
 const StyledTime = styled.span`
   padding-left: 1rem;
   font-size: 12px;
@@ -70,9 +57,9 @@ export const CommentView = ({ comment, lastComment }) => {
             <span>{comment.author?.name}</span>
             <StyledTime>{dayjs(comment.createdAt).fromNow()}</StyledTime>
           </div>
-          <StyledCommentText>
-            <Viewer initialValue={comment.text} />
-          </StyledCommentText>
+
+          <Viewer theme="iqa" initialValue={comment.text} />
+
           {!lastComment && (
             <StyledCommentActions>
               <CommentsActions commentId={comment._id} />
