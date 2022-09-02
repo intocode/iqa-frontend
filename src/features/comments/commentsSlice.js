@@ -53,6 +53,12 @@ const commentsSlice = createSlice({
   name: 'comments',
   initialState,
 
+  reducers: {
+    resetComments: (state) => {
+      commentsAdapter.removeAll(state);
+    },
+  },
+
   extraReducers: {
     [fetchComments.pending]: (state) => {
       state.fetching = true;
@@ -106,6 +112,6 @@ export const selectCommentDeliting = createSelector(
 
 export const selectCommentsSuccess = createSelector(selectCommentsState, (state) => state.success);
 
-export const { resetCommentSuccess, resetCommentStatus } = commentsSlice.actions;
+export const { resetComments } = commentsSlice.actions;
 
 export default commentsSlice.reducer;

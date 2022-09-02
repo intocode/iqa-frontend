@@ -1,7 +1,12 @@
 import React, { lazy, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { commentsSelectors, fetchComments, selectCommentsLoading } from './commentsSlice';
+import {
+  commentsSelectors,
+  fetchComments,
+  resetComments,
+  selectCommentsLoading,
+} from './commentsSlice';
 import CommentsList from './CommentsList';
 import { CommentsPlaceholder } from './CommentsPlaceholder';
 import { useAuth } from '../../common/context/Auth/useAuth';
@@ -27,6 +32,10 @@ const CommentsOfQuestion = () => {
 
   useEffect(() => {
     dispatch(fetchComments(id));
+
+    return () => {
+      dispatch(resetComments());
+    };
   }, [dispatch, id]);
 
   return (
