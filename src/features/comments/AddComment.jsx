@@ -1,6 +1,4 @@
 import React, { useState, useRef } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,11 +7,9 @@ import { Button } from '../../components/ui';
 import { addComment, selectCommentsAdding } from './commentsSlice';
 import { selectProfile } from '../profile/profileSlice';
 
-const StyledAvatar = styled.div`
-  & img {
-    width: 48px;
-    border-radius: 50%;
-  }
+const StyledAvatar = styled.img`
+  width: 48px;
+  border-radius: 50%;
 `;
 
 const AddComment = () => {
@@ -48,17 +44,17 @@ const AddComment = () => {
     <div>
       <div className="row mb-3">
         <div className="col-auto">
-          <StyledAvatar>
-            <img src={profile.avatar?.thumbnail} alt="аватарка" />
-          </StyledAvatar>
+          <StyledAvatar src={profile.avatar?.thumbnail} alt="аватарка" />
         </div>
         <div className="col">
           <Editor
+            theme="iqa"
             autofocus={false}
             previewStyle="vertical"
             height="150px"
             initialEditType="wysiwyg"
             useCommandShortcut
+            usageStatistics={false} // from docs
             hideModeSwitch
             value={text}
             onChange={handleChange}

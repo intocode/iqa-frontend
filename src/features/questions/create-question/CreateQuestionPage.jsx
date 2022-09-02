@@ -2,8 +2,6 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import { Title } from '../../../app/Title/Title';
 import PlusIcon from '../../../components/icons/PlusIcon';
@@ -175,6 +173,7 @@ const CreateQuestion = () => {
           <div>
             <div className="mt-4 mb-3">Дополнительный комментарий</div>
             <Editor
+              theme="iqa"
               previewStyle="vertical"
               height="200px"
               initialEditType="wysiwyg"

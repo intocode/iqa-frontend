@@ -8,6 +8,8 @@ import calendar from 'dayjs/plugin/calendar';
 import { App } from './app/App';
 import { BASE_API_URL, LS_TOKEN_KEY } from './app/constants';
 
+import '@toast-ui/editor/dist/toastui-editor.css';
+import './assets/toast-ui-iqa-theme.css';
 import 'bootstrap/dist/css/bootstrap-grid.min.css';
 import { GlobalProvider } from './app/GlobalProvider';
 
