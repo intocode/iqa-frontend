@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { theme } from '../../../../app/theme';
 import { useAuth } from '../../../../common/context/Auth/useAuth';
 import DeleteIcon from '../../../../components/icons/DeleteIcon';
 import RestoreIcon from '../../../../components/icons/RestoreIcon';
@@ -14,14 +15,13 @@ import {
   selectDeletingQuestions,
   selectRestoringQuestions,
 } from '../../questionsSlice';
+import { TheQuestionAction } from './TheQuestionAction';
 
 const StyledDelete = styled.div`
-  color: ${({ deleted, theme }) =>
-    deleted ? theme.colors.primary.main : theme.colors.danger.main};
+  color: ${(props) => (props.deleted ? theme.colors.primary.main : props.theme.colors.danger.main)};
   font-weight: 400;
   font-size: 14px;
   cursor: pointer;
-  opacity: 0;
 `;
 
 export const DeleteAction = ({ questionId }) => {
@@ -54,27 +54,22 @@ export const DeleteAction = ({ questionId }) => {
     [restoringQuestions, question]
   );
 
-  const deleteButtonCaption = isDeliting ? 'Удаление' : 'Удалить вопрос';
-
-  const restoreButtonCaption = isRestoring ? 'Восстановление' : 'Восстановить вопрос';
-
   const deletingIcon = question.deleted ? <RestoreIcon /> : <DeleteIcon />;
 
   const isProcessing = isDeliting || isRestoring;
 
   if (!REACT_APP_FEATURE_DELETE_QUESTION || !token || !profile.isAdmin) return null;
 
+  const DeletingIcon = (
+    <StyledDelete className="delete">{isProcessing ? <SpinnerIcon /> : deletingIcon}</StyledDelete>
+  );
+
   return (
-    <div className="col-auto">
-      <div aria-hidden onClick={handleToggleDelete} className="d-flex align-items-center">
-        <StyledDelete className="delete">
-          {isProcessing ? <SpinnerIcon /> : deletingIcon}
-        </StyledDelete>
-        <StyledDelete className="delete d-none d-md-block" deleted={question.deleted}>
-          {question.deleted ? restoreButtonCaption : deleteButtonCaption}
-        </StyledDelete>
-      </div>
-    </div>
+    <TheQuestionAction
+      icon={DeletingIcon}
+      color={theme.colors.danger.main}
+      onClick={handleToggleDelete}
+    />
   );
 };
 
