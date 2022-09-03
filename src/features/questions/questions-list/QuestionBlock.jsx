@@ -13,10 +13,6 @@ import { CommentView } from '../../comments/CommentView';
 const StyledQuestionBlock = styled.div`
   opacity: ${(props) => (props.deleted ? 0.3 : 1)};
   transition: all 0.5s;
-
-  &:hover .delete {
-    opacity: 1;
-  }
 `;
 
 export const QuestionBlock = ({ questionId }) => {

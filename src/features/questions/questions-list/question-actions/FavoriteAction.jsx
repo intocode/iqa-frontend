@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import { theme } from '../../../../app/theme';
+// import styled from 'styled-components';
 import { useAuth } from '../../../../common/context/Auth/useAuth';
 import { selectProfile } from '../../../profile/profileSlice';
 import {
@@ -9,13 +10,7 @@ import {
   questionSelectors,
 } from '../../questionsSlice';
 import FavoriteIconSwitcher from './FavoriteIconSwitcher';
-
-const StyledFavoritesCounter = styled.div`
-  color: ${(props) => props.theme.colors.danger.main};
-  font-weight: 400;
-  font-size: 14px;
-  padding-left: 5px;
-`;
+import { TheQuestionAction } from './TheQuestionAction';
 
 export const FavoriteAction = ({ questionId }) => {
   const { token } = useAuth();
@@ -52,19 +47,13 @@ export const FavoriteAction = ({ questionId }) => {
   if (!REACT_APP_FEATURE_FAVORITES) return null;
 
   return (
-    <div className="col-auto">
-      <div
-        role="button"
-        aria-hidden
-        onClick={handleToggleFavorite}
-        className="d-flex align-items-center"
-      >
-        <div>
-          <FavoriteIconSwitcher questionId={questionId} />
-        </div>
-        <StyledFavoritesCounter>{question.usersThatFavoriteIt.length}</StyledFavoritesCounter>
-      </div>
-    </div>
+    <TheQuestionAction
+      icon={<FavoriteIconSwitcher questionId={questionId} />}
+      onClick={handleToggleFavorite}
+      color={theme.colors.danger.main}
+    >
+      {question.usersThatFavoriteIt.length}
+    </TheQuestionAction>
   );
 };
 

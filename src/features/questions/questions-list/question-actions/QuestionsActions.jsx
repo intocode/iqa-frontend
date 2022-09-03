@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { FavoriteAction } from './FavoriteAction';
 import { CommentsAction } from './CommentsAction';
 import { DeleteAction } from './DeleteAction';
-import QuestionViews from '../QuestionViews';
+import QuestionViews from './QuestionViews';
 
 const QuestionsActionsWrapper = styled.div`
   margin-top: -10px;
