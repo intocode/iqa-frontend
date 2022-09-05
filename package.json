@@ -7,6 +7,7 @@
     "@reduxjs/toolkit": "^1.8.2",
     "@toast-ui/editor": "^3.2.0",
     "@toast-ui/react-editor": "^3.2.0",
+    "antd": "^4.23.0",
     "axios": "^0.27.2",
     "bootstrap": "^5.1.3",
     "dayjs": "^1.11.3",

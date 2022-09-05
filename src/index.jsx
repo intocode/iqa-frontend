@@ -11,6 +11,7 @@ import { BASE_API_URL, LS_TOKEN_KEY } from './app/constants';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import './assets/toast-ui-iqa-theme.css';
 import 'bootstrap/dist/css/bootstrap-grid.min.css';
+import 'antd/dist/antd.min.css';
 import { GlobalProvider } from './app/GlobalProvider';
 
 axios.defaults.baseURL = BASE_API_URL;
