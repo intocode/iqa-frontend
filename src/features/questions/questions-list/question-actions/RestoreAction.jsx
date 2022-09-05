@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { theme } from '../../../../app/theme';
 import { useAuth } from '../../../../common/context/Auth/useAuth';
-import DeleteIcon from '../../../../components/icons/DeleteIcon';
+import RestoreIcon from '../../../../components/icons/RestoreIcon';
 import SpinnerIcon from '../../../../components/icons/SpinnerIcon';
 import { selectProfile } from '../../../profile/profileSlice';
 import {
   questionSelectors,
-  removeQuestionById,
-  selectDeletingQuestions,
+  restoreQuestionById,
+  selectRestoringQuestions,
 } from '../../questionsSlice';
 import { TheQuestionAction } from './TheQuestionAction';
 
@@ -21,43 +21,45 @@ const StyledDelete = styled.div`
   cursor: pointer;
 `;
 
-export const DeleteAction = ({ questionId }) => {
+export const RestoreAction = ({ questionId }) => {
   const { token } = useAuth();
   const dispatch = useDispatch();
 
   const { REACT_APP_FEATURE_DELETE_QUESTION } = process.env;
 
   const profile = useSelector(selectProfile);
-  const deletingQuestions = useSelector(selectDeletingQuestions);
+  const restoringQuestions = useSelector(selectRestoringQuestions);
 
   const question = useSelector((state) => questionSelectors.selectById(state, questionId));
 
-  const handleDelete = () => {
-    dispatch(removeQuestionById(question._id));
+  const handleRestore = () => {
+    dispatch(restoreQuestionById(question._id));
   };
 
-  const isDeliting = useMemo(
-    () => deletingQuestions.find((id) => id === question._id),
-    [deletingQuestions, question]
+  const isRestoring = useMemo(
+    () => restoringQuestions.find((id) => id === question._id),
+    [restoringQuestions, question]
   );
 
-  if (!REACT_APP_FEATURE_DELETE_QUESTION || !token || !profile.isAdmin || question.deleted) {
+  if (!REACT_APP_FEATURE_DELETE_QUESTION || !token || !profile.isAdmin || !question.deleted) {
     return null;
   }
 
   const DeletingIcon = (
-    <StyledDelete className="delete">{isDeliting ? <SpinnerIcon /> : <DeleteIcon />}</StyledDelete>
+    <StyledDelete className="delete">
+      {isRestoring ? <SpinnerIcon /> : <RestoreIcon />}
+    </StyledDelete>
   );
 
   return (
     <TheQuestionAction
       icon={DeletingIcon}
       color={theme.colors.danger.main}
-      onClick={handleDelete}
+      onClick={handleRestore}
     />
   );
 };
 
-DeleteAction.propTypes = {
+RestoreAction.propTypes = {
   questionId: PropTypes.string.isRequired,
 };
