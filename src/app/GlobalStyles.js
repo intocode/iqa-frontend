@@ -21,6 +21,7 @@ body {
   position: relative;
   min-height: 100%;
   padding-bottom: 60px;
+  height: auto;
 }
 
 .container {

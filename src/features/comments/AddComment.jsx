@@ -3,7 +3,7 @@ import { Editor } from '@toast-ui/react-editor';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { Button } from '../../components/ui';
+import { Button } from 'antd';
 import { addComment, selectCommentsAdding } from './commentsSlice';
 import { selectProfile } from '../profile/profileSlice';
 

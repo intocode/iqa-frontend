@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from 'antd';
 import { useAuth } from '../../../common/context/Auth/useAuth';
-import { Button } from '../../ui/Button';
 import { Logo } from './Logo';
 import AdaptiveMenu from './AdaptiveMenu';
 import MenuIcon from '../../icons/MenuIcon';
@@ -159,7 +159,7 @@ export const Header = () => {
               <>
                 {REACT_APP_FEATURE_ADD_QUESTION && (
                   <Link to="/create" className="header_link">
-                    <Button className="me-3" contrast={false} color="primary">
+                    <Button className="me-3" type="primary">
                       Добавить вопрос
                     </Button>
                   </Link>
@@ -210,7 +210,7 @@ export const Header = () => {
               </>
             ) : (
               <Link to="/" className="header_link d-none d-md-block">
-                <Button contrast={false} color="primary" onClick={executeLoggingInProcess}>
+                <Button onClick={executeLoggingInProcess} color="primary">
                   Login with GitHub
                 </Button>
               </Link>
