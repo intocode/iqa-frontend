@@ -139,7 +139,7 @@ const CreateQuestion = () => {
       <StyledQuestionWrapper className="container">
         <div className="container m-3 m-md-auto">
           <div className="d-flex justify-content-between my-3">
-            <h3>Обсуждение вопроса</h3>
+            <h3>Добавление вопроса</h3>
             <Link to="/">
               <Typography>Вернуться назад</Typography>
             </Link>
