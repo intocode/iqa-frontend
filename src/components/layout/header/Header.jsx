@@ -16,6 +16,7 @@ import { LinkToDeleted } from './header-menu/LinkToDeleted';
 import Search from './Search';
 import ArrowAvatar from '../../icons/ArrowAvatar';
 import LinkToProfilePage from './header-menu/LinkToProfilePage';
+import HelpIcon from '../../icons/HelpIcon';
 
 const StyledHeader = styled.div`
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -84,6 +85,15 @@ const StyledWrapperPaper = styled.div`
     color: black;
     padding-bottom: 5px;
   }
+`;
+
+const StyledHelp = styled.div`
+  padding: 0 15px;
+`;
+
+const StyledHelpIcon = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 export const Header = () => {
@@ -159,11 +169,16 @@ export const Header = () => {
               <>
                 {REACT_APP_FEATURE_ADD_QUESTION && (
                   <Link to="/create" className="header_link">
-                    <Button className="me-3" type="primary">
-                      Добавить вопрос
-                    </Button>
+                    <Button type="primary">Добавить вопрос</Button>
                   </Link>
                 )}
+                <StyledHelp>
+                  <Link to="/help">
+                    <StyledHelpIcon>
+                      <HelpIcon id="helpIcon" />
+                    </StyledHelpIcon>
+                  </Link>
+                </StyledHelp>
                 <div>
                   <StyledAvatar onClick={handleOpenMenuProfile} ref={ref} className="d-md-flex">
                     <img className="m-auto" src={profile.avatar?.thumbnail} alt="" />
