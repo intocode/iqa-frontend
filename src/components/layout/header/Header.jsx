@@ -16,6 +16,7 @@ import { LinkToDeleted } from './header-menu/LinkToDeleted';
 import Search from './Search';
 import ArrowAvatar from '../../icons/ArrowAvatar';
 import LinkToProfilePage from './header-menu/LinkToProfilePage';
+import HelpIcon from '../../icons/HelpIcon';
 
 const StyledHeader = styled.div`
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -159,11 +160,16 @@ export const Header = () => {
               <>
                 {REACT_APP_FEATURE_ADD_QUESTION && (
                   <Link to="/create" className="header_link">
-                    <Button className="me-3" type="primary">
-                      Добавить вопрос
-                    </Button>
+                    <Button type="primary">Добавить вопрос</Button>
                   </Link>
                 )}
+                <div className="px-3">
+                  <Link to="/help">
+                    <div className="d-flex align-items-center">
+                      <HelpIcon />
+                    </div>
+                  </Link>
+                </div>
                 <div>
                   <StyledAvatar onClick={handleOpenMenuProfile} ref={ref} className="d-md-flex">
                     <img className="m-auto" src={profile.avatar?.thumbnail} alt="" />
