@@ -87,15 +87,6 @@ const StyledWrapperPaper = styled.div`
   }
 `;
 
-const StyledHelp = styled.div`
-  padding: 0 15px;
-`;
-
-const StyledHelpIcon = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
 export const Header = () => {
   // todo: рефакторить мобильную версию. Возможно нужен вынос в хук или в контекст
 
@@ -172,13 +163,13 @@ export const Header = () => {
                     <Button type="primary">Добавить вопрос</Button>
                   </Link>
                 )}
-                <StyledHelp>
+                <div className="px-3">
                   <Link to="/help">
-                    <StyledHelpIcon>
-                      <HelpIcon id="helpIcon" />
-                    </StyledHelpIcon>
+                    <div className="d-flex align-items-center">
+                      <HelpIcon />
+                    </div>
                   </Link>
-                </StyledHelp>
+                </div>
                 <div>
                   <StyledAvatar onClick={handleOpenMenuProfile} ref={ref} className="d-md-flex">
                     <img className="m-auto" src={profile.avatar?.thumbnail} alt="" />

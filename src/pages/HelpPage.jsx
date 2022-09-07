@@ -1,21 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
-
-const StyledHelpMain = styled.div`
-  font-size: 24px;
-  background-color: #fff;
-  padding: 20px;
-  margin-top: 10px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-`;
+import { Paper } from '../components/ui';
 
 const HelpPage = () => {
   return (
-    <div className="container">
-      <StyledHelpMain>
+    <div className="container mt-4">
+      <Paper>
         <h2>О проекте IQA</h2>
         <p>
-          {' '}
           Back when tech enthusiasts realised the power of what would be known as the internet, two
           popular browsers came into existence - the Netscape Navigator & following its success,
           (drumrolls) Microsoft’s Internet explorer. This was even before the W3C standards came
@@ -27,7 +18,6 @@ const HelpPage = () => {
           problem.
         </p>
         <p>
-          {' '}
           The problem now was that the legacy code started to break. Hence, a possible solution to
           this was that the sites were now made in two versions - a Standard version (the one which
           we mentioned earlier) which was W3C standards compliant and hence would run across
@@ -41,7 +31,7 @@ const HelpPage = () => {
           your HTML file, the browser would interpret this as an instruction to run your code in
           Quirks mode, and you could end up getting inconsistent results across different browsers.
         </p>
-      </StyledHelpMain>
+      </Paper>
     </div>
   );
 };
