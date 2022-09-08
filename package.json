@@ -4,6 +4,7 @@
   "private": true,
   "license": "MIT",
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@reduxjs/toolkit": "^1.8.2",
     "@toast-ui/editor": "^3.2.0",
     "@toast-ui/react-editor": "^3.2.0",
