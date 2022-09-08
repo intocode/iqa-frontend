@@ -39,6 +39,26 @@ export const removeCommentById = createAsyncThunk(
   }
 );
 
+export const addLike = createAsyncThunk('likes/add', async ({ commentId, userId }, thunkAPI) => {
+  try {
+    const response = await axios.post(`/comments/${commentId}/like`, userId);
+
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+
+export const unLike = createAsyncThunk('likes/remove', async ({ commentId, userId }, thunkAPI) => {
+  try {
+    const response = await axios.delete(`/comments/${commentId}/like`, userId);
+
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+
 const commentsAdapter = createEntityAdapter({
   selectId: (entity) => entity._id,
 });
@@ -83,6 +103,28 @@ const commentsSlice = createSlice({
       );
 
       commentsAdapter.removeOne(state, action.payload.comment);
+    },
+
+    [addLike.pending]: (state) => {
+      state.adding = true;
+    },
+
+    [addLike.fulfilled]: (state, action) => {
+      commentsAdapter.updateOne(state, {
+        id: action.payload.commentId,
+        changes: { liked: true },
+      });
+    },
+
+    [unLike.pending]: (state) => {
+      state.adding = true;
+    },
+
+    [unLike.fulfilled]: (state, action) => {
+      commentsAdapter.updateOne(state, {
+        id: action.payload.commentId,
+        changes: { liked: false },
+      });
     },
   },
 });

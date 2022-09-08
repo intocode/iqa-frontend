@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import React from 'react';
 import dayjs from 'dayjs';
+import { useDispatch, useSelector } from 'react-redux';
 import { CommentsActions } from './comment-actions/CommentsActions';
+import likedIcon from '../../components/assets/liked.svg';
+import unlikedIcon from '../../components/assets/unliked.svg';
+import { selectProfile } from '../profile/profileSlice';
+import { addLike, unLike } from './commentsSlice';
 
 const StyledWrapper = styled.div`
   background-color: #f5f5f5;
@@ -39,6 +44,27 @@ const StyledCommentText = styled.div`
   }
 `;
 
+const StyledCommentLikes = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+
+  & > button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+  }
+
+  & > span {
+    margin-left: 0.3125rem;
+    color: #ff4646;
+    font-weight: 400;
+    font-size: 0.875rem;
+  }
+`;
+
 const StyledTime = styled.span`
   padding-left: 1rem;
   font-size: 12px;
@@ -55,7 +81,21 @@ const StyledCommentActions = styled.div`
 `;
 
 export const CommentView = ({ comment, lastComment }) => {
+  const { REACT_APP_FEATURE_LIKE_COMMENT } = process.env;
   const Wrapper = lastComment ? StyledWrapper : React.Fragment;
+  const dispatch = useDispatch();
+  const profile = useSelector(selectProfile);
+  const commentLikes = comment.likes || 0;
+  const likedComment = comment._id;
+  const likedByUser = profile._id;
+
+  const handleToggleLike = () => {
+    if (likedByUser === likedComment) {
+      dispatch(addLike({ likedComment, likedByUser }));
+    } else {
+      dispatch(unLike({ likedComment, likedByUser }));
+    }
+  };
 
   return (
     <Wrapper>
@@ -73,6 +113,18 @@ export const CommentView = ({ comment, lastComment }) => {
           <StyledCommentText>
             <Viewer initialValue={comment.text} />
           </StyledCommentText>
+          {REACT_APP_FEATURE_LIKE_COMMENT && (
+            <StyledCommentLikes>
+              <button
+                className="d-flex align-items-center"
+                type="button"
+                onClick={handleToggleLike}
+              >
+                <img src={likedByUser === comment._id ? likedIcon : unlikedIcon} alt="Лайк" />
+              </button>
+              <span>{commentLikes.length}</span>
+            </StyledCommentLikes>
+          )}
           {!lastComment && (
             <StyledCommentActions>
               <CommentsActions commentId={comment._id} />
@@ -98,6 +150,7 @@ CommentView.propTypes = {
     createdAt: PropTypes.string,
     questionId: PropTypes.string,
     text: PropTypes.string,
+    likes: PropTypes.arrayOf(PropTypes.string),
     updatedAt: PropTypes.string,
     _id: PropTypes.string,
   }).isRequired,
