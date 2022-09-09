@@ -1,5 +1,8 @@
 import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+import { Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 import {
   fetchQuestions,
   fetchNextPartOfQuestions,
@@ -9,7 +12,7 @@ import {
 } from '../questionsSlice';
 import { selectIsCompactModeToogle, toggleIsCompactMode } from '../../application/applicationSlice';
 import { Title } from '../../../app/Title/Title';
-import { Paper, Switch, Spinner } from '../../../components/ui';
+import { Paper, Switch } from '../../../components/ui';
 import { useOnScroll } from '../../../common/hooks/useOnScroll';
 import QuestionsListMapper from './QuestionsListMapper';
 import { useQueryString } from '../../../common/hooks/useQueryString';
@@ -44,6 +47,11 @@ const QuestionsList = () => {
     [deletedOnly, dispatch, favoritesOnly]
   );
 
+  const StyledSpinner = styled.div`
+    display: flex;
+    justify-content: center;
+  `;
+
   useOnScroll(scrollHandler);
 
   useEffect(() => {
@@ -61,6 +69,15 @@ const QuestionsList = () => {
 
   const QuestionWrapper = isCompactMode ? Paper : React.Fragment;
   const generatedTitle = generateTitle(deletedOnly, favoritesOnly);
+
+  const antIcon = (
+    <LoadingOutlined
+      style={{
+        fontSize: 36,
+      }}
+      spin
+    />
+  );
 
   return (
     <>
@@ -83,7 +100,11 @@ const QuestionsList = () => {
             <QuestionsListMapper />
           </QuestionWrapper>
         )}
-        {fetching && <Spinner />}
+        {fetching && (
+          <StyledSpinner>
+            <Spin indicator={antIcon} />
+          </StyledSpinner>
+        )}
       </div>
     </>
   );
