@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { Editor } from '@toast-ui/react-editor';
-import { Button } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { Button, Tag, Input } from 'antd';
 import { Title } from '../../../app/Title/Title';
-import PlusIcon from '../../../components/icons/PlusIcon';
-import { Alert, Input, Paper, Tag, Typography } from '../../../components/ui';
+import { Alert, Paper, Typography } from '../../../components/ui';
 import { selectProfile } from '../../profile/profileSlice';
 import { addQuestion } from '../questionsSlice';
 import { useAuth } from '../../../common/context/Auth/useAuth';
@@ -57,6 +57,16 @@ const StyledAvatar = styled.div`
     border-radius: 1.5rem;
     margin-right: 0.5rem;
   }
+`;
+
+const StyledInputBlock = styled.div`
+  width: 6em;
+  margin-top: 5px;
+`;
+
+const StyledTagBlock = styled.div`
+  height: fit-content;
+  margin-top: 5px;
 `;
 
 const CreateQuestion = () => {
@@ -197,30 +207,35 @@ const CreateQuestion = () => {
                   Теги<sup>*</sup>
                 </div>
 
-                <div className="d-flex">
+                <div className="d-flex flex-wrap">
                   {tags.map((tag) => (
-                    <Tag key={tag} onRemove={() => removeTag(tag)} className="mx-2">
-                      {tag}
-                    </Tag>
+                    <StyledTagBlock>
+                      <Tag key={tag} closable onClose={() => removeTag(tag)}>
+                        {tag}
+                      </Tag>
+                    </StyledTagBlock>
                   ))}
 
                   {!tagEditMode && (
-                    <button onClick={() => setTagEditMode(true)} type="button" className="new-tag">
-                      <PlusIcon />
-                      <span>New tag</span>
-                    </button>
+                    <StyledTagBlock>
+                      <Tag className="site-tag-plus" onClick={() => setTagEditMode(true)}>
+                        <PlusOutlined /> New Tag
+                      </Tag>
+                    </StyledTagBlock>
                   )}
 
                   {tagEditMode && (
-                    <button onBlur={() => setTagEditMode(false)} type="button" className="new-tag">
-                      <PlusIcon />
-                      <input
-                        value={tagValue}
-                        onKeyPress={handleKeyPress}
-                        onChange={(e) => setTagValue(e.target.value)}
+                    <StyledInputBlock>
+                      <Input
                         ref={callbackRef}
+                        type="text"
+                        size="small"
+                        value={tagValue}
+                        onChange={(e) => setTagValue(e.target.value)}
+                        onKeyPress={handleKeyPress}
+                        onBlur={() => setTagEditMode(false)}
                       />
-                    </button>
+                    </StyledInputBlock>
                   )}
                 </div>
               </>

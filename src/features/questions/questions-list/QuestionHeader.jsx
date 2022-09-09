@@ -2,8 +2,9 @@ import dayjs from 'dayjs';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Tag } from 'antd';
 import { useSelector } from 'react-redux';
-import { Typography, Tag } from '../../../components/ui';
+import { Typography } from '../../../components/ui';
 import { questionSelectors } from '../questionsSlice';
 
 const StyledTag = styled.div`
@@ -40,12 +41,7 @@ export const QuestionHeader = ({ questionId }) => {
           </div>
         </div>
         <StyledTag className="col-auto d-none d-md-block">
-          {REACT_APP_FEATURE_TAGS &&
-            question.tags.map((tag) => (
-              <Tag noGutters key={tag}>
-                {tag}
-              </Tag>
-            ))}
+          {REACT_APP_FEATURE_TAGS && question.tags.map((tag) => <Tag key={tag}>{tag}</Tag>)}
         </StyledTag>
       </div>
     </StyledHeader>

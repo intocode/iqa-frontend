@@ -1,8 +1,9 @@
 import { Viewer } from '@toast-ui/react-editor';
+import { Tag } from 'antd';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { Divider, Tag } from '../../../components/ui';
+import { Divider } from '../../../components/ui';
 import { selectOpenedQuestion } from '../questionsSlice';
 
 const StyledAvatar = styled.div`
@@ -20,16 +21,6 @@ const StyledAvatar = styled.div`
     color: #909399;
     font-size: 12px;
     margin-left: 10px;
-  }
-`;
-
-const StyledTag = styled.div`
-  display: flex;
-  & > div {
-    margin-right: 10px;
-  }
-  & > div:last-child {
-    margin-right: 0;
   }
 `;
 
@@ -53,13 +44,13 @@ export const QuestionPageContent = () => {
           <div>добавлено {dayjs(question?.createdAt).fromNow()}</div>
         </StyledAvatar>
         {REACT_APP_FEATURE_TAGS && (
-          <StyledTag>
+          <div className="d-flex">
             {question.tags.map((tag) => (
               <Tag key={tag} noGutters className="d-none d-md-block">
                 {tag}
               </Tag>
             ))}
-          </StyledTag>
+          </div>
         )}
       </div>
 
