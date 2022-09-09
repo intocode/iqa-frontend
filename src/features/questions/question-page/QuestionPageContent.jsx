@@ -1,9 +1,8 @@
 import { Viewer } from '@toast-ui/react-editor';
-import { Tag } from 'antd';
+import { Tag, Divider } from 'antd';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { Divider } from '../../../components/ui';
 import { selectOpenedQuestion } from '../questionsSlice';
 
 const StyledAvatar = styled.div`
