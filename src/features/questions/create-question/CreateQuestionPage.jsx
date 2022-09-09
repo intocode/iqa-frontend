@@ -60,7 +60,7 @@ const StyledAvatar = styled.div`
 `;
 
 const StyledInputBlock = styled.div`
-  width: 6em;
+  width: 77px;
   margin-top: 5px;
 `;
 
