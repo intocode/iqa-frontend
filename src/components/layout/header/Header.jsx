@@ -65,9 +65,7 @@ const StyledAvatar = styled.div`
 
 const StyledMenuProfile = styled.div`
   line-height: 1.7;
-  margin: 0;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px 0;
 `;
 
 const StyledMenuList = styled.ul`
@@ -191,7 +189,7 @@ export const Header = () => {
                           <div>@{profile.name}</div>
                           <div role="presentation" onClick={handleOpenMenuProfile}>
                             <StyledMenuProfile>
-                              <Divider />
+                              <Divider className="m-0" />
                               <StyledMenuList>
                                 <li className="mt-2">
                                   <LinkToProfilePage />
@@ -203,7 +201,7 @@ export const Header = () => {
                                   <LinkToDeleted />
                                 </li>
                               </StyledMenuList>
-                              <Divider />
+                              <Divider className="m-0" />
                             </StyledMenuProfile>
                             <Link to="/" className="d-none d-md-block">
                               <Typography onClick={handleClick}>Выйти</Typography>
