@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import {
@@ -46,11 +45,6 @@ const QuestionsList = () => {
     },
     [deletedOnly, dispatch, favoritesOnly]
   );
-
-  const StyledSpinner = styled.div`
-    display: flex;
-    justify-content: center;
-  `;
 
   useOnScroll(scrollHandler);
 
@@ -101,9 +95,9 @@ const QuestionsList = () => {
           </QuestionWrapper>
         )}
         {fetching && (
-          <StyledSpinner>
+          <div className="d-flex justify-content-center">
             <Spin indicator={antIcon} />
-          </StyledSpinner>
+          </div>
         )}
       </div>
     </>
