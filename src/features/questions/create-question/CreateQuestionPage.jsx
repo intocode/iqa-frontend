@@ -4,9 +4,9 @@ import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { Editor } from '@toast-ui/react-editor';
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, Tag, Input } from 'antd';
+import { Button, Tag, Input, Alert } from 'antd';
 import { Title } from '../../../app/Title/Title';
-import { Alert, Paper, Typography } from '../../../components/ui';
+import { Paper, Typography } from '../../../components/ui';
 import { selectProfile } from '../../profile/profileSlice';
 import { addQuestion } from '../questionsSlice';
 import { useAuth } from '../../../common/context/Auth/useAuth';
@@ -165,9 +165,11 @@ const CreateQuestion = () => {
           </div>
 
           {tooManyQuestions && (
-            <Alert color="warning">
-              В одном посте рекомендуется публиковать только один вопрос.
-            </Alert>
+            <Alert
+              message="В одном посте рекомендуется публиковать только один вопрос."
+              type="warning"
+              className="mt-3"
+            />
           )}
 
           <div className="mt-4 mb-3">
