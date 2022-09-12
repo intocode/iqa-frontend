@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button } from 'antd';
+import { Button, Divider } from 'antd';
 import { useAuth } from '../../../common/context/Auth/useAuth';
 import { Logo } from './Logo';
 import AdaptiveMenu from './AdaptiveMenu';
@@ -10,7 +10,7 @@ import MenuIcon from '../../icons/MenuIcon';
 import CloseMenuIcon from '../../icons/CloseMenuIcon';
 import { resetProfile, selectProfile } from '../../../features/profile/profileSlice';
 import Popover from '../../ui/Popover';
-import { Divider, Paper, Typography } from '../../ui';
+import { Paper, Typography } from '../../ui';
 import { LinkToFavorites } from './header-menu/LinkToFavorites';
 import { LinkToDeleted } from './header-menu/LinkToDeleted';
 import Search from './Search';
@@ -65,8 +65,7 @@ const StyledAvatar = styled.div`
 
 const StyledMenuProfile = styled.div`
   line-height: 1.7;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px 0;
 `;
 
 const StyledMenuList = styled.ul`
@@ -190,7 +189,7 @@ export const Header = () => {
                           <div>@{profile.name}</div>
                           <div role="presentation" onClick={handleOpenMenuProfile}>
                             <StyledMenuProfile>
-                              <Divider />
+                              <Divider className="m-0" />
                               <StyledMenuList>
                                 <li className="mt-2">
                                   <LinkToProfilePage />
@@ -202,7 +201,7 @@ export const Header = () => {
                                   <LinkToDeleted />
                                 </li>
                               </StyledMenuList>
-                              <Divider />
+                              <Divider className="m-0" />
                             </StyledMenuProfile>
                             <Link to="/" className="d-none d-md-block">
                               <Typography onClick={handleClick}>Выйти</Typography>

@@ -1,5 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 import {
   fetchQuestions,
   fetchNextPartOfQuestions,
@@ -9,7 +11,7 @@ import {
 } from '../questionsSlice';
 import { selectIsCompactModeToogle, toggleIsCompactMode } from '../../application/applicationSlice';
 import { Title } from '../../../app/Title/Title';
-import { Paper, Switch, Spinner } from '../../../components/ui';
+import { Paper, Switch } from '../../../components/ui';
 import { useOnScroll } from '../../../common/hooks/useOnScroll';
 import QuestionsListMapper from './QuestionsListMapper';
 import { useQueryString } from '../../../common/hooks/useQueryString';
@@ -62,6 +64,15 @@ const QuestionsList = () => {
   const QuestionWrapper = isCompactMode ? Paper : React.Fragment;
   const generatedTitle = generateTitle(deletedOnly, favoritesOnly);
 
+  const antIcon = (
+    <LoadingOutlined
+      style={{
+        fontSize: 36,
+      }}
+      spin
+    />
+  );
+
   return (
     <>
       <Title>{`iqa: ${generatedTitle}`}</Title>
@@ -83,7 +94,11 @@ const QuestionsList = () => {
             <QuestionsListMapper />
           </QuestionWrapper>
         )}
-        {fetching && <Spinner />}
+        {fetching && (
+          <div className="d-flex justify-content-center">
+            <Spin indicator={antIcon} />
+          </div>
+        )}
       </div>
     </>
   );
