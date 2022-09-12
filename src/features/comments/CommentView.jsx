@@ -7,7 +7,8 @@ import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { CommentsActions } from './comment-actions/CommentsActions';
 import { selectProfile } from '../profile/profileSlice';
-import { addLike, unLike } from './commentsSlice';
+import { likeCommentById, unlikeCommentById } from './commentsSlice';
+import { useAuth } from '../../common/context/Auth/useAuth';
 
 const StyledWrapper = styled.div`
   background-color: #f5f5f5;
@@ -33,7 +34,6 @@ const StyledProfile = styled.div`
 const StyledCommentLikes = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 10px;
 
   & > button {
     border: none;
@@ -67,19 +67,23 @@ const StyledCommentActions = styled.div`
 `;
 
 export const CommentView = ({ comment, lastComment }) => {
-  const { REACT_APP_FEATURE_LIKE_COMMENT } = process.env;
   const Wrapper = lastComment ? StyledWrapper : React.Fragment;
+
   const dispatch = useDispatch();
+  const { token } = useAuth();
+
+  const { REACT_APP_FEATURE_LIKE_COMMENT } = process.env;
+
   const profile = useSelector(selectProfile);
   const commentLikes = comment.likes || 0;
   const commentId = comment._id;
   const userId = profile._id;
 
   const handleToggleLike = () => {
-    if (userId === commentId) {
-      dispatch(addLike({ commentId, userId }));
+    if (!commentLikes.includes(userId)) {
+      dispatch(likeCommentById({ commentId, userId }));
     } else {
-      dispatch(unLike({ commentId, userId }));
+      dispatch(unlikeCommentById({ commentId, userId }));
     }
   };
 
@@ -106,8 +110,9 @@ export const CommentView = ({ comment, lastComment }) => {
                     className="d-flex align-items-center"
                     type="button"
                     onClick={handleToggleLike}
+                    disabled={!token}
                   >
-                    {userId === comment._id ? (
+                    {commentLikes.includes(userId) ? (
                       <HeartFilled style={{ color: '#FF4646' }} />
                     ) : (
                       <HeartOutlined style={{ color: '#FF4646' }} />
