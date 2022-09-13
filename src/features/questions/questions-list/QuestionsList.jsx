@@ -1,8 +1,6 @@
 /* eslint-disable jsx-a11y/aria-role */
 import React, { useEffect, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { screen } from '@testing-library/react';
-// console.log(screen.getByLabelText(/Компактный/))
 import { Spin, Switch } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
