@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/interactive-supports-focus */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/aria-role */
 import React, { useEffect, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -96,9 +98,9 @@ const QuestionsList = () => {
           <div className="col">
             <h2>{generatedTitle}</h2>
           </div>
-          <div className="col-auto">
-            <Switch onClick={handleClickSwitch} checked={enableSwitch} />
-            <StyledSwitchBlock role="switch-text" className="ms-2" onClick={handleClickSwitch}>
+          <div role="button" onClick={handleClickSwitch} className="col-auto">
+            <Switch checked={enableSwitch} />
+            <StyledSwitchBlock role="switch-text" className="ms-2">
               Компактный вид
             </StyledSwitchBlock>
           </div>
