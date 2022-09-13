@@ -45,7 +45,7 @@ export const QuestionPageContent = () => {
         {REACT_APP_FEATURE_TAGS && (
           <div className="d-flex">
             {question.tags.map((tag) => (
-              <Tag key={tag} noGutters className="d-none d-md-block">
+              <Tag key={tag} className="d-none d-md-block">
                 {tag}
               </Tag>
             ))}
