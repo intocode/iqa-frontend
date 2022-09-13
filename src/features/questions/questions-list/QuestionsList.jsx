@@ -94,11 +94,11 @@ const QuestionsList = () => {
     <>
       <Title>{`iqa: ${generatedTitle}`}</Title>
       <div className="container">
-        <div className="d-flex justify-content-between align-items-center my-3">
+        <div className="row justify-content-between align-items-center my-3">
           <div className="col">
             <h2>{generatedTitle}</h2>
           </div>
-          <div>
+          <div className="col-auto">
             <label>
               <Switch onClick={handleClickSwitch} checked={enableSwitch} />
               <label>
