@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/interactive-supports-focus */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/aria-role */
 import React, { useEffect, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Spin, Switch } from 'antd';
@@ -22,9 +19,8 @@ import { useQueryString } from '../../../common/hooks/useQueryString';
 import QuestionEmptyFolder from './QuestionEmptyFolder';
 import { generateTitle } from '../../../common/utils/title';
 
-const StyledSwitchBlock = styled.div`
+const StyledSwitchBlock = styled.span`
   color: #409eff;
-  display: inline;
   cursor: pointer;
 `;
 
@@ -98,9 +94,14 @@ const QuestionsList = () => {
           <div className="col">
             <h2>{generatedTitle}</h2>
           </div>
-          <div role="button" onClick={handleClickSwitch} className="col-auto">
-            <Switch checked={enableSwitch} />
-            <StyledSwitchBlock role="switch-text" className="ms-2">
+          <div className="col-auto">
+            <Switch checked={enableSwitch} onClick={handleClickSwitch} />
+            <StyledSwitchBlock
+              role="button"
+              data-testid="compact-mode-label"
+              onClick={handleClickSwitch}
+              className="ms-3"
+            >
               Компактный вид
             </StyledSwitchBlock>
           </div>
