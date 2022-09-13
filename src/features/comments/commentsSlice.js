@@ -111,24 +111,13 @@ const commentsSlice = createSlice({
     },
 
     [removeCommentById.fulfilled]: (state, action) => {
-      state.deletingCommentIds = state.deletingCommentIds.filter(
-        (id) => id.commentId !== action.payload.comment
-      );
-
-      commentsAdapter.removeOne(state, action.payload.comment);
+      commentsAdapter.updateOne(state, {
+        id: action.meta.arg.commentId,
+        changes: { likes: [action.meta.arg.userId] },
+      });
     },
 
     [likeCommentById.pending]: (state, action) => {
-      state.likedCommentsIds.push(action.meta.arg.commentId);
-
-      state.likedCommentsIds = state.likedCommentsIds.filter(
-        (id) => id !== action.meta.arg.commentId
-      );
-
-      state.entities[action.meta.arg.commentId].likes.push(action.meta.arg.userId);
-    },
-
-    [unlikeCommentById.pending]: (state, action) => {
       state.likedCommentsIds.push(action.meta.arg.commentId);
 
       // stop preloader
@@ -136,9 +125,17 @@ const commentsSlice = createSlice({
         (id) => id !== action.meta.arg.commentId
       );
 
-      state.entities[action.meta.arg.commentId].likes = state.entities[
-        action.meta.arg.commentId
-      ].likes.filter((id) => id !== action.meta.arg.userId);
+      commentsAdapter.updateOne(state, {
+        id: action.meta.arg.commentId,
+        changes: { likes: [action.meta.arg.userId] },
+      });
+    },
+
+    [unlikeCommentById.pending]: (state, action) => {
+      commentsAdapter.updateOne(state, {
+        id: action.meta.arg.commentId,
+        changes: { likes: [action.meta.arg.userId].filter((id) => id !== action.meta.arg.userId) },
+      });
     },
   },
 });
