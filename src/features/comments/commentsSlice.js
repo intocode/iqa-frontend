@@ -118,23 +118,31 @@ const commentsSlice = createSlice({
     },
 
     [likeCommentById.pending]: (state, action) => {
-      state.likedCommentsIds.push(action.meta.arg.commentId);
+      const { commentId, userId } = action.meta.arg;
+
+      state.likedCommentsIds.push(commentId);
 
       // stop preloader
-      state.likedCommentsIds = state.likedCommentsIds.filter(
-        (id) => id !== action.meta.arg.commentId
-      );
+      state.likedCommentsIds = state.likedCommentsIds.filter((id) => id !== commentId);
+
+      const { selectById } = commentsAdapter.getSelectors();
 
       commentsAdapter.updateOne(state, {
-        id: action.meta.arg.commentId,
-        changes: { likes: [action.meta.arg.userId] },
+        id: commentId,
+        changes: { likes: [...selectById(state, commentId).likes, userId] },
       });
     },
 
     [unlikeCommentById.pending]: (state, action) => {
+      const { commentId, userId } = action.meta.arg;
+
+      const { selectById } = commentsAdapter.getSelectors();
+
       commentsAdapter.updateOne(state, {
-        id: action.meta.arg.commentId,
-        changes: { likes: [action.meta.arg.userId].filter((id) => id !== action.meta.arg.userId) },
+        id: commentId,
+        changes: {
+          likes: selectById(state, commentId).likes.filter((id) => id !== userId),
+        },
       });
     },
   },
