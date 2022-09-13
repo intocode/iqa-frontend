@@ -39,6 +39,32 @@ export const removeCommentById = createAsyncThunk(
   }
 );
 
+export const likeCommentById = createAsyncThunk(
+  'likes/add',
+  async ({ commentId, userId }, thunkAPI) => {
+    try {
+      const response = await axios.post(`/comments/${commentId}/like`, userId);
+
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const unlikeCommentById = createAsyncThunk(
+  'likes/remove',
+  async ({ commentId, userId }, thunkAPI) => {
+    try {
+      const response = await axios.delete(`/comments/${commentId}/like`, userId);
+
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const commentsAdapter = createEntityAdapter({
   selectId: (entity) => entity._id,
 });
@@ -47,6 +73,7 @@ const initialState = commentsAdapter.getInitialState({
   fetching: false,
   adding: false,
   deletingCommentIds: [],
+  likedCommentsIds: [],
 });
 
 const commentsSlice = createSlice({
@@ -84,11 +111,39 @@ const commentsSlice = createSlice({
     },
 
     [removeCommentById.fulfilled]: (state, action) => {
-      state.deletingCommentIds = state.deletingCommentIds.filter(
-        (id) => id.commentId !== action.payload.comment
-      );
+      commentsAdapter.updateOne(state, {
+        id: action.meta.arg.commentId,
+        changes: { likes: [action.meta.arg.userId] },
+      });
+    },
 
-      commentsAdapter.removeOne(state, action.payload.comment);
+    [likeCommentById.pending]: (state, action) => {
+      const { commentId, userId } = action.meta.arg;
+
+      state.likedCommentsIds.push(commentId);
+
+      // stop preloader
+      state.likedCommentsIds = state.likedCommentsIds.filter((id) => id !== commentId);
+
+      const { selectById } = commentsAdapter.getSelectors();
+
+      commentsAdapter.updateOne(state, {
+        id: commentId,
+        changes: { likes: [...selectById(state, commentId).likes, userId] },
+      });
+    },
+
+    [unlikeCommentById.pending]: (state, action) => {
+      const { commentId, userId } = action.meta.arg;
+
+      const { selectById } = commentsAdapter.getSelectors();
+
+      commentsAdapter.updateOne(state, {
+        id: commentId,
+        changes: {
+          likes: selectById(state, commentId).likes.filter((id) => id !== userId),
+        },
+      });
     },
   },
 });
@@ -108,6 +163,11 @@ export const selectCommentsLoading = createSelector(selectCommentsState, (state)
 export const selectCommentDeliting = createSelector(
   selectCommentsState,
   (state) => state.deletingCommentIds
+);
+
+export const selectCommentLiked = createSelector(
+  selectCommentsState,
+  (state) => state.likedCommentsIds
 );
 
 export const selectCommentsSuccess = createSelector(selectCommentsState, (state) => state.success);
