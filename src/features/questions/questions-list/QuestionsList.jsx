@@ -100,9 +100,9 @@ const QuestionsList = () => {
           </div>
           <div>
             <label>
-              <Switch onClick={() => handleClickSwitch()} checked={enableSwitch} />
+              <Switch onClick={handleClickSwitch} checked={enableSwitch} />
               <label>
-                <StyledSwitchBlock className="ms-2" onClick={() => handleClickSwitch()}>
+                <StyledSwitchBlock className="ms-2" onClick={handleClickSwitch}>
                   Компактный вид
                 </StyledSwitchBlock>
               </label>
