@@ -1,7 +1,8 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Spin } from 'antd';
+import { Spin, Switch } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
+import styled from 'styled-components';
 import {
   fetchQuestions,
   fetchNextPartOfQuestions,
@@ -11,12 +12,17 @@ import {
 } from '../questionsSlice';
 import { selectIsCompactModeToogle, toggleIsCompactMode } from '../../application/applicationSlice';
 import { Title } from '../../../app/Title/Title';
-import { Paper, Switch } from '../../../components/ui';
+import { Paper } from '../../../components/ui';
 import { useOnScroll } from '../../../common/hooks/useOnScroll';
 import QuestionsListMapper from './QuestionsListMapper';
 import { useQueryString } from '../../../common/hooks/useQueryString';
 import QuestionEmptyFolder from './QuestionEmptyFolder';
 import { generateTitle } from '../../../common/utils/title';
+
+const StyledSwitchBlock = styled.span`
+  color: #409eff;
+  cursor: pointer;
+`;
 
 const QuestionsList = () => {
   const dispatch = useDispatch();
@@ -27,6 +33,8 @@ const QuestionsList = () => {
 
   const fetching = useSelector(selectQuestionsFetching);
   const isCompactMode = useSelector(selectIsCompactModeToogle);
+
+  const [enableSwitch, setEnableSwitch] = useState(false);
 
   const questionsIds = useSelector(questionSelectors.selectIds);
 
@@ -73,6 +81,11 @@ const QuestionsList = () => {
     />
   );
 
+  const handleClickSwitch = () => {
+    dispatch(toggleIsCompactMode());
+    setEnableSwitch(!enableSwitch);
+  };
+
   return (
     <>
       <Title>{`iqa: ${generatedTitle}`}</Title>
@@ -82,9 +95,15 @@ const QuestionsList = () => {
             <h2>{generatedTitle}</h2>
           </div>
           <div className="col-auto">
-            <Switch turnedOn={isCompactMode} onChange={() => dispatch(toggleIsCompactMode())}>
+            <Switch checked={enableSwitch} onClick={handleClickSwitch} />
+            <StyledSwitchBlock
+              role="button"
+              data-testid="compact-mode-label"
+              onClick={handleClickSwitch}
+              className="ms-3"
+            >
               Компактный вид
-            </Switch>
+            </StyledSwitchBlock>
           </div>
         </div>
         {!questionsIds.length && !fetching ? (
