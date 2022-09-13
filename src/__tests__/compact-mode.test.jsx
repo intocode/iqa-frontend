@@ -33,7 +33,7 @@ describe('Header rendering', () => {
     });
 
     // кликаем на "Компактный вид"
-    fireEvent.click(screen.getByLabelText(/Компактный/));
+    fireEvent.click(screen.getByRole('switch-text'));
 
     // проверяем остались ли ненужные элементы
     expect(screen.queryAllByTestId('not-for-compact')).toBeInstanceOf(Array);

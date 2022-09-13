@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/aria-role */
 import React, { useEffect, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { screen } from '@testing-library/react';
@@ -99,14 +99,10 @@ const QuestionsList = () => {
             <h2>{generatedTitle}</h2>
           </div>
           <div className="col-auto">
-            <label>
-              <Switch onClick={handleClickSwitch} checked={enableSwitch} />
-              <label>
-                <StyledSwitchBlock className="ms-2" onClick={handleClickSwitch}>
-                  Компактный вид
-                </StyledSwitchBlock>
-              </label>
-            </label>
+            <Switch onClick={handleClickSwitch} checked={enableSwitch} />
+            <StyledSwitchBlock role="switch-text" className="ms-2" onClick={handleClickSwitch}>
+              Компактный вид
+            </StyledSwitchBlock>
           </div>
         </div>
         {!questionsIds.length && !fetching ? (
