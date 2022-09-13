@@ -1,7 +1,11 @@
-import React, { useEffect, useCallback } from 'react';
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React, { useEffect, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Spin } from 'antd';
+// import { screen } from '@testing-library/react';
+// console.log(screen.getByLabelText(/Компактный/))
+import { Spin, Switch } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
+import styled from 'styled-components';
 import {
   fetchQuestions,
   fetchNextPartOfQuestions,
@@ -11,12 +15,18 @@ import {
 } from '../questionsSlice';
 import { selectIsCompactModeToogle, toggleIsCompactMode } from '../../application/applicationSlice';
 import { Title } from '../../../app/Title/Title';
-import { Paper, Switch } from '../../../components/ui';
+import { Paper } from '../../../components/ui';
 import { useOnScroll } from '../../../common/hooks/useOnScroll';
 import QuestionsListMapper from './QuestionsListMapper';
 import { useQueryString } from '../../../common/hooks/useQueryString';
 import QuestionEmptyFolder from './QuestionEmptyFolder';
 import { generateTitle } from '../../../common/utils/title';
+
+const StyledSwitchBlock = styled.div`
+  color: #409eff;
+  display: inline;
+  cursor: pointer;
+`;
 
 const QuestionsList = () => {
   const dispatch = useDispatch();
@@ -27,6 +37,8 @@ const QuestionsList = () => {
 
   const fetching = useSelector(selectQuestionsFetching);
   const isCompactMode = useSelector(selectIsCompactModeToogle);
+
+  const [enableSwitch, setEnableSwitch] = useState(false);
 
   const questionsIds = useSelector(questionSelectors.selectIds);
 
@@ -73,18 +85,28 @@ const QuestionsList = () => {
     />
   );
 
+  const handleClickSwitch = () => {
+    dispatch(toggleIsCompactMode());
+    setEnableSwitch(!enableSwitch);
+  };
+
   return (
     <>
       <Title>{`iqa: ${generatedTitle}`}</Title>
       <div className="container">
-        <div className="row justify-content-between align-items-center my-3">
+        <div className="d-flex justify-content-between align-items-center my-3">
           <div className="col">
             <h2>{generatedTitle}</h2>
           </div>
-          <div className="col-auto">
-            <Switch turnedOn={isCompactMode} onChange={() => dispatch(toggleIsCompactMode())}>
-              Компактный вид
-            </Switch>
+          <div>
+            <label>
+              <Switch onClick={(e) => handleClickSwitch(e)} checked={enableSwitch} />
+              <label>
+                <StyledSwitchBlock className="ms-2" onClick={(e) => handleClickSwitch(e)}>
+                  Компактный вид
+                </StyledSwitchBlock>
+              </label>
+            </label>
           </div>
         </div>
         {!questionsIds.length && !fetching ? (
