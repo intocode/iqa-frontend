@@ -15,9 +15,7 @@ const Placeholder = () => {
       <div className="placeholder-glow d-flex justify-content-between pt-3 m-2 mb-4">
         <div className="placeholder placeholder-lg col-5 m-1" />
         <div className="col-4 m-1">
-          <Tag className="placeholder col-12" noGutters>
-            &nbsp;
-          </Tag>
+          <Tag className="placeholder col-12">&nbsp;</Tag>
         </div>
       </div>
       <div className="placeholder-glow m-3">
