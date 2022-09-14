@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Typography } from 'antd';
 import { Title } from '../../../app/Title/Title';
-import { Typography } from '../../../components/ui';
 import { selectOpenedQuestion } from '../questionsSlice';
 
 export const QuestionPageHeader = () => {
@@ -15,7 +15,7 @@ export const QuestionPageHeader = () => {
         <div className="d-flex justify-content-between my-3">
           <h3>Обсуждение вопроса</h3>
           <Link to="/">
-            <Typography>Вернуться назад</Typography>
+            <Typography.Link>Вернуться назад</Typography.Link>
           </Link>
         </div>
       </div>

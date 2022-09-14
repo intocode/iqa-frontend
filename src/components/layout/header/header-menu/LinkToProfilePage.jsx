@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Typography } from '../../../ui';
+import { Typography } from 'antd';
 
 const LinkToProfilePage = () => {
   return (
     <Link to="/profile">
-      <Typography>Профиль</Typography>
+      <Typography.Link>Профиль</Typography.Link>
     </Link>
   );
 };

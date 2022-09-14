@@ -2,9 +2,8 @@ import dayjs from 'dayjs';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Tag } from 'antd';
+import { Tag, Typography } from 'antd';
 import { useSelector } from 'react-redux';
-import { Typography } from '../../../components/ui';
 import { questionSelectors } from '../questionsSlice';
 
 const StyledTag = styled.div`
@@ -28,6 +27,8 @@ export const QuestionHeader = ({ questionId }) => {
   const question = useSelector((state) => questionSelectors.selectById(state, questionId));
   const { REACT_APP_FEATURE_TAGS } = process.env;
 
+  const { Text } = Typography;
+
   return (
     <StyledHeader data-testid="not-for-compact">
       <div className="row mb-4">
@@ -35,9 +36,7 @@ export const QuestionHeader = ({ questionId }) => {
           <div className="d-flex align-items-center">
             <img src={question.author?.avatar?.thumbnail} alt="" className="avatar" />
             <span className="mx-2">{question.author.name}</span>
-            <Typography variant="small" color="gray">
-              добавлен {dayjs(question.createdAt).fromNow()}
-            </Typography>
+            <Text type="secondary">добавлен {dayjs(question.createdAt).fromNow()}</Text>
           </div>
         </div>
         <StyledTag className="col-auto d-none d-md-block">

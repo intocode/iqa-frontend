@@ -4,9 +4,9 @@ import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { Editor } from '@toast-ui/react-editor';
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, Tag, Input, Alert } from 'antd';
+import { Button, Tag, Input, Alert, Typography } from 'antd';
 import { Title } from '../../../app/Title/Title';
-import { Paper, Typography } from '../../../components/ui';
+import { Paper } from '../../../components/ui';
 import { selectProfile } from '../../profile/profileSlice';
 import { addQuestion } from '../questionsSlice';
 import { useAuth } from '../../../common/context/Auth/useAuth';
@@ -151,7 +151,7 @@ const CreateQuestion = () => {
           <div className="d-flex justify-content-between my-3">
             <h3>Добавление вопроса</h3>
             <Link to="/">
-              <Typography>Вернуться назад</Typography>
+              <Typography.Link>Вернуться назад</Typography.Link>
             </Link>
           </div>
         </div>
@@ -256,7 +256,7 @@ const CreateQuestion = () => {
               </div>
               <div className="col-auto">
                 <Link to="/" className="cancel">
-                  <Typography color="gray">Отмена</Typography>
+                  <Typography.Text type="secondary">Отмена</Typography.Text>
                 </Link>
               </div>
             </div>

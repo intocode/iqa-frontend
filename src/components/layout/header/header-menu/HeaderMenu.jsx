@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Typography } from '../../../ui';
+import { Typography } from 'antd';
 
 const StyledUl = styled.ul`
   list-style: none;
@@ -18,7 +18,7 @@ export const HeaderMenu = () => {
     <div>
       <StyledUl>
         <li>
-          <Link to="/" className="d-none d-md-block">
+          <Link to="/" className="">
             <Typography>Главная</Typography>
           </Link>
         </li>
