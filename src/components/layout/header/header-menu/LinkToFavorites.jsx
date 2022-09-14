@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
+import { Typography } from 'antd';
 import { useAuth } from '../../../../common/context/Auth/useAuth';
-import { Typography } from '../../../ui';
 
 export const LinkToFavorites = () => {
   const { token } = useAuth();
@@ -11,7 +11,7 @@ export const LinkToFavorites = () => {
 
   return (
     <Link to="/?favoritesOnly=true" className="d-none d-md-block">
-      <Typography>Сохраненные</Typography>
+      <Typography.Link>Сохраненные</Typography.Link>
     </Link>
   );
 };

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Divider } from 'antd';
+import { Button, Divider, Typography } from 'antd';
 import { useAuth } from '../../../common/context/Auth/useAuth';
 import { Logo } from './Logo';
 import AdaptiveMenu from './AdaptiveMenu';
@@ -10,7 +10,7 @@ import MenuIcon from '../../icons/MenuIcon';
 import CloseMenuIcon from '../../icons/CloseMenuIcon';
 import { resetProfile, selectProfile } from '../../../features/profile/profileSlice';
 import Popover from '../../ui/Popover';
-import { Paper, Typography } from '../../ui';
+import { Paper } from '../../ui';
 import { LinkToFavorites } from './header-menu/LinkToFavorites';
 import { LinkToDeleted } from './header-menu/LinkToDeleted';
 import Search from './Search';
@@ -203,9 +203,9 @@ export const Header = () => {
                               </StyledMenuList>
                               <Divider className="m-0" />
                             </StyledMenuProfile>
-                            <Link to="/" className="d-none d-md-block">
-                              <Typography onClick={handleClick}>Выйти</Typography>
-                            </Link>
+                            <Typography.Link to="/" onClick={handleClick}>
+                              Выйти
+                            </Typography.Link>
                           </div>
                         </Paper>
                       </StyledWrapperPaper>

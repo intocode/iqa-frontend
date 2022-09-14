@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
+import { Typography } from 'antd';
 import { useAuth } from '../../../../common/context/Auth/useAuth';
-import { Typography } from '../../../ui';
 
 export const LinkToDeleted = () => {
   const { token } = useAuth();
@@ -11,7 +11,7 @@ export const LinkToDeleted = () => {
 
   return (
     <Link to="/?deletedOnly=true" className="d-none d-md-block">
-      <Typography>Корзина</Typography>
+      <Typography.Link>Корзина</Typography.Link>
     </Link>
   );
 };

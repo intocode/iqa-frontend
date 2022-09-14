@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { Typography } from '../../../components/ui';
+import { Typography } from 'antd';
 import { selectIsCompactModeToogle } from '../../application/applicationSlice';
 import { questionSelectors } from '../questionsSlice';
 
@@ -22,9 +22,15 @@ export const QuestionContent = ({ questionId }) => {
   const question = useSelector((state) => questionSelectors.selectById(state, questionId));
   return (
     <div className="mb-4">
-      <Typography variant={isCompactMode ? 'caption' : 'header'}>
-        <StyledLink to={`/question/${question._id}`}>{question.question}</StyledLink>
-      </Typography>
+      {isCompactMode ? (
+        <Typography.Text>
+          <StyledLink to={`/question/${question._id}`}>{question.question}</StyledLink>
+        </Typography.Text>
+      ) : (
+        <Typography.Title level={3}>
+          <StyledLink to={`/question/${question._id}`}>{question.question}</StyledLink>
+        </Typography.Title>
+      )}
     </div>
   );
 };
