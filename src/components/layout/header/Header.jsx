@@ -203,9 +203,9 @@ export const Header = () => {
                               </StyledMenuList>
                               <Divider className="m-0" />
                             </StyledMenuProfile>
-                            <Typography.Link to="/" onClick={handleClick}>
-                              Выйти
-                            </Typography.Link>
+                            <Link to="/" className="d-none d-md-block">
+                              <Typography.Link onClick={handleClick}>Выйти</Typography.Link>
+                            </Link>
                           </div>
                         </Paper>
                       </StyledWrapperPaper>
