@@ -1,5 +1,5 @@
 import { Divider, Typography } from 'antd';
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -22,8 +22,6 @@ const StyledMenuList = styled.ul`
 const PopoverContent = () => {
   const { logout } = useAuth();
 
-  const [openMenuProfile, setOpenMenuProfile] = useState(false);
-
   const dispatch = useDispatch();
 
   const profile = useSelector(selectProfile);
@@ -33,15 +31,10 @@ const PopoverContent = () => {
     logout();
   };
 
-  const handleOpenMenuProfile = () => {
-    setOpenMenuProfile(!openMenuProfile);
-  };
-
   return (
     <div>
-      <div className="fullName">{profile.fullName}</div>
       <div>@{profile.name}</div>
-      <div role="presentation" onClick={handleOpenMenuProfile}>
+      <div role="presentation">
         <StyledMenuProfile>
           <Divider className="m-0" />
           <StyledMenuList>
