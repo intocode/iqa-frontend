@@ -2,15 +2,14 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Divider, Typography } from 'antd';
+import { Button, Divider, Typography, Popover } from 'antd';
 import { useAuth } from '../../../common/context/Auth/useAuth';
 import { Logo } from './Logo';
 import AdaptiveMenu from './AdaptiveMenu';
 import MenuIcon from '../../icons/MenuIcon';
 import CloseMenuIcon from '../../icons/CloseMenuIcon';
 import { resetProfile, selectProfile } from '../../../features/profile/profileSlice';
-import Popover from '../../ui/Popover';
-import { Paper } from '../../ui';
+// import { Paper } from '../../ui';
 import { LinkToFavorites } from './header-menu/LinkToFavorites';
 import { LinkToDeleted } from './header-menu/LinkToDeleted';
 import Search from './Search';
@@ -73,19 +72,6 @@ const StyledMenuList = styled.ul`
   padding: 0;
 `;
 
-const StyledWrapperPaper = styled.div`
-  margin-top: 5px;
-  & > div {
-    font-size: 14px;
-    color: #909399;
-  }
-  .fullName {
-    font-size: 16px;
-    color: black;
-    padding-bottom: 5px;
-  }
-`;
-
 export const Header = () => {
   // todo: рефакторить мобильную версию. Возможно нужен вынос в хук или в контекст
 
@@ -137,6 +123,34 @@ export const Header = () => {
   const iconMenuAndClose = !mobileMenu ? <MenuIcon /> : <CloseMenuIcon />;
 
   const { REACT_APP_FEATURE_ADD_QUESTION } = process.env;
+
+  const content = (
+    <div>
+      <div className="fullName">{profile.fullName}</div>
+      <div>@{profile.name}</div>
+      <div role="presentation" onClick={handleOpenMenuProfile}>
+        <StyledMenuProfile>
+          <Divider className="m-0" />
+          <StyledMenuList>
+            <li className="mt-2">
+              <LinkToProfilePage />
+            </li>
+            <li>
+              <LinkToFavorites />
+            </li>
+            <li className="mb-2">
+              <LinkToDeleted />
+            </li>
+          </StyledMenuList>
+          <Divider className="m-0" />
+        </StyledMenuProfile>
+        <Link to="/" className="d-none d-md-block">
+          <Typography.Link onClick={handleClick}>Выйти</Typography.Link>
+        </Link>
+      </div>
+    </div>
+  );
+
   return (
     <StyledHeader>
       <AdaptiveMenu toggleMobileMenu={handleToggleMenu} mobileMenu={mobileMenu} />
@@ -170,47 +184,14 @@ export const Header = () => {
                   </Link>
                 </div>
                 <div>
-                  <StyledAvatar onClick={handleOpenMenuProfile} ref={ref} className="d-md-flex">
-                    <img className="m-auto" src={profile.avatar?.thumbnail} alt="" />
-                    <div className={openMenuProfile ? 'downArrow' : 'upArrow'}>
-                      <ArrowAvatar />
-                    </div>
-                  </StyledAvatar>
-                  {openMenuProfile && (
-                    <Popover
-                      open={openMenuProfile}
-                      onClose={setOpenMenuProfile}
-                      anchorEl={ref}
-                      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                    >
-                      <StyledWrapperPaper>
-                        <Paper className="d-flex flex-column">
-                          <div className="fullName">{profile.fullName}</div>
-                          <div>@{profile.name}</div>
-                          <div role="presentation" onClick={handleOpenMenuProfile}>
-                            <StyledMenuProfile>
-                              <Divider className="m-0" />
-                              <StyledMenuList>
-                                <li className="mt-2">
-                                  <LinkToProfilePage />
-                                </li>
-                                <li>
-                                  <LinkToFavorites />
-                                </li>
-                                <li className="mb-2">
-                                  <LinkToDeleted />
-                                </li>
-                              </StyledMenuList>
-                              <Divider className="m-0" />
-                            </StyledMenuProfile>
-                            <Link to="/" className="d-none d-md-block">
-                              <Typography.Link onClick={handleClick}>Выйти</Typography.Link>
-                            </Link>
-                          </div>
-                        </Paper>
-                      </StyledWrapperPaper>
-                    </Popover>
-                  )}
+                  <Popover placement="bottom" trigger="click" content={content}>
+                    <StyledAvatar onClick={handleOpenMenuProfile} ref={ref} className="d-md-flex">
+                      <img className="m-auto" src={profile.avatar?.thumbnail} alt="" />
+                      <div className={openMenuProfile ? 'downArrow' : 'upArrow'}>
+                        <ArrowAvatar />
+                      </div>
+                    </StyledAvatar>
+                  </Popover>
                 </div>
               </>
             ) : (
