@@ -151,7 +151,7 @@ export const Header = () => {
                   </Link>
                 </div>
                 <div>
-                  <Popover placement="bottom" open={openMenuProfile} content={PopoverContent}>
+                  <Popover placement="bottomRight" open={openMenuProfile} content={PopoverContent}>
                     <StyledAvatar onClick={handleOpenMenuProfile} ref={ref} className="d-md-flex">
                       <img className="m-auto" src={profile.avatar?.thumbnail} alt="" />
                       <div className={openMenuProfile ? 'downArrow' : 'upArrow'}>
