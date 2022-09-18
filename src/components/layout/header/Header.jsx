@@ -101,18 +101,6 @@ export const Header = () => {
     setOpenMenuProfile(!openMenuProfile);
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (openMenuProfile && !event.path.includes(ref.current)) {
-        setOpenMenuProfile(!openMenuProfile);
-      }
-    };
-    document.body.addEventListener('click', handleClickOutside);
-    return () => {
-      document.body.removeEventListener('click', handleClickOutside);
-    };
-  }, [setOpenMenuProfile, openMenuProfile]);
-
   // todo: рефакторить
   const iconMenuAndClose = !mobileMenu ? <MenuIcon /> : <CloseMenuIcon />;
 
@@ -136,31 +124,33 @@ export const Header = () => {
             <Search />
           </div>
           <div className="col-auto d-none d-md-flex align-items-center">
-            {token ? (
-              <>
+            {token && (
+              <div>
                 {REACT_APP_FEATURE_ADD_QUESTION && (
                   <Link to="/create" className="header_link">
                     <Button type="primary">Добавить вопрос</Button>
                   </Link>
                 )}
-                <div className="px-3">
-                  <Link to="/help">
-                    <div className="d-flex align-items-center">
-                      <HelpIcon />
+              </div>
+            )}
+            <div className="px-3">
+              <Link to="/help">
+                <div className="d-flex align-items-center">
+                  <HelpIcon />
+                </div>
+              </Link>
+            </div>
+            {token ? (
+              <div>
+                <Popover placement="bottom" trigger="click" content={PopoverContent}>
+                  <StyledAvatar onClick={handleOpenMenuProfile} ref={ref} className="d-md-flex">
+                    <img className="m-auto" src={profile.avatar?.thumbnail} alt="" />
+                    <div className={openMenuProfile ? 'downArrow' : 'upArrow'}>
+                      <ArrowAvatar />
                     </div>
-                  </Link>
-                </div>
-                <div>
-                  <Popover placement="bottomRight" open={openMenuProfile} content={PopoverContent}>
-                    <StyledAvatar onClick={handleOpenMenuProfile} ref={ref} className="d-md-flex">
-                      <img className="m-auto" src={profile.avatar?.thumbnail} alt="" />
-                      <div className={openMenuProfile ? 'downArrow' : 'upArrow'}>
-                        <ArrowAvatar />
-                      </div>
-                    </StyledAvatar>
-                  </Popover>
-                </div>
-              </>
+                  </StyledAvatar>
+                </Popover>
+              </div>
             ) : (
               <Link to="/" className="header_link d-none d-md-block">
                 <Button onClick={executeLoggingInProcess} color="primary">
