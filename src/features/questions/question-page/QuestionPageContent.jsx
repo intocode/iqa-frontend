@@ -23,12 +23,6 @@ const StyledAvatar = styled.div`
   }
 `;
 
-const StyledHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
 const StyledFullDescription = styled.div`
   .toastui-editor-contents {
     font-size: 16px;
@@ -42,23 +36,21 @@ export const QuestionPageContent = () => {
 
   return (
     <>
-      <div className=" mb-3">
-        <StyledHeader>
-          <StyledAvatar>
-            <img src={question.author?.avatar?.thumbnail} alt="" />
-            <span>{question.author.name}</span>
-            <div>добавлено {dayjs(question?.createdAt).fromNow()}</div>
-          </StyledAvatar>
-          {REACT_APP_FEATURE_TAGS && (
-            <div className="d-flex">
-              {question.tags.map((tag) => (
-                <Tag key={tag} className="d-none d-md-block">
-                  {tag}
-                </Tag>
-              ))}
-            </div>
-          )}
-        </StyledHeader>
+      <div className="d-flex align-items-center justify-content-between">
+        <StyledAvatar>
+          <img src={question.author?.avatar?.thumbnail} alt="" />
+          <span>{question.author.name}</span>
+          <div>добавлено {dayjs(question?.createdAt).fromNow()}</div>
+        </StyledAvatar>
+        {REACT_APP_FEATURE_TAGS && (
+          <div className="d-flex">
+            {question.tags.map((tag) => (
+              <Tag key={tag} className="d-none d-md-block">
+                {tag}
+              </Tag>
+            ))}
+          </div>
+        )}
       </div>
 
       <h2 className="my-3">{question.question}</h2>
