@@ -16,6 +16,10 @@ export const Title = ({ children }) => {
   return null;
 };
 
+Title.defaultProps = {
+  children: '',
+};
+
 Title.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.string,
 };
