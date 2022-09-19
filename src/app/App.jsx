@@ -1,11 +1,11 @@
 import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { useEffect, lazy, Suspense } from 'react';
-import { useAuth } from '../common/context/Auth/useAuth';
-import { Header } from '../components/layout/header/Header';
-import { fetchProfile } from '../features/profile/profileSlice';
+import { useAuth } from 'common/context/Auth/useAuth';
+import { Header } from 'components/layout/header/Header';
+import { fetchProfile } from 'features/profile/profileSlice';
+import { Footer } from 'components/layout/Footer';
 import { LazyPlaceholder } from './LazyPlaceholder';
-import { Footer } from '../components/layout/Footer';
 
 const QuestionPage = lazy(() => import('../features/questions/question-page/QuestionPage'));
 const CreateQuestion = lazy(() =>

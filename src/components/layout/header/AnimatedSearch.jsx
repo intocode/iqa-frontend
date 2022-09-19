@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
-import SearchIcon from '../../icons/SearchIcon';
+import SearchIcon from 'components/icons/SearchIcon';
 import Search from './Search';
 
 const StyledAnimatedSearch = styled.div`

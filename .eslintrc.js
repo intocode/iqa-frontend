@@ -1,5 +1,12 @@
 module.exports = {
-  extends: ['react-app', 'airbnb', 'prettier'],
+  extends: ['react-app', 'airbnb', 'prettier', 'plugin:eslint-plugin/recommended'],
+  settings: {
+    'import/resolver': {
+      node: {
+        moduleDirectory: ['node_modules', 'src/'],
+      },
+    },
+  },
   rules: {
     // 'no-unused-vars': 'off',
 
@@ -28,13 +35,4 @@ module.exports = {
     // свойство появилось в cra@5
     'react/function-component-definition': 'off',
   },
-  overrides: [
-    {
-      files: ['**/*.stories.*'],
-      rules: {
-        'import/no-anonymous-default-export': 'off',
-        'react/jsx-props-no-spreading': 'off',
-      },
-    },
-  ],
 };

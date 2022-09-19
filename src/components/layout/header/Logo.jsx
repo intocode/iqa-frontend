@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import LogoIcon from '../../icons/LogoIcon';
-import LogoNoColorIcon from '../../icons/LogoNoColorIcon';
-import LongLogoIcon from '../../icons/LongLogoIcon';
+import LogoIcon from 'components/icons/LogoIcon';
+import LogoNoColorIcon from 'components/icons/LogoNoColorIcon';
+import LongLogoIcon from 'components/icons/LongLogoIcon';
 
 export const Logo = ({ noColor, long }) => {
   let logo = <LogoIcon />;

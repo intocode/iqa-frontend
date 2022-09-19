@@ -1,6 +1,6 @@
 import { Tag } from 'antd';
 import styled from 'styled-components';
-import '../assets/bootstrap-placeholder.css';
+import 'assets/bootstrap-placeholder.css';
 
 const StyledPlaceholder = styled.div`
   max-width: 820px;

@@ -10,11 +10,11 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import profile from '../features/profile/profileSlice';
-import questions from '../features/questions/questionsSlice';
-import comments from '../features/comments/commentsSlice';
-import application from '../features/application/applicationSlice';
-import questionsSearch from '../features/search/searchQuestionSlice';
+import profile from 'features/profile/profileSlice';
+import questions from 'features/questions/questionsSlice';
+import comments from 'features/comments/commentsSlice';
+import application from 'features/application/applicationSlice';
+import questionsSearch from 'features/search/searchQuestionSlice';
 
 const persistConfig = {
   key: 'root',

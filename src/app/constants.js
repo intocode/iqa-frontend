@@ -1,5 +1,5 @@
+import { getBaseUrl } from 'common/utils/url';
 import { theme } from './theme';
-import { getBaseUrl } from '../common/utils/url';
 
 const lsPrefix = 'iqa_';
 

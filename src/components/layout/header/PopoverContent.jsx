@@ -3,11 +3,11 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { resetProfile, selectProfile } from '../../../features/profile/profileSlice';
+import { useAuth } from 'common/context/Auth/useAuth';
+import { resetProfile, selectProfile } from 'features/profile/profileSlice';
 import { LinkToDeleted } from './header-menu/LinkToDeleted';
 import { LinkToFavorites } from './header-menu/LinkToFavorites';
 import LinkToProfilePage from './header-menu/LinkToProfilePage';
-import { useAuth } from '../../../common/context/Auth/useAuth';
 
 const StyledMenuProfile = styled.div`
   line-height: 1.7;
