@@ -35,4 +35,13 @@ module.exports = {
     // свойство появилось в cra@5
     'react/function-component-definition': 'off',
   },
+  overrides: [
+    {
+      files: ['**/*.stories.*'],
+      rules: {
+        'import/no-anonymous-default-export': 'off',
+        'react/jsx-props-no-spreading': 'off',
+      },
+    },
+  ],
 };
