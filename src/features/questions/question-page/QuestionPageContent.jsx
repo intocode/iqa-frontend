@@ -36,10 +36,10 @@ export const QuestionPageContent = () => {
 
   return (
     <>
-      <div className="d-flex align-items-center justify-content-between mb-3">
+      <div className="d-flex align-items-center justify-content-between">
         <StyledAvatar>
           <img src={question.author?.avatar?.thumbnail} alt="" />
-          <p>{question.author.name}</p>
+          <span>{question.author.name}</span>
           <div>добавлено {dayjs(question?.createdAt).fromNow()}</div>
         </StyledAvatar>
         {REACT_APP_FEATURE_TAGS && (
