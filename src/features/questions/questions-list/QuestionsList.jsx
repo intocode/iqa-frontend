@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Spin, Switch } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
@@ -33,8 +33,6 @@ const QuestionsList = () => {
 
   const fetching = useSelector(selectQuestionsFetching);
   const isCompactMode = useSelector(selectIsCompactModeToogle);
-
-  const [enableSwitch, setEnableSwitch] = useState(false);
 
   const questionsIds = useSelector(questionSelectors.selectIds);
 
@@ -83,7 +81,6 @@ const QuestionsList = () => {
 
   const handleClickSwitch = () => {
     dispatch(toggleIsCompactMode());
-    setEnableSwitch(!enableSwitch);
   };
 
   return (
@@ -95,7 +92,7 @@ const QuestionsList = () => {
             <h2>{generatedTitle}</h2>
           </div>
           <div className="col-auto">
-            <Switch checked={enableSwitch} onClick={handleClickSwitch} />
+            <Switch checked={isCompactMode} onClick={handleClickSwitch} />
             <StyledSwitchBlock
               role="button"
               data-testid="compact-mode-label"
