@@ -3,16 +3,15 @@ import { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { Button, Popover } from 'antd';
-import { useAuth } from '../../../common/context/Auth/useAuth';
-import { Logo } from './Logo';
+import { selectProfile } from 'features/profile/profileSlice';
+import { useAuth } from 'common/context/Auth/useAuth';
+import ArrowAvatar from 'components/icons/ArrowAvatar';
+import CloseMenuIcon from 'components/icons/CloseMenuIcon';
+import MenuIcon from 'components/icons/MenuIcon';
+import HelpIcon from 'components/icons/HelpIcon';
 import AdaptiveMenu from './AdaptiveMenu';
-import MenuIcon from '../../icons/MenuIcon';
-import CloseMenuIcon from '../../icons/CloseMenuIcon';
-import { selectProfile } from '../../../features/profile/profileSlice';
-// import { Paper } from '../../ui';
 import Search from './Search';
-import ArrowAvatar from '../../icons/ArrowAvatar';
-import HelpIcon from '../../icons/HelpIcon';
+import { Logo } from './Logo';
 import PopoverContent from './PopoverContent';
 
 const StyledHeader = styled.div`

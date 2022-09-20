@@ -1,5 +1,12 @@
 module.exports = {
-  extends: ['react-app', 'airbnb', 'prettier'],
+  extends: ['react-app', 'airbnb', 'prettier', 'plugin:eslint-plugin/recommended'],
+  settings: {
+    'import/resolver': {
+      node: {
+        moduleDirectory: ['node_modules', 'src/'],
+      },
+    },
+  },
   rules: {
     // 'no-unused-vars': 'off',
 

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Typography } from 'antd';
-import { useAuth } from '../../../../common/context/Auth/useAuth';
+import { useAuth } from 'common/context/Auth/useAuth';
 
 export const LinkToDeleted = () => {
   const { token } = useAuth();

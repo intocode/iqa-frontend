@@ -3,7 +3,7 @@ import React from 'react';
 function YesIcon() {
   return (
     <div>
-      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="32" heigth="32">
+      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
         <defs>
           <style>.cls-1fill:none;</style>
         </defs>

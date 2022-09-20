@@ -1,8 +1,8 @@
 import { useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { LS_TOKEN_KEY } from 'app/constants';
 import { AuthContext } from './index';
-import { LS_TOKEN_KEY } from '../../../app/constants';
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(() => localStorage.getItem(LS_TOKEN_KEY));

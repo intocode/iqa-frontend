@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { CSSTransition } from 'react-transition-group';
-import { SCROLL_TO_TOP_SHOW } from '../../app/constants';
-import ChevronUpIcon from '../icons/ChevronUpIcon';
-import '../../assets/animation-back-to-top.css';
+import { SCROLL_TO_TOP_SHOW } from 'app/constants';
+import ChevronUpIcon from 'components/icons/ChevronUpIcon';
+import 'assets/animation-back-to-top.css';
 
 const StyledScroll = styled.div`
   display: inline-block;

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Typography } from 'antd';
-import LogoNoColorIcon from '../icons/LogoNoColorIcon';
+import LogoNoColorIcon from 'components/icons/LogoNoColorIcon';
 
 const StyledFooter = styled.div`
   display: flex;

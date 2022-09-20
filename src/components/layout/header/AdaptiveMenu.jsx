@@ -3,7 +3,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Button } from 'antd';
-import { useAuth } from '../../../common/context/Auth/useAuth';
+import { useAuth } from 'common/context/Auth/useAuth';
 
 const StyledMenu = styled.ul`
   list-style: none;
