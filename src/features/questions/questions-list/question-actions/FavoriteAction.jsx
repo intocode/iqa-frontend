@@ -1,15 +1,16 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Popover } from 'antd';
-import { theme } from '../../../../app/theme';
-import FavoritePopoverContent from './FavoritePopoverContent';
-import { useAuth } from '../../../../common/context/Auth/useAuth';
-import { selectProfile } from '../../../profile/profileSlice';
+import { theme } from 'app/theme';
+import { useAuth } from 'common/context/Auth/useAuth';
+import { selectProfile } from 'features/profile/profileSlice';
 import {
   addQuestionToFavorites,
   deleteQuestionFromFavorites,
   questionSelectors,
-} from '../../questionsSlice';
+} from 'features/questions/questionsSlice';
+import FavoritePopoverContent from './FavoritePopoverContent';
 import FavoriteIconSwitcher from './FavoriteIconSwitcher';
 import { TheQuestionAction } from './TheQuestionAction';
 
@@ -22,6 +23,8 @@ export const FavoriteAction = ({ questionId }) => {
   const profile = useSelector(selectProfile);
 
   const question = useSelector((state) => questionSelectors.selectById(state, questionId));
+
+  const FavoritePopover = token ? React.Fragment : Popover;
 
   const handleToggleFavorite = () => {
     if (token) {
@@ -47,16 +50,8 @@ export const FavoriteAction = ({ questionId }) => {
 
   if (!REACT_APP_FEATURE_FAVORITES) return null;
 
-  return token ? (
-    <TheQuestionAction
-      icon={<FavoriteIconSwitcher questionId={questionId} />}
-      onClick={handleToggleFavorite}
-      color={theme.colors.danger.main}
-    >
-      {question.usersThatFavoriteIt.length}
-    </TheQuestionAction>
-  ) : (
-    <Popover placement="bottomLeft" trigger="click" content={FavoritePopoverContent}>
+  return (
+    <FavoritePopover placement="bottomLeft" trigger="click" content={FavoritePopoverContent}>
       <TheQuestionAction
         icon={<FavoriteIconSwitcher questionId={questionId} />}
         onClick={handleToggleFavorite}
@@ -64,7 +59,7 @@ export const FavoriteAction = ({ questionId }) => {
       >
         {question.usersThatFavoriteIt.length}
       </TheQuestionAction>
-    </Popover>
+    </FavoritePopover>
   );
 };
 
