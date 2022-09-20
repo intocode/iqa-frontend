@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import { Popover } from 'antd';
 import { theme } from '../../../../app/theme';
-// import styled from 'styled-components';
+import FavoritePopoverContent from './FavoritePopoverContent';
 import { useAuth } from '../../../../common/context/Auth/useAuth';
 import { selectProfile } from '../../../profile/profileSlice';
 import {
@@ -46,7 +47,7 @@ export const FavoriteAction = ({ questionId }) => {
 
   if (!REACT_APP_FEATURE_FAVORITES) return null;
 
-  return (
+  return token ? (
     <TheQuestionAction
       icon={<FavoriteIconSwitcher questionId={questionId} />}
       onClick={handleToggleFavorite}
@@ -54,6 +55,16 @@ export const FavoriteAction = ({ questionId }) => {
     >
       {question.usersThatFavoriteIt.length}
     </TheQuestionAction>
+  ) : (
+    <Popover placement="bottomLeft" trigger="click" content={FavoritePopoverContent}>
+      <TheQuestionAction
+        icon={<FavoriteIconSwitcher questionId={questionId} />}
+        onClick={handleToggleFavorite}
+        color={theme.colors.danger.main}
+      >
+        {question.usersThatFavoriteIt.length}
+      </TheQuestionAction>
+    </Popover>
   );
 };
 
