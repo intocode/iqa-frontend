@@ -3,21 +3,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Spin, Switch } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
+import { Title } from 'app/Title/Title';
 import {
   fetchQuestions,
   fetchNextPartOfQuestions,
   selectQuestionsFetching,
   resetQuestionsList,
   questionSelectors,
-} from '../questionsSlice';
-import { selectIsCompactModeToogle, toggleIsCompactMode } from '../../application/applicationSlice';
-import { Title } from '../../../app/Title/Title';
-import { Paper } from '../../../components/ui';
-import { useOnScroll } from '../../../common/hooks/useOnScroll';
+} from 'features/questions/questionsSlice';
+import { Paper } from 'components/ui';
+import {
+  selectIsCompactModeToogle,
+  toggleIsCompactMode,
+} from 'features/application/applicationSlice';
+import { useOnScroll } from 'common/hooks/useOnScroll';
+import { generateTitle } from 'common/utils/title';
+import { useQueryString } from 'common/hooks/useQueryString';
 import QuestionsListMapper from './QuestionsListMapper';
-import { useQueryString } from '../../../common/hooks/useQueryString';
 import QuestionEmptyFolder from './QuestionEmptyFolder';
-import { generateTitle } from '../../../common/utils/title';
 
 const StyledSwitchBlock = styled.span`
   color: #409eff;

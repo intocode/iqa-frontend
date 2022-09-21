@@ -1,6 +1,7 @@
 import React, { lazy, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { useAuth } from 'common/context/Auth/useAuth';
 import {
   commentsSelectors,
   fetchComments,
@@ -9,7 +10,6 @@ import {
 } from './commentsSlice';
 import CommentsList from './CommentsList';
 import { CommentsPlaceholder } from './CommentsPlaceholder';
-import { useAuth } from '../../common/context/Auth/useAuth';
 
 const AddComment = lazy(() => import('./AddComment'));
 

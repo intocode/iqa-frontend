@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Divider } from 'antd';
-import { Paper } from '../../../components/ui';
+import { Paper } from 'components/ui';
+import { selectIsCompactModeToogle } from 'features/application/applicationSlice';
+import { questionSelectors } from 'features/questions/questionsSlice';
+import { CommentView } from 'features/comments/CommentView';
 import { QuestionHeader } from './QuestionHeader';
 import { QuestionContent } from './QuestionContent';
 import { QuestionsActions } from './question-actions/QuestionsActions';
-import { selectIsCompactModeToogle } from '../../application/applicationSlice';
-import { questionSelectors } from '../questionsSlice';
-import { CommentView } from '../../comments/CommentView';
 
 const StyledQuestionBlock = styled.div`
   opacity: ${(props) => (props.deleted ? 0.3 : 1)};

@@ -6,7 +6,7 @@ import {
   createSlice,
 } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { QUESTIONS_PER_PAGE } from '../../app/constants';
+import { QUESTIONS_PER_PAGE } from 'app/constants';
 
 const incrementPaginationOffset = createAction('questions/pagination/next');
 export const resetQuestionsList = createAction('questions/reset');

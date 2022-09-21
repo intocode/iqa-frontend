@@ -3,11 +3,8 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { Input } from 'antd';
-import {
-  selectQuestionsSearch,
-  fetchQuestionsSearch,
-} from '../../../features/search/searchQuestionSlice';
-import SearchIcon from '../../icons/SearchIcon';
+import { selectQuestionsSearch, fetchQuestionsSearch } from 'features/search/searchQuestionSlice';
+import SearchIcon from 'components/icons/SearchIcon';
 
 const StyledSearch = styled.div`
   width: 300px;

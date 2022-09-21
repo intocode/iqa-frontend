@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import QuestionViewsIcon from '../../../../components/icons/QuestionViewsIcon';
-import { questionSelectors } from '../../questionsSlice';
+import QuestionViewsIcon from 'components/icons/QuestionViewsIcon';
+import { questionSelectors } from 'features/questions/questionsSlice';
+import { theme } from 'app/theme';
 import { TheQuestionAction } from './TheQuestionAction';
-import { theme } from '../../../../app/theme';
 
 const QuestionViews = ({ questionId }) => {
   const question = useSelector((state) => questionSelectors.selectById(state, questionId));

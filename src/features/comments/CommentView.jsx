@@ -1,14 +1,14 @@
 import { Viewer } from '@toast-ui/react-editor';
+import { useAuth } from 'common/context/Auth/useAuth';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import React from 'react';
 import dayjs from 'dayjs';
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
+import { selectProfile } from 'features/profile/profileSlice';
 import { CommentsActions } from './comment-actions/CommentsActions';
-import { selectProfile } from '../profile/profileSlice';
 import { likeCommentById, unlikeCommentById } from './commentsSlice';
-import { useAuth } from '../../common/context/Auth/useAuth';
 
 const StyledWrapper = styled.div`
   background-color: #f5f5f5;

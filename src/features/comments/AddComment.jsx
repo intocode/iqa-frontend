@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Button } from 'antd';
+import { selectProfile } from 'features/profile/profileSlice';
 import { addComment, selectCommentsAdding } from './commentsSlice';
-import { selectProfile } from '../profile/profileSlice';
 
 const StyledAvatar = styled.img`
   width: 48px;

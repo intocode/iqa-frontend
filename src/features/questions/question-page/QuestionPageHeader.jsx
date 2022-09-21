@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Typography } from 'antd';
-import { Title } from '../../../app/Title/Title';
-import { selectOpenedQuestion } from '../questionsSlice';
+import { Title } from 'app/Title/Title';
+import { selectOpenedQuestion } from 'features/questions/questionsSlice';
 
 export const QuestionPageHeader = () => {
   const question = useSelector(selectOpenedQuestion);

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Tag, Typography } from 'antd';
 import { useSelector } from 'react-redux';
-import { questionSelectors } from '../questionsSlice';
+import { questionSelectors } from 'features/questions/questionsSlice';
 
 const StyledTag = styled.div`
   display: flex;
