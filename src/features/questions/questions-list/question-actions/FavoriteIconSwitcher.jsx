@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { selectProfile } from '../../../profile/profileSlice';
-import { questionSelectors } from '../../questionsSlice';
-import favoritesIcon from '../../../../assets/sprite.svg';
+import { selectProfile } from 'features/profile/profileSlice';
+import { questionSelectors } from 'features/questions/questionsSlice';
+import favoritesIcon from 'assets/sprite.svg';
 
 const FavoritesIconAnimation = styled.div`
   cursor: pointer;

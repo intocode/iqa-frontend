@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
+import { Paper } from 'components/ui';
+import { theme } from 'app/theme';
 import { selectProfile } from './profileSlice';
-import { Paper } from '../../components/ui';
-import { theme } from '../../app/theme';
 
 const ProfileUser = () => {
   const profile = useSelector(selectProfile);

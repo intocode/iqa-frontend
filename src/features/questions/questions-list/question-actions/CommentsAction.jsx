@@ -1,10 +1,10 @@
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import CommentsIcon from '../../../../components/icons/CommentsIcon';
-import { questionSelectors } from '../../questionsSlice';
+import CommentsIcon from 'components/icons/CommentsIcon';
+import { questionSelectors } from 'features/questions/questionsSlice';
+import { theme } from 'app/theme';
 import { TheQuestionAction } from './TheQuestionAction';
-import { theme } from '../../../../app/theme';
 
 export const CommentsAction = ({ questionId }) => {
   const { REACT_APP_FEATURE_COMMENTARIES } = process.env;

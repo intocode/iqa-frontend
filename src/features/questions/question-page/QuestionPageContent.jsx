@@ -3,7 +3,7 @@ import { Tag, Divider } from 'antd';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { selectOpenedQuestion } from '../questionsSlice';
+import { selectOpenedQuestion } from 'features/questions/questionsSlice';
 
 const StyledAvatar = styled.div`
   display: flex;

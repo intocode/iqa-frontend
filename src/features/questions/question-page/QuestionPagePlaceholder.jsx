@@ -1,6 +1,6 @@
 import { Tag } from 'antd';
-import '../../../assets/bootstrap-placeholder.css';
-import { Paper } from '../../../components/ui';
+import 'assets/bootstrap-placeholder.css';
+import { Paper } from 'components/ui';
 
 export const QuestionPagePlaceholder = () => {
   return (

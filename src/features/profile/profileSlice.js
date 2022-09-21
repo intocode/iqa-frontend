@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice, createSelector } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { addQuestionToFavorites, deleteQuestionFromFavorites } from '../questions/questionsSlice';
+import {
+  addQuestionToFavorites,
+  deleteQuestionFromFavorites,
+} from 'features/questions/questionsSlice';
 
 export const fetchProfile = createAsyncThunk('profile/fetch', async (_, thunkAPI) => {
   try {

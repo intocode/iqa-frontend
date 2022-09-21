@@ -5,10 +5,10 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import calendar from 'dayjs/plugin/calendar';
-import { App } from '../app/App';
-import { BASE_API_URL, LS_TOKEN_KEY } from '../app/constants';
+import { App } from 'app/App';
+import { BASE_API_URL, LS_TOKEN_KEY } from 'app/constants';
 import '@testing-library/jest-dom';
-import { GlobalProvider } from '../app/GlobalProvider';
+import { GlobalProvider } from 'app/GlobalProvider';
 
 // import 'bootstrap/dist/css/bootstrap-grid.min.css';
 

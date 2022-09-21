@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { questionSelectors } from '../questionsSlice';
+import { questionSelectors } from 'features/questions/questionsSlice';
 import { QuestionBlock } from './QuestionBlock';
 
 const QuestionsListMapper = () => {

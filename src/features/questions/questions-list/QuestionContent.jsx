@@ -4,8 +4,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Typography } from 'antd';
-import { selectIsCompactModeToogle } from '../../application/applicationSlice';
-import { questionSelectors } from '../questionsSlice';
+import { selectIsCompactModeToogle } from 'features/application/applicationSlice';
+import { questionSelectors } from 'features/questions/questionsSlice';
 
 const StyledLink = styled(Link)`
   text-decoration: none;

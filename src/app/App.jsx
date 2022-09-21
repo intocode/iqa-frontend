@@ -7,14 +7,12 @@ import { fetchProfile } from 'features/profile/profileSlice';
 import { Footer } from 'components/layout/Footer';
 import { LazyPlaceholder } from './LazyPlaceholder';
 
-const QuestionPage = lazy(() => import('../features/questions/question-page/QuestionPage'));
-const CreateQuestion = lazy(() =>
-  import('../features/questions/create-question/CreateQuestionPage')
-);
-const QuestionsList = lazy(() => import('../features/questions/questions-list/QuestionsList'));
+const QuestionPage = lazy(() => import('features/questions/question-page/QuestionPage'));
+const CreateQuestion = lazy(() => import('features/questions/create-question/CreateQuestionPage'));
+const QuestionsList = lazy(() => import('features/questions/questions-list/QuestionsList'));
 
-const ProfileUser = lazy(() => import('../features/profile/ProfileUser'));
-const HelpPage = lazy(() => import('../pages/HelpPage'));
+const ProfileUser = lazy(() => import('features/profile/ProfileUser'));
+const HelpPage = lazy(() => import('pages/HelpPage'));
 
 const routes = [
   {

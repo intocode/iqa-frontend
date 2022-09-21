@@ -1,5 +1,5 @@
 import React from 'react';
-import { theme } from '../../app/theme';
+import { theme } from 'app/theme';
 
 function FavoritesIcon() {
   return (

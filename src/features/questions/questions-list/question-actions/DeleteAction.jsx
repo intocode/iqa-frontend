@@ -2,16 +2,16 @@ import PropTypes from 'prop-types';
 import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { theme } from '../../../../app/theme';
-import { useAuth } from '../../../../common/context/Auth/useAuth';
-import DeleteIcon from '../../../../components/icons/DeleteIcon';
-import SpinnerIcon from '../../../../components/icons/SpinnerIcon';
-import { selectProfile } from '../../../profile/profileSlice';
+import { theme } from 'app/theme';
+import { useAuth } from 'common/context/Auth/useAuth';
+import DeleteIcon from 'components/icons/DeleteIcon';
+import { selectProfile } from 'features/profile/profileSlice';
+import SpinnerIcon from 'components/icons/SpinnerIcon';
 import {
   questionSelectors,
   removeQuestionById,
   selectDeletingQuestions,
-} from '../../questionsSlice';
+} from 'features/questions/questionsSlice';
 import { TheQuestionAction } from './TheQuestionAction';
 
 const StyledDelete = styled.div`

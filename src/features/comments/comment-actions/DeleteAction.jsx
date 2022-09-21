@@ -1,12 +1,16 @@
-import PropTypes from 'prop-types';
 import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useAuth } from 'common/context/Auth/useAuth';
+import { selectProfile } from 'features/profile/profileSlice';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useAuth } from '../../../common/context/Auth/useAuth';
-import { commentsSelectors, removeCommentById, selectCommentDeliting } from '../commentsSlice';
-import DeleteIcon from '../../../components/icons/DeleteIcon';
-import { selectProfile } from '../../profile/profileSlice';
-import SpinnerIcon from '../../../components/icons/SpinnerIcon';
+import DeleteIcon from 'components/icons/DeleteIcon';
+import SpinnerIcon from 'components/icons/SpinnerIcon';
+import {
+  commentsSelectors,
+  removeCommentById,
+  selectCommentDeliting,
+} from 'features/comments/commentsSlice';
 
 const StyledDelete = styled.div`
   cursor: pointer;

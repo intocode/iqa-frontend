@@ -5,12 +5,12 @@ import {
   fetchQuestionById,
   selectOpenedQuestion,
   selectQuestionsFetching,
-} from '../questionsSlice';
+} from 'features/questions/questionsSlice';
+import CommentsOfQuestion from 'features/comments/CommentsOfQuestion';
+import { Paper } from 'components/ui';
 import { QuestionPagePlaceholder } from './QuestionPagePlaceholder';
-import CommentsOfQuestion from '../../comments/CommentsOfQuestion';
 import { QuestionPageHeader } from './QuestionPageHeader';
 import { QuestionPageContent } from './QuestionPageContent';
-import { Paper } from '../../../components/ui';
 
 const { REACT_APP_FEATURE_COMMENTARIES } = process.env;
 
