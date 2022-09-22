@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Divider } from 'antd';
-import { Paper } from 'components/ui';
+import { Paper } from 'components/layout/Paper';
 import { selectIsCompactModeToogle } from 'features/application/applicationSlice';
 import { questionSelectors } from 'features/questions/questionsSlice';
 import { CommentView } from 'features/comments/CommentView';

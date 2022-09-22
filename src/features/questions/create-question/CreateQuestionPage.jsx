@@ -6,7 +6,7 @@ import { Editor } from '@toast-ui/react-editor';
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Tag, Input, Alert, Typography } from 'antd';
 import { Title } from 'app/Title/Title';
-import { Paper } from 'components/ui';
+import { Paper } from 'components/layout/Paper';
 import { addQuestion } from 'features/questions/questionsSlice';
 import { selectProfile } from 'features/profile/profileSlice';
 import { useAuth } from 'common/context/Auth/useAuth';

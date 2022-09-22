@@ -11,7 +11,7 @@ import {
   resetQuestionsList,
   questionSelectors,
 } from 'features/questions/questionsSlice';
-import { Paper } from 'components/ui';
+import { Paper } from 'components/layout/Paper';
 import {
   selectIsCompactModeToogle,
   toggleIsCompactMode,

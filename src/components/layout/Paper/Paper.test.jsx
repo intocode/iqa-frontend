@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { Paper } from '.';
+import { Paper } from 'components/layout/Paper';
 import '@testing-library/jest-dom';
 
 const children = 'lorem ipsum';
