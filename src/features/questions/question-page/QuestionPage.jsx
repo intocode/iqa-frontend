@@ -7,7 +7,7 @@ import {
   selectQuestionsFetching,
 } from 'features/questions/questionsSlice';
 import CommentsOfQuestion from 'features/comments/CommentsOfQuestion';
-import { Paper } from 'components/ui';
+import { Paper } from 'components/layout/Paper';
 import { QuestionPagePlaceholder } from './QuestionPagePlaceholder';
 import { QuestionPageHeader } from './QuestionPageHeader';
 import { QuestionPageContent } from './QuestionPageContent';

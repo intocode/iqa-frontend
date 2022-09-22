@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper } from 'components/ui';
+import { Paper } from 'components/layout/Paper';
 
 const HelpPage = () => {
   return (
