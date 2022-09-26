@@ -1,6 +1,6 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Spin, Switch } from 'antd';
+import { Button, Input, Modal, Spin, Switch } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import { Title } from 'app/Title/Title';
@@ -21,6 +21,7 @@ import { generateTitle } from 'common/utils/title';
 import { useQueryString } from 'common/hooks/useQueryString';
 import QuestionsListMapper from './QuestionsListMapper';
 import QuestionEmptyFolder from './QuestionEmptyFolder';
+import { patchFullName, selectProfile } from '../../profile/profileSlice';
 
 const StyledSwitchBlock = styled.span`
   color: #409eff;
@@ -86,8 +87,40 @@ const QuestionsList = () => {
     dispatch(toggleIsCompactMode());
   };
 
+  const profile = useSelector(selectProfile);
+
+  const [value, setValue] = useState('');
+  const [emailValue, setEmailValue] = useState('');
+
+  const id = profile._id;
+
+  const handleSubmit = () => {
+    dispatch(patchFullName({ id, value, emailValue }));
+    setValue('');
+    setEmailValue('');
+  };
+
   return (
     <>
+      <Modal open={!profile.fullName} footer={null} destroyOnClose>
+        <div>
+          <Input
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            type="text"
+            placeholder="Введите имя и фамилию"
+          />
+          <Input
+            value={emailValue}
+            onChange={(e) => setEmailValue(e.target.value)}
+            type="text"
+            placeholder="Введите Email"
+          />
+          <Button onClick={handleSubmit} type="button">
+            Сохранить
+          </Button>
+        </div>
+      </Modal>
       <Title>{`iqa: ${generatedTitle}`}</Title>
       <div className="container">
         <div className="row justify-content-between align-items-center my-3">
