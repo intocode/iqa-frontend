@@ -15,13 +15,13 @@ export const fetchProfile = createAsyncThunk('profile/fetch', async (_, thunkAPI
   }
 });
 
-export const patchFullName = createAsyncThunk(
+export const updateProfile = createAsyncThunk(
   'profile/patch',
-  async ({ id, value, emailValue }, thunkAPI) => {
+  async ({ id, userFullName, userEmail }, thunkAPI) => {
     try {
       const response = await axios.patch(`http://localhost:3030/user/profile/${id}`, {
-        fullName: value,
-        email: emailValue,
+        fullName: userFullName,
+        email: userEmail,
       });
       return response.data;
     } catch (e) {
@@ -72,7 +72,7 @@ const profileSlice = createSlice({
       );
     },
 
-    [patchFullName.fulfilled]: (state, action) => {
+    [updateProfile.fulfilled]: (state, action) => {
       state.fullName = action.payload.fullName;
       state.email = action.payload.email;
     },
