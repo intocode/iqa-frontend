@@ -50,7 +50,7 @@ const [text, setText] = useState(null);
 _Пример 3:_
 
 ```javascript
-const [loginFieldValue, setLoginFieldValue] = useState("");
+const [loginFieldValue, setLoginFieldValue] = useState('');
 ```
 
 Данной код выполяет ту же задачу, но за счет хорошего нейминга переменных можно избежать неоднозначности, поэтому дополнительный комментарий не требуется.
