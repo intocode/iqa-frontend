@@ -24,8 +24,6 @@ const PatchUserModal = () => {
 
   const handleSubmit = () => {
     dispatch(updateProfile({ id, userFullName, userEmail }));
-    setUserFullName('');
-    setUserEmail('');
   };
 
   const isModalOpened = !profile.fullName || !profile.email;
