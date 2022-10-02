@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectProfile, updateProfile } from 'features/profile/profileSlice';
 import styled from 'styled-components';
+import { useAuth } from 'common/context/Auth/useAuth';
 
 const StyledModalHeading = styled.h2`
   text-align: center;
@@ -15,6 +16,8 @@ const StyledButtonBlock = styled.div`
 const PatchUserModal = () => {
   const profile = useSelector(selectProfile);
 
+  const { token } = useAuth();
+
   const dispatch = useDispatch();
 
   const [userFullName, setUserFullName] = useState('');
@@ -26,7 +29,12 @@ const PatchUserModal = () => {
     dispatch(updateProfile({ id, userFullName, userEmail }));
   };
 
+  // eslint-disable-next-line no-console
+  console.log(profile);
+
   const isModalOpened = !profile.fullName || !profile.email;
+
+  if (!token || profile.loading) return null;
 
   return (
     <div>
