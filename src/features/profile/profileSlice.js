@@ -19,7 +19,7 @@ export const updateProfile = createAsyncThunk(
   'profile/patch',
   async ({ id, userFullName, userEmail }, thunkAPI) => {
     try {
-      const response = await axios.patch(`http://localhost:3030/user/profile/${id}`, {
+      const response = await axios.patch(`/user/profile/${id}`, {
         fullName: userFullName,
         email: userEmail,
       });
