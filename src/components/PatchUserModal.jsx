@@ -34,7 +34,7 @@ const PatchUserModal = () => {
         <div>
           <StyledModalHeading>Введите полное имя и почту, что бы продолжить</StyledModalHeading>
           <div className="mt-3">
-            {profile.fullName && (
+            {!profile.fullName && (
               <Input
                 value={userFullName}
                 onChange={(e) => setUserFullName(e.target.value)}
@@ -42,7 +42,7 @@ const PatchUserModal = () => {
                 placeholder="Введите имя и фамилию"
               />
             )}
-            {profile.email && (
+            {!profile.email && (
               <Input
                 value={userEmail}
                 onChange={(e) => setUserEmail(e.target.value)}
