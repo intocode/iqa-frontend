@@ -15,6 +15,21 @@ export const fetchProfile = createAsyncThunk('profile/fetch', async (_, thunkAPI
   }
 });
 
+export const updateProfile = createAsyncThunk(
+  'profile/patch',
+  async ({ id, userFullName, userEmail }, thunkAPI) => {
+    try {
+      const response = await axios.patch(`http://localhost:3030/user/profile/${id}`, {
+        fullName: userFullName,
+        email: userEmail,
+      });
+      return response.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
 const profileSlice = createSlice({
   name: 'profile',
   initialState: {
@@ -26,6 +41,7 @@ const profileSlice = createSlice({
     questionIdsThatUserFavorite: [],
     isAdmin: false,
     createdAt: null,
+    email: null,
     // добавить остальные поля по мере необходимости
   },
 
@@ -43,6 +59,7 @@ const profileSlice = createSlice({
       state.questionIdsThatUserFavorite = payload.questionIdsThatUserFavorite;
       state.isAdmin = payload.isAdmin;
       state.createdAt = payload.createdAt;
+      state.email = payload.email;
     },
 
     [addQuestionToFavorites.pending]: (state, action) => {
@@ -53,6 +70,11 @@ const profileSlice = createSlice({
       state.questionIdsThatUserFavorite = state.questionIdsThatUserFavorite.filter(
         (id) => id !== action.meta.arg.questionId
       );
+    },
+
+    [updateProfile.fulfilled]: (state, action) => {
+      state.fullName = action.payload.fullName;
+      state.email = action.payload.email;
     },
   },
   reducers: {

@@ -60,8 +60,10 @@ const ProfileUser = () => {
                 <div className="registration-date">
                   Зарегистрирован {dayjs(profile.createdAt).fromNow()}
                 </div>
-                <div className="userName">Атамазов Насырбек</div>
-                <div className="userEmail">atamazov00@mail.ru</div>
+                <div className="userName">
+                  {profile.fullName ? profile.fullName : `User ${profile._id}`}
+                </div>
+                <div className="userEmail">{profile.email}</div>
               </div>
             </Paper>
           </div>
