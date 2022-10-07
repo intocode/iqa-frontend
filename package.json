@@ -26,7 +26,7 @@
   "scripts": {
     "check": "npm run prettier:check && npm run lint && cross-env CI=true npm run test && cross-env CI=true npm run build",
     "start": "react-scripts start",
-    "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "fix": "npm run lint:fix && npm run prettier",
