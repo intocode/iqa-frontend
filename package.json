@@ -21,7 +21,7 @@
     "react-scripts": "5.0.1",
     "react-transition-group": "^4.4.2",
     "redux-persist": "^6.0.0",
-    "styled-components": "^5.3.3"
+    "styled-components": "^5.3.6"
   },
   "scripts": {
     "check": "npm run prettier:check && npm run lint && cross-env CI=true npm run test && cross-env CI=true npm run build",
