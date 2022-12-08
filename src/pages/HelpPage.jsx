@@ -1,9 +1,11 @@
 import React from 'react';
 import { Paper } from 'components/layout/Paper';
+import { Title } from 'app/Title/Title';
 
 const HelpPage = () => {
   return (
     <div className="container mt-4">
+      <Title>О проекте IQA</Title>
       <Paper>
         <h2>О проекте IQA</h2>
         <p>
