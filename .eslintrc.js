@@ -13,7 +13,7 @@ module.exports = {
     'no-restricted-imports': [
       'error',
       {
-        patterns: ['../*'],
+        patterns: ['../../*'],
       },
     ],
     // 'no-unused-vars': 'off',
