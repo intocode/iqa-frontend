@@ -26,7 +26,7 @@
   "scripts": {
     "check": "npm run prettier:check && npm run lint && cross-env CI=true npm run test && cross-env CI=true npm run build",
     "start": "react-scripts start",
-    "build": "cross-env GENERATE_SOURCEMAP=true react-scripts build",
+    "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "fix": "npm run lint:fix && npm run prettier",
@@ -38,7 +38,8 @@
     "prepare": "husky install",
     "prettier:check": "prettier . --check",
     "prettier": "prettier . --write",
-    "analyze": "source-map-explorer 'build/static/js/*.js'"
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "analyze:build": "GENERATE_SOURCEMAP=true react-scripts build"
   },
   "browserslist": {
     "production": [
