@@ -4,6 +4,8 @@
 
 Репозиторий содержит фронтенд проекта iqa-application. Backend находится в [отдельном репозитории](https://github.com/intocode/iqa-backend).
 
+Группа для обсуждения в Discord: [discord.gg/3B8pF2fYw7](https://discord.gg/3B8pF2fYw7).
+
 ## Начало работы
 
 ### Установка
