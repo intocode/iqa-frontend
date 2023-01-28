@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { Button, Popover } from 'antd';
@@ -68,8 +68,6 @@ export const Header = () => {
 
   const [openMenuProfile, setOpenMenuProfile] = useState(false);
 
-  const ref = useRef();
-
   // todo: зачем это нужно?
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -96,21 +94,9 @@ export const Header = () => {
       document.body.style.overflowY = 'visible';
     }
   };
-  const handleOpenMenuProfile = () => {
-    setOpenMenuProfile(!openMenuProfile);
+  const handleOpenMenuProfile = (isOpen) => {
+    setOpenMenuProfile(isOpen);
   };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (openMenuProfile && !event.path.includes(ref.current)) {
-        setOpenMenuProfile(!openMenuProfile);
-      }
-    };
-    document.body.addEventListener('click', handleClickOutside);
-    return () => {
-      document.body.removeEventListener('click', handleClickOutside);
-    };
-  }, [setOpenMenuProfile, openMenuProfile]);
 
   // todo: рефакторить
   const iconMenuAndClose = !mobileMenu ? <MenuIcon /> : <CloseMenuIcon />;
@@ -153,8 +139,13 @@ export const Header = () => {
             </div>
             {token ? (
               <div>
-                <Popover placement="bottomRight" trigger="click" content={PopoverContent}>
-                  <StyledAvatar onClick={handleOpenMenuProfile} ref={ref} className="d-md-flex">
+                <Popover
+                  onOpenChange={handleOpenMenuProfile}
+                  placement="bottomRight"
+                  trigger="click"
+                  content={PopoverContent}
+                >
+                  <StyledAvatar className="d-md-flex">
                     <img className="m-auto" src={profile.avatar?.thumbnail} alt="" />
                     <div className={openMenuProfile ? 'downArrow' : 'upArrow'}>
                       <ArrowAvatar />
