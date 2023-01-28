@@ -38,7 +38,7 @@
     "prepare": "husky install",
     "prettier:check": "prettier . --check",
     "prettier": "prettier . --write",
-    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "analyze": "npm run analyze:build && source-map-explorer 'build/static/js/*.js'",
     "analyze:build": "GENERATE_SOURCEMAP=true react-scripts build"
   },
   "browserslist": {
