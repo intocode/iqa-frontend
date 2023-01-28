@@ -20,6 +20,7 @@
     "react-scripts": "5.0.1",
     "react-transition-group": "^4.4.2",
     "redux-persist": "^6.0.0",
+    "source-map-explorer": "^2.5.3",
     "styled-components": "^5.3.3"
   },
   "scripts": {
@@ -36,7 +37,9 @@
     "build-storybook": "build-storybook",
     "prepare": "husky install",
     "prettier:check": "prettier . --check",
-    "prettier": "prettier . --write"
+    "prettier": "prettier . --write",
+    "analyze": "npm run analyze:build && source-map-explorer 'build/static/js/*.js'",
+    "analyze:build": "GENERATE_SOURCEMAP=true react-scripts build"
   },
   "browserslist": {
     "production": [
