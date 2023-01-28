@@ -88,7 +88,7 @@ const CreateQuestion = () => {
   const [tooManyQuestions, setTooManyQuestions] = useState(false);
 
   const addTag = () => {
-    if (!tags.includes(tagValue) && tags.length < NUMBER_OF_TAGS) {
+    if (!tags.includes(tagValue)) {
       setTags([...tags, tagValue]);
     }
   };
