@@ -13,6 +13,7 @@ const StyledMenu = styled.ul`
   top: 80px;
   background-color: #f8f9fa;
   box-shadow: 200px -4px 0px -5px rgba(0, 0, 0, 0.31);
+  z-index: 1;
 
   li {
     padding: 15px 0;
@@ -61,6 +62,7 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
       },
       {
         id: 3,
+        protected: true,
         jsx: <Link to="/cart">Корзина</Link>,
       },
       {
