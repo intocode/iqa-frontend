@@ -14,3 +14,7 @@ export const QUESTIONS_PER_PAGE = 5;
 export const AVAILABLE_THEME_COLORS = Object.keys(theme.colors);
 export const DEFAULT_COLOR = theme.defaultColor;
 export const SCROLL_TO_TOP_SHOW = 500;
+
+export const TAG_CHARACTER_LIMIT = 15;
+
+export const NUMBER_OF_TAGS = 5;
