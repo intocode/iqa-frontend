@@ -10,7 +10,7 @@ import { Paper } from 'components/layout/Paper';
 import { addQuestion } from 'features/questions/questionsSlice';
 import { selectProfile } from 'features/profile/profileSlice';
 import { useAuth } from 'common/context/Auth/useAuth';
-import { NUMBER_OF_TAGS, TAG_CHARACTER_LIMIT } from 'app/constants';
+import { MAX_NUMBER_OF_TAGS, TAG_MAX_LENGTH } from 'app/constants';
 
 const StyledQuestionWrapper = styled.div`
   & .new-tag {
@@ -132,7 +132,7 @@ const CreateQuestion = () => {
   };
 
   const handleChangeTag = (e) => {
-    const limitedValue = e.target.value.substring(0, TAG_CHARACTER_LIMIT);
+    const limitedValue = e.target.value.substring(0, TAG_MAX_LENGTH);
     setTagValue(limitedValue);
   };
 
@@ -224,7 +224,7 @@ const CreateQuestion = () => {
                     </StyledTagBlock>
                   ))}
 
-                  {!tagEditMode && tags.length < NUMBER_OF_TAGS && (
+                  {!tagEditMode && tags.length < MAX_NUMBER_OF_TAGS && (
                     <StyledTagBlock>
                       <Tag className="site-tag-plus" onClick={() => setTagEditMode(true)}>
                         <PlusOutlined /> New Tag
