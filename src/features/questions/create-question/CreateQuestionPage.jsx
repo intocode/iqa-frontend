@@ -10,6 +10,7 @@ import { Paper } from 'components/layout/Paper';
 import { addQuestion } from 'features/questions/questionsSlice';
 import { selectProfile } from 'features/profile/profileSlice';
 import { useAuth } from 'common/context/Auth/useAuth';
+import { MAX_NUMBER_OF_TAGS, TAG_MAX_LENGTH } from 'app/constants';
 
 const StyledQuestionWrapper = styled.div`
   & .new-tag {
@@ -130,6 +131,11 @@ const CreateQuestion = () => {
     setFullDescription(instance.getMarkdown());
   };
 
+  const handleChangeTag = (e) => {
+    const limitedValue = e.target.value.substring(0, TAG_MAX_LENGTH);
+    setTagValue(limitedValue);
+  };
+
   useEffect(() => {
     if (/\?[^?]+\?/.test(question)) {
       setTooManyQuestions(true);
@@ -218,14 +224,13 @@ const CreateQuestion = () => {
                     </StyledTagBlock>
                   ))}
 
-                  {!tagEditMode && (
+                  {!tagEditMode && tags.length < MAX_NUMBER_OF_TAGS && (
                     <StyledTagBlock>
                       <Tag className="site-tag-plus" onClick={() => setTagEditMode(true)}>
                         <PlusOutlined /> New Tag
                       </Tag>
                     </StyledTagBlock>
                   )}
-
                   {tagEditMode && (
                     <StyledInputBlock>
                       <Input
@@ -233,7 +238,7 @@ const CreateQuestion = () => {
                         type="text"
                         size="small"
                         value={tagValue}
-                        onChange={(e) => setTagValue(e.target.value)}
+                        onChange={handleChangeTag}
                         onKeyPress={handleKeyPress}
                         onBlur={() => setTagEditMode(false)}
                       />
