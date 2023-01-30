@@ -29,9 +29,6 @@ const PatchUserModal = () => {
     dispatch(updateProfile({ id, userFullName, userEmail }));
   };
 
-  // eslint-disable-next-line no-console
-  console.log(profile);
-
   const isModalOpened = !profile.fullName || !profile.email;
 
   if (!token || profile.loading) return null;
