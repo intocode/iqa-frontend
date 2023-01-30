@@ -6,9 +6,15 @@ import FavoritePopoverContent from './FavoritePopoverContent';
 export const FavoritePopover = ({ children }) => {
   const { token } = useAuth();
 
+  const text = 'что бы иметь возможность сохранять вопросы';
+
   if (!token) {
     return (
-      <Popover placement="bottomLeft" trigger="click" content={FavoritePopoverContent}>
+      <Popover
+        placement="bottomLeft"
+        trigger="click"
+        content={<FavoritePopoverContent text={text} />}
+      >
         {children}
       </Popover>
     );
