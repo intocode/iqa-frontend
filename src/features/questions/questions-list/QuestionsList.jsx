@@ -38,6 +38,7 @@ const QuestionsList = () => {
   const isCompactMode = useSelector(selectIsCompactModeToogle);
 
   const questionsIds = useSelector(questionSelectors.selectIds);
+  const questionsAll = useSelector(questionSelectors.selectAll);
 
   const scrollHandler = useCallback(
     (e) => {
@@ -67,8 +68,10 @@ const QuestionsList = () => {
   }, [deletedOnly, dispatch, favoritesOnly]);
 
   useEffect(() => {
-    dispatch(fetchQuestions({ favoritesOnly, deletedOnly }));
-  }, [deletedOnly, dispatch, favoritesOnly]);
+    if (!questionsAll.length) {
+      dispatch(fetchQuestions({ favoritesOnly, deletedOnly }));
+    }
+  }, [deletedOnly, dispatch, favoritesOnly, questionsAll.length]);
 
   const QuestionWrapper = isCompactMode ? Paper : React.Fragment;
   const generatedTitle = generateTitle(deletedOnly, favoritesOnly);

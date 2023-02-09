@@ -179,7 +179,7 @@ const questionsSlice = createSlice({
     },
 
     [resetQuestionsList]: (state) => {
-      questionsAdapter.removeAll(state);
+      // questionsAdapter.removeAll(state);
 
       state.pagination.offset = 0;
       state.pagination.totalQuestions = 0;
