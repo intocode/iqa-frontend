@@ -156,8 +156,8 @@ const CreateQuestion = () => {
         <div className="container m-3 m-md-auto">
           <div className="d-flex justify-content-between my-3">
             <h3>Добавление вопроса</h3>
-            <Link to="/">
-              <Typography.Link>Вернуться назад</Typography.Link>
+            <Link to="/" component={Typography.Link}>
+              Вернуться назад
             </Link>
           </div>
         </div>
