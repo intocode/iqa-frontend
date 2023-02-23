@@ -109,9 +109,11 @@ const CreateQuestion = () => {
   const [tooManyQuestions, setTooManyQuestions] = useState(false);
 
   const addTag = () => {
-    const tagRegex = /^(?!^[.-])[a-z0-9.-]+$/i;
+    const tagRegex = /^(?!^[.-])[a-z0-9]+(?:[-.][a-z0-9]+)*$/i;
     if (tagRegex.test(tagValue) && !tags.includes(tagValue)) {
       setTags([...tags, tagValue]);
+      setTagValue('');
+      setTagEditMode(false);
     }
   };
 
@@ -128,9 +130,6 @@ const CreateQuestion = () => {
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       addTag(tagValue);
-
-      setTagValue('');
-      setTagEditMode(false);
     }
   };
 
