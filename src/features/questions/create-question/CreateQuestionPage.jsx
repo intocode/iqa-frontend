@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
@@ -11,6 +11,7 @@ import { addQuestion } from 'features/questions/questionsSlice';
 import { selectProfile } from 'features/profile/profileSlice';
 import { useAuth } from 'common/context/Auth/useAuth';
 import { MAX_NUMBER_OF_TAGS, TAG_MAX_LENGTH } from 'app/constants';
+import PropTypes from 'prop-types';
 
 const StyledQuestionWrapper = styled.div`
   & .new-tag {
@@ -69,6 +70,26 @@ const StyledTagBlock = styled.div`
   height: fit-content;
   margin-top: 5px;
 `;
+
+const CancelButtonWrapper = styled.span`
+  cursor: pointer;
+`;
+
+const CancelLinkLabel = ({ navigate, href, children }) => {
+  return (
+    <CancelButtonWrapper>
+      <Typography.Text type="secondary" onClick={() => navigate(href)}>
+        {children}
+      </Typography.Text>
+    </CancelButtonWrapper>
+  );
+};
+
+CancelLinkLabel.propTypes = {
+  navigate: PropTypes.func.isRequired,
+  href: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+};
 
 const CreateQuestion = () => {
   const dispatch = useDispatch();
@@ -156,8 +177,8 @@ const CreateQuestion = () => {
         <div className="container m-3 m-md-auto">
           <div className="d-flex justify-content-between my-3">
             <h3>Добавление вопроса</h3>
-            <Link to="/">
-              <Typography.Link>Вернуться назад</Typography.Link>
+            <Link to="/" component={Typography.Link}>
+              Вернуться назад
             </Link>
           </div>
         </div>
@@ -260,8 +281,8 @@ const CreateQuestion = () => {
                 </Button>
               </div>
               <div className="col-auto">
-                <Link to="/" className="cancel">
-                  <Typography.Text type="secondary">Отмена</Typography.Text>
+                <Link to="/" component={CancelLinkLabel}>
+                  Отмена
                 </Link>
               </div>
             </div>
