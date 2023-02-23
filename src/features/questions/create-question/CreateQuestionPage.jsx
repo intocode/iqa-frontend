@@ -217,8 +217,8 @@ const CreateQuestion = () => {
 
                 <div className="d-flex flex-wrap">
                   {tags.map((tag) => (
-                    <StyledTagBlock>
-                      <Tag key={tag} closable onClose={() => removeTag(tag)}>
+                    <StyledTagBlock key={tag}>
+                      <Tag closable onClose={() => removeTag(tag)}>
                         {tag}
                       </Tag>
                     </StyledTagBlock>
