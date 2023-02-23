@@ -6,14 +6,20 @@ const StyledCaption = styled.div`
   margin-left: 3px;
 `;
 
+const QuestionActionWrapper = styled.div`
+  svg {
+    cursor: pointer;
+  }
+`;
+
 export const TheQuestionAction = ({ icon, children, onClick, color }) => {
   return (
-    <div className="col-auto">
+    <QuestionActionWrapper className="col-auto">
       <div role="button" aria-hidden onClick={onClick} className="d-flex align-items-center">
         {icon}
         <StyledCaption color={color}>{children}</StyledCaption>
       </div>
-    </div>
+    </QuestionActionWrapper>
   );
 };
 
