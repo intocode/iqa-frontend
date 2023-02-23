@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
@@ -71,11 +71,23 @@ const StyledTagBlock = styled.div`
   margin-top: 5px;
 `;
 
-function CancelLinkLabel({ children }) {
-  return <Typography.Text type="secondary">{children}</Typography.Text>;
-}
+const CancelButtonWrapper = styled.span`
+  cursor: pointer;
+`;
+
+const CancelLinkLabel = ({ navigate, href, children }) => {
+  return (
+    <CancelButtonWrapper>
+      <Typography.Text type="secondary" onClick={() => navigate(href)}>
+        {children}
+      </Typography.Text>
+    </CancelButtonWrapper>
+  );
+};
 
 CancelLinkLabel.propTypes = {
+  navigate: PropTypes.func.isRequired,
+  href: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
 };
 
