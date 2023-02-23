@@ -68,6 +68,15 @@ const StyledCommentActions = styled.div`
   display: flex;
 `;
 
+const StyledPopoverBlock = styled.div`
+  position: relative;
+`;
+
+const StyledPopoverChildren = styled.div`
+  position: absolute;
+  right: 47px;
+`;
+
 export const CommentView = ({ comment, lastComment }) => {
   const Wrapper = lastComment ? StyledWrapper : React.Fragment;
 
@@ -93,6 +102,10 @@ export const CommentView = ({ comment, lastComment }) => {
         dispatch(unlikeCommentById({ commentId, userId }));
       }
     } else setOpen(!open);
+  };
+
+  const handleOpenPopover = () => {
+    setOpen(!open);
   };
 
   return (
@@ -125,12 +138,18 @@ export const CommentView = ({ comment, lastComment }) => {
                       <HeartOutlined style={{ color: '#FF4646' }} />
                     )}
                   </button>
-                  <Popover
-                    placement="bottomLeft"
-                    open={open}
-                    content={<FavoritePopoverContent text={text} />}
-                  />
                   <span>{commentLikes.length}</span>
+                  <StyledPopoverBlock>
+                    <StyledPopoverChildren>
+                      <Popover
+                        onOpenChange={handleOpenPopover}
+                        open={open}
+                        trigger="click"
+                        placement="bottomLeft"
+                        content={<FavoritePopoverContent text={text} />}
+                      />
+                    </StyledPopoverChildren>
+                  </StyledPopoverBlock>
                 </StyledCommentLikes>
               )}
             </StyledCommentActions>
