@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectProfile } from 'features/profile/profileSlice';
-import FavoritePopoverContent from 'features/questions/questions-list/question-actions/FavoritePopoverContent';
+import FavoritePopoverContent from 'components/FavoritePopoverContent';
 import { Popover } from 'antd';
 import { CommentsActions } from './comment-actions/CommentsActions';
 import { likeCommentById, unlikeCommentById } from './commentsSlice';
@@ -80,9 +80,7 @@ const StyledPopoverChildren = styled.div`
 export const CommentView = ({ comment, lastComment }) => {
   const Wrapper = lastComment ? StyledWrapper : React.Fragment;
 
-  const [open, setOpen] = useState(false);
-
-  const text = 'чтобы иметь возможность лайкать комментарии';
+  const [isAuthorizeEnable, setIsAuthorizeEnable] = useState(false);
 
   const dispatch = useDispatch();
   const { token } = useAuth();
@@ -101,11 +99,13 @@ export const CommentView = ({ comment, lastComment }) => {
       } else {
         dispatch(unlikeCommentById({ commentId, userId }));
       }
-    } else setOpen(!open);
+    } else {
+      setIsAuthorizeEnable(true);
+    }
   };
 
   const handleOpenPopover = () => {
-    setOpen(!open);
+    setIsAuthorizeEnable(!isAuthorizeEnable);
   };
 
   return (
@@ -143,10 +143,12 @@ export const CommentView = ({ comment, lastComment }) => {
                     <StyledPopoverChildren>
                       <Popover
                         onOpenChange={handleOpenPopover}
-                        open={open}
+                        open={isAuthorizeEnable}
                         trigger="click"
                         placement="bottomLeft"
-                        content={<FavoritePopoverContent text={text} />}
+                        content={
+                          <FavoritePopoverContent text="чтобы иметь возможность лайкать комментарии" />
+                        }
                       />
                     </StyledPopoverChildren>
                   </StyledPopoverBlock>
