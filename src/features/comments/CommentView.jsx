@@ -80,7 +80,7 @@ const StyledPopoverChildren = styled.div`
 export const CommentView = ({ comment, lastComment }) => {
   const Wrapper = lastComment ? StyledWrapper : React.Fragment;
 
-  const [isAuthorizeEnable, setIsAuthorizeEnable] = useState(false);
+  const [isAuthorizePopoverEnable, setIsAuthorizePopoverEnable] = useState(false);
 
   const dispatch = useDispatch();
   const { token } = useAuth();
@@ -100,12 +100,12 @@ export const CommentView = ({ comment, lastComment }) => {
         dispatch(unlikeCommentById({ commentId, userId }));
       }
     } else {
-      setIsAuthorizeEnable(true);
+      setIsAuthorizePopoverEnable(true);
     }
   };
 
   const handleOpenPopover = () => {
-    setIsAuthorizeEnable(!isAuthorizeEnable);
+    setIsAuthorizePopoverEnable(!isAuthorizePopoverEnable);
   };
 
   return (
@@ -143,7 +143,7 @@ export const CommentView = ({ comment, lastComment }) => {
                     <StyledPopoverChildren>
                       <Popover
                         onOpenChange={handleOpenPopover}
-                        open={isAuthorizeEnable}
+                        open={isAuthorizePopoverEnable}
                         trigger="click"
                         placement="bottomLeft"
                         content={
