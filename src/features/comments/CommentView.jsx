@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectProfile } from 'features/profile/profileSlice';
 import FavoritePopoverContent from 'components/FavoritePopoverContent';
 import { Popover } from 'antd';
+import { truncateLongText } from 'common/utils/truncateLongText';
 import { CommentsActions } from './comment-actions/CommentsActions';
 import { likeCommentById, unlikeCommentById } from './commentsSlice';
 
@@ -121,7 +122,10 @@ export const CommentView = ({ comment, lastComment }) => {
             <span>{comment.author?.name}</span>
             <StyledTime>{dayjs(comment.createdAt).fromNow()}</StyledTime>
           </div>
-          <Viewer theme="iqa" initialValue={comment.text} />
+          <Viewer
+            theme="iqa"
+            initialValue={lastComment ? truncateLongText(comment.text) : comment.text}
+          />
           {!lastComment && (
             <StyledCommentActions>
               <CommentsActions commentId={comment._id} />
