@@ -2,13 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from 'common/context/Auth/useAuth';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const StyledPopoverBlock = styled.div`
   width: 250px;
   text-align: center;
 `;
 
-const FavoritePopoverContent = () => {
+const FavoritePopoverContent = ({ text }) => {
   const { executeLoggingInProcess } = useAuth();
 
   return (
@@ -16,9 +17,13 @@ const FavoritePopoverContent = () => {
       <Link to="/" onClick={executeLoggingInProcess}>
         Авторизуйся,
       </Link>{' '}
-      чтобы иметь возможность сохранять вопросы
+      {text}
     </StyledPopoverBlock>
   );
 };
 
 export default FavoritePopoverContent;
+
+FavoritePopoverContent.propTypes = {
+  text: PropTypes.node.isRequired,
+};

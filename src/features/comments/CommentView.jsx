@@ -2,11 +2,13 @@ import { Viewer } from '@toast-ui/react-editor';
 import { useAuth } from 'common/context/Auth/useAuth';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import React from 'react';
+import React, { useState } from 'react';
 import dayjs from 'dayjs';
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectProfile } from 'features/profile/profileSlice';
+import FavoritePopoverContent from 'components/FavoritePopoverContent';
+import { Popover } from 'antd';
 import { CommentsActions } from './comment-actions/CommentsActions';
 import { likeCommentById, unlikeCommentById } from './commentsSlice';
 
@@ -66,8 +68,19 @@ const StyledCommentActions = styled.div`
   display: flex;
 `;
 
+const StyledPopoverBlock = styled.div`
+  position: relative;
+`;
+
+const StyledPopoverChildren = styled.div`
+  position: absolute;
+  right: 47px;
+`;
+
 export const CommentView = ({ comment, lastComment }) => {
   const Wrapper = lastComment ? StyledWrapper : React.Fragment;
+
+  const [isAuthorizePopoverEnable, setIsAuthorizePopoverEnable] = useState(false);
 
   const dispatch = useDispatch();
   const { token } = useAuth();
@@ -80,11 +93,19 @@ export const CommentView = ({ comment, lastComment }) => {
   const userId = profile._id;
 
   const handleToggleLike = () => {
-    if (!commentLikes.includes(userId)) {
-      dispatch(likeCommentById({ commentId, userId }));
+    if (token) {
+      if (!commentLikes.includes(userId)) {
+        dispatch(likeCommentById({ commentId, userId }));
+      } else {
+        dispatch(unlikeCommentById({ commentId, userId }));
+      }
     } else {
-      dispatch(unlikeCommentById({ commentId, userId }));
+      setIsAuthorizePopoverEnable(true);
     }
+  };
+
+  const handleOpenPopover = () => {
+    setIsAuthorizePopoverEnable(!isAuthorizePopoverEnable);
   };
 
   return (
@@ -110,7 +131,6 @@ export const CommentView = ({ comment, lastComment }) => {
                     className="d-flex align-items-center"
                     type="button"
                     onClick={handleToggleLike}
-                    disabled={!token}
                   >
                     {commentLikes.includes(userId) ? (
                       <HeartFilled style={{ color: '#FF4646' }} />
@@ -119,6 +139,19 @@ export const CommentView = ({ comment, lastComment }) => {
                     )}
                   </button>
                   <span>{commentLikes.length}</span>
+                  <StyledPopoverBlock>
+                    <StyledPopoverChildren>
+                      <Popover
+                        onOpenChange={handleOpenPopover}
+                        open={isAuthorizePopoverEnable}
+                        trigger="click"
+                        placement="bottomLeft"
+                        content={
+                          <FavoritePopoverContent text="чтобы иметь возможность лайкать комментарии" />
+                        }
+                      />
+                    </StyledPopoverChildren>
+                  </StyledPopoverBlock>
                 </StyledCommentLikes>
               )}
             </StyledCommentActions>
