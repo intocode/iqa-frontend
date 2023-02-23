@@ -260,8 +260,8 @@ const CreateQuestion = () => {
                 </Button>
               </div>
               <div className="col-auto">
-                <Link to="/" className="cancel">
-                  <Typography.Text type="secondary">Отмена</Typography.Text>
+                <Link to="/" className="cancel" component={Typography.Text}>
+                  Отмена
                 </Link>
               </div>
             </div>
