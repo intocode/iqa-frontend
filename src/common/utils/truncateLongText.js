@@ -2,11 +2,10 @@ import { MAX_LAST_COMMENT_LENGTH } from 'app/constants';
 
 export const truncateLongText = (value) => {
   let str = value;
-  const maxLength = MAX_LAST_COMMENT_LENGTH;
-  if (str.length > maxLength) {
-    str = str.slice(0, maxLength);
+  if (str.length > MAX_LAST_COMMENT_LENGTH) {
+    str = str.slice(0, MAX_LAST_COMMENT_LENGTH);
     const lastSpaceIndex = str.lastIndexOf(' ');
-    str = str.slice(0, lastSpaceIndex > -1 ? lastSpaceIndex : maxLength);
+    str = str.slice(0, lastSpaceIndex > -1 ? lastSpaceIndex : MAX_LAST_COMMENT_LENGTH);
     str += '...';
   }
   return str;

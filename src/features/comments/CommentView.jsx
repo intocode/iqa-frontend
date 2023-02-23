@@ -122,7 +122,11 @@ export const CommentView = ({ comment, lastComment }) => {
             <span>{comment.author?.name}</span>
             <StyledTime>{dayjs(comment.createdAt).fromNow()}</StyledTime>
           </div>
-          <Viewer theme="iqa" initialValue={truncateLongText(comment.text)} />
+          {lastComment ? (
+            <Viewer theme="iqa" initialValue={truncateLongText(comment.text)} />
+          ) : (
+            <Viewer theme="iqa" initialValue={comment.text} />
+          )}
           {!lastComment && (
             <StyledCommentActions>
               <CommentsActions commentId={comment._id} />
