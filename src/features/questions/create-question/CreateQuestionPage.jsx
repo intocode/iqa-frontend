@@ -11,6 +11,7 @@ import { addQuestion } from 'features/questions/questionsSlice';
 import { selectProfile } from 'features/profile/profileSlice';
 import { useAuth } from 'common/context/Auth/useAuth';
 import { MAX_NUMBER_OF_TAGS, TAG_MAX_LENGTH } from 'app/constants';
+import PropTypes from 'prop-types';
 
 const StyledQuestionWrapper = styled.div`
   & .new-tag {
@@ -69,6 +70,14 @@ const StyledTagBlock = styled.div`
   height: fit-content;
   margin-top: 5px;
 `;
+
+function CancelLinkLabel({ children }) {
+  return <Typography.Text type="secondary">{children}</Typography.Text>;
+}
+
+CancelLinkLabel.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 const CreateQuestion = () => {
   const dispatch = useDispatch();
@@ -217,8 +226,8 @@ const CreateQuestion = () => {
 
                 <div className="d-flex flex-wrap">
                   {tags.map((tag) => (
-                    <StyledTagBlock>
-                      <Tag key={tag} closable onClose={() => removeTag(tag)}>
+                    <StyledTagBlock key={tag}>
+                      <Tag closable onClose={() => removeTag(tag)}>
                         {tag}
                       </Tag>
                     </StyledTagBlock>
@@ -260,7 +269,7 @@ const CreateQuestion = () => {
                 </Button>
               </div>
               <div className="col-auto">
-                <Link to="/" className="cancel" component={Typography.Text}>
+                <Link to="/" component={CancelLinkLabel}>
                   Отмена
                 </Link>
               </div>
