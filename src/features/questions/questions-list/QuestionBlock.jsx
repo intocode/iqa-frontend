@@ -14,6 +14,9 @@ import { QuestionsActions } from './question-actions/QuestionsActions';
 const StyledQuestionBlock = styled.div`
   opacity: ${(props) => (props.deleted ? 0.3 : 1)};
   transition: all 0.5s;
+  & .d-flex {
+    cursor: pointer;
+  }
 `;
 
 export const QuestionBlock = ({ questionId }) => {
