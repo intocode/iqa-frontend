@@ -109,7 +109,8 @@ const CreateQuestion = () => {
   const [tooManyQuestions, setTooManyQuestions] = useState(false);
 
   const addTag = () => {
-    if (!tags.includes(tagValue)) {
+    const tagRegex = /^(?=.*[a-z0-9])[a-z0-9.-]+$/;
+    if (tagRegex.test(tagValue) && !tags.includes(tagValue)) {
       setTags([...tags, tagValue]);
     }
   };
