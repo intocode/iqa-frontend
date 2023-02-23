@@ -241,7 +241,7 @@ const questionsSlice = createSlice({
     },
 
     [addQuestion.fulfilled]: (state, action) => {
-      state.questions.push(action.payload.question);
+      questionsAdapter.addOne(state, action.payload.question);
       state.error = null;
       state.fetching = false;
     },
