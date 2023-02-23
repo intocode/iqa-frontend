@@ -82,7 +82,7 @@ export const CommentView = ({ comment, lastComment }) => {
 
   const [open, setOpen] = useState(false);
 
-  const text = 'что бы иметь возможность лайкать комментарии';
+  const text = 'чтобы иметь возможность лайкать комментарии';
 
   const dispatch = useDispatch();
   const { token } = useAuth();
