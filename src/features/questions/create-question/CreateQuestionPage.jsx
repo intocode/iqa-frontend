@@ -1,10 +1,10 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { Editor } from '@toast-ui/react-editor';
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, Tag, Input, Alert, Typography } from 'antd';
+import { Button, Tag, Input, Alert, Typography, notification } from 'antd';
 import { Title } from 'app/Title/Title';
 import { Paper } from 'components/layout/Paper';
 import { addQuestion } from 'features/questions/questionsSlice';
@@ -93,6 +93,7 @@ CancelLinkLabel.propTypes = {
 
 const CreateQuestion = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const editorRef = useRef();
 
   const profile = useSelector(selectProfile);
@@ -141,10 +142,17 @@ const CreateQuestion = () => {
         tags,
         userId: profile._id,
       })
-    );
-    setQuestion('');
-    setFullDescription('');
-    editorRef.current.getInstance().reset();
+    )
+      .unwrap()
+      .then(() => {
+        notification.success({
+          message: 'Вопрос успешно опубликован',
+        });
+        history.push('/');
+        setQuestion('');
+        setFullDescription('');
+        editorRef.current.getInstance().reset();
+      });
   };
 
   const handleChange = () => {
