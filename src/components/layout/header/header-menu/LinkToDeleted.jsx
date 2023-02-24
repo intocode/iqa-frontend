@@ -10,8 +10,8 @@ export const LinkToDeleted = () => {
   if (!REACT_APP_FEATURE_DELETE_QUESTION || !token) return null;
 
   return (
-    <Link to="/?deletedOnly=true" className="d-none d-md-block">
-      <Typography.Link>Корзина</Typography.Link>
+    <Link to="/?deletedOnly=true" className="d-none d-md-block" component={Typography.Link}>
+      Корзина
     </Link>
   );
 };

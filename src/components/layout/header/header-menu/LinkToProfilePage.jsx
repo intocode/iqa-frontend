@@ -4,8 +4,8 @@ import { Typography } from 'antd';
 
 const LinkToProfilePage = () => {
   return (
-    <Link to="/profile">
-      <Typography.Link>Профиль</Typography.Link>
+    <Link to="/profile" component={Typography.Link}>
+      Профиль
     </Link>
   );
 };
