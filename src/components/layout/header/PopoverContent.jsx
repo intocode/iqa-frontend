@@ -50,8 +50,13 @@ const PopoverContent = () => {
           </StyledMenuList>
           <Divider className="m-0" />
         </StyledMenuProfile>
-        <Link to="/" className="d-none d-md-block">
-          <Typography.Link onClick={handleClick}>Выйти</Typography.Link>
+        <Link
+          to="/"
+          className="d-none d-md-block"
+          component={Typography.Link}
+          onClick={handleClick}
+        >
+          Выйти
         </Link>
       </div>
     </div>
