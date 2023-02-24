@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Button } from 'antd';
@@ -22,12 +22,12 @@ const StyledMenu = styled.ul`
 
 const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { token, executeLoggingInProcess, logout } = useAuth();
 
   const handleAddQuestion = useCallback(() => {
-    history.push('/create');
-  }, [history]);
+    navigate('/create');
+  }, [navigate]);
 
   useEffect(() => {
     if (mobileMenu) {

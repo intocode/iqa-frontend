@@ -22,7 +22,9 @@ const QuestionPage = () => {
   const fetching = useSelector(selectQuestionsFetching);
   const question = useSelector(selectOpenedQuestion);
 
-  useEffect(() => dispatch(fetchQuestionById(id)), [dispatch, id]);
+  useEffect(() => {
+    dispatch(fetchQuestionById(id));
+  }, [dispatch, id]);
 
   return (
     <div className="container">
