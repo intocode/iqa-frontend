@@ -43,7 +43,7 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
         jsx: (
           <Button
             className="d-block mb-2"
-            contrast={false}
+            contrast={`${false}`}
             color="primary"
             onClick={handleAddQuestion}
           >
@@ -80,7 +80,7 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
         jsx: (
           <Button
             className="d-block m-auto"
-            contrast={false}
+            contrast={`${false}`}
             color="primary"
             onClick={executeLoggingInProcess}
           >
