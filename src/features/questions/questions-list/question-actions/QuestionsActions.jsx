@@ -10,6 +10,9 @@ import { RestoreAction } from './RestoreAction';
 
 const QuestionsActionsWrapper = styled.div`
   margin-top: -10px;
+  & div[role='button'] {
+    cursor: pointer;
+  }
 `;
 
 export const QuestionsActions = ({ questionId }) => {
