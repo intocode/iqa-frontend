@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { useEffect, lazy, Suspense } from 'react';
 import { useAuth } from 'common/context/Auth/useAuth';
 import { Header } from 'components/layout/header/Header';
@@ -18,28 +18,28 @@ const HelpPage = lazy(() => import('pages/HelpPage'));
 const routes = [
   {
     key: 10,
-    component: QuestionsList,
+    element: <QuestionsList />,
     path: '/',
     exact: true,
   },
   {
     key: 20,
-    component: CreateQuestion,
+    element: <CreateQuestion />,
     path: '/create',
   },
   {
     key: 30,
-    component: QuestionPage,
+    element: <QuestionPage />,
     path: '/question/:id',
   },
   {
     key: 40,
-    component: ProfileUser,
+    element: <ProfileUser />,
     path: '/profile',
   },
   {
     key: 50,
-    component: HelpPage,
+    element: <HelpPage />,
     path: '/help',
   },
 ];
@@ -60,11 +60,11 @@ export const App = () => {
       <PatchUserModal />
       <Header />
       <Suspense fallback={<LazyPlaceholder />}>
-        <Switch>
+        <Routes>
           {routes.map((route) => (
             <Route key={route.key} {...route} />
           ))}
-        </Switch>
+        </Routes>
       </Suspense>
       <Footer />
     </>

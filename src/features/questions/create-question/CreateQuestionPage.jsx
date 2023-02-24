@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Editor } from '@toast-ui/react-editor';
 import { PlusOutlined } from '@ant-design/icons';
@@ -93,7 +93,7 @@ CancelLinkLabel.propTypes = {
 
 const CreateQuestion = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const editorRef = useRef();
 
   const profile = useSelector(selectProfile);
@@ -148,7 +148,7 @@ const CreateQuestion = () => {
         notification.success({
           message: 'Вопрос успешно опубликован',
         });
-        history.push('/');
+        navigate('/');
         setQuestion('');
         setFullDescription('');
         editorRef.current.getInstance().reset();
@@ -174,7 +174,7 @@ const CreateQuestion = () => {
   }, [question]);
 
   // если не авторизован, то кидаем на главную
-  if (!token) return <Redirect to="/" />;
+  if (!token) return navigate('/');
 
   const { REACT_APP_FEATURE_TAGS } = process.env;
 

@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import CommentsIcon from 'components/icons/CommentsIcon';
@@ -9,12 +9,12 @@ import { TheQuestionAction } from './TheQuestionAction';
 export const CommentsAction = ({ questionId }) => {
   const { REACT_APP_FEATURE_COMMENTARIES } = process.env;
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const question = useSelector((state) => questionSelectors.selectById(state, questionId));
 
   const handleOpenComments = () => {
-    history.push(`/question/${question._id}#scroll`);
+    navigate(`/question/${question._id}#scroll`);
   };
 
   if (!REACT_APP_FEATURE_COMMENTARIES) return null;
