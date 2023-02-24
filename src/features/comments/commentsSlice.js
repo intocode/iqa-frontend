@@ -107,14 +107,17 @@ const commentsSlice = createSlice({
     },
 
     [removeCommentById.pending]: (state, action) => {
+      state.fetching = true;
       state.deletingCommentIds.push(action.meta.arg);
     },
 
     [removeCommentById.fulfilled]: (state, action) => {
-      commentsAdapter.updateOne(state, {
-        id: action.meta.arg.commentId,
-        changes: { likes: [action.meta.arg.userId] },
-      });
+      state.fetching = false;
+      state.deletingCommentIds = state.deletingCommentIds.filter(
+        (id) => id.commentId !== action.payload.comment
+      );
+
+      commentsAdapter.removeOne(state, action.payload.comment);
     },
 
     [likeCommentById.pending]: (state, action) => {
@@ -159,11 +162,6 @@ export const selectCommentsAdding = createSelector(selectCommentsState, (state) 
 export const selectCommentsError = createSelector(selectCommentsState, (state) => state.error);
 
 export const selectCommentsLoading = createSelector(selectCommentsState, (state) => state.loading);
-
-export const selectCommentDeliting = createSelector(
-  selectCommentsState,
-  (state) => state.deletingCommentIds
-);
 
 export const selectCommentLiked = createSelector(
   selectCommentsState,

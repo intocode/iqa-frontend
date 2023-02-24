@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAuth } from 'common/context/Auth/useAuth';
 import { selectProfile } from 'features/profile/profileSlice';
@@ -6,15 +6,16 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import DeleteIcon from 'components/icons/DeleteIcon';
 import SpinnerIcon from 'components/icons/SpinnerIcon';
-import {
-  commentsSelectors,
-  removeCommentById,
-  selectCommentDeliting,
-} from 'features/comments/commentsSlice';
+import { commentsSelectors, removeCommentById } from 'features/comments/commentsSlice';
 
 const StyledDelete = styled.div`
   cursor: pointer;
-  opacity: 0;
+  height: 15.4px;
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+  margin-right: 13px;
 `;
 
 export const DeleteAction = ({ commentId }) => {
@@ -22,26 +23,20 @@ export const DeleteAction = ({ commentId }) => {
   const dispatch = useDispatch();
 
   const { REACT_APP_FEATURE_DELETE_COMMENT } = process.env;
-
+  const [isClickOnDelete, setIsClickOnDelete] = useState(false);
   const profile = useSelector(selectProfile);
-  const deletingComments = useSelector(selectCommentDeliting);
   const comment = useSelector((state) => commentsSelectors.selectById(state, commentId));
 
   const handleToggleDelete = () => {
     dispatch(removeCommentById({ questionId: comment.questionId, commentId }));
   };
 
-  const isDeliting = useMemo(
-    () => deletingComments.find((id) => id.commentId === comment._id),
-    [deletingComments, comment]
-  );
-
   if (!REACT_APP_FEATURE_DELETE_COMMENT || !token || !profile.isAdmin) return null;
 
   return (
     <div aria-hidden onClick={handleToggleDelete}>
-      <StyledDelete className="delete">
-        {isDeliting ? <SpinnerIcon /> : <DeleteIcon />}
+      <StyledDelete className="delete" onClick={() => setIsClickOnDelete(true)}>
+        {isClickOnDelete ? <SpinnerIcon /> : <DeleteIcon />}
       </StyledDelete>
     </div>
   );
