@@ -47,7 +47,7 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
             color="primary"
             onClick={handleAddQuestion}
           >
-            Опубликовать опрос
+            Добавить вопрос
           </Button>
         ),
       },
