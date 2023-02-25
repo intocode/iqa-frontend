@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useMemo } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Button } from 'antd';
@@ -40,9 +40,16 @@ const Line = styled.hr`
   background-image: linear-gradient(to right, #ccc, #333, #ccc);
 `;
 
-const AdaptiveMenu = ({ mobileMenu }) => {
+const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
+  const location = useLocation();
   const { token, executeLoggingInProcess, logout } = useAuth();
   const profile = useSelector(selectProfile);
+
+  useEffect(() => {
+    if (mobileMenu) {
+      toggleMobileMenu();
+    }
+  }, [location.key]); //eslint-disable-line
 
   const menuItems = useMemo(() => {
     return [
@@ -127,6 +134,7 @@ const AdaptiveMenu = ({ mobileMenu }) => {
 };
 
 AdaptiveMenu.propTypes = {
+  toggleMobileMenu: PropTypes.func.isRequired,
   mobileMenu: PropTypes.bool.isRequired,
 };
 
