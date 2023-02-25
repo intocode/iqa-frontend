@@ -24,10 +24,11 @@
     "styled-components": "^5.3.3"
   },
   "scripts": {
-    "check": "npm run prettier:check && npm run lint && cross-env CI=true npm run test && cross-env CI=true npm run build",
+    "check": "npm run prettier:check && npm run lint && npm run test:ci && cross-env CI=true npm run build",
     "start": "react-scripts start",
     "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
+    "test:ci": "cross-env CI=true react-scripts test",
     "eject": "react-scripts eject",
     "fix": "npm run lint:fix && npm run prettier",
     "lint": "npm run lint:js",
@@ -64,8 +65,8 @@
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-eslint-plugin": "^5.0.6",
-    "husky": "^8.0.1",
-    "lint-staged": "^13.0.3",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.2",
     "prettier": "^2.7.1"
   }
 }
