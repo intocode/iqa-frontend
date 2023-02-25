@@ -26,7 +26,7 @@ const ProfileUser = () => {
 
   const StyledPageUser = styled.div`
     .pageUser {
-      margin-left: -20px;
+      margin-left: 0px;
     }
     .registration-date {
       color: ${theme.colors.gray.main};
@@ -46,6 +46,11 @@ const ProfileUser = () => {
     }
     .userData {
       margin: 20px 0 26px 20px;
+    }
+    @media screen and (min-width: 576px) {
+      .pageUser {
+        margin-left: -20px;
+      }
     }
   `;
 
