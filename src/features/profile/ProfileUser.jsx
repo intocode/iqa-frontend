@@ -16,13 +16,15 @@ const ProfileUser = () => {
       border-radius: 50%;
       cursor: pointer;
     }
+    @media screen and (max-width: 576px) {
+      & > img {
+        margin: auto;
+        border-radius: 10%;
+      }
+    }
   `;
 
   const StyledPageUser = styled.div`
-    .pageUser {
-      margin-left: -20px;
-    }
-
     .registration-date {
       color: ${theme.colors.gray.main};
       font-size: 12px;
@@ -47,14 +49,14 @@ const ProfileUser = () => {
   return (
     <div className="container">
       <StyledPageUser>
-        <div className="row">
-          <div className="col-4 mt-3">
+        <div className="row flex-column flex-sm-row">
+          <div className="col-12 col-sm-4 mt-3">
             <span className="nameUser">Профиль @{profile.name}</span>
-            <StyledAvatar>
-              <img className="m-auto mt-3" src={profile.avatar?.full} alt="" />
+            <StyledAvatar className="d-flex justify-content-center mt-3">
+              <img className="mt-auto" src={profile.avatar?.full} alt="" />
             </StyledAvatar>
           </div>
-          <div className="col-8 mt-5">
+          <div className="col-12 col-sm-8 mt-sm-5 mt-3">
             <Paper className="pageUser">
               <div className="userData">
                 <div className="registration-date">
