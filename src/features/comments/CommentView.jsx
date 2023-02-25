@@ -1,4 +1,3 @@
-import { Viewer } from '@toast-ui/react-editor';
 import { useAuth } from 'common/context/Auth/useAuth';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -122,10 +121,7 @@ export const CommentView = ({ comment, lastComment }) => {
             <span>{comment.author?.name}</span>
             <StyledTime>{dayjs(comment.createdAt).fromNow()}</StyledTime>
           </div>
-          <Viewer
-            theme="iqa"
-            initialValue={lastComment ? truncateLongText(comment.text) : comment.text}
-          />
+          <div>{lastComment ? truncateLongText(comment.text) : comment.text}</div>
           {!lastComment && (
             <StyledCommentActions>
               <CommentsActions commentId={comment._id} />

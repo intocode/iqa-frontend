@@ -2,7 +2,8 @@ import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { Editor } from '@toast-ui/react-editor';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Tag, Input, Alert, Typography, notification } from 'antd';
 import { Title } from 'app/Title/Title';
@@ -27,16 +28,13 @@ const StyledQuestionWrapper = styled.div`
     font-size: 12px;
     line-height: 14px;
     cursor: pointer;
-
     & svg {
       margin-right: 11px;
     }
-
     & span {
       white-space: nowrap;
       padding: 0;
     }
-
     & input {
       font-size: 12px;
       line-height: 14px;
@@ -44,7 +42,6 @@ const StyledQuestionWrapper = styled.div`
       max-width: 45px;
       border: none;
       background-color: transparent;
-
       &:focus {
         outline: none;
       }
@@ -155,9 +152,8 @@ const CreateQuestion = () => {
       });
   };
 
-  const handleChange = () => {
-    const instance = editorRef.current.getInstance();
-    setFullDescription(instance.getMarkdown());
+  const handleChange = (_, editor) => {
+    setFullDescription(String(editor.getData().slice(3, -4)));
   };
 
   const handleChangeTag = (e) => {
@@ -220,14 +216,8 @@ const CreateQuestion = () => {
 
           <div>
             <div className="mt-4 mb-3">Дополнительный комментарий</div>
-            <Editor
-              theme="iqa"
-              previewStyle="vertical"
-              height="200px"
-              initialEditType="wysiwyg"
-              useCommandShortcut
-              usageStatistics={false}
-              hideModeSwitch
+            <CKEditor
+              editor={ClassicEditor}
               value={fullDescription}
               onChange={handleChange}
               ref={editorRef}
@@ -235,7 +225,6 @@ const CreateQuestion = () => {
                 ['heading', 'bold', 'italic', 'strike'],
                 ['hr', 'quote', 'code', 'codeblock'],
               ]}
-              autofocus={false}
             />
 
             {REACT_APP_FEATURE_TAGS && (

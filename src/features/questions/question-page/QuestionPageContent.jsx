@@ -1,4 +1,3 @@
-import { Viewer } from '@toast-ui/react-editor';
 import { Tag, Divider } from 'antd';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
@@ -56,7 +55,7 @@ export const QuestionPageContent = () => {
       <h2 className="my-3">{question.question}</h2>
 
       <StyledFullDescription>
-        <Viewer initialValue={question.fullDescription} />
+        <div>{question.fullDescription}</div>
       </StyledFullDescription>
       <Divider className="my-4" />
     </>
