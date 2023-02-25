@@ -19,12 +19,15 @@ const ProfileUser = () => {
     @media screen and (max-width: 576px) {
       & > img {
         margin: auto;
-        border-radius: 10%;
+        border-radius: 50%;
       }
     }
   `;
 
   const StyledPageUser = styled.div`
+    .pageUser {
+      margin-left: -20px;
+    }
     .registration-date {
       color: ${theme.colors.gray.main};
       font-size: 12px;
