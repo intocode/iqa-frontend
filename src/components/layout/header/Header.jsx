@@ -105,7 +105,7 @@ export const Header = () => {
 
   return (
     <StyledHeader>
-      <AdaptiveMenu toggleMobileMenu={handleToggleMenu} mobileMenu={mobileMenu} />
+      <AdaptiveMenu mobileMenu={mobileMenu} />
       <div className="container">
         <div className="row align-items-center">
           <div className="col d-flex align-items-center">

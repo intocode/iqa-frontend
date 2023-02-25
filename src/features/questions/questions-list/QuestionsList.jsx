@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Spin, Switch } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
+import { Button, Spin, Switch } from 'antd';
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import { Title } from 'app/Title/Title';
 import {
@@ -19,6 +19,7 @@ import {
 import { useOnScroll } from 'common/hooks/useOnScroll';
 import { generateTitle } from 'common/utils/title';
 import { useQueryString } from 'common/hooks/useQueryString';
+import { Link } from 'react-router-dom';
 import QuestionsListMapper from './QuestionsListMapper';
 import QuestionEmptyFolder from './QuestionEmptyFolder';
 
@@ -90,9 +91,12 @@ const QuestionsList = () => {
     <>
       <Title>{`iqa: ${generatedTitle}`}</Title>
       <div className="container">
-        <div className="row justify-content-between align-items-center my-3">
-          <div className="col">
-            <h2>{generatedTitle}</h2>
+        <div className="row align-items-center d-block d-sm-flex justify-content-start my-3">
+          <div className="col d-flex align-items-center justify-content-between justify-content-sm-start">
+            <h2 className="m-0">{generatedTitle}</h2>
+            <Link to="/create" className="d-sm-block d-md-none">
+              <Button className="mx-3" type="primary" shape="plus" icon={<PlusOutlined />} />
+            </Link>
           </div>
           <div className="col-auto">
             <Switch checked={isCompactMode} onClick={handleClickSwitch} />
