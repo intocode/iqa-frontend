@@ -137,14 +137,7 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
 
       return true;
     });
-  }, [
-    executeLoggingInProcess,
-    handleAddQuestion,
-    logout,
-    profile.avatar?.thumbnail,
-    profile.name,
-    token,
-  ]);
+  }, [executeLoggingInProcess, handleAddQuestion, logout, profile, token]);
 
   if (!mobileMenu) return null;
 
