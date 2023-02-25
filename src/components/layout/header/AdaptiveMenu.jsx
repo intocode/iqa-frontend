@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Button } from 'antd';
 import { useAuth } from 'common/context/Auth/useAuth';
+import { useSelector } from 'react-redux';
+import { selectProfile } from 'features/profile/profileSlice';
 
 const StyledMenu = styled.ul`
   list-style: none;
@@ -20,10 +22,29 @@ const StyledMenu = styled.ul`
   }
 `;
 
+const StyledAvatar = styled.div`
+  & > img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+`;
+
+const Line = styled.hr`
+  margin-top: 10px;
+  width: 90%;
+  border: 0;
+  height: 1px;
+  background: #333;
+  background-image: linear-gradient(to right, #ccc, #333, #ccc);
+`;
+
 const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
   const location = useLocation();
   const history = useHistory();
   const { token, executeLoggingInProcess, logout } = useAuth();
+  const profile = useSelector(selectProfile);
 
   const handleAddQuestion = useCallback(() => {
     history.push('/create');
@@ -55,18 +76,35 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
         id: 2,
         protected: true,
         jsx: (
+          <>
+            <Link to="/profile">
+              <div className="d-flex align-items-center">
+                <StyledAvatar>
+                  <img className="m-auto" src={profile.avatar?.thumbnail} alt="" />
+                </StyledAvatar>
+                <span className="nameUser mx-2">Профиль @{profile.name}</span>
+              </div>
+            </Link>
+            <Line />
+          </>
+        ),
+      },
+      {
+        id: 3,
+        protected: true,
+        jsx: (
           <div>
             <Link to="/favorites">Избранные</Link>
           </div>
         ),
       },
       {
-        id: 3,
+        id: 4,
         protected: true,
         jsx: <Link to="/cart">Корзина</Link>,
       },
       {
-        id: 4,
+        id: 5,
         protected: true,
         jsx: (
           <Link to="/" onClick={logout}>
@@ -75,7 +113,7 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
         ),
       },
       {
-        id: 5,
+        id: 6,
         guest: true,
         jsx: (
           <Button
@@ -99,7 +137,7 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
 
       return true;
     });
-  }, [executeLoggingInProcess, handleAddQuestion, logout, token]);
+  }, [executeLoggingInProcess, handleAddQuestion, logout, profile, token]);
 
   if (!mobileMenu) return null;
 
