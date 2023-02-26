@@ -111,10 +111,7 @@ const commentsSlice = createSlice({
     },
 
     [removeCommentById.fulfilled]: (state, action) => {
-      commentsAdapter.updateOne(state, {
-        id: action.meta.arg.commentId,
-        changes: { likes: [action.meta.arg.userId] },
-      });
+      commentsAdapter.removeOne(state, action.meta.arg.commentId);
     },
 
     [likeCommentById.pending]: (state, action) => {

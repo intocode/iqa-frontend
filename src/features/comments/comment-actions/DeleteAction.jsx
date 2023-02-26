@@ -14,7 +14,8 @@ import {
 
 const StyledDelete = styled.div`
   cursor: pointer;
-  opacity: 0;
+  height: 17px;
+  margin-right: 13px;
 `;
 
 export const DeleteAction = ({ commentId }) => {
