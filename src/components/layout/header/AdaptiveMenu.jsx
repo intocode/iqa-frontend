@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import React, { useEffect, useMemo } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Button } from 'antd';
@@ -42,13 +42,8 @@ const Line = styled.hr`
 
 const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
   const location = useLocation();
-  const history = useHistory();
   const { token, executeLoggingInProcess, logout } = useAuth();
   const profile = useSelector(selectProfile);
-
-  const handleAddQuestion = useCallback(() => {
-    history.push('/create');
-  }, [history]);
 
   useEffect(() => {
     if (mobileMenu) {
@@ -60,20 +55,6 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
     return [
       {
         id: 1,
-        protected: true,
-        jsx: (
-          <Button
-            className="d-block mb-2"
-            contrast={false}
-            color="primary"
-            onClick={handleAddQuestion}
-          >
-            Добавить вопрос
-          </Button>
-        ),
-      },
-      {
-        id: 2,
         protected: true,
         jsx: (
           <>
@@ -90,7 +71,7 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
         ),
       },
       {
-        id: 3,
+        id: 2,
         protected: true,
         jsx: (
           <div>
@@ -99,12 +80,12 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
         ),
       },
       {
-        id: 4,
+        id: 3,
         protected: true,
         jsx: <Link to="/cart">Корзина</Link>,
       },
       {
-        id: 5,
+        id: 4,
         protected: true,
         jsx: (
           <Link to="/" onClick={logout}>
@@ -113,7 +94,7 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
         ),
       },
       {
-        id: 6,
+        id: 5,
         guest: true,
         jsx: (
           <Button
@@ -137,7 +118,7 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
 
       return true;
     });
-  }, [executeLoggingInProcess, handleAddQuestion, logout, profile, token]);
+  }, [executeLoggingInProcess, logout, profile, token]);
 
   if (!mobileMenu) return null;
 
