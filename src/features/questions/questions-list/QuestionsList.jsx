@@ -24,10 +24,12 @@ import QuestionsListMapper from './QuestionsListMapper';
 import QuestionEmptyFolder from './QuestionEmptyFolder';
 
 const StyledSwitchBlock = styled.span`
-  color: #409eff;
-  cursor: pointer;
-  @media screen and (max-width: 576px) {
-    display: none;
+  display: none;
+
+  @media screen and (min-width: 576px) {
+    color: #409eff;
+    cursor: pointer;
+    display: inline;
   }
 `;
 
@@ -94,7 +96,7 @@ const QuestionsList = () => {
     <>
       <Title>{`iqa: ${generatedTitle}`}</Title>
       <div className="container">
-        <div className="row align-items-center d-flex justify-content-start my-3">
+        <div className="row align-items-center justify-content-start my-3">
           <div className="col d-flex align-items-center justify-content-start">
             <h2 className="m-0">{generatedTitle}</h2>
             <Link to="/create" className="d-sm-block d-md-none">
