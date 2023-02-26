@@ -9,7 +9,7 @@ import { questionSelectors } from 'features/questions/questionsSlice';
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: #000;
+  color: #000 !important;
 
   &:visited {
     color: #000;
