@@ -10,11 +10,7 @@ import { commentsSelectors, removeCommentById } from 'features/comments/comments
 
 const StyledDelete = styled.div`
   cursor: pointer;
-  height: 15.4px;
-  svg {
-    width: 100%;
-    height: 100%;
-  }
+  height: 17px;
   margin-right: 13px;
 `;
 
