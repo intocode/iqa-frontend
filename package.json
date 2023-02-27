@@ -8,6 +8,7 @@
     "@ckeditor/ckeditor5-build-classic": "^36.0.1",
     "@ckeditor/ckeditor5-react": "^5.1.0",
     "@reduxjs/toolkit": "^1.8.2",
+    "@uiw/react-markdown-preview": "^4.1.9",
     "antd": "^4.23.0",
     "axios": "^0.27.2",
     "bootstrap": "^5.1.3",

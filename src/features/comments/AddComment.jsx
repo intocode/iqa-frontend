@@ -29,7 +29,7 @@ const AddComment = () => {
   };
 
   const handleChange = (_, editor) => {
-    setText(String(editor.getData(String).slice(3, -4)));
+    setText(String(editor.getData(String)));
   };
 
   const toolbarItems = [

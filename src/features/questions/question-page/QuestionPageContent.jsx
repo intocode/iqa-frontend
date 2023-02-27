@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { selectOpenedQuestion } from 'features/questions/questionsSlice';
+import MarkdownPreview from '@uiw/react-markdown-preview';
 
 const StyledAvatar = styled.div`
   display: flex;
@@ -55,7 +56,7 @@ export const QuestionPageContent = () => {
       <h2 className="my-3">{question.question}</h2>
 
       <StyledFullDescription>
-        <div>{question.fullDescription}</div>
+        <MarkdownPreview source={question.fullDescription} />
       </StyledFullDescription>
       <Divider className="my-4" />
     </>

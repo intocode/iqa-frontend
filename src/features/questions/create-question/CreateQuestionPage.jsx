@@ -153,7 +153,7 @@ const CreateQuestion = () => {
   };
 
   const handleChange = (_, editor) => {
-    setFullDescription(String(editor.getData().slice(3, -4)));
+    setFullDescription(String(editor.getData()));
   };
 
   const handleChangeTag = (e) => {

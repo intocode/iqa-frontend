@@ -1,4 +1,3 @@
-/* eslint-disable react/no-danger */
 import { useAuth } from 'common/context/Auth/useAuth';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -9,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectProfile } from 'features/profile/profileSlice';
 import FavoritePopoverContent from 'components/FavoritePopoverContent';
 import { Popover } from 'antd';
+import MarkdownPreview from '@uiw/react-markdown-preview';
 import { truncateLongText } from 'common/utils/truncateLongText';
 import { CommentsActions } from './comment-actions/CommentsActions';
 import { likeCommentById, unlikeCommentById } from './commentsSlice';
@@ -109,10 +109,6 @@ export const CommentView = ({ comment, lastComment }) => {
     setIsAuthorizePopoverEnable(!isAuthorizePopoverEnable);
   };
 
-  function createMarkup() {
-    return { __html: lastComment ? truncateLongText(comment.text) : comment.text };
-  }
-
   return (
     <Wrapper>
       <div className="row align-items mb-4 g-1">
@@ -126,7 +122,7 @@ export const CommentView = ({ comment, lastComment }) => {
             <span>{comment.author?.name}</span>
             <StyledTime>{dayjs(comment.createdAt).fromNow()}</StyledTime>
           </div>
-          <div dangerouslySetInnerHTML={createMarkup()} />
+          <MarkdownPreview source={lastComment ? truncateLongText(comment.text) : comment.text} />
           {!lastComment && (
             <StyledCommentActions>
               <CommentsActions commentId={comment._id} />
