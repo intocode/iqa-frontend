@@ -5,7 +5,7 @@ import { useAuth } from 'common/context/Auth/useAuth';
 import { Header } from 'components/layout/header/Header';
 import { fetchProfile } from 'features/profile/profileSlice';
 import { Footer } from 'components/layout/Footer';
-import PatchUserModal from 'components/PatchUserModal';
+import UserFullnameForm from 'features/profile/UserFullnameForm';
 import { LazyPlaceholder } from './LazyPlaceholder';
 
 const QuestionPage = lazy(() => import('features/questions/question-page/QuestionPage'));
@@ -57,7 +57,7 @@ export const App = () => {
 
   return (
     <>
-      <PatchUserModal />
+      <UserFullnameForm />
       <Header />
       <Suspense fallback={<LazyPlaceholder />}>
         <Switch>
