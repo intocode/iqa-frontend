@@ -43,7 +43,7 @@ const AddComment = () => {
   return (
     <div>
       <div className="row mb-3">
-        <div className="col-auto">
+        <div className="col-auto mb-3">
           <StyledAvatar src={profile.avatar?.thumbnail} alt="аватарка" />
         </div>
         <div className="col">
