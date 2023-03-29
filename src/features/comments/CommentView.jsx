@@ -67,6 +67,7 @@ const StyledTime = styled.span`
 
 const StyledCommentActions = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 const StyledPopoverBlock = styled.div`
