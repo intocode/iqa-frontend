@@ -97,12 +97,7 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
         id: 5,
         guest: true,
         jsx: (
-          <Button
-            className="d-block m-auto"
-            contrast={false}
-            color="primary"
-            onClick={executeLoggingInProcess}
-          >
+          <Button className="d-block m-auto" color="primary" onClick={executeLoggingInProcess}>
             Login with GitHub
           </Button>
         ),
