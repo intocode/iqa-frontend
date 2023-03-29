@@ -43,7 +43,6 @@ const AdaptiveMenu = ({ toggleMobileMenu, mobileMenu }) => {
         jsx: (
           <Button
             className="d-block mb-2"
-            
             color="primary"
             onClick={handleAddQuestion}
           >
