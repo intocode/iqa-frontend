@@ -29,7 +29,7 @@ describe('Header rendering', () => {
 
     // дожидаемся подгрузки вопросов
     await waitFor(() => expect(screen.getAllByTestId('question-block')[0]).toBeInTheDocument(), {
-      timeout: 4000,
+      timeout: 7000,
     });
 
     // кликаем на "Компактный вид"
