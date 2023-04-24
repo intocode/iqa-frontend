@@ -1,5 +1,6 @@
-import React, { useState, useRef } from 'react';
-import { Editor } from '@toast-ui/react-editor';
+import React, { useState } from 'react';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -16,23 +17,19 @@ const AddComment = () => {
   const dispatch = useDispatch();
 
   const { id } = useParams();
-  const editorRef = useRef();
 
   const profile = useSelector(selectProfile);
   const commentAdding = useSelector(selectCommentsAdding);
 
   const [text, setText] = useState('');
 
-  const handleChange = () => {
-    const instance = editorRef.current.getInstance();
-    setText(instance.getMarkdown());
+  const handleAddComment = () => {
+    dispatch(addComment({ text, id }));
+    setText('');
   };
 
-  const handleAddComment = () => {
-    dispatch(addComment({ text, id })).then(() => {
-      setText('');
-      editorRef.current.getInstance().reset();
-    });
+  const handleChange = (_, editor) => {
+    setText(String(editor.getData(String)));
   };
 
   const toolbarItems = [
@@ -47,18 +44,10 @@ const AddComment = () => {
           <StyledAvatar src={profile.avatar?.thumbnail} alt="аватарка" />
         </div>
         <div className="col">
-          <Editor
-            theme="iqa"
-            autofocus={false}
-            previewStyle="vertical"
-            height="150px"
-            initialEditType="wysiwyg"
-            useCommandShortcut
-            usageStatistics={false} // from docs
-            hideModeSwitch
+          <CKEditor
+            editor={ClassicEditor}
             value={text}
             onChange={handleChange}
-            ref={editorRef}
             toolbarItems={toolbarItems}
           />
           <Button
