@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
 import { Paper } from 'components/layout/Paper';
+import { Typography } from 'antd';
 import { theme } from 'app/theme';
+import { Link } from 'react-router-dom';
 import { selectProfile } from './profileSlice';
 
 const ProfileUser = () => {
@@ -16,6 +18,7 @@ const ProfileUser = () => {
       border-radius: 50%;
       cursor: pointer;
     }
+
     @media screen and (max-width: 576px) {
       & > img {
         margin: auto;
@@ -28,25 +31,31 @@ const ProfileUser = () => {
     .pageUser {
       margin-left: 0px;
     }
+
     .registration-date {
       color: ${theme.colors.gray.main};
       font-size: 12px;
     }
+
     .nameUser {
       font-size: 22px;
     }
+
     .userName {
       font-size: 20px;
       font-weight: 400;
       margin-top: 20px;
     }
+
     .userEmail {
       margin-top: 20px;
       font-size: 20px;
     }
+
     .userData {
       margin: 20px 0 26px 20px;
     }
+
     @media screen and (min-width: 576px) {
       .pageUser {
         margin-left: -20px;
@@ -56,15 +65,20 @@ const ProfileUser = () => {
 
   return (
     <div className="container">
+      <div className="d-flex justify-content-end mt-4 p-2">
+        <Link to="/" component={Typography.Link}>
+          Вернуться назад
+        </Link>
+      </div>
       <StyledPageUser>
         <div className="row flex-column flex-sm-row">
-          <div className="col-12 col-sm-4 mt-3">
+          <div className="col-12 col-sm-4">
             <span className="nameUser">Профиль @{profile.name}</span>
             <StyledAvatar className="d-flex justify-content-center mt-3">
               <img className="mt-auto" src={profile.avatar?.full} alt="" />
             </StyledAvatar>
           </div>
-          <div className="col-12 col-sm-8 mt-sm-5 mt-3">
+          <div className="col-12 col-sm-8 mt-sm-4 mt-3">
             <Paper className="pageUser">
               <div className="userData">
                 <div className="registration-date">

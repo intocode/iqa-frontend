@@ -24,6 +24,7 @@ const StyledFooter = styled.div`
 `;
 
 export const Footer = () => {
+  const currentYear = new Date().getFullYear();
   return (
     <StyledFooter>
       <div className="container">
@@ -36,7 +37,7 @@ export const Footer = () => {
             </div>
             <div className="ms-3 footer_text">
               Interview Questions And Answers Application <br />
-              Intocode, 2016-2022
+              Intocode, {`2016-${currentYear}`}
             </div>
           </div>
           <div className="d-flex d-none d-sm-flex">
